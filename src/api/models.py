@@ -110,3 +110,27 @@ class Productos (db.Model):
                 "precio" : self.precio,
                 "idEmpresa": self.idEmpresa
             }
+
+class Factura (db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    idCliente = db.Column(db.Integer, db.ForeignKey('cliente.id'), unique=False,nulleable=False)
+    idEmpresa = db.Column(db.Integer, db.ForeignKey('empresa.id'), unique=False,nulleable=False)
+    idPago = db.Column(db.String(50), nulleable = False)
+    delivery = db.Column(db.Boolean(), unique=False, nullable=False)
+    hora = db.Column (db.DateTime, unique=False, nullable=False)
+    fecha = hora = db.Column (db.DateTime, unique=False, nullable=False)
+
+    def __repr__(self):
+        return f'<Factura {self.id}>'
+
+    def serialize(self):
+            return {
+                "id": self.id,
+                "idcliente": self.idCliente,
+                "idempresa": self.idEmpresa,
+                "codigoDePago" : self.idPago,
+                "delivery": self.delivery,
+                "hora" : self.hora,
+                "fecha" : self.fecha
+
+            }
