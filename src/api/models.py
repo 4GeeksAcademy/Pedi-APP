@@ -6,9 +6,9 @@ db = SQLAlchemy()
 class Usuario(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     role = db.Column(db.Bolean(), unique=False, nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(80), unique=False, nullable=False)
-    direccion = db.Column(db.String(80), unique=False, nullable=False)
+    email = db.Column(db.String(50), unique=True, nullable=False)
+    password = db.Column(db.String(30), unique=False, nullable=False)
+    direccion = db.Column(db.String(120), unique=False, nullable=False)
 
     def serialize(self):
         return {
@@ -20,10 +20,10 @@ class Usuario(db.Model):
 
 class Cliente(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    nombre = db.Column(db.String(120), unique=False, nullable=False)
-    apellido = db.Column(db.String(120), unique=False, nullable=False)
+    nombre = db.Column(db.String(50), unique=False, nullable=False)
+    apellido = db.Column(db.String(70), unique=False, nullable=False)
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
-    sexo = db.Column(db.String(120), unique=False, nullable=True)
+    sexo = db.Column(db.String(20), unique=False, nullable=True)
     nacimiento = db.Column (db.DateTime, unique=False, nullable=False)
     telefono = db.Column (db.Integer, unique=False, nullable=False)
     idUsuario = db.Column(db.Integer, db.ForeignKey('usuario.id'), nulleable=False)
@@ -46,8 +46,8 @@ class Cliente(db.Model):
     
 class Empresa (db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    nombre = db.Column(db.String(120), unique=False, nullable=False)
-    cif = db.Column(db.String(120), unique=False, nullable=False)
+    nombre = db.Column(db.String(50), unique=False, nullable=False)
+    cif = db.Column(db.String(30), unique=False, nullable=False)
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
     reserva = db.Column(db.Boolean(), unique=False, nullable=False)
     delivery = db.Column(db.Boolean(), unique=False, nullable=False)
@@ -134,3 +134,42 @@ class Factura (db.Model):
                 "fecha" : self.fecha
 
             }
+
+class Reseñas (db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    idCliente = db.Column(db.Integer, db.ForeignKey('cliente.id'), unique=False,nulleable=False)
+    idEmpresa = db.Column(db.Integer, db.ForeignKey('empresa.id'), unique=False,nulleable=False)
+    puntuacion = db.Column(db.Integer, unique=False, nulleable=False)
+    reseña = db.Column(db.String(240), nulleable = False)
+    hora = db.Column (db.DateTime, unique=False, nullable=False)
+    fecha = hora = db.Column (db.DateTime, unique=False, nullable=False)
+
+    def __repr__(self):
+        return f'<Reseñas {self.id}>'
+
+    def serialize(self):
+            return {
+                "id": self.id,
+                "idcliente": self.idCliente,
+                "idempresa": self.idEmpresa,
+                "puntuacion" : self.puntuacion,
+                "reseña": self.reseña,
+                "hora" : self.hora,
+                "fecha" : self.fecha
+
+            }
+
+class Favoritos (db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    idCliente = db.Column(db.Integer, db.ForeignKey('cliente.id'), unique=False,nulleable=False)
+    idEmpresa = db.Column(db.Integer, db.ForeignKey('empresa.id'), unique=False,nulleable=False)
+
+    def __repr__(self):
+        return f'<Favoritos{self.id}>'
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "idcliente": self.idCliente,
+            "idempresa": self.idEmpresa,
+        }
