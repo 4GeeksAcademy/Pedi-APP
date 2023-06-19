@@ -10,6 +10,8 @@ class Usuario(db.Model):
     password = db.Column(db.String(30), unique=False, nullable=False)
     direccion = db.Column(db.String(120), unique=False, nullable=False)
 
+    
+
     def serialize(self):
         return {
             "id": self.id,
@@ -27,6 +29,10 @@ class Cliente(db.Model):
     nacimiento = db.Column (db.DateTime, unique=False, nullable=False)
     telefono = db.Column (db.Integer, unique=False, nullable=False)
     idUsuario = db.Column(db.Integer, db.ForeignKey('usuario.id'), nulleable=False)
+
+    factura = db.relationship (("Factura", backref = "cliente", lazy = True))
+    reseñas = db.relationship (("Reseñas", backref = "cliente", lazy = True))
+    fav = db.relationship (("Favoritos", backref = "cliente", lazy = True))
 
     def __repr__(self):
         return f'<User {self.email}>'
@@ -52,6 +58,14 @@ class Empresa (db.Model):
     reserva = db.Column(db.Boolean(), unique=False, nullable=False)
     delivery = db.Column(db.Boolean(), unique=False, nullable=False)
     idUsuario = db.Column(db.Integer, db.ForeignKey('usuario.id'), nulleable=False)
+
+    productos = db.relationship("Productos" , backref = "empresa", lazy = True)
+    horarios = db.relationship("HorariosEmpresas" , backref = "empresa", lazy = True)
+    factura = db.relationship("Factura" , backref = "empresa", lazy = True)
+    reseñas = db.relationship("Reseñas" , backref = "empresa", lazy = True)
+    favoritos = db.relationship("Favoritos" , backref = "empresa", lazy = True)
+    tiposComida = db.relationship("TipoComidaEmpresa" , backref = "empresa", lazy = True)
+
     
     def __repr__(self):
         return f'<Empresa {self.email}>'
@@ -70,6 +84,8 @@ class Empresa (db.Model):
 class TipoComida (db.Model):
     id = db.Column(db.Integer, primary_key=True)
     tipoComida = db.Column(db.String(120), unique=False, nullable=False)
+    
+    empresas = db.relationship("TipoComidaEmpresa" , backref = "tipocomida", lazy = True)
 
     def serialize(self):
         return {
@@ -118,7 +134,9 @@ class Factura (db.Model):
     idPago = db.Column(db.String(50), nulleable = False)
     delivery = db.Column(db.Boolean(), unique=False, nullable=False)
     hora = db.Column (db.DateTime, unique=False, nullable=False)
-    fecha = hora = db.Column (db.DateTime, unique=False, nullable=False)
+    fecha = db.Column (db.DateTime, unique=False, nullable=False)
+
+    pedidos = db.relationship("HistorialPedidos" , backref = "factura",lazy=True)
 
     def __repr__(self):
         return f'<Factura {self.id}>'
