@@ -173,3 +173,42 @@ class Favoritos (db.Model):
             "idcliente": self.idCliente,
             "idempresa": self.idEmpresa,
         }
+
+class HorariosEmpresas (db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    dia = db.Column(db.String(100), unique=False, nulleable=False)
+    mañana = db.Column(db.Boolean(), unique=False, nullable=False)
+    tarde = db.Column(db.Boolean(), unique=False, nullable=False)
+    idEmpresa = db.Column(db.Integer, db.ForeignKey('empresa.id'), nulleable=False)
+
+    def __repr__(self):
+        return f'<HorariosEmpresas {self.id}>'
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "dia": self.dia,
+            "mañana": self.mañana,
+            "tarde": self.tarde,
+            "idEmpresa": self.idEmpresa,
+        }
+
+class HistorialPedidos (db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    idFactura = db.Column(db.Integer, unique=False, nulleable=False)
+    idProducto = db.Column(db.Integer, unique=False, nulleable=False)
+    cantidad = db.Column(db.Integer, unique=False, nulleable=False)
+    precioActual = db.Column(db.Float(2), unique=False,nullable=True)
+    
+
+    def __repr__(self):
+        return f'<HistorialPedidos {self.id}>'
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "idFactura": self.idFactura,
+            "idProducto": self.idProducto,
+            "cantidad": self.cantidad,
+            "precioActual": self.precioActual,
+        }
