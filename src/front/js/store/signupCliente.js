@@ -21,10 +21,10 @@ export const SingupCliente = () => {
             </div>
             <p>Adress</p>
             <div className="row">
-                <div className="mb-3">
+                <div className="col-6 mb-3">
                     <input type="lastName" className="form-control" id="exampleInputPassword1"/>
                 </div>
-                <div className="mb-3">
+                <div className="col-6 mb-3">
                     <input type="lastName" className="form-control" id="exampleInputPassword1"/>
                 </div>
             </div>
