@@ -29,8 +29,27 @@ def loginator():
     
     user = Usuario.query.filter_by(email=email, password=password).first()
     
+
     role = user.role
-    print(user.cliente)
+    
+    if (role == "cliente"):
+
+        alldata = user.cliente[0].serialize()
+        alldata["email"] = user.email
+        alldata["direccion"] = user.direccion
+        alldata["role"] = user.role
+    elif (role =="empresa"):
+        alldata = user.empresa[0].serialize()
+    else:
+        
+        return jsonify({"message": "rol no existe, el usuario se creo mal todos entren en panico"}),400
+    
+    alldata["email"] = user.email
+    alldata["direccion"] = user.direccion
+    alldata["role"] = user.role
+
+    
+    print(alldata)
 
     return jsonify({"message": "no email o contraseña"})
 
