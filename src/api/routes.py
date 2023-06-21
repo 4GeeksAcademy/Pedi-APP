@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db
+from api.models import db,Usuario,Cliente,Empresa,TipoComida,TipoComidaEmpresa,Productos,Factura,Reseñas,Favoritos,HorariosEmpresas,HistorialPedidos
 from api.utils import generate_sitemap, APIException
 
 api = Blueprint('api', __name__)
@@ -20,4 +20,16 @@ def handle_hello():
 
 @api.route("/login", methods = ["POST"])
 def loginator():
-    pass
+    data = request.json
+    email = data.get("email")
+    password = data.get("password")
+
+    if not email or not password:
+        return jsonify({"message": "no email o contraseña"}),400
+    
+    user = Usuario.query.filter_by(email=email, password=password).first()
+    return jsonify({"message": "no email o contraseña"})
+
+
+    
+    
