@@ -5,11 +5,13 @@ db = SQLAlchemy()
 
 class Usuario(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    role = db.Column(db.Bolean(), unique=False, nullable=False)
+    role = db.Column(db.String(), unique=False, nullable=False) ''' cliente / empresa '''
     email = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(30), unique=False, nullable=False)
     direccion = db.Column(db.String(120), unique=False, nullable=False)
 
+    empresa = db.relationship (("Empresa", backref = "usuario", lazy = True))
+    cliente = db.relationship (("Cliente", backref = "usuario", lazy = True))
     
 
     def serialize(self):
