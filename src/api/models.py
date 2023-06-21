@@ -39,7 +39,7 @@ class Cliente(db.Model):
     fav = db.relationship("Favoritos", backref="cliente", lazy = True)
 
     def __repr__(self):
-        return f'<User {self.email}>'
+        return f'<User {self.nombre}>'
 
     def serialize(self):
         return {
@@ -71,7 +71,7 @@ class Empresa (db.Model):
 
     
     def __repr__(self):
-        return f'<Empresa {self.email}>'
+        return f'<Empresa {self.nombre}>'
 
     def serialize(self):
         return {
