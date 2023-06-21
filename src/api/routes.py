@@ -28,6 +28,10 @@ def loginator():
         return jsonify({"message": "no email o contraseña"}),400
     
     user = Usuario.query.filter_by(email=email, password=password).first()
+    
+    role = user.role
+    
+
     return jsonify({"message": "no email o contraseña"})
 
 

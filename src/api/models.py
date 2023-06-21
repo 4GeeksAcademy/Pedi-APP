@@ -44,7 +44,6 @@ class Cliente(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "email": self.email,
             "nombre": self.nombre,
             "apellido": self.apellido,
             "sexo": self.sexo,
@@ -77,7 +76,7 @@ class Empresa (db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "email": self.email,
+            "nombre": self.nombre,
             "cif": self.cif,
             "reserva": self.reserva,
             "delivery": self.delivery,
