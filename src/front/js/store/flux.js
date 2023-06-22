@@ -49,6 +49,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			.then (response => console.log({email:response.user.email, password: response.user.password, role: response.user.role, direccion: response.user.direccion}))
 			.catch(error => console.log(error))
 			}
+			
+
+			
 		}
 	};
 };
