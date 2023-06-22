@@ -4,6 +4,9 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db,Usuario,Cliente,Empresa,TipoComida,TipoComidaEmpresa,Productos,Factura,Reseñas,Favoritos,HorariosEmpresas,HistorialPedidos
 from api.utils import generate_sitemap, APIException
+from flask_jwt_extended import create_access_token
+from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import jwt_required
 
 api = Blueprint('api', __name__)
 
@@ -25,33 +28,37 @@ def loginator():
     password = data.get("password")
 
     if not email or not password:
-        return jsonify({"message": "no email o contraseña"}),400
-    
-    user = Usuario.query.filter_by(email=email, password=password).first()
-    
-
-    role = user.role
-    
-    if (role == "cliente"):
-
-        alldata = user.cliente[0].serialize()
-        alldata["email"] = user.email
-        alldata["direccion"] = user.direccion
-        alldata["role"] = user.role
-    elif (role =="empresa"):
-        alldata = user.empresa[0].serialize()
+        return jsonify({"message": "Missing mail or password"}),400
     else:
-        
-        return jsonify({"message": "rol no existe, el usuario se creo mal todos entren en panico"}),400
+        user = Usuario.query.filter_by(email=email, password=password).first()
     
-    alldata["email"] = user.email
-    alldata["direccion"] = user.direccion
-    alldata["role"] = user.role
+        if not user :
+            return jsonify({"message": "User does not exists"}),400
+        else:
 
-    
-    print(alldata)
+            role = user.role
+            
+            if (role == "cliente"):
+                alldata = user.cliente[0].serialize()
+            elif (role =="empresa"):
+                alldata = user.empresa[0].serialize()
+            else:
+                
+                return jsonify({"message": "Role does not exists, this user creation failed. Everybody panic"}),400
+            
+            token = create_access_token(identity=user.idUsuario)
+            print(token)
 
-    return jsonify({"message": "no email o contraseña"})
+
+            alldata["email"] = user.email
+            alldata["direccion"] = user.direccion
+            alldata["role"] = user.role
+
+
+            
+            print(alldata)
+
+            return jsonify(alldata)
 
 
     
