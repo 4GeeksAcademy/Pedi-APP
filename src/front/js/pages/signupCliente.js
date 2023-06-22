@@ -7,8 +7,14 @@ export const SingupCliente = () => {
     const { store, actions } = useContext(Context);
     const handleSignupCliente = (e) => {
         e.preventDefault()
-        actions.signupCliente(formData.nombre, formData.apellido, formData.telefono, formData.nacimiento, formData.sexo, formData.calleNumero, formData.pisoPuerta, formData.instrucciones, formData.codigoPostal, formData.estado, formData.ciudad)
+        actions.signupCliente(formData.nombre, formData.apellido, formData.telefono, formData.nacimiento, formData.sexo, formData.calleNumero, formData.pisoPuerta, formData.instrucciones, formData.codigoPostal, formData.estado, formData.ciudad, formData.terminosCondiciones)
     };
+
+    const handleCheckboxChange = (event) => {
+        setFormData({ ...formData, terminosCondiciones: event.target.checked });
+      };
+
+
     const [formData, setFormData] = useState({
         nombre:"",
         apellido:"",
@@ -21,6 +27,7 @@ export const SingupCliente = () => {
         codigoPostal:"",
         estado:"",
         ciudad:"",
+        terminosCondiciones: false
     })
     
     
@@ -50,10 +57,10 @@ export const SingupCliente = () => {
                 </div>
                 <div className="col-3 mb-3">
                     <label htmlFor="exampleInputPassword1" className="form-label">Sex</label>
-                    <select className="form-select" aria-label="Default select example">
+                    <select className="form-select" aria-label="Default select example" value={formData.sexo} onChange={(data) => {setFormData({...formData, sexo: data.target.value})}}>
                         <option selected>Select</option>
-                        <option value="1">Female</option>
-                        <option value="2">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Male">Male</option>
                     </select>
                 </div>
             </div>
@@ -83,7 +90,7 @@ export const SingupCliente = () => {
                 </div>
             </div>
             <div className="mb-3 form-check">
-                <input type="checkbox" className="form-check-input" id="exampleCheck1"/>
+                <input type="checkbox" className="form-check-input" id="exampleCheck1" checked={formData.terminosCondiciones} onChange={handleCheckboxChange}/>
                 <label className="form-check-label" htmlFor="exampleCheck1">I agree the <b>Terms and Conditions</b></label>
             </div>
             <button type="submit" className="btn btn-danger col-12 mb-2">Sign up</button>
