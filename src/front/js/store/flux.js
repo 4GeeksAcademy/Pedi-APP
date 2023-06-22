@@ -1,51 +1,53 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			message: null,
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
+			user:{email:"", 
+			password:"", 
+			role: "",
+			},
+		company: {
+			email:"",
+			password:"",
+			role:"",
+			direccion:""
+		}
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
+			getNewUser: (email, password, role) => {
+				const { setStore } = getActions();
+				setStore((prevState) => ({
+					...prevState,
+					user: {
+						...prevState.user,
+						email: email,
+						password: password,
+						role: role
+					}
+				}));
 			},
-
-			getMessage: async () => {
-				try{
-					// fetching data from the backend
-					const resp = await fetch(process.env.BACKEND_URL + "/api/hello")
-					const data = await resp.json()
-					setStore({ message: data.message })
-					// don't forget to return something, that is how the async resolves
-					return data;
-				}catch(error){
-					console.log("Error loading message from backend", error)
-				}
-			},
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
-
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
-
-				//reset the global store
-				setStore({ demo: demo });
+			signupCompanies: (email, password, role, nombre, cif, direccion, delivery, reserva, horarios ) => {
+			const newUser = { // lo que se ponga aquí tiene que coincidir con el back nombre: 
+				email : email,
+				password : password,
+				role: role,
+				direccion: direccion,
+				nombre: nombre,
+				cif: cif,
+				delivery: delivery,
+				reserva: reserva,
+				horarios: horarios
+			}
+			fetch(process.env.BACKEND_URL + "api/signup", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify(newUser)
+			})
+			.then (response => response.json())
+			.then (response => console.log({email:response.user.email, password: response.user.password, role: response.user.role, direccion: response.user.direccion}))
+			.catch(error => console.log(error))
 			}
 		}
 	};
