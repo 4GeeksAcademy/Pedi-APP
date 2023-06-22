@@ -1,3 +1,69 @@
 /* 
     General Styles used on every website (Don't Repeat Yourself)
 */
+/* Extra small devices (phones, 600px and down) */
+.login_page_container{
+    background: radial-gradient(at right,#C62828, #FFFFFF);
+    background-position: 30%;
+}
+.login_all{
+    border-radius: 2rem;
+    background-color: #FFFFFF;
+}
+.login_logo_container{
+    align-items: center;
+    justify-content:center;
+    border-radius: 2rem;
+    background-color: #C62828;
+    opacity: 0.92;
+}
+.login_logo{
+    transform: rotate(-90deg);
+}
+
+.login_form_container{
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    
+}
+.login_submit{
+    
+        display: block;
+        width: 100%;
+        border: none;
+        padding: 14px 28px;
+        font-size: 16px;
+        cursor: pointer;
+        text-align: center;
+        background-color: #C62828;
+        border-radius: 0.5rem;
+
+}
+.login_submit:hover{
+    background-color: #7A7676;
+    color: black;
+}
+@media only screen and (max-width: 600px) {
+
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+
+}

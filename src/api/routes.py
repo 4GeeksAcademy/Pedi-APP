@@ -50,9 +50,9 @@ def loginator():
             role = user.role
 
             if role == "cliente":
-                alldata = user.cliente[0].serialize()
+                user_data = user.cliente[0].serialize()
             elif role == "empresa":
-                alldata = user.empresa[0].serialize()
+                user_data = user.empresa[0].serialize()
             else:
                 return (
                     jsonify(
@@ -66,11 +66,10 @@ def loginator():
             token = create_access_token(identity=user.id)
             
 
-            alldata["email"] = user.email
-            alldata["direccion"] = user.direccion
-            alldata["role"] = user.role
+            user_data["email"] = user.email
+            user_data["direccion"] = user.direccion
+            user_data["role"] = user.role
             
 
-            print(alldata)
 
-            return jsonify({"userdata": alldata, "token": token, "message":"login success"}),200
+            return jsonify({"userdata": user_data, "token": token, "message":"login success"}),200
