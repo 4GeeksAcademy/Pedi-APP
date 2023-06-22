@@ -60,26 +60,26 @@ export const SingupCliente = () => {
             <p>Adress</p>
             <div className="row">
                 <div className="col-7 mb-3">
-                    <input type="lastName" className="form-control" id="exampleInputPassword1" placeholder="Street and number" value={formData.calleNumero} onChange={(data) => {setFormData({...formData, calleNumero: data.target.value}); console.log(formData)}}/>
+                    <input type="lastName" className="form-control" id="exampleInputPassword1" placeholder="Street and number" value={formData.calleNumero} onChange={(data) => {setFormData({...formData, calleNumero: data.target.value})}} required/>
                 </div>
                 <div className="col-5 mb-3">
-                    <input type="lastName" className="form-control" id="exampleInputPassword1" placeholder="Floor, door" value={formData.pisoPuerta} onChange={(data) => {setFormData({...formData, pisoPuerta: data.target.value}); console.log(formData)}}/>
+                    <input type="lastName" className="form-control" id="exampleInputPassword1" placeholder="Floor, door" value={formData.pisoPuerta} onChange={(data) => {setFormData({...formData, pisoPuerta: data.target.value})}} required/>
                 </div>
             </div>
             <div className="row">
                 <div className="col-7 mb-3">
-                    <input type="lastName" className="form-control" id="exampleInputPassword1" placeholder="Delivery instruccions" value={formData.instrucciones } onChange={(data) => {setFormData({...formData, instrucciones: data.target.value}); console.log(formData)}}/>
+                    <input type="lastName" className="form-control" id="exampleInputPassword1" placeholder="Delivery instruccions" value={formData.instrucciones } onChange={(data) => {setFormData({...formData, instrucciones: data.target.value})}}/>
                 </div>
                 <div className="col-5 mb-3">
-                    <input type="lastName" className="form-control" id="exampleInputPassword1" placeholder="Postal Code" value={formData.codigoPostal} onChange={(data) => {setFormData({...formData, codigoPostal: data.target.value}); console.log(formData)}}/>
+                    <input type="lastName" className="form-control" id="exampleInputPassword1" placeholder="Postal Code" value={formData.codigoPostal} onChange={(data) => {setFormData({...formData, codigoPostal: data.target.value})}} required/>
                 </div>
             </div>
             <div className="row">
                 <div className="col-6 mb-3">
-                    <input type="lastName" className="form-control" id="exampleInputPassword1" placeholder="State" value={formData.estado} onChange={(data) => {setFormData({...formData, estado: data.target.value}); console.log(formData)}}/>
+                    <input type="lastName" className="form-control" id="exampleInputPassword1" placeholder="State" value={formData.estado} onChange={(data) => {setFormData({...formData, estado: data.target.value}); console.log(formData)}} required/>
                 </div>
                 <div className="col-6 mb-3">
-                    <input type="lastName" className="form-control" id="exampleInputPassword1" placeholder="City" value={formData.ciudad} onChange={(data) => {setFormData({...formData, ciudad: data.target.value}); console.log(formData)}}/>
+                    <input type="lastName" className="form-control" id="exampleInputPassword1" placeholder="City" value={formData.ciudad} onChange={(data) => {setFormData({...formData, ciudad: data.target.value}); console.log(formData)}} required/>
                 </div>
             </div>
             <div className="mb-3 form-check">

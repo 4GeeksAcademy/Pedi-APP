@@ -36,32 +36,32 @@ def loginator():
 
 @api.route("/signupCliente", methods = ["POST"])
 def signupCliente():
-    # data = request.json
-    # mail = data.get("mail")
-    # password = data.get("password")
-    # nombre = data.get("nombre")
-    # apellido = data.get("apellido")
-    # telefono = data.get("telefono")
-    # nacimiento = data.get("nacimiento")
-    # sexo = data.get("sexo")
-    # direccion = data.get("direccion")
+    data = request.json
+    mail = data.get("mail")
+    password = data.get("password")
+    nombre = data.get("nombre")
+    apellido = data.get("apellido")
+    telefono = data.get("telefono")
+    nacimiento = data.get("nacimiento")
+    sexo = data.get("sexo")
+    direccion = data.get("direccion")
 
 
 
-    # if not mail or not password or not nombre or not apellido or not telefono or not calleNumero:
-    #     return jsonify({"message": "no email o contraseña"}),400
+    if not mail or not password or not nombre or not apellido or not telefono or not calleNumero:
+        return jsonify({"message": "no email o contraseña"}),400
     
-    # existe = Usuario.query.filter_by(email=mail).first
-    # if existe: 
-    #     return jsonify({"message": "el usuario existe"})
+    existe = Usuario.query.filter_by(email=mail).first
+    if existe: 
+        return jsonify({"message": "el usuario existe"})
 
-    # # addCliente = Cliente(nombre=nombre, apellido=apellido, sexo="asd", nacimiento=nacimiento, telefono=telefono, is_active=True)
-    # # db.session.add(addCliente)
-    # # db.session.commit()
+    addCliente = Cliente(nombre=nombre, apellido=apellido, sexo=sexo, nacimiento=nacimiento, telefono=telefono, is_active=True)
+    db.session.add(addCliente)
+    db.session.commit()
 
-    # addUsuario = Usuario(role="cliente", email=mail, password=password, direccion="asd")
-    # db.session.add(addUsuario)
-    # db.session.commit()
+    addUsuario = Usuario(role="cliente", email=mail, password=password, direccion=direccion)
+    db.session.add(addUsuario)
+    db.session.commit()
     return jsonify({"message": "Sign up successfull"})
     
     # role = cliente.role
