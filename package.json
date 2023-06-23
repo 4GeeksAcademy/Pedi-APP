@@ -73,10 +73,17 @@
 		]
 	},
 	"dependencies": {
+		"buffer": "^6.0.3",
+		"crypto-js": "^4.1.1",
+		"express": "^4.18.2",
+		"jsonwebtoken": "^9.0.0",
 		"prop-types": "^15.6.1",
 		"react": "^16.8.4",
 		"react-dom": "^16.8.4",
 		"react-polyfills": "0.0.1",
-		"react-router-dom": "^6.3.0"
+		"react-router-dom": "^6.3.0",
+		"stream": "^0.0.2",
+		"sweetalert2": "^11.7.12",
+		"util": "^0.12.5"
 	}
 }
