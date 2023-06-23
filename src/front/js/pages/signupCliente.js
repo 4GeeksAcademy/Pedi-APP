@@ -103,7 +103,7 @@ export const SingupCliente = () => {
                             <input type="checkbox" className="form-check-input" id="exampleCheck1" checked={formData.terminosCondiciones} onChange={handleCheckboxChange}/>
                             <label className="form-check-label" htmlFor="exampleCheck1">I agree the <b>Terms and Conditions</b></label>
                         </div>
-                        <button type="submit" className="btn btn-danger col-12 mb-2 login_submit">Sign up</button>
+                        <button type="submit" className="btn btn-danger col-12 mb-2 login_submit"><Link to="/">Sign up</Link></button>
                     </form>
                 </div>
             </div>
