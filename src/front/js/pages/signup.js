@@ -47,7 +47,7 @@ export const Signup = () => {
     }, [user]);
 
     return (
-        <div className="container-fluid text-center" onSubmit={(e)=> {handleSignup(e)}}>
+        <div className="container-fluid text-center mt-5 p-5 page_container" onSubmit={(e)=> {handleSignup(e)}}>
             <div className="row signup_all">
                 <div className="col-4 d-flex logo_container">
                     <p className="border logo">dishdash</p>
@@ -55,7 +55,7 @@ export const Signup = () => {
                 <div className="form_container col-8 p-5">
                     <h1 className="title">Signup</h1>
                     <p>Enter your email and password to register</p>
-                    <form className="container-fluid" >
+                    <form >
                         <div className="mb-3">
                             <label htmlFor="userEmail" className="form-label" >Email address</label>
                             <input type="email" className="form-control" id="userEmail" placeholder="Enter your email" value={user.email} onChange={(data)=> {setUser({...user, email: data.target.value})}} required/>

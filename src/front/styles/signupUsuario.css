@@ -1,18 +1,14 @@
-body{
+.login_page_container{
     background: radial-gradient(at right,#C62828, #FFFFFF);
     background-position: 30%;
-
+    display: flex;
+    justify-content: center;
 }
 .signup_all{
     border-radius: 2rem;
     background-color: #FFFFFF;
-    margin-left: 15rem;
-    margin-right: 15rem;
-    margin-top: 5rem;
-    height: 35rem;
-    width: 50%;
-    justify-content: center;
     display: flex;
+    justify-content: end;
 }
 .logo_container{
     align-items: center;
@@ -20,38 +16,27 @@ body{
     border-radius: 2rem;
     background-color: #C62828;
     opacity: 0.92;
+    height: 100%;
 }
 .logo{
     transform: rotate(-90deg);
 }
 
-.form_container{
+/* .form_container{
     display: flex;
     flex-direction: column;
     text-align: start;
     
 }
-/* .form-check{
+.form-check{
     color: #C62828;
-} */
-.submit{
-    
-        display: block;
-        width: 100%;
-        border: none;
-        padding: 14px 28px;
-        font-size: 16px;
-        cursor: pointer;
-        text-align: center;
-        background-color: #C62828;
-        color:#FFFFFF;
-        border-radius: 0.5rem;
-
-}
+} */ 
 .submit:hover{
+    
     background-color: #7A7676;
     color: black;
 }
+
 @media only screen and (max-width: 600px) {
 
 }
