@@ -3,27 +3,27 @@ import Swal from "sweetalert2";
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-
 			user:{
-        nombre: "",
+        		nombre: "",
 				apellido:"",
 				telefono:"",
 				nacimiento:"",
-				direccion:""
-        email:"", 
-			  password:"", 
-			  role: "",
+				direccion:"",
+				email:"", 
+				password:"", 
+				role: "",
 			},
-		company: {
-			email:"",
-			password:"",
-			role:"",
-			direccion:""
+			company: {
+				email:"",
+				password:"",
+				role:"",
+				direccion:""
+			},
+		
+			isloged: false,
+			current_user_data: {
+			}
 		},
-		isloged: false,
-		current_user_data: {
-		}
-	},
     
 		actions: {
 			signupCliente:(nombre, apellido, telefono, nacimiento, sexo, calleNumero, pisoPuerta, instrucciones, codigoPostal, estado, ciudad) => {

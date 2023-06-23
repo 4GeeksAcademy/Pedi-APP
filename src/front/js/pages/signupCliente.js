@@ -5,9 +5,15 @@ import "/workspaces/Pedi-APP/src/front/styles/signupCliente.css";
 
 export const SingupCliente = () => {
     const { store, actions } = useContext(Context);
+    const [formComplete, setFormComplete] = useState(false);
     const handleSignupCliente = (e) => {
         e.preventDefault()
-        actions.signupCliente(formData.nombre, formData.apellido, formData.telefono, formData.nacimiento, formData.sexo, formData.calleNumero, formData.pisoPuerta, formData.instrucciones, formData.codigoPostal, formData.estado, formData.ciudad, formData.terminosCondiciones)
+        // actions.signupCliente(formData.nombre, formData.apellido, formData.telefono, formData.nacimiento, formData.sexo, formData.calleNumero, formData.pisoPuerta, formData.instrucciones, formData.codigoPostal, formData.estado, formData.ciudad, formData.terminosCondiciones)
+        if (formData.nombre && formData.apellido && formData.telefono && formData.nacimiento && formData.sexo && formData.calleNumero && formData.pisoPuerta && formData.codigoPostal && formData.estado && formData.ciudad && formData.terminosCondiciones) {
+            actions.signupCliente(formData.nombre, formData.apellido, formData.telefono, formData.nacimiento, formData.sexo, formData.calleNumero, formData.pisoPuerta, formData.instrucciones, formData.codigoPostal, formData.estado, formData.ciudad, formData.terminosCondiciones);
+            setFormComplete(true);
+        } else {
+            console.log("Por favor, complete todos los campos requeridos.");}
     };
 
     const handleCheckboxChange = (event) => {
@@ -29,7 +35,8 @@ export const SingupCliente = () => {
         ciudad:"",
         terminosCondiciones: false
     })
-    
+
+
 
     useEffect(() => {
          console.log(formData);
@@ -103,7 +110,12 @@ export const SingupCliente = () => {
                             <input type="checkbox" className="form-check-input" id="exampleCheck1" checked={formData.terminosCondiciones} onChange={handleCheckboxChange}/>
                             <label className="form-check-label" htmlFor="exampleCheck1">I agree the <b>Terms and Conditions</b></label>
                         </div>
-                        <button type="submit" className="btn btn-danger col-12 mb-2 login_submit"><Link to="/">Sign up</Link></button>
+                        <button type="submit" className="btn btn-danger col-12 mb-2 login_submit">
+                            {formComplete ? (
+                                <Link to="/">Sign up</Link> 
+                            ) : (
+                                <span>Sign up</span>)}
+                        </button>
                     </form>
                 </div>
             </div>
