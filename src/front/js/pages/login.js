@@ -20,9 +20,9 @@ const Login = () => {
         const loged = await actions.login_handlinator(user)
         // if lo de arriba es OK lo de abajo pasa
         
-        /*if(loged ){
+        if(loged ){
             navigate('/', { replace: true });
-        }*/
+        }
     }
 
     return (
