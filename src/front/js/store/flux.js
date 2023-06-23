@@ -15,16 +15,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 		actions: {
 			// Use getActions to call a function within a fuction
 			getNewUser: (email, password, role) => {
-				const { setStore } = getActions();
-				setStore((prevState) => ({
-					...prevState,
+				setStore({
 					user: {
-						...prevState.user,
 						email: email,
 						password: password,
 						role: role
 					}
-				}));
+				});
 			},
 			signupCompanies: (email, password, role, nombre, cif, direccion, delivery, reserva, horarios ) => {
 			const newUser = { // lo que se ponga aquí tiene que coincidir con el back nombre: 
