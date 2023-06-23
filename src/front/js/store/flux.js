@@ -28,7 +28,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						setStore({isloged:true})
 						console.log(result)
 						/*  EDITAR ESTO CON LA INFO DEL USUARIO QUE HAGA FALTA*/
-						setStore({current_user_data:result.userdata})
+						setStore({current_user_data:{ nombre : result.userdata.nombre}})
 						console.log(getStore())
 						return true
 					} else {
@@ -38,6 +38,38 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}catch(error){
 					console.log("Error loading message from backend")
 				}		
+			},
+			isloged: () => {
+				
+
+				const token = localStorage.getItem('jwt-token');
+  
+				// Check if the token exists and is not expired
+				if (token) {
+					const decodedToken = JSON.parse(atob(token.split('.')[1]));
+					const expirationTime = decodedToken.exp * 1000; // Convert expiration time to milliseconds
+					const currentTime = Date.now();
+
+					
+					if( currentTime >= expirationTime){
+						Swal.fire("session timed out")
+						setStore({isloged:false})
+						localStorage.clear();
+						return false;
+					}
+					
+
+					
+
+				
+				setStore({isloged:true})
+				return true;
+				}
+				
+				// Token doesn't exist
+				setStore({isloged:false})
+				localStorage.clear();
+				return false;
 			}
 			
 
