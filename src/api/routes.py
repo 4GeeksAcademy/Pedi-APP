@@ -48,7 +48,7 @@ def signupCliente():
 
 
 
-    if not mail or not password or not nombre or not apellido or not telefono or not calleNumero:
+    if not mail or not password or not nombre or not apellido or not telefono:
         return jsonify({"message": "no email o contraseña"}),400
     
     existe = Usuario.query.filter_by(email=mail).first

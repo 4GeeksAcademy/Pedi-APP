@@ -19,7 +19,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					nacimiento: nacimiento,
 					sexo: sexo,
 					direccion: `${calleNumero}, ${pisoPuerta}, ${instrucciones}, ${codigoPostal}, ${estado}, ${ciudad}`
-			}
+				}
 				fetch(process.env.BACKEND_URL + "/api/signupCliente", {
 					method: "POST",
 					headers: {

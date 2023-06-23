@@ -94,8 +94,6 @@ export const SingupCliente = () => {
                 <label className="form-check-label" htmlFor="exampleCheck1">I agree the <b>Terms and Conditions</b></label>
             </div>
             <button type="submit" className="btn btn-danger col-12 mb-2">Sign up</button>
-            <button type="submit" className="btn btn-light col-12">Sign up with Google</button>
-
 
         </form>
     )
