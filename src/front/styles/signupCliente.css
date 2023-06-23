@@ -8,11 +8,13 @@
     display: flex;
     justify-content: center;
 }
-.login_all{
+.all{
     border-radius: 2rem;
     background-color: #FFFFFF;
     display: flex;
     justify-content: end;
+    height: 50rem;
+    width: 55rem;
     
 }
 .login_logo_container{
@@ -26,6 +28,9 @@
 .login_logo{
     transform: rotate(-90deg);
 }
+
+
+
 
 .login_submit:hover{
     background-color: #7A7676;

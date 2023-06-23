@@ -69,7 +69,42 @@ def loginator():
             user_data["email"] = user.email
             user_data["direccion"] = user.direccion
             user_data["role"] = user.role
+
+                
+            return jsonify({"userdata": user_data, "token": token, "message":"login success"}),200
             
 
+@api.route("/signupCliente", methods = ["POST"])
+def signupCliente():
+    data = request.json
+    mail = data.get("mail")
+    password = data.get("password")
+    nombre = data.get("nombre")
+    apellido = data.get("apellido")
+    telefono = data.get("telefono")
+    nacimiento = data.get("nacimiento")
+    sexo = data.get("sexo")
+    direccion = data.get("direccion")
 
-            return jsonify({"userdata": user_data, "token": token, "message":"login success"}),200
+
+
+    if not mail or not password or not nombre or not apellido or not telefono:
+        return jsonify({"message": "no email o contraseña"}),400
+    
+    existe = Usuario.query.filter_by(email=mail).first
+    if existe: 
+        return jsonify({"message": "el usuario existe"})
+
+    addCliente = Cliente(nombre=nombre, apellido=apellido, sexo=sexo, nacimiento=nacimiento, telefono=telefono, is_active=True)
+    db.session.add(addCliente)
+    db.session.commit()
+
+    addUsuario = Usuario(role="cliente", email=mail, password=password, direccion=direccion)
+    db.session.add(addUsuario)
+    db.session.commit()
+    return jsonify({"message": "Sign up successfull"})
+    
+    # role = cliente.role
+    # print(cliente.cliente)
+
+
