@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
+import "/workspaces/Pedi-APP/src/front/styles/login.css";
 
 const Login = () => {
     const { store, actions } = useContext(Context);
