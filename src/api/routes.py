@@ -69,6 +69,9 @@ def loginator():
             user_data["email"] = user.email
             user_data["direccion"] = user.direccion
             user_data["role"] = user.role
+
+                
+            return jsonify({"userdata": user_data, "token": token, "message":"login success"}),200
             
 
 @api.route("/signupCliente", methods = ["POST"])
@@ -105,4 +108,3 @@ def signupCliente():
     # print(cliente.cliente)
 
 
-            return jsonify({"userdata": user_data, "token": token, "message":"login success"}),200
