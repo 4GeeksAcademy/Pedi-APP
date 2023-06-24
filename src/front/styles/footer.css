@@ -1,0 +1,139 @@
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .footer_container {
+    margin-top: auto;
+    padding-top: 3rem;
+    width: 100%;
+    background-color: #FFC3C3;
+    height: 15rem;
+  }
+
+  .footer_row{
+  display: flex;
+  justify-content: space-evenly;
+  height: 100%;
+  }
+
+  .footer_col{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  }
+  .footer_logo{
+  display: flex;
+  justify-content: center;
+  }
+  .footer_logo_btn{
+  border-radius: 1rem;
+  }
+  .footer_col1_text{
+  text-align: center;
+  font-weight: bold;
+  }
+  .footer_social{
+  display: flex;
+  justify-content: center;
+  color: #C62828;
+  }
+  /*       ------------------ new column*/
+  .footer_store{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  }
+  .footer_store_btn{
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 4rem;
+  }
+  .footer_appstore{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  }
+  .footer_appstore_text{
+    font-size: 0.8rem;
+  }
+  .fa-apple{
+  align-self:center
+  }
+
+  /*------------------ info column*/
+  .footer_infotext_container{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  }
+
+  .footer_infotext{
+  font-weight: bold;
+  font-size: 1.3rem;
+  text-align: center;
+  }
+  .footer_infosubtext{
+  font-style: italic;
+  text-align: center;
+  line-height: 2rem;
+  
+  }
+  
+  .footer_languaje{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  }
+  .footer_languaje_text{
+  font-weight:600;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+ 
+
+ 
+  .footer_appstore_text{
+
+  }
+ 
+
+  /*------------------ info column*/
+  
+
+  
+  .footer_infosubtext{
+  font-style: italic;
+  text-align: center;
+  }
+  .footer_together_container{
+  margin-top: auto;
+  display: flex;
+  margin-bottom: auto;
+  flex-direction: column;
+  align-items: center;
+  }
+ 
+
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  
+ 
+}
