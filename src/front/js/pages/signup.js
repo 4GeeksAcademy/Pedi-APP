@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../../styles/signupUsuario.css";
 
 export const Signup = () => {
@@ -8,39 +8,43 @@ export const Signup = () => {
     const [user, setUser] = useState({
         email:"",
         password:"",
+        password2: "",
         role: ""
     })
+    const navigate = useNavigate()
 
+    
     const handleSignup = (e) => {
         e.preventDefault()
         if (user.role === "") {
             return alert ("Select User or Company");
           }
-        else{actions.getNewUser(user.email, user.password, user.role);}
+        else{actions.getNewUser(user.email, user.password, user.password2, user.role);}
         
+        goAnotherPage()
+
     };
+
+    const goAnotherPage = () => {
+        if (user.role === "Usuario" && user.email !== "" && user.password !== "" && user.password2 !=="" && user.password == user.password2){
+            navigate('/signupCliente', { replace: true }); 
+        }
+        else if(user.role === "Empresa" && user.email !== "" && user.password !== "" && user.password2 !=="" && user.password == user.password2){
+            navigate('/signupEmpresa', { replace: true }); 
+        }
+        else if (user.password !== user.password2){
+            return alert("Password does not match")
+        }
+        else {
+            return alert("Check all the fields")
+        }
+    } 
+
 
   const handleOnChange = (e) => {
     const selectedRole = e.target.id === "usercheckbox" ? "Usuario" : "Empresa";
     setUser({ ...user, role: selectedRole });
   };
-
-  const moveUserOrCompany = ()=> {
-    if (user.role === "Usuario"){
-        return "/signupCliente"
-    }
-    else{
-        return "/signupEmpresa"
-    }
-    // if (user.role === "Usuario"){
-    //     return "/signupCliente"
-    // }
-    // if (user.role === "Empresa") {
-    //     return "/signupEmpresa"
-    // } if(user.role ==="" &&  user.email ==="" &&  user.password ==="") {
-    //     return alert ("You have to fill in all the fields")
-    // }
-  }
 
     useEffect(() => {
         console.log(user);
@@ -54,7 +58,7 @@ export const Signup = () => {
                 </div>
                 <div className="form_container col-8 p-5">
                     <h1 className="title">Signup</h1>
-                    <p>Enter your email and password to register</p>
+                    <p className="subtitle">Enter your email and password to register</p>
                     <form >
                         <div className="mb-3">
                             <label htmlFor="userEmail" className="form-label" >Email address</label>
@@ -64,22 +68,26 @@ export const Signup = () => {
                             <label htmlFor="userPassword" className="form-label">Password</label>
                             <input type="password" className="form-control" id="userPassword" placeholder="Enter your password" value={user.password} onChange={(data)=> {setUser({...user, password: data.target.value}); }} required/>
                         </div>
+                        <div className="mb-3">
+                            <label htmlFor="userPassword2" className="form-label">Confirm Password</label>
+                            <input type="password" className="form-control" id="userPassword2" placeholder="Enter your password" value={user.password2} onChange={(data)=> {setUser({...user, password2: data.target.value}); }} required/>
+                        </div>
                         <div className="row my-3">
                             <div className="col-12 col-md-6 form-check">
-                                <input className="form-check-input" type="radio" name="flexRadioDefault" id="usercheckbox" onChange={handleOnChange}
+                                <input className="form-check-input usercheckbox" type="radio" name="flexRadioDefault" id="usercheckbox" onChange={handleOnChange}
                         checked={user.role === "Usuario"}/>
                                 <label className="form-check-label" htmlFor="usercheckbox">
                                     I'm a user
                                 </label>
                             </div>
                             <div className="col-12 col-md-6 form-check">
-                                <input className="form-check-input" type="radio" name="flexRadioDefault" id="companycheckbox" onChange={handleOnChange}
+                                <input className="form-check-input companycheckbox" type="radio" name="flexRadioDefault" id="companycheckbox" onChange={handleOnChange}
                         checked={user.role === "Empresa"} />
                                 <label className="form-check-label" htmlFor="companycheckbox" >I'm a company
                                 </label>
                             </div>
                         </div>
-                        <Link to={moveUserOrCompany()} type="submit" className="btn submit">Submit</Link>
+                        <button type="submit" className="btn submit">Next</button>
                     </form>
                 </div>
             </div>
