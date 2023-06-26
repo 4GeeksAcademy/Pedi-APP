@@ -55,6 +55,7 @@
   align-items: center;
   justify-content: center;
   height: 4rem;
+  width: 10rem;
   }
   .footer_appstore{
   display: flex;
@@ -67,7 +68,7 @@
     font-size: 0.8rem;
   }
   .fa-apple{
-  align-self:center
+    align-self:center
   }
 
   /*------------------ info column*/
@@ -109,8 +110,20 @@
 
  
   .footer_appstore_text{
-
+    font-size: 0.7rem;
+    text-align: left;
   }
+
+  .footer_appstore_text1{
+    font-size: 1rem;
+  }
+ .footer_google-play_text{
+    font-size: 0.75rem;
+    text-align: left;
+ }
+ .footer_google-play_text1{
+  font-size: 1rem;
+}
  
 
   /*------------------ info column*/
