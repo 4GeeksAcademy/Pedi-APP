@@ -17,7 +17,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 				email:"",
 				password:"",
 				role:"",
-				direccion:""
+				direccion:"",
+				nombre: "",
+				delivery: "",
+				mañana: "",
+				tarde:"",
+				cif: "",
+				reserva: ""
 			},
 		
 			isloged: false,
@@ -57,17 +63,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 				});
 			},
-			signupCompanies: (email, password, role, nombre, cif, direccion, delivery, reserva, horarios ) => {
+			signupCompanies: (email, password, role, nombre, cif, calleNumero, pisoPuerta, codigoPostal, estado, ciudad, delivery, reserva, horarios ) => {
 			const newUser = { // lo que se ponga aquí tiene que coincidir con el back nombre: 
 				email : email,
 				password : password,
 				role: role,
-				direccion: direccion,
 				nombre: nombre,
 				cif: cif,
 				delivery: delivery,
 				reserva: reserva,
-				horarios: horarios
+				horarios: horarios,
+				direccion: `${calleNumero}, ${pisoPuerta}, ${codigoPostal}, ${estado}, ${ciudad}`
 			}
 			fetch(process.env.BACKEND_URL + "api/signup", {
 				method: "POST",
@@ -77,7 +83,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				body: JSON.stringify(newUser)
 			})
 			.then (response => response.json())
-			.then (response => console.log({email:response.user.email, password: response.user.password, role: response.user.role, direccion: response.user.direccion}))
+			.then (response => console.log({email:response.user.email, password: response.user.password, role: response.user.role, direccion: response.company.direccion, cif: response.company.cif, delivery: response.company.delivery, reserve: response.company.reserve, horarios: response.company.horarios}))
 			.catch(error => console.log(error))
 		},
 			

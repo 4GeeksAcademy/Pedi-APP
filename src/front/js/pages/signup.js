@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 import "../../styles/signupUsuario.css";
+import Swal from "sweetalert2";
 
 export const Signup = () => {
     const {store, actions } = useContext(Context)
@@ -17,9 +18,9 @@ export const Signup = () => {
     const handleSignup = (e) => {
         e.preventDefault()
         if (user.role === "") {
-            return alert ("Select User or Company");
+            return  Swal.fire("Select User or Company");
           }
-        else{actions.getNewUser(user.email, user.password, user.password2, user.role);}
+        else{actions.getNewUser(user.email, user.password, user.role);}
         
         goAnotherPage()
 
@@ -33,10 +34,10 @@ export const Signup = () => {
             navigate('/signupEmpresa', { replace: true }); 
         }
         else if (user.password !== user.password2){
-            return alert("Password does not match")
+            return Swal.fire("Password does not match")
         }
         else {
-            return alert("Check all the fields")
+            return Swal.fire("Check all the fields")
         }
     } 
 
