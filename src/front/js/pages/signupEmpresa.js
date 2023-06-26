@@ -43,8 +43,8 @@ export const SingupEmpresa = () => {
 
     return(
         <>
-            <div className="container-fluid text-center mt-5 signupcompany_page_container p-5 ">
-                <div className="row all ">
+            <div className="container-fluid text-center signupcompany_page_container p-5 ">
+                <div className="row all">
                     <div className="col-4 d-flex signupcompany_logo_container">
                         <p className="signupcompany_logo border">dishdash</p>
                 </div>
