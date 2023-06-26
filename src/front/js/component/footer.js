@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "/workspaces/Pedi-APP/src/front/styles/footer.css"
+import "../../styles/footer.css";
 import Swal from "sweetalert2";
 
 export const Footer = () => (
