@@ -87,24 +87,46 @@ def signupCliente():
     direccion = data.get("direccion")
 
 
-
+    
     if not mail or not password or not nombre or not apellido or not telefono:
         return jsonify({"message": "no email o contraseña"}),400
     
-    existe = Usuario.query.filter_by(email=mail).first
+    existe = Usuario.query.filter_by(email=mail).first()
+    
+    
     if existe: 
         return jsonify({"message": "el usuario existe"})
-
-    addCliente = Cliente(nombre=nombre, apellido=apellido, sexo=sexo, nacimiento=nacimiento, telefono=telefono, is_active=True)
-    db.session.add(addCliente)
-    db.session.commit()
-
+    
     addUsuario = Usuario(role="cliente", email=mail, password=password, direccion=direccion)
     db.session.add(addUsuario)
     db.session.commit()
+
+    id_usuario = Usuario.query.filter_by(email=mail).first()
+
+    addCliente = Cliente(nombre=nombre, apellido=apellido, sexo=sexo, nacimiento=nacimiento, telefono=telefono, is_active=True, idUsuario = id_usuario.id)
+    db.session.add(addCliente)
+    db.session.commit()
+
+    
     return jsonify({"message": "Sign up successfull"})
     
     # role = cliente.role
     # print(cliente.cliente)
 
 
+@api.route("/category", methods = ["POST"])
+def category_creatinator():
+    
+    tipo = request.json
+
+    type = TipoComida(tipoComida = tipo.get("tipo"))
+
+    if type:
+        a = TipoComida.query.all()
+        print(a[0].tipoComida)
+        return jsonify({"message": "ya ta ese"})
+
+    db.session.add(type)
+    db.session.commit()
+
+    return jsonify({"message": "añadido"})
