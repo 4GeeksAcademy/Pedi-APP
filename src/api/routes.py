@@ -91,17 +91,23 @@ def signupCliente():
     if not mail or not password or not nombre or not apellido or not telefono:
         return jsonify({"message": "no email o contraseña"}),400
     
-    existe = Usuario.query.filter_by(email=mail).first
+    existe = Usuario.query.filter_by(email=mail).first()
+
+    print (existe)
+
     if existe: 
         return jsonify({"message": "el usuario existe"})
-
-    addCliente = Cliente(nombre=nombre, apellido=apellido, sexo=sexo, nacimiento=nacimiento, telefono=telefono, is_active=True)
-    db.session.add(addCliente)
-    db.session.commit()
 
     addUsuario = Usuario(role="cliente", email=mail, password=password, direccion=direccion)
     db.session.add(addUsuario)
     db.session.commit()
+
+    id_usuario = Usuario.query.filter_by(email=mail).first()
+    
+    addCliente = Cliente(nombre=nombre, apellido=apellido, sexo=sexo, nacimiento=nacimiento, telefono=telefono, is_active=True)
+    db.session.add(addCliente)
+    db.session.commit()
+
     return jsonify({"message": "Sign up successfull"})
     
     # role = cliente.role
