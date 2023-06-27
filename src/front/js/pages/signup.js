@@ -52,7 +52,7 @@ export const Signup = () => {
     }, [user]);
 
     return (
-        <div className="container-fluid text-center mt-5 p-5 page_container" onSubmit={(e)=> {handleSignup(e)}}>
+        <div className="container-fluid text-center p-5 page_container" onSubmit={(e)=> {handleSignup(e)}}>
             <div className="row signup_all">
                 <div className="col-4 d-flex logo_container">
                     <p className="border logo">dishdash</p>

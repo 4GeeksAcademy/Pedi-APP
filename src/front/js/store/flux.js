@@ -13,7 +13,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				password:"", 
 				role: "",
 			},
-			company: {
+			empresa: {
 				email:"",
 				password:"",
 				role:"",
@@ -63,7 +63,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 				});
 			},
-			signupCompanies: (email, password, role, nombre, cif, calleNumero, pisoPuerta, codigoPostal, estado, ciudad, delivery, reserva, horarios ) => {
+			signupEmpresa: (email, password, role, nombre, cif, calleNumero, pisoPuerta, codigoPostal, estado, ciudad, delivery, reserva, horarios ) => {
 			const newUser = { // lo que se ponga aquí tiene que coincidir con el back nombre: 
 				email : email,
 				password : password,
@@ -75,7 +75,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				horarios: horarios,
 				direccion: `${calleNumero}, ${pisoPuerta}, ${codigoPostal}, ${estado}, ${ciudad}`
 			}
-			fetch(process.env.BACKEND_URL + "api/signup", {
+			fetch(process.env.BACKEND_URL + "api/signupEmpresa", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json"
@@ -83,7 +83,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				body: JSON.stringify(newUser)
 			})
 			.then (response => response.json())
-			.then (response => console.log({email:response.user.email, password: response.user.password, role: response.user.role, direccion: response.company.direccion, cif: response.company.cif, delivery: response.company.delivery, reserve: response.company.reserve, horarios: response.company.horarios}))
+			.then (response => console.log({user: {id: response.user.id, email:response.user.email, password: response.user.password, role: response.user.role}, empresa: {id: response.empresa.id, direccion: response.empresa.direccion, cif: response.empresa.cif, delivery: response.empresa.delivery, reserve: response.empresa.reserve, horarios: response.empresa.horarios}}))
 			.catch(error => console.log(error))
 		},
 			
