@@ -37,12 +37,10 @@
 .home_searchbtn {
   background-color: f5f5f5;
   border-radius: 2rem;
+  display: flex;
+  align-items: center;
 }
-.home_dirbtn {
-  background-color: #f5f5f5;
 
-  border-radius: 2rem;
-}
 .fa-location-arrow {
   vertical-align: middle;
   color: #c62828;

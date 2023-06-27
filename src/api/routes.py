@@ -130,3 +130,13 @@ def category_creatinator():
     db.session.commit()
 
     return jsonify({"message": "añadido"})
+
+@api.route("/category", methods = ["get"])
+def category_loadinator():
+    all_categories = TipoComida.query.all()
+    serialized_categories = []
+    for i in all_categories:
+        serialized_categories.append(i.serialize()["tipoComida"])
+    
+    
+    return jsonify({"message": "returned", "categories":serialized_categories})
