@@ -1,27 +1,12 @@
 import React, {useContext, useEffect, useState} from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "/workspaces/Pedi-APP/src/front/styles/signupCliente.css";
 import "../../styles/signupEmpresa.css";
+import Swal from "sweetalert2";
 
 export const SingupEmpresa = () => {
     const { store, actions } = useContext(Context);
-    const [formComplete, setFormComplete] = useState(false);
-    const handleSignupCompanies = (e) => {
-        e.preventDefault()
-        if (formData.nombre && formData.cif && formData.delivery && formData.calleNumero && formData.pisoPuerta && formData.codigoPostal && formData.estado && formData.ciudad && formData.terminosCondiciones) {
-            actions.signupCliente(formData.nombre, formData.cif, formData.delivery, formData.calleNumero, formData.pisoPuerta, formData.codigoPostal, formData.estado, formData.ciudad, formData.terminosCondiciones);
-            setFormComplete(true);
-        } else {
-            console.log("Por favor, complete todos los campos requeridos.");}
-    };
-
-    const handleCheckboxChange = (fieldName) => {
-        return (event) => {
-          setFormData({ ...formData, [fieldName]: event.target.checked });
-        };
-      };
-
     const [formData, setFormData] = useState({
         nombre: "",
         cif: "",
@@ -37,13 +22,34 @@ export const SingupEmpresa = () => {
         terminosCondiciones: false
     })
 
+    const handleCheckboxChange = (fieldName) => {
+        return (event) => {
+          setFormData({ ...formData, [fieldName]: event.target.checked });
+        };
+      };
+
+    const navigate = useNavigate()
+
+    const handleSignupCompanies = (e) => {
+        e.preventDefault()
+        if (formData.nombre === "" && formData.cif === "" && formData.calleNumero === "" && formData.pisoPuerta === "" && formData.codigoPostal === "" && formData.ciudad === "" && formData.estado === "") {
+            return  Swal.fire("Check all the fields");
+          }
+          else if (formData.terminosCondiciones === false){
+            return Swal.fire("You have to agree to Terms and Conditions to be able to signup")
+          }
+        else{
+            actions.signupEmpresa(formData.nombre, formData.cif, formData.delivery, formData.reserva, formData.mañana, formData.tarde, formData.calleNumero, formData.pisoPuerta, formData.codigoPostal, formData.ciudad, formData.estado, formData.terminosCondiciones);
+            navigate('/', { replace: true });}
+    };
+
     useEffect(() => {
          console.log(formData);
      }, [formData]);
 
     return(
         <>
-            <div className="container-fluid text-center signupcompany_page_container p-5 ">
+            <div className="container-fluid text-center signupcompany_page_container p-5" onSubmit={(e) => handleSignupCompanies(e)}>
                 <div className="row all">
                     <div className="col-4 d-flex signupcompany_logo_container">
                         <p className="signupcompany_logo border">dishdash</p>
@@ -51,7 +57,7 @@ export const SingupEmpresa = () => {
                 <div className="col-8 signupcompany_form_container ">
                     <h1 className="signupcompany_title">Signup Company</h1>
                     <p className="signupcompany_subtitle">Welcome! Please sign up</p>
-                    <form className="col-12 col-md-12 mb-3 mx-auto" onSubmit={(e) => handleSignupCompanies(e)}>
+                    <form className="col-12 col-md-12 mb-3 mx-auto" >
                         <div className="mb-3">
                             <label htmlFor="exampleInputEmail1" className="form-label signupcompany_label">Name</label>
                             <input type="nombre" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name" value={formData.nombre} onChange={(data) => {setFormData({...formData, nombre: data.target.value})}} required/>
@@ -104,12 +110,7 @@ export const SingupEmpresa = () => {
                             <input type="checkbox" className="form-check-input" id="exampleCheck4" checked={formData.terminosCondiciones} onChange={handleCheckboxChange('terminosCondiciones')}/>
                             <label className="form-check-label" htmlFor="exampleCheck1">I agree the <b>Terms and Conditions</b></label>
                         </div>
-                        <button type="submit" className="btn btn-danger col-12 mb-2 login_submit">
-                            {formComplete ? (
-                                <Link to="/">Sign up</Link> 
-                            ) : (
-                                <span>Sign up</span>)}
-                        </button>
+                        <button type="submit" className="btn col-12 mb-2 login_submit">Sign up</button>
                     </form>
                 </div>
             </div>
