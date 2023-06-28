@@ -33,13 +33,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 		
 		actions: {
 			signupCliente:(nombre, apellido, telefono, nacimiento, sexo, calleNumero, pisoPuerta, instrucciones, codigoPostal, estado, ciudad) => {
+				const store= getStore()
 				const newClient = { //lo que ponga aqui tiene que coincidir con el models
 					nombre : nombre,
 					apellido: apellido,
 					telefono : telefono,
 					nacimiento: nacimiento,
 					sexo: sexo,
-					direccion: `${calleNumero}, ${pisoPuerta}, ${instrucciones}, ${codigoPostal}, ${estado}, ${ciudad}`
+					direccion: `${calleNumero}, ${pisoPuerta}, ${instrucciones}, ${codigoPostal}, ${estado}, ${ciudad}`,
+					email: store.user.email,
+					password: store.user.password
+
 				}
 				fetch(process.env.BACKEND_URL + "/api/signupCliente", {
 					method: "POST",
