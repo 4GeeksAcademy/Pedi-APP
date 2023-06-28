@@ -17,19 +17,19 @@ export const Footer = () => (
 			</div>
 
 		</div>
-		<div className="col-2 footer_col ">
+		<div className="col-2 footer_col mt-3 ">
 			<div className="footer_store mb-2 ">
 				<button type="button" className="btn btn-danger footer_store_btn mb-4 ">
 					<div className="footer_appstore ">
-						<i className="fab fa-apple fa-lg"></i>
-						<p className="footer_appstore_text ">Download on <br/>the App Store</p>
+						<i className="fab fa-apple fa-3x me-2"></i>
+						<p className="footer_appstore_text mt-3">Download on the<br/><strong className="footer_appstore_text1 mt-3">App Store</strong></p>
 					</div>
 					
 				</button>
 				<button type="button" className="btn btn-danger footer_store_btn mb-4">
 					<div className="footer_appstore ">
-						<i className="fab fa-google-play fa-lg"></i>
-						<p className="footer_appstore_text ">Get it on <br/>Google Play</p>
+						<i className="fab fa-google-play fa-2x me-2"></i>
+						<p className="footer_google-play_text mt-3">Get it on <br/><strong className="footer_google-play_text1 mt-3">Google Play</strong></p>
 					</div>
 					
 				</button>
@@ -49,8 +49,8 @@ export const Footer = () => (
 				<p className="footer_infosubtext"> Become a rider <br/>Add your business</p>
 				
 				<div className="footer_languaje mb-auto">
-					<i className="far fa-language fa-lg "></i>
-					<p className="footer_languaje_text">English</p>
+					<i className="fa-solid fa-language me-3 mb-1"></i>
+					<p className="footer_languaje_text mt-2">English</p>
 				</div>
 				
 			</div>

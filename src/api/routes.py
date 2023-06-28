@@ -113,6 +113,52 @@ def signupCliente():
     # role = cliente.role
     # print(cliente.cliente)
 
+@api.route("/signupEmpresa", methods = ["POST"])
+def signupEmpresa():
+    data = request.json
+    email = data['email']
+    password = data['password']
+    role = "Empresa"
+    direccion = data['direccion']
+    cif = data['cif']
+    nombre = data['nombre']
+    reserva = data['reserva'] 
+    delivery = data['delivery'] 
+    mañana = data['mañana']
+    tarde = data ['tarde']
+
+    if not email or not password:
+        return jsonify({"message": "Por favor introduce un email o password válidos"})
+    
+    existe = Usuario.query.filter_by(email=email).first()
+    print(existe)
+    if existe: 
+        return jsonify({"message": "el usuario existe"})
+
+    addUsuario = Usuario(email = email, password = password, role = role, direccion = direccion)
+    db.session.add(addUsuario)
+    db.session.commit()
+
+    id_usuario = Usuario.query.filter_by(email=email).first()
+
+    addEmpresa = Empresa(cif = cif, nombre = nombre, reserva = reserva, delivery = delivery, is_active=True, idUsuario = id_usuario.id)
+    db.session.add(addEmpresa)
+    db.session.commit()
+
+    id_empresa = Empresa.query.filter_by().first()
+
+    addHorario = HorariosEmpresas(mañana = mañana, tarde = tarde, idEmpresa = id_empresa)
+    db.session.add(addHorario)
+    db.session.commit()
+
+    print(data)
+
+    return jsonify({"message": "Sign up successfull"})
+
+    # mañana = True if data['mañana'] == "true" else False
+    # tarde = True if data['tarde'] == "true" else False
+    # delivery = True if data['delivery'] == "true" else False
+    # reserva = True if data['reserva'] == "true" else False
 
 @api.route("/category", methods = ["POST"])
 def category_creatinator():

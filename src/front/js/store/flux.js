@@ -7,7 +7,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 				apellido:"",
 				telefono:"",
 				nacimiento:"",
-				direccion:""
+				direccion:"",
+				email:"", 
+				password:"", 
+				role: "",
+			},
+			empresa: {
+				email:"",
+				password:"",
+				role:"",
+				direccion:"",
+				nombre: "",
+				delivery: "",
+				mañana: "",
+				tarde:"",
+				cif: "",
+				reserva: ""
 			},
 
 			isloged: false,
@@ -39,6 +54,38 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			// Use getActions to call a function within a fuction
+			getNewUser: (email, password, role) => {
+				setStore({
+					user: {
+						email: email,
+						password: password,
+						role: role
+					}
+				});
+			},
+			signupEmpresa: (email, password, role, nombre, cif, calleNumero, pisoPuerta, codigoPostal, estado, ciudad, delivery, reserva, horarios ) => {
+			const newUser = { // lo que se ponga aquí tiene que coincidir con el back nombre: 
+				email : email,
+				password : password,
+				role: role,
+				nombre: nombre,
+				cif: cif,
+				delivery: delivery,
+				reserva: reserva,
+				horarios: horarios,
+				direccion: `${calleNumero}, ${pisoPuerta}, ${codigoPostal}, ${estado}, ${ciudad}`
+			}
+			fetch(process.env.BACKEND_URL + "api/signupEmpresa", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify(newUser)
+			})
+			.then (response => response.json())
+			.then (response => console.log({user: {id: response.user.id, email:response.user.email, password: response.user.password, role: response.user.role}, empresa: {id: response.empresa.id, direccion: response.empresa.direccion, cif: response.empresa.cif, delivery: response.empresa.delivery, reserve: response.empresa.reserve, horarios: response.empresa.horarios}}))
+			.catch(error => console.log(error))
+		},
 			
 			login_handlinator: async (user) => {
 				try {
