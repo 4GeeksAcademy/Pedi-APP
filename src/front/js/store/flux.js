@@ -3,6 +3,7 @@ import Swal from "sweetalert2";
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
+
 			user:{nombre: "",
 				apellido:"",
 				telefono:"",
@@ -152,12 +153,35 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({isloged:false})
 				localStorage.clear();
 				return false;
-			}
-			
 
-			
+			},
+			search_handlinator : (address) =>{
+
+				/*add geopy stuff Here -------------------------------------------------------------------------------*/
+
+				setStore({user: {direccion: address}})
+				
+			},
+			category_loadinator : () =>{
+				
+				  
+				fetch("https://diuca-x-congenial-space-trout-x66jxv9w4r526v9q-3001.preview.app.github.dev/api/category", {
+					method:"GET",
+					headers: { 
+						"Content-Type": "application/json",
+						} 
+				})
+				.then(response => response.json())
+				.then(result =>setStore({"categories" : result.categories }) )
+					/*setStore({"categories" : result.categories }) */
+				.catch(error => console.log('error', error));
+			}
+
+
 		}
 	}
 };
 
+
 export default getState;
+

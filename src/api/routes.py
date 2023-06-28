@@ -176,3 +176,49 @@ def category_creatinator():
     db.session.commit()
 
     return jsonify({"message": "añadido"})
+
+@api.route("/category", methods = ["get"])
+def category_loadinator():
+    all_categories = TipoComida.query.all()
+    serialized_categories = []
+    for i in all_categories:
+        serialized_categories.append(i.serialize()["tipoComida"])
+    
+    
+    return jsonify({"message": "returned", "categories":serialized_categories})
+
+
+@api.route("/top_sales", methods = ["GET"])
+def top_sales_loadinator():
+
+    companys = Empresa.query.all()
+    companys_id = {}
+    for i in companys:
+        companys_id[i.id] = 0 
+
+    facturas = Factura.query.all()
+    for i in facturas:
+        companys_id[i.idEmpresa] += 1
+
+   
+
+    sorted_companys_id =  sorted(companys_id, key=companys_id.get, reverse=True)
+    
+    c = 0
+    top_5 = []
+    while(c<5):
+        if(c > len(sorted_companys_id)-1):
+            break
+
+        top_5.append(sorted_companys_id[c])
+
+        c+=1
+
+    data_to_return = []
+    for i in companys:
+        id ( i.id in top_5 )
+        company = i.serialize()
+        data_to_return.append(company)
+    print(data_to_return)
+
+    return jsonify({"company_ids":top_5})
