@@ -42,7 +42,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					sexo: sexo,
 					direccion: `${calleNumero}, ${pisoPuerta}, ${instrucciones}, ${codigoPostal}, ${estado}, ${ciudad}`,
 					email: store.user.email,
-					password: store.user.password
+					password: store.user.password,
+					role: store.user.role
 
 				}
 				fetch(process.env.BACKEND_URL + "/api/signupCliente", {

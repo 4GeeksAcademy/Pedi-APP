@@ -2,10 +2,13 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/signupCliente.css";
+import { useNavigate } from "react-router-dom";
 
 export const SingupCliente = () => {
   const { store, actions } = useContext(Context);
   const [formComplete, setFormComplete] = useState(false);
+  const navigate = useNavigate()
+
   const handleSignupCliente = (e) => {
     e.preventDefault();
     // actions.signupCliente(formData.nombre, formData.apellido, formData.telefono, formData.nacimiento, formData.sexo, formData.calleNumero, formData.pisoPuerta, formData.instrucciones, formData.codigoPostal, formData.estado, formData.ciudad, formData.terminosCondiciones)
@@ -37,6 +40,7 @@ export const SingupCliente = () => {
         formData.terminosCondiciones
       );
       setFormComplete(true);
+      navigate('/');
     } else {
       console.log("Por favor, complete todos los campos requeridos.");
     }
@@ -297,11 +301,7 @@ export const SingupCliente = () => {
                 type="submit"
                 className="btn btn-danger col-12 mb-2 login_submit"
               >
-                {formComplete ? (
-                  <Link to="/">Sign up</Link>
-                ) : (
-                  <span>Sign up</span>
-                )}
+                Sign up
               </button>
             </form>
           </div>
