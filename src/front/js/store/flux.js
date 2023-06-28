@@ -3,8 +3,8 @@ import Swal from "sweetalert2";
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			user:{
-        		nombre: "",	
+
+			user:{nombre: "",
 				apellido:"",
 				telefono:"",
 				nacimiento:"",
@@ -13,27 +13,39 @@ const getState = ({ getStore, getActions, setStore }) => {
 				password:"", 
 				role: "",
 			},
-			company: {
+			empresa: {
 				email:"",
 				password:"",
 				role:"",
-				direccion:""
+				direccion:"",
+				nombre: "",
+				delivery: "",
+				mañana: "",
+				tarde:"",
+				cif: "",
+				reserva: ""
 			},
-		
+
 			isloged: false,
 			current_user_data: {
+
 			}
 		},
-    
+		
 		actions: {
 			signupCliente:(nombre, apellido, telefono, nacimiento, sexo, calleNumero, pisoPuerta, instrucciones, codigoPostal, estado, ciudad) => {
+				const store= getStore()
 				const newClient = { //lo que ponga aqui tiene que coincidir con el models
 					nombre : nombre,
 					apellido: apellido,
 					telefono : telefono,
 					nacimiento: nacimiento,
 					sexo: sexo,
-					direccion: `${calleNumero}, ${pisoPuerta}, ${instrucciones}, ${codigoPostal}, ${estado}, ${ciudad}`
+					direccion: `${calleNumero}, ${pisoPuerta}, ${instrucciones}, ${codigoPostal}, ${estado}, ${ciudad}`,
+					email: store.user.email,
+					password: store.user.password,
+					role: store.user.role
+
 				}
 				fetch(process.env.BACKEND_URL + "/api/signupCliente", {
 					method: "POST",
@@ -57,19 +69,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 				});
 			},
-			signupCompanies: (email, password, role, nombre, cif, direccion, delivery, reserva, horarios ) => {
+			signupEmpresa: (email, password, role, nombre, cif, calleNumero, pisoPuerta, codigoPostal, estado, ciudad, delivery, reserva, horarios ) => {
 			const newUser = { // lo que se ponga aquí tiene que coincidir con el back nombre: 
 				email : email,
 				password : password,
 				role: role,
-				direccion: direccion,
 				nombre: nombre,
 				cif: cif,
 				delivery: delivery,
 				reserva: reserva,
-				horarios: horarios
+				horarios: horarios,
+				direccion: `${calleNumero}, ${pisoPuerta}, ${codigoPostal}, ${estado}, ${ciudad}`
 			}
-			fetch(process.env.BACKEND_URL + "api/signup", {
+			fetch(process.env.BACKEND_URL + "api/signupEmpresa", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json"
@@ -77,7 +89,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				body: JSON.stringify(newUser)
 			})
 			.then (response => response.json())
-			.then (response => console.log({email:response.user.email, password: response.user.password, role: response.user.role, direccion: response.user.direccion}))
+			.then (response => console.log({user: {id: response.user.id, email:response.user.email, password: response.user.password, role: response.user.role}, empresa: {id: response.empresa.id, direccion: response.empresa.direccion, cif: response.empresa.cif, delivery: response.empresa.delivery, reserve: response.empresa.reserve, horarios: response.empresa.horarios}}))
 			.catch(error => console.log(error))
 		},
 			
@@ -128,7 +140,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 						localStorage.clear();
 						return false;
 					}
-							
+					
+
+					
+
+				
 				setStore({isloged:true})
 				return true;
 				}
@@ -137,6 +153,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({isloged:false})
 				localStorage.clear();
 				return false;
+
 			},
 			search_handlinator : (address) =>{
 
@@ -160,9 +177,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 				.catch(error => console.log('error', error));
 			}
 
+
 		}
 	}
 };
 
-export default getState
+
+export default getState;
 
