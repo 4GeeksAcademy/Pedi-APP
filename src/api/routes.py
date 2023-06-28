@@ -77,7 +77,7 @@ def loginator():
 @api.route("/signupCliente", methods = ["POST"])
 def signupCliente():
     data = request.json
-    mail = data.get("mail")
+    email = data.get("email")
     password = data.get("password")
     nombre = data.get("nombre")
     apellido = data.get("apellido")
@@ -87,21 +87,21 @@ def signupCliente():
     direccion = data.get("direccion")
 
 
-    
-    if not mail or not password or not nombre or not apellido or not telefono:
+
+    if not email or not password or not nombre or not apellido or not telefono:
         return jsonify({"message": "no email o contraseña"}),400
     
-    existe = Usuario.query.filter_by(email=mail).first()
+    existe = Usuario.query.filter_by(email=email).first()
     
     
     if existe: 
         return jsonify({"message": "el usuario existe"})
     
-    addUsuario = Usuario(role="cliente", email=mail, password=password, direccion=direccion)
+    addUsuario = Usuario(role="cliente", email=email, password=password, direccion=direccion)
     db.session.add(addUsuario)
     db.session.commit()
 
-    id_usuario = Usuario.query.filter_by(email=mail).first()
+    id_usuario = Usuario.query.filter_by(email=email).first()
 
     addCliente = Cliente(nombre=nombre, apellido=apellido, sexo=sexo, nacimiento=nacimiento, telefono=telefono, is_active=True, idUsuario = id_usuario.id)
     db.session.add(addCliente)
@@ -116,16 +116,16 @@ def signupCliente():
 @api.route("/signupEmpresa", methods = ["POST"])
 def signupEmpresa():
     data = request.json
-    email = data['email']
-    password = data['password']
+    email = data.get['email']
+    password = data.get['password']
     role = "Empresa"
-    direccion = data['direccion']
-    cif = data['cif']
-    nombre = data['nombre']
-    reserva = data['reserva'] 
-    delivery = data['delivery'] 
-    mañana = data['mañana']
-    tarde = data ['tarde']
+    direccion = data.get['direccion']
+    cif = data.get['cif']
+    nombre = data.get['nombre']
+    reserva = data.get['reserva'] 
+    delivery = data.get['delivery'] 
+    mañana = data.get['mañana']
+    tarde = data.get['tarde']
 
     if not email or not password:
         return jsonify({"message": "Por favor introduce un email o password válidos"})

@@ -3,8 +3,7 @@ import Swal from "sweetalert2";
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			user:{
-        		nombre: "",
+			user:{nombre: "",
 				apellido:"",
 				telefono:"",
 				nacimiento:"",
@@ -25,21 +24,27 @@ const getState = ({ getStore, getActions, setStore }) => {
 				cif: "",
 				reserva: ""
 			},
-		
+
 			isloged: false,
 			current_user_data: {
+
 			}
 		},
-    
+		
 		actions: {
 			signupCliente:(nombre, apellido, telefono, nacimiento, sexo, calleNumero, pisoPuerta, instrucciones, codigoPostal, estado, ciudad) => {
+				const store= getStore()
 				const newClient = { //lo que ponga aqui tiene que coincidir con el models
 					nombre : nombre,
 					apellido: apellido,
 					telefono : telefono,
 					nacimiento: nacimiento,
 					sexo: sexo,
-					direccion: `${calleNumero}, ${pisoPuerta}, ${instrucciones}, ${codigoPostal}, ${estado}, ${ciudad}`
+					direccion: `${calleNumero}, ${pisoPuerta}, ${instrucciones}, ${codigoPostal}, ${estado}, ${ciudad}`,
+					email: store.user.email,
+					password: store.user.password,
+					role: store.user.role
+
 				}
 				fetch(process.env.BACKEND_URL + "/api/signupCliente", {
 					method: "POST",
@@ -134,7 +139,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 						localStorage.clear();
 						return false;
 					}
-							
+					
+
+					
+
+				
 				setStore({isloged:true})
 				return true;
 				}
@@ -143,9 +152,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({isloged:false})
 				localStorage.clear();
 				return false;
-			}	
+			}
+			
+
+			
 		}
 	}
 };
 
-export default getState
+export default getState;
