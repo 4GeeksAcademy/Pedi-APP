@@ -154,8 +154,25 @@ def top_sales_loadinator():
     for i in facturas:
         companys_id[i.idEmpresa] += 1
 
+   
 
-    print(companys_id)
+    sorted_companys_id =  sorted(companys_id, key=companys_id.get, reverse=True)
     
+    c = 0
+    top_5 = []
+    while(c<5):
+        if(c > len(sorted_companys_id)-1):
+            break
 
-    return jsonify({"company_ids":"companys_id"})
+        top_5.append(sorted_companys_id[c])
+
+        c+=1
+
+    data_to_return = []
+    for i in companys:
+        id ( i.id in top_5 )
+        company = i.serialize()
+        data_to_return.append(company)
+    print(data_to_return)
+
+    return jsonify({"company_ids":top_5})
