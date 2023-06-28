@@ -140,3 +140,22 @@ def category_loadinator():
     
     
     return jsonify({"message": "returned", "categories":serialized_categories})
+
+
+@api.route("/top_sales", methods = ["GET"])
+def top_sales_loadinator():
+
+    companys = Empresa.query.all()
+    companys_id = {}
+    for i in companys:
+        companys_id[i.id] = 0 
+
+    facturas = Factura.query.all()
+    for i in facturas:
+        companys_id[i.idEmpresa] += 1
+
+
+    print(companys_id)
+    
+
+    return jsonify({"company_ids":"companys_id"})

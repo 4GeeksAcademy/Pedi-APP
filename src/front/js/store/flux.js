@@ -1,4 +1,3 @@
-import { response } from "express";
 import Swal from "sweetalert2";
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -155,8 +154,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 						"Content-Type": "application/json",
 						} 
 				})
-				.then(response => response.text())
-				.then(result => console.log(result)) /*setStore({"categories" : result.categories }) */
+				.then(response => response.json())
+				.then(result =>setStore({"categories" : result.categories }) )
+					/*setStore({"categories" : result.categories }) */
 				.catch(error => console.log('error', error));
 			}
 
@@ -165,3 +165,4 @@ const getState = ({ getStore, getActions, setStore }) => {
 };
 
 export default getState
+
