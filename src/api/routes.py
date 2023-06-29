@@ -72,7 +72,6 @@ def loginator():
 
                 
             return jsonify({"userdata": user_data, "token": token, "message":"login success"}),200
-            
 
 @api.route("/signupCliente", methods = ["POST"])
 def signupCliente():
@@ -116,49 +115,38 @@ def signupCliente():
 @api.route("/signupEmpresa", methods = ["POST"])
 def signupEmpresa():
     data = request.json
-    email = data['email']
-    password = data['password']
+    email = data.get("email")
+    password = data.get("password")
     role = "Empresa"
-    direccion = data['direccion']
-    cif = data['cif']
-    nombre = data['nombre']
-    reserva = data['reserva'] 
-    delivery = data['delivery'] 
-    mañana = data['mañana']
-    tarde = data ['tarde']
+    direccion = data.get("direccion")
+    cif = data.get("cif")
+    nombre = data.get("nombre")
+    reserva = data.get("reserva") 
+    delivery = data.get("delivery")
+    # dia = data.get("dia")
+    mañana = data.get("mañana")
+    tarde = data.get("tarde")
 
-    if not email or not password:
-        return jsonify({"message": "Por favor introduce un email o password válidos"})
+    if not email or not password or not cif or not direccion:
+        return jsonify({"message": "Por favor introduce un email, password, dirección y cif válidos"}),400
     
     existe = Usuario.query.filter_by(email=email).first()
-    print(existe)
     if existe: 
-        return jsonify({"message": "el usuario existe"})
+        return jsonify({"message": "el usuario existe"}), 400
 
-    addUsuario = Usuario(email = email, password = password, role = role, direccion = direccion)
+    addUsuario = Usuario(role = role, email = email, password = password,  direccion = direccion)
     db.session.add(addUsuario)
     db.session.commit()
 
-    id_usuario = Usuario.query.filter_by(email=email).first()
-
-    addEmpresa = Empresa(cif = cif, nombre = nombre, reserva = reserva, delivery = delivery, is_active=True, idUsuario = id_usuario.id)
+    addEmpresa = Empresa(nombre = nombre, cif = cif, is_active=True, reserva = reserva, delivery = delivery, idUsuario = addUsuario.id)
     db.session.add(addEmpresa)
     db.session.commit()
 
-    id_empresa = Empresa.query.filter_by().first()
-
-    addHorario = HorariosEmpresas(mañana = mañana, tarde = tarde, idEmpresa = id_empresa)
+    addHorario = HorariosEmpresas(mañana = mañana, tarde = tarde, idEmpresa = addEmpresa.id)
     db.session.add(addHorario)
     db.session.commit()
 
-    print(data)
-
-    return jsonify({"message": "Sign up successfull"})
-
-    # mañana = True if data['mañana'] == "true" else False
-    # tarde = True if data['tarde'] == "true" else False
-    # delivery = True if data['delivery'] == "true" else False
-    # reserva = True if data['reserva'] == "true" else False
+    return jsonify({"message": "Sign up successfull"}),200
 
 @api.route("/category", methods = ["POST"])
 def category_creatinator():
