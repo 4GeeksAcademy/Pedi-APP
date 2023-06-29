@@ -14,16 +14,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 				role: "",
 			},
 			empresa: {
+				role:"",
 				email:"",
 				password:"",
-				role:"",
 				direccion:"",
 				nombre: "",
+				cif: "",
+				reserva: "",
 				delivery: "",
 				mañana: "",
-				tarde:"",
-				cif: "",
-				reserva: ""
+				tarde:""
+				/*dia: "", o horario: {lunes: {mañana: "", tarde: ""}*/
 			},
 
 			isloged: false,
@@ -32,8 +33,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			}
 		},
 		
-		actions: {
-			signupCliente:(nombre, apellido, telefono, nacimiento, sexo, calleNumero, pisoPuerta, instrucciones, codigoPostal, estado, ciudad) => {
+		actions: {			
+      signupCliente:(nombre, apellido, telefono, nacimiento, sexo, calleNumero, pisoPuerta, instrucciones, codigoPostal, estado, ciudad) => {
 				const store= getStore()
 				const newClient = { //lo que ponga aqui tiene que coincidir con el models
 					nombre : nombre,
@@ -58,8 +59,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				.then (response => console.log(response))
 				.catch(error => console.log(error))
 			},
-
-			// Use getActions to call a function within a fuction
 			getNewUser: (email, password, role) => {
 				setStore({
 					user: {
@@ -69,19 +68,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 				});
 			},
-			signupEmpresa: (email, password, role, nombre, cif, calleNumero, pisoPuerta, codigoPostal, estado, ciudad, delivery, reserva, horarios ) => {
-			const newUser = { // lo que se ponga aquí tiene que coincidir con el back nombre: 
-				email : email,
-				password : password,
-				role: role,
-				nombre: nombre,
-				cif: cif,
-				delivery: delivery,
-				reserva: reserva,
-				horarios: horarios,
-				direccion: `${calleNumero}, ${pisoPuerta}, ${codigoPostal}, ${estado}, ${ciudad}`
+			signupEmpresa: (nombre, cif, calleNumero, pisoPuerta, codigoPostal, estado, ciudad, delivery, reserva, mañana, tarde) => {
+				const store = getStore()
+				const newUser = { // lo que se ponga aquí tiene que coincidir con el back nombre: 
+					role: store.user.role,
+					email : store.user.email,
+					password : store.user.password,
+					direccion: `${calleNumero}, ${pisoPuerta}, ${codigoPostal}, ${ciudad}, ${estado}`,
+					nombre: nombre,
+					cif: cif,
+					reserva: reserva,
+					delivery: delivery,
+					mañana: mañana,
+					tarde: tarde
+					/*dia: {lunes,martes...} o 	dia: dia, o horario: {lunes: {mañana: "", tarde: ""}*/
 			}
-			fetch(process.env.BACKEND_URL + "api/signupEmpresa", {
+			fetch(process.env.BACKEND_URL + "/api/signupEmpresa", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json"
@@ -89,7 +91,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				body: JSON.stringify(newUser)
 			})
 			.then (response => response.json())
-			.then (response => console.log({user: {id: response.user.id, email:response.user.email, password: response.user.password, role: response.user.role}, empresa: {id: response.empresa.id, direccion: response.empresa.direccion, cif: response.empresa.cif, delivery: response.empresa.delivery, reserve: response.empresa.reserve, horarios: response.empresa.horarios}}))
+			.then (response => console.log(response))
 			.catch(error => console.log(error))
 		},
 			
