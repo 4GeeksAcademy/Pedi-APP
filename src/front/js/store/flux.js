@@ -169,7 +169,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}
 					})
 					const result = await response.json()
-					console.log(result)
+					
 					if (response.status == 200){
 	
 						setStore({ current_user_data: {...store.current_user_data,direccion: result}})
@@ -177,6 +177,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						
 						return "exito"
 					} else {
+						
 						return result.message
 					}
 

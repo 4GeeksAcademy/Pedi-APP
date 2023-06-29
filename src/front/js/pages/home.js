@@ -22,7 +22,7 @@ export const Home = () => {
 
   const search_handlinator = async (event) => {
     event.preventDefault()
-    const search = actions.search_handlinator(address)
+    const search = await actions.search_handlinator(address)
     if (search  == "Address not found try again"){
       Swal.fire(search)
     }
