@@ -25,6 +25,9 @@ export const Home = () => {
     const search = await actions.search_handlinator(address)
     if (search  == "Address not found try again"){
       Swal.fire(search)
+    } else {
+      /*navigate("/search", { replace: true });  ---- no hay pagina de search yet*/
+      continue
     }
       
   }
