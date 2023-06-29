@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "d793e084e97dc81492403789ea817f62055f3b44673e1a723b280d0d86fdad07"
+            "sha256": "0d89983b811e2964078e0066e2ff56fb21f787ecf15251f9152e5f66d11ddafa"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -73,11 +73,11 @@
         },
         "flask-cors": {
             "hashes": [
-                "sha256:74efc975af1194fc7891ff5cd85b0f7478be4f7f59fe158102e91abb72bb4438",
-                "sha256:b60839393f3b84a0f3746f6cdca56c1ad7426aa738b70d6c61375857823181de"
+                "sha256:bc3492bfd6368d27cfe79c7821df5a8a319e1a6d5eab277a3794be19bdc51783",
+                "sha256:f268522fcb2f73e2ecdde1ef45e2fd5c71cc48fe03cffb4b441c6d1b40684eb0"
             ],
             "index": "pypi",
-            "version": "==3.0.10"
+            "version": "==4.0.0"
         },
         "flask-jwt-extended": {
             "hashes": [
@@ -110,6 +110,22 @@
             ],
             "index": "pypi",
             "version": "==0.2.14"
+        },
+        "geographiclib": {
+            "hashes": [
+                "sha256:6b7225248e45ff7edcee32becc4e0a1504c606ac5ee163a5656d482e0cd38734",
+                "sha256:f7f41c85dc3e1c2d3d935ec86660dc3b2c848c83e17f9a9e51ba9d5146a15859"
+            ],
+            "markers": "python_version >= '3.7'",
+            "version": "==2.0"
+        },
+        "geopy": {
+            "hashes": [
+                "sha256:228cd53b6eef699b2289d1172e462a90d5057779a10388a7366291812601187f",
+                "sha256:4a29a16d41d8e56ba8e07310802a1cbdf098eeb6069cc3d6d3068fc770629ffc"
+            ],
+            "index": "pypi",
+            "version": "==2.3.0"
         },
         "greenlet": {
             "hashes": [
@@ -460,11 +476,11 @@
         },
         "typing-extensions": {
             "hashes": [
-                "sha256:88a4153d8505aabbb4e13aacb7c486c2b4a33ca3b3f807914a9b4c844c471c26",
-                "sha256:d91d5919357fe7f681a9f2b5b4cb2a5f1ef0a1e9f59c4d8ff0d3491e05c0ffd5"
+                "sha256:5d8c9dac95c27d20df12fb1d97b9793ab8b2af8a3a525e68c80e21060c161771",
+                "sha256:935ccf31549830cda708b42289d44b6f74084d616a00be651601a4f968e77c82"
             ],
             "index": "pypi",
-            "version": "==4.6.3"
+            "version": "==4.7.0"
         },
         "urllib3": {
             "hashes": [

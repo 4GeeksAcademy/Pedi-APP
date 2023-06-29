@@ -4,9 +4,10 @@ import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
 import bk from "../../img/bk.png";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 import Categories from "../component/categories";
-
+import Top_5_carrousel from "../component/top_5_carrousel";
 
 
 export const Home = () => {
@@ -19,9 +20,13 @@ export const Home = () => {
     
   };
 
-  const search_handlinator = (event) => {
+  const search_handlinator = async (event) => {
     event.preventDefault()
-    actions.search_handlinator(address)
+    const search = actions.search_handlinator(address)
+    if (search  == "Address not found try again"){
+      Swal.fire(search)
+    }
+      
   }
   
   const categories = store.categories
@@ -51,14 +56,12 @@ export const Home = () => {
         </form>
       </div>
       <div className="row home_second_row">
-        <h1 className="home_categories_title">Categories</h1>
+        <h1 className="home_categories_title mt-4">Categories</h1>
         <Categories/>
         <h1 className="home_categories_title">Top rated</h1>
-        <div className="row home_categories_row my-3">
-          <div className="home_foodbox py-1">
-            <img src={bk} alt="..." className="home_categoryimg" />
-          </div>
-        </div>
+
+        <Top_5_carrousel/>
+
       </div>
     </div>
   );

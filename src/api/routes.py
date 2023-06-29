@@ -20,6 +20,7 @@ from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
+from geopy.geocoders import Nominatim
 
 api = Blueprint("api", __name__)
 
@@ -43,13 +44,14 @@ def loginator():
         return jsonify({"message": "Missing mail or password"}), 400
     else:
         user = Usuario.query.filter_by(email=email, password=password).first()
-
+        
         if not user:
             return jsonify({"message": "Wrong username or password"}), 400
         else:
             role = user.role
-
+            
             if role == "cliente":
+                
                 user_data = user.cliente[0].serialize()
             elif role == "empresa":
                 user_data = user.empresa[0].serialize()
@@ -67,7 +69,7 @@ def loginator():
             
 
             user_data["email"] = user.email
-            user_data["direccion"] = user.direccion
+            user_data["direccion"] = geopy_processinator(user.direccion).address #esto hay que ponerlo en el signup en realidad -----------------------------
             user_data["role"] = user.role
 
                 
@@ -173,6 +175,31 @@ def top_sales_loadinator():
         id ( i.id in top_5 )
         company = i.serialize()
         data_to_return.append(company)
-    print(data_to_return)
 
-    return jsonify({"company_ids":top_5})
+
+    return jsonify({"top_5_data":data_to_return})
+
+@api.route("/address", methods = ["POST"])
+def address_convertinator():
+
+    data = request.json
+    address = data.get("address")
+    
+
+    
+    location = geopy_processinator(address)
+    if (location == None):
+        return jsonify({"message": "Address not found try again"}),400
+    
+    lat_lon = [location.latitude,location.longitude]
+    
+
+
+
+    return jsonify({"coordinates": lat_lon, "address":location.address}),200
+
+
+def geopy_processinator(address):
+    geolocator = Nominatim(user_agent="dishdash")
+    location = geolocator.geocode(address,language="es")
+    return location
