@@ -3,8 +3,8 @@ import Swal from "sweetalert2";
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			user:{
-        		nombre: "",
+
+			user:{nombre: "",
 				apellido:"",
 				telefono:"",
 				nacimiento:"",
@@ -26,23 +26,28 @@ const getState = ({ getStore, getActions, setStore }) => {
 				tarde:""
 				/*dia: "", o horario: {lunes: {mañana: "", tarde: ""}*/
 			},
-		
+
 			isloged: false,
 			current_user_data: {
+
 			}
 		},
-    
-		actions: {
-			signupCliente:(nombre, apellido, telefono, nacimiento, sexo, calleNumero, pisoPuerta, instrucciones, codigoPostal, estado, ciudad) => {
+		
+		actions: {			
+      signupCliente:(nombre, apellido, telefono, nacimiento, sexo, calleNumero, pisoPuerta, instrucciones, codigoPostal, estado, ciudad) => {
+				const store= getStore()
 				const newClient = { //lo que ponga aqui tiene que coincidir con el models
 					nombre : nombre,
 					apellido: apellido,
 					telefono : telefono,
 					nacimiento: nacimiento,
 					sexo: sexo,
-					direccion: `${calleNumero}, ${pisoPuerta}, ${instrucciones}, ${codigoPostal}, ${ciudad}, ${estado}`
+					direccion: `${calleNumero}, ${pisoPuerta}, ${instrucciones}, ${codigoPostal}, ${estado}, ${ciudad}`,
+					email: store.user.email,
+					password: store.user.password,
+					role: store.user.role
+
 				}
-	
 				fetch(process.env.BACKEND_URL + "/api/signupCliente", {
 					method: "POST",
 					headers: {
@@ -54,8 +59,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				.then (response => console.log(response))
 				.catch(error => console.log(error))
 			},
-
-			// Use getActions to call a function within a fuction
 			getNewUser: (email, password, role) => {
 				setStore({
 					user: {
@@ -139,7 +142,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 						localStorage.clear();
 						return false;
 					}
-							
+					
+
+					
+
+				
 				setStore({isloged:true})
 				return true;
 				}
@@ -148,9 +155,35 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({isloged:false})
 				localStorage.clear();
 				return false;
-			}	
+
+			},
+			search_handlinator : (address) =>{
+
+				/*add geopy stuff Here -------------------------------------------------------------------------------*/
+
+				setStore({user: {direccion: address}})
+				
+			},
+			category_loadinator : () =>{
+				
+				  
+				fetch("https://diuca-x-congenial-space-trout-x66jxv9w4r526v9q-3001.preview.app.github.dev/api/category", {
+					method:"GET",
+					headers: { 
+						"Content-Type": "application/json",
+						} 
+				})
+				.then(response => response.json())
+				.then(result =>setStore({"categories" : result.categories }) )
+					/*setStore({"categories" : result.categories }) */
+				.catch(error => console.log('error', error));
+			}
+
+
 		}
 	}
 };
 
-export default getState
+
+export default getState;
+
