@@ -33,6 +33,7 @@ class Cliente(db.Model):
     nacimiento = db.Column (db.DateTime, unique=False, nullable=False)
     telefono = db.Column (db.Integer, unique=False, nullable=False)
     idUsuario = db.Column(db.Integer, db.ForeignKey('usuario.id'), nullable=False)
+    instrucciones = db.Column(db.String(100), unique=False, nullable=True)
 
     factura = db.relationship("Factura", backref="cliente", lazy = True)
     reseñas = db.relationship("Reseñas", backref="cliente", lazy = True)
@@ -61,7 +62,7 @@ class Empresa (db.Model):
     reserva = db.Column(db.Boolean(), unique=False, nullable=False)
     delivery = db.Column(db.Boolean(), unique=False, nullable=False)
     idUsuario = db.Column(db.Integer, db.ForeignKey('usuario.id'), nullable=False)
-    imagen = db.Column(db.String(100000), unique=False, nullable=True)
+    imagen = db.Column(db.String(10000000), unique=False, nullable=True)
 
     productos = db.relationship("Productos" , backref = "empresa", lazy = True)
     horarios = db.relationship("HorariosEmpresas" , backref = "empresa", lazy = True)
