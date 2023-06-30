@@ -1,5 +1,6 @@
 import Swal from "sweetalert2";
 
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
@@ -96,6 +97,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		},
 			
 			login_handlinator: async (user) => {
+				const store = getStore()
 				try {
 					const response = await fetch(process.env.BACKEND_URL + "/api/login", {
 						method : "POST",
@@ -109,13 +111,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 					if (response.status == 200){
 						localStorage.setItem("jwt-token", result.token);
 						setStore({isloged:true})
-						
+						console.log(result.userdata)
 						/*  EDITAR ESTO CON LA INFO DEL USUARIO QUE HAGA FALTA*/
-						setStore({current_user_data:{ nombre : result.userdata.nombre}})
-						setStore({current_user_data:{ direccion : result.userdata.direccion}})
+						setStore({current_user_data:{...store.current_user_data, nombre : result.userdata.nombre}})
+						setStore({current_user_data:{...store.current_user_data, direccion : result.userdata.direccion}})
 						
 						return true
 					} else {
+						
 						return false
 					}
 
@@ -157,17 +160,40 @@ const getState = ({ getStore, getActions, setStore }) => {
 				return false;
 
 			},
-			search_handlinator : (address) =>{
+			search_handlinator : async (address) =>{
+				const store = getStore()
+				try {
+					const response = await fetch(process.env.BACKEND_URL + "/api/address", {
+						method : "POST",
+						body: JSON.stringify(address),
+						headers: {
+							'Content-Type': 'application/json'
+						}
+					})
+					const result = await response.json()
+					
+					if (response.status == 200){
+	
+						setStore({ current_user_data: {...store.current_user_data,direccion: result}})
+						
+						
+						return "exito"
+					} else {
+						
+						return result.message
+					}
 
-				/*add geopy stuff Here -------------------------------------------------------------------------------*/
+				}catch(error){
+					console.log("Error loading message from backend")
+				}		
 
-				setStore({user: {direccion: address}})
+				
 				
 			},
 			category_loadinator : () =>{
 				
 				  
-				fetch("https://diuca-x-congenial-space-trout-x66jxv9w4r526v9q-3001.preview.app.github.dev/api/category", {
+				fetch(process.env.BACKEND_URL + "/api/category", {
 					method:"GET",
 					headers: { 
 						"Content-Type": "application/json",
@@ -175,8 +201,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 				})
 				.then(response => response.json())
 				.then(result =>setStore({"categories" : result.categories }) )
-					/*setStore({"categories" : result.categories }) */
 				.catch(error => console.log('error', error));
+			},
+			top_5_loadinator: () =>{
+				fetch(process.env.BACKEND_URL + "/api/top_sales", {
+					method:"GET",
+					headers: { 
+						"Content-Type": "application/json",
+						} 
+				})
+				.then(response => response.json())
+				.then(result => setStore({top_5: result.top_5_data}))
+				.catch(error => console.log('error', error));
+
 			}
 
 

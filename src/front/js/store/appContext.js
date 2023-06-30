@@ -29,6 +29,7 @@ const injectContext = PassedComponent => {
 			 * store, instead use actions, like this:
 			 **/
 			state.actions.category_loadinator()
+			state.actions.top_5_loadinator()
 
 			// state.actions.getMessage(); // <---- calling this function from the flux.js actions
 		}, []);

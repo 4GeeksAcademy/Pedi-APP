@@ -33,9 +33,8 @@ const Categories = () =>{
     return(
 
         <>
-            <div className=" home_categories_row row text-center flex-row flex-nowrap overflow-auto carrousel">
+            <div className=" home_categories_row row text-center flex-row flex-nowrap overflow-auto ">
                 {store.categories? store.categories.map((x,index) =>{
-                    console.log(x)
                     return (
                     <div className="home_foodbox  mx-3 my-5" key= {x}>
                         <img src={`/${x}.png`} alt="..." className="home_categoryimg" />
