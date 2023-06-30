@@ -2,13 +2,13 @@
     General Styles used on every website (Don't Repeat Yourself)
 */
 /* Extra small devices (phones, 600px and down) */
-.login_page_container{
+.signupCliente_page_container{
     background: radial-gradient(at right,#C62828, #FFFFFF);
     background-position: 30%;
     display: flex;
     justify-content: center;
 }
-.all{
+.signupCliente_all{
     border-radius: 2rem;
     background-color: #FFFFFF;
     display: flex;
@@ -17,7 +17,7 @@
     width: 55rem;
     
 }
-.login_logo_container{
+.signupCliente_logo_container{
     align-items: center;
     justify-content:center;
     border-radius: 2rem;
@@ -25,35 +25,35 @@
     opacity: 0.92;
     height: 100%;
 }
-.login_logo{
+.signupCliente_logo{
     transform: rotate(-90deg);
 }
 
 
-
-
-.login_submit:hover{
+.signupCliente_submit:hover{
     background-color: #7A7676;
     color: black;
 }
+
+
 @media only screen and (max-width: 600px) {
-    .login_all{
-        height: 23rem;
+    .signupCliente_all{
+        height: 63rem;
         width: 37rem;
     }
-    .login_title{
+    .signupCliente_title{
         font-size: 2.3rem;
     }
-    .login_subtitle{
+    .signupCliente_subtitle{
         color: #7A7A7A;
         font-size: 0.7rem;
     
     }
-    .login_label{
+    .signupCliente_label{
         font-size: 0.8rem;
         color: #494848;
     }
-    .login_form_container{
+    .signupCliente_form_container{
         display: flex;
         flex-direction: column;
         text-align: start;
@@ -63,39 +63,42 @@
         justify-content: center;
         
     }
-    .login_submit{
-    
-        
-        width: 80%;
+    .signupCliente_submit{    
+        width: 100%;
         border: none;
         font-size: 16px;
         cursor: pointer;
-        text-align: center;
         background-color: #C62828;
         border-radius: 0.5rem;
-
     }
+
+    .signupCliente_submit:hover{
+        background-color: #D6D6D6;
+        color: #C62828;
+        font-weight: bold;
+    }
+
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
-    .login_all{
+    .signupCliente_all{
         height: 33rem;
         width: 35rem;
     }
-    .login_title{
+    .signupCliente_title{
         font-size: 2.8rem;
     }
-    .login_subtitle{
+    .signupCliente_subtitle{
         color: #7A7A7A;
         font-size: 0.8rem;
     
     }
-    .login_label{
+    .signupCliente_label{
         font-size: 1.2rem;
         color: #494848;
     }
-    .login_form_container{
+    .signupCliente_form_container{
         display: flex;
         flex-direction: column;
         text-align: start;
@@ -103,7 +106,7 @@
         padding: 3rem;
     }
    
-    .login_submit{
+    .signupCliente_submit{
     
         display: block;
         width: 100%;
@@ -121,30 +124,45 @@
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-    /*  Start of Login */
-    .login_all{
+
+    .signupCliente_all{
         height: 35rem;
         width: 42rem;
     }
-    .login_title{
+    .signupCliente_title{
         font-size: 3rem;
     }
-    .login_subtitle{
+    .signupCliente_subtitle{
         color: #7A7A7A;
         font-size: 1rem;
     
     }
-    .login_label{
+    .signupCliente_label{
         font-size: 1.4rem;
         color: #494848;
     }
    
 
-    /*  end of Login */
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
+    .signupCliente_all{
+        height: 35rem;
+        width: 42rem;
+    }
+    .signupCliente_title{
+        font-size: 3rem;
+    }
+    .signupCliente_subtitle{
+        color: #7A7A7A;
+        font-size: 1rem;
+    
+    }
+    .signupCliente_label{
+        font-size: 1.4rem;
+        color: #494848;
+    }
     
 }
 
