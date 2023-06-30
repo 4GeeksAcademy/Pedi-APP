@@ -61,6 +61,7 @@ class Empresa (db.Model):
     reserva = db.Column(db.Boolean(), unique=False, nullable=False)
     delivery = db.Column(db.Boolean(), unique=False, nullable=False)
     idUsuario = db.Column(db.Integer, db.ForeignKey('usuario.id'), nullable=False)
+    imagen = db.Column(db.String(100000), unique=False, nullable=False)
 
     productos = db.relationship("Productos" , backref = "empresa", lazy = True)
     horarios = db.relationship("HorariosEmpresas" , backref = "empresa", lazy = True)
@@ -80,7 +81,8 @@ class Empresa (db.Model):
             "cif": self.cif,
             "reserva": self.reserva,
             "delivery": self.delivery,
-            "idUsuario": self.idUsuario
+            "idUsuario": self.idUsuario,
+            "imagen": self.imagen
             # do not serialize the password, its a security breach
         }
     
