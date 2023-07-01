@@ -77,11 +77,10 @@
         background-color: #C62828;
         border-radius: 0.5rem;
         font-weight: bold;
+        margin-top: 1rem;
 
     }
-    .login_logo_container{
-        display: flex;
-    }
+    
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -122,6 +121,7 @@
         background-color: #C62828;
         border-radius: 0.5rem;
         margin-top: 3rem;
+        font-weight: bold;
 
     }
 }
