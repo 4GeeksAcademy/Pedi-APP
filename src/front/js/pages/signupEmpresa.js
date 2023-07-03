@@ -61,7 +61,8 @@ export const SingupEmpresa = () => {
     //       }));
     //     };
     //   };
-      
+    let img_uploaded = false
+
     const handleCheckboxChange = (fieldName) => {
         return (event) => {
           setFormData({ ...formData, [fieldName]: event.target.checked });
@@ -72,14 +73,15 @@ export const SingupEmpresa = () => {
 
     const handleSignupCompanies = (e) => {
         e.preventDefault()
-        if (formData.nombre === "" && formData.cif === "" && formData.calleNumero === "" && formData.pisoPuerta === "" && formData.codigoPostal === "" && formData.ciudad === "" && formData.estado === "") {
+        
+        if (formData.nombre === "" && formData.cif === "" && formData.calleNumero === "" && formData.pisoPuerta === "" && formData.codigoPostal === "" && formData.ciudad === "" && formData.estado === "" && formData.img) {
             return  Swal.fire("Check all the fields");
           }
           else if (formData.terminosCondiciones === false){
             return Swal.fire("You have to agree to Terms and Conditions to be able to signup")
           }
         else{
-            actions.signupEmpresa(formData.nombre, formData.cif, formData.calleNumero, formData.pisoPuerta, formData.codigoPostal, formData.estado, formData.ciudad, formData.delivery, formData.reserva, formData.mañana, formData.tarde, formData.terminosCondiciones);
+            actions.signupEmpresa( formData.nombre,  formData.cif,  formData.calleNumero, formData.pisoPuerta, formData.codigoPostal, formData.estado, formData.ciudad, formData.delivery, formData.reserva, formData.mañana, formData.tarde, formData.img);
             navigate('/', { replace: true });}
     };
 
@@ -87,18 +89,19 @@ export const SingupEmpresa = () => {
     const uploadFile = async (e) => {
         const file = e.target.files[0];
         if (file != null) {
-            const data = new FormData();
+            let data = new FormData();
             data.append('company_img', file);
-            console.log(data)
             const img = await actions.img_uploadinator(data)
-            /*do something with this, do 
-            if (img.message = "exito"){
+            console.log(img)
+            if (img.message == "Max image size is 10MB"){
+                Swal.fire(img.message)
+            } else if (img.message == "exito"){
+                img_uploaded = true
+                console.log({...formData, img: img.img})
                 setFormData({...formData, img: img.img})
             } else {
                 Swal.fire(img.message)
-            }*/
-            
-          
+            }
         }
       };
 
@@ -147,7 +150,7 @@ export const SingupEmpresa = () => {
                         </div>
                         <div>
                             <label htmlFor="company_img" className="form-label">Upload an image for your business</label>
-                            <input className="form-control form-control" id="company_img" type="file" onChange={(e) => {uploadFile(e)}}/>
+                            <input className="form-control form-control" id="company_img" type="file" onChange={(e) => {uploadFile(e)}} required/>
                         </div>
                         <p>Are you doing?</p>
                         <div className="row">
