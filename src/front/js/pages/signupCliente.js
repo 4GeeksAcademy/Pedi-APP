@@ -125,7 +125,7 @@ export const SingupCliente = () => {
                 />
               </div>
               <div className="row">
-                <div className="col-12 col-sm-5 mb-3">
+                <div className="col-12 col-md-12 col-sm-12 mb-3">
                   <label
                     htmlFor="exampleInputPassword1"
                     className="form-label signupCliente_label"
@@ -144,7 +144,7 @@ export const SingupCliente = () => {
                     required
                   />
                 </div>
-                <div className="col-12 col-sm-5 mb-3">
+                <div className="col-12 col-md-6 col-sm-6 mb-3">
                   <label
                     htmlFor="exampleInputPassword1"
                     className="form-label signupCliente_label"
@@ -166,7 +166,7 @@ export const SingupCliente = () => {
                     required
                   />
                 </div>
-                <div className="col-12 col-sm-5 mb-3">
+                <div className="col-12 col-md-6 col-sm-6 mb-3">
                   <label
                     htmlFor="exampleInputPassword1"
                     className="form-label signupCliente_label"
@@ -189,7 +189,7 @@ export const SingupCliente = () => {
               </div>
               <p className="signupCliente_label">Adress</p>
               <div className="row">
-                <div className="col-12 col-sm-5 mb-3">
+                <div className="col-12 col-sm-6 mb-3">
                   <input
                     type="lastName"
                     className="form-control"
@@ -205,7 +205,7 @@ export const SingupCliente = () => {
                     required
                   />
                 </div>
-                <div className="col-12 col-sm-5 mb-3">
+                <div className="col-12 col-sm-6 mb-3">
                   <input
                     type="lastName"
                     className="form-control"
@@ -223,7 +223,7 @@ export const SingupCliente = () => {
                 </div>
               </div>
               <div className="row">
-                <div className="col-12 col-sm-5 mb-3">
+                <div className="col-12 col-sm-6 mb-3">
                   <input
                     type="lastName"
                     className="form-control"
@@ -238,7 +238,7 @@ export const SingupCliente = () => {
                     }}
                   />
                 </div>
-                <div className="col-12 col-sm-5 mb-3">
+                <div className="col-12 col-sm-6 mb-3">
                   <input
                     type="lastName"
                     className="form-control"
@@ -256,7 +256,7 @@ export const SingupCliente = () => {
                 </div>
               </div>
               <div className="row">
-                <div className="col-12 col-sm-5 mb-3">
+                <div className="col-12 col-sm-6 mb-3">
                   <input
                     type="lastName"
                     className="form-control"
@@ -270,7 +270,7 @@ export const SingupCliente = () => {
                     required
                   />
                 </div>
-                <div className="col-12 col-sm-5 mb-3">
+                <div className="col-12 col-sm-6 mb-3">
                   <input
                     type="lastName"
                     className="form-control"

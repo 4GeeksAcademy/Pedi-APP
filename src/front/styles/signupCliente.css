@@ -13,7 +13,7 @@
     background-color: #FFFFFF;
     display: flex;
     justify-content: end;
-    height: 50rem;
+    height: 90rem;
     width: 55rem;
     
 }
@@ -83,8 +83,8 @@
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
     .signupCliente_all{
-        height: 33rem;
-        width: 35rem;
+        height: 58rem;
+        width: 37rem;
     }
     .signupCliente_title{
         font-size: 2.8rem;
@@ -120,17 +120,24 @@
         margin-top: 3rem;
 
     }
+
+    .signupCliente_submit:hover{
+        background-color: #D6D6D6;
+        color: #C62828;
+        font-weight: bold;
+    }
+
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
 
     .signupCliente_all{
-        height: 35rem;
-        width: 42rem;
+        height: 57rem;
+        width: 37rem;
     }
     .signupCliente_title{
-        font-size: 3rem;
+        font-size: 2.9rem;
     }
     .signupCliente_subtitle{
         color: #7A7A7A;
@@ -141,14 +148,19 @@
         font-size: 1.4rem;
         color: #494848;
     }
-   
+    
+    .signupCliente_submit:hover{
+        background-color: #D6D6D6;
+        color: #C62828;
+        font-weight: bold;
+    }
 
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
     .signupCliente_all{
-        height: 35rem;
+        height: 56rem;
         width: 42rem;
     }
     .signupCliente_title{
@@ -164,6 +176,11 @@
         color: #494848;
     }
     
+    .signupCliente_submit:hover{
+        background-color: #D6D6D6;
+        color: #C62828;
+        font-weight: bold;
+    }
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */

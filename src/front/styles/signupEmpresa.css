@@ -49,7 +49,7 @@ input[type="checkbox"]:checked {
 
 @media only screen and (max-width: 600px) {
     .signupcompany_all{
-        height: 23rem;
+        height: 33rem;
         width: 37rem;
     }
     .signupcompany_title{
