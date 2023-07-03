@@ -214,6 +214,31 @@ const getState = ({ getStore, getActions, setStore }) => {
 				.then(result => setStore({top_5: result.top_5_data}))
 				.catch(error => console.log('error', error));
 
+			},
+			img_uploadinator: async (img) =>{
+				const store = getStore()
+				try {
+					const response = await fetch(process.env.BACKEND_URL + "/api/companyimg", {
+						method : "POST",
+						body: img,
+						headers: {
+						'Content-Type': 'multipart/form-data',
+						}
+					})
+					const result = await response.json()
+					
+					if (response.status == 200){
+
+						console.log(result)
+						return "exito"
+					} else {
+						
+						return result.message
+					}
+
+				}catch(error){
+					console.log("Error loading message from backend")
+				}		
 			}
 
 

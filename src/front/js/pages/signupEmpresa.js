@@ -83,9 +83,26 @@ export const SingupEmpresa = () => {
             navigate('/', { replace: true });}
     };
 
-    useEffect(() => {
-         console.log(formData);
-     }, [formData]);
+    // the react post request sender
+    const uploadFile = async (e) => {
+        const file = e.target.files[0];
+        if (file != null) {
+            const data = new FormData();
+            data.append('company_img', file);
+            console.log(data)
+            const img = await actions.img_uploadinator(data)
+            /*do something with this, do 
+            if (img.message = "exito"){
+                setFormData({...formData, img: img.img})
+            } else {
+                Swal.fire(img.message)
+            }*/
+            
+          
+        }
+      };
+
+    
 
     return(
         <>
@@ -122,11 +139,15 @@ export const SingupEmpresa = () => {
                         </div>
                         <div className="row">
                             <div className="col-6 mb-3">
-                                <input type="lastName" className="form-control" id="city" placeholder="City" value={formData.ciudad} onChange={(data) => {setFormData({...formData, ciudad: data.target.value}); console.log(formData)}} required/>
+                                <input type="lastName" className="form-control" id="city" placeholder="City" value={formData.ciudad} onChange={(data) => {setFormData({...formData, ciudad: data.target.value})}} required/>
                             </div>
                             <div className="col-6 mb-3">
-                                <input className="form-control" id="state" placeholder="State" value={formData.estado} onChange={(data) => {setFormData({...formData, estado: data.target.value}); console.log(formData)}} required/>
+                                <input className="form-control" id="state" placeholder="State" value={formData.estado} onChange={(data) => {setFormData({...formData, estado: data.target.value}) }} required/>
                             </div>
+                        </div>
+                        <div>
+                            <label htmlFor="company_img" className="form-label">Upload an image for your business</label>
+                            <input className="form-control form-control" id="company_img" type="file" onChange={(e) => {uploadFile(e)}}/>
                         </div>
                         <p>Are you doing?</p>
                         <div className="row">
