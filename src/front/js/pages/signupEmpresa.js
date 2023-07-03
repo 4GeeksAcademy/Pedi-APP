@@ -57,7 +57,7 @@ export const SingupEmpresa = () => {
                 <div className="col-sm-8 col-12 signupcompany_form_container ">
                     <h1 className="signupcompany_title">Signup Company</h1>
                     <p className="signupcompany_subtitle">Welcome! Please sign up</p>
-                    <form className="col-12 col-md-12 mb-3 mx-auto" >
+                    <form className="col-12 col-md-12 mb-3 mx-auto">
                         <div className="mb-3">
                             <label htmlFor="exampleInputEmail1" className="form-label signupcompany_label">Name</label>
                             <input type="nombre" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name" value={formData.nombre} onChange={(data) => {setFormData({...formData, nombre: data.target.value})}} required/>
@@ -110,7 +110,7 @@ export const SingupEmpresa = () => {
                             <input type="checkbox" className="form-check-input inputBox" id="exampleCheck4" checked={formData.terminosCondiciones} onChange={handleCheckboxChange('terminosCondiciones')}/>
                             <label className="form-check-label" htmlFor="exampleCheck1">I agree the <b>Terms and Conditions</b></label>
                         </div>
-                        <button type="submit" className="btn col-12 mb-2 login_submit">Sign up</button>
+                        <button type="submit" className="btn col-12 mb-2 signupcompany_submit">Sign up</button>
                     </form>
                 </div>
             </div>

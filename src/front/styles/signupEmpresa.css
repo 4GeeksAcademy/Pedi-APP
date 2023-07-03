@@ -49,7 +49,7 @@
 
 @media only screen and (max-width: 600px) {
     .signupcompany_all{
-        height: 56rem;
+        height: 59rem;
         width: 42rem;
     }
     .signupcompany_title{
@@ -94,7 +94,7 @@
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
     .signupcompany_all{
-        height: 61rem;
+        height: 64rem;
         width: 42rem;
     }
     .signupcompany_title{
@@ -141,7 +141,7 @@
 @media only screen and (min-width: 768px) {
     /*  Start of Login */
     .signupcompany_all{
-        height: 54rem;
+        height: 57rem;
         width: 42rem;
     }
     .signupcompany_title{
@@ -163,7 +163,6 @@
         padding: 3rem;
     }
     .signupcompany_submit{
-    
         display: block;
         width: 100%;
         border: none;
