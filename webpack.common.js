@@ -36,7 +36,9 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['*', '.js']
+    extensions: ['*', '.js'],
+    fallback: { crypto: false },
+    
   },
   plugins: [
     new HtmlWebpackPlugin({

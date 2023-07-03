@@ -11,11 +11,11 @@ export const Navbar = () => {
     <nav className="navbar">
       <div className="container-fluid">
         <Link to="/">
-          <h1 className="nav_title mx-5">DishDash</h1>
+          <h1 className="nav_title">DishDash</h1>
         </Link>
-        <div className="ml-auto mx-5">
+        <div className="ml-auto">
           <button
-            className="btn  me-4 nav_btn"
+            className="btn nav_btn_login"
             onClick={() => {
               navigate("/login", { replace: true });
             }}
@@ -23,7 +23,7 @@ export const Navbar = () => {
             Login
           </button>
           <button
-            className="btn nav_btn"
+            className="btn nav_btn_signup"
             onClick={() => {
               navigate("/signup", { replace: true });
             }}

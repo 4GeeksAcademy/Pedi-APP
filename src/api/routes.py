@@ -20,6 +20,7 @@ from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
+from geopy.geocoders import Nominatim
 
 api = Blueprint("api", __name__)
 
@@ -43,13 +44,14 @@ def loginator():
         return jsonify({"message": "Missing mail or password"}), 400
     else:
         user = Usuario.query.filter_by(email=email, password=password).first()
-
+        
         if not user:
             return jsonify({"message": "Wrong username or password"}), 400
         else:
             role = user.role
-
+            
             if role == "cliente":
+                
                 user_data = user.cliente[0].serialize()
             elif role == "empresa":
                 user_data = user.empresa[0].serialize()
@@ -67,12 +69,11 @@ def loginator():
             
 
             user_data["email"] = user.email
-            user_data["direccion"] = user.direccion
+            user_data["direccion"] = geopy_processinator(user.direccion).address #esto hay que ponerlo en el signup en realidad -----------------------------
             user_data["role"] = user.role
 
                 
             return jsonify({"userdata": user_data, "token": token, "message":"login success"}),200
-            
 
 @api.route("/signupCliente", methods = ["POST"])
 def signupCliente():
@@ -116,49 +117,38 @@ def signupCliente():
 @api.route("/signupEmpresa", methods = ["POST"])
 def signupEmpresa():
     data = request.json
-    email = data.get['email']
-    password = data.get['password']
+    email = data.get("email")
+    password = data.get("password")
     role = "Empresa"
-    direccion = data.get['direccion']
-    cif = data.get['cif']
-    nombre = data.get['nombre']
-    reserva = data.get['reserva'] 
-    delivery = data.get['delivery'] 
-    mañana = data.get['mañana']
-    tarde = data.get['tarde']
+    direccion = data.get("direccion")
+    cif = data.get("cif")
+    nombre = data.get("nombre")
+    reserva = data.get("reserva") 
+    delivery = data.get("delivery")
+    # dia = data.get("dia")
+    mañana = data.get("mañana")
+    tarde = data.get("tarde")
 
-    if not email or not password:
-        return jsonify({"message": "Por favor introduce un email o password válidos"})
+    if not email or not password or not cif or not direccion:
+        return jsonify({"message": "Por favor introduce un email, password, dirección y cif válidos"}),400
     
     existe = Usuario.query.filter_by(email=email).first()
-    print(existe)
     if existe: 
-        return jsonify({"message": "el usuario existe"})
+        return jsonify({"message": "el usuario existe"}), 400
 
-    addUsuario = Usuario(email = email, password = password, role = role, direccion = direccion)
+    addUsuario = Usuario(role = role, email = email, password = password,  direccion = direccion)
     db.session.add(addUsuario)
     db.session.commit()
 
-    id_usuario = Usuario.query.filter_by(email=email).first()
-
-    addEmpresa = Empresa(cif = cif, nombre = nombre, reserva = reserva, delivery = delivery, is_active=True, idUsuario = id_usuario.id)
+    addEmpresa = Empresa(nombre = nombre, cif = cif, is_active=True, reserva = reserva, delivery = delivery, idUsuario = addUsuario.id)
     db.session.add(addEmpresa)
     db.session.commit()
 
-    id_empresa = Empresa.query.filter_by().first()
-
-    addHorario = HorariosEmpresas(mañana = mañana, tarde = tarde, idEmpresa = id_empresa)
+    addHorario = HorariosEmpresas(mañana = mañana, tarde = tarde, idEmpresa = addEmpresa.id)
     db.session.add(addHorario)
     db.session.commit()
 
-    print(data)
-
-    return jsonify({"message": "Sign up successfull"})
-
-    # mañana = True if data['mañana'] == "true" else False
-    # tarde = True if data['tarde'] == "true" else False
-    # delivery = True if data['delivery'] == "true" else False
-    # reserva = True if data['reserva'] == "true" else False
+    return jsonify({"message": "Sign up successfull"}),200
 
 @api.route("/category", methods = ["POST"])
 def category_creatinator():
@@ -176,3 +166,74 @@ def category_creatinator():
     db.session.commit()
 
     return jsonify({"message": "añadido"})
+
+@api.route("/category", methods = ["get"])
+def category_loadinator():
+    all_categories = TipoComida.query.all()
+    serialized_categories = []
+    for i in all_categories:
+        serialized_categories.append(i.serialize()["tipoComida"])
+    
+    
+    return jsonify({"message": "returned", "categories":serialized_categories})
+
+
+@api.route("/top_sales", methods = ["GET"])
+def top_sales_loadinator():
+
+    companys = Empresa.query.all()
+    companys_id = {}
+    for i in companys:
+        companys_id[i.id] = 0 
+
+    facturas = Factura.query.all()
+    for i in facturas:
+        companys_id[i.idEmpresa] += 1
+
+   
+
+    sorted_companys_id =  sorted(companys_id, key=companys_id.get, reverse=True)
+    
+    c = 0
+    top_5 = []
+    while(c<5):
+        if(c > len(sorted_companys_id)-1):
+            break
+
+        top_5.append(sorted_companys_id[c])
+
+        c+=1
+
+    data_to_return = []
+    for i in companys:
+        id ( i.id in top_5 )
+        company = i.serialize()
+        data_to_return.append(company)
+
+
+    return jsonify({"top_5_data":data_to_return})
+
+@api.route("/address", methods = ["POST"])
+def address_convertinator():
+
+    data = request.json
+    address = data.get("address")
+    
+
+    
+    location = geopy_processinator(address)
+    if (location == None):
+        return jsonify({"message": "Address not found try again"}),400
+    
+    lat_lon = [location.latitude,location.longitude]
+    
+
+
+
+    return jsonify({"coordinates": lat_lon, "address":location.address}),200
+
+
+def geopy_processinator(address):
+    geolocator = Nominatim(user_agent="dishdash")
+    location = geolocator.geocode(address,language="es")
+    return location
