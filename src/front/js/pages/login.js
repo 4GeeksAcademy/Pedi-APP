@@ -25,12 +25,12 @@ const Login = () => {
 
   return (
     <>
-      <div className="container-fluid text-center mt-5 login_page_container p-5 ">
+      <div className="container-fluid text-center  login_page_container p-5 ">
         <div className="row login_all ">
-          <div className="col-4 d-flex login_logo_container">
+          <div className="col-sm-4 d-none d-sm-flex login_logo_container">
             <p className="login_logo border">dishdash</p>
           </div>
-          <div className="col-8 login_form_container ">
+          <div className="col-sm-8 col-12 login_form_container ">
             <h1 className="login_title">Login</h1>
             <p className="login_subtitle">
               Welcome back! Please login to your account
@@ -50,6 +50,7 @@ const Login = () => {
                   className="form-control"
                   id="email"
                   aria-describedby="emailHelp"
+                  placeholder="Enter your email"
                   onChange={(e) => {
                     user_setinator(e);
                   }}
@@ -64,6 +65,7 @@ const Login = () => {
                   type="password"
                   className="form-control"
                   id="password"
+                  placeholder="Enter your password"
                   onChange={(e) => {
                     user_setinator(e);
                   }}

@@ -14,7 +14,9 @@
     display: flex;
     justify-content: end;
     
+    
 }
+
 .login_logo_container{
     align-items: center;
     justify-content:center;
@@ -22,14 +24,17 @@
     background-color: #C62828;
     opacity: 0.92;
     height: 100%;
+    
+    
 }
 .login_logo{
     transform: rotate(-90deg);
 }
 
 .login_submit:hover{
-    background-color: #7A7676;
-    color: black;
+    background-color: #d6d6d6;
+    color: #C62828;
+    font-weight: bold;
 }
 @media only screen and (max-width: 600px) {
     .login_all{
@@ -38,38 +43,44 @@
     }
     .login_title{
         font-size: 2.3rem;
+        text-align: center;
     }
     .login_subtitle{
         color: #7A7A7A;
         font-size: 0.7rem;
+        text-align: center;
     
     }
     .login_label{
         font-size: 0.8rem;
         color: #494848;
+        
     }
     .login_form_container{
         display: flex;
         flex-direction: column;
         text-align: start;
         padding-top: 1rem;
-        padding-left: 1rem;
-        padding-right: 1rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
         justify-content: center;
         
     }
     .login_submit{
     
         
-        width: 80%;
+        width: 100%;
         border: none;
         font-size: 16px;
         cursor: pointer;
         text-align: center;
         background-color: #C62828;
         border-radius: 0.5rem;
+        font-weight: bold;
+        margin-top: 1rem;
 
     }
+    
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -110,6 +121,7 @@
         background-color: #C62828;
         border-radius: 0.5rem;
         margin-top: 3rem;
+        font-weight: bold;
 
     }
 }
@@ -147,3 +159,4 @@
 @media only screen and (min-width: 1200px) {
     
 }
+
