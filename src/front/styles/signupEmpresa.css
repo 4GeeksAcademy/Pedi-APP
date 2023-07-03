@@ -8,12 +8,12 @@
     display: flex;
     justify-content: center;
 }
-.all{
+.signupcompany_all{
     border-radius: 2rem;
     background-color: #FFFFFF;
     display: flex;
     justify-content: end;
-    height: 55rem;
+    height: 60rem;
     width: 55rem;
     
 }
@@ -34,7 +34,7 @@
     color: black;
 }
 
-input[type="checkbox"]:checked {
+.inputBox[type="checkbox"]:checked {
     background-color: #C62828;
     box-shadow: 0 0 5px red;
     border: #C62828;
@@ -49,11 +49,11 @@ input[type="checkbox"]:checked {
 
 @media only screen and (max-width: 600px) {
     .signupcompany_all{
-        height: 33rem;
-        width: 37rem;
+        height: 56rem;
+        width: 42rem;
     }
     .signupcompany_title{
-        font-size: 2.3rem;
+        font-size: 2.7rem;
     }
     .signupcompany_subtitle{
         color: #7A7A7A;
@@ -75,24 +75,27 @@ input[type="checkbox"]:checked {
         
     }
     .signupcompany_submit{
-    
-        
-        width: 80%;
+        width: 100%;
         border: none;
         font-size: 16px;
         cursor: pointer;
         text-align: center;
         background-color: #C62828;
         border-radius: 0.5rem;
-
     }
+    .signupCliente_submit:hover{
+        background-color: #D6D6D6;
+        color: #C62828;
+        font-weight: bold;
+    }
+
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
     .signupcompany_all{
-        height: 33rem;
-        width: 35rem;
+        height: 61rem;
+        width: 42rem;
     }
     .signupcompany_title{
         font-size: 2.8rem;
@@ -112,7 +115,6 @@ input[type="checkbox"]:checked {
         text-align: start;
         padding: 3rem;
     }
-   
     .signupcompany_submit{
     
         display: block;
@@ -127,17 +129,23 @@ input[type="checkbox"]:checked {
         margin-top: 3rem;
 
     }
+    .signupCliente_submit:hover{
+        background-color: #D6D6D6;
+        color: #C62828;
+        font-weight: bold;
+    }
+
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
     /*  Start of Login */
     .signupcompany_all{
-        height: 35rem;
+        height: 54rem;
         width: 42rem;
     }
     .signupcompany_title{
-        font-size: 3rem;
+        font-size: 2.8rem;
     }
     .signupcompany_subtitle{
         color: #7A7A7A;
@@ -145,11 +153,34 @@ input[type="checkbox"]:checked {
     
     }
     .signupcompany_label{
-        font-size: 1.4rem;
+        font-size: 1.3rem;
         color: #494848;
     }
-   
+    .signupcompany_form_container{
+        display: flex;
+        flex-direction: column;
+        text-align: start;
+        padding: 3rem;
+    }
+    .signupcompany_submit{
+    
+        display: block;
+        width: 100%;
+        border: none;
+        padding: 14px 28px;
+        font-size: 16px;
+        cursor: pointer;
+        text-align: center;
+        background-color: #C62828;
+        border-radius: 0.5rem;
+        margin-top: 3rem;
 
+    }
+    .signupCliente_submit:hover{
+        background-color: #D6D6D6;
+        color: #C62828;
+        font-weight: bold;
+    }
     /*  end of Login */
 }
 

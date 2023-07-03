@@ -288,7 +288,7 @@ export const SingupCliente = () => {
               <div className="mb-3 form-check">
                 <input
                   type="checkbox"
-                  className="form-check-input"
+                  className="form-check-input checkBox"
                   id="exampleCheck1"
                   checked={formData.terminosCondiciones}
                   onChange={handleCheckboxChange}

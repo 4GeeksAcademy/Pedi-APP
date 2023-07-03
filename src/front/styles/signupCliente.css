@@ -35,6 +35,12 @@
     color: black;
 }
 
+.checkBox[type="checkbox"]:checked {
+    background-color: #C62828;
+    box-shadow: 0 0 5px red;
+    border: #C62828;
+  }
+
 
 @media only screen and (max-width: 600px) {
     .signupCliente_all{
@@ -42,7 +48,7 @@
         width: 37rem;
     }
     .signupCliente_title{
-        font-size: 2.3rem;
+        font-size: 2.7rem;
     }
     .signupCliente_subtitle{
         color: #7A7A7A;
@@ -83,7 +89,7 @@
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
     .signupCliente_all{
-        height: 58rem;
+        height: 60rem;
         width: 37rem;
     }
     .signupCliente_title{
@@ -91,11 +97,11 @@
     }
     .signupCliente_subtitle{
         color: #7A7A7A;
-        font-size: 0.8rem;
+        font-size: 1rem;
     
     }
     .signupCliente_label{
-        font-size: 1.2rem;
+        font-size: 1.3rem;
         color: #494848;
     }
     .signupCliente_form_container{
@@ -107,7 +113,6 @@
     }
    
     .signupCliente_submit{
-    
         display: block;
         width: 100%;
         border: none;
@@ -145,8 +150,22 @@
     
     }
     .signupCliente_label{
-        font-size: 1.4rem;
+        font-size: 1.3rem;
         color: #494848;
+    }
+
+    .signupCliente_submit{
+        display: block;
+        width: 100%;
+        border: none;
+        padding: 14px 28px;
+        font-size: 16px;
+        cursor: pointer;
+        text-align: center;
+        background-color: #C62828;
+        border-radius: 0.5rem;
+        margin-top: 3rem;
+
     }
     
     .signupCliente_submit:hover{
@@ -172,7 +191,7 @@
     
     }
     .signupCliente_label{
-        font-size: 1.4rem;
+        font-size: 1.3rem;
         color: #494848;
     }
     
