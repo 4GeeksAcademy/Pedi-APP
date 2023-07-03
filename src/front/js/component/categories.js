@@ -31,6 +31,27 @@ import seafood from "../../img/seafood.png";
 const Categories = () =>{
     const {store,actions} = useContext(Context)
     return(
+       
+    //     const firstSixCategories = store.categories.slice(0, 6).map(item => item.id);   TENGO QUE QUITAR LA BARRA DE CARROUSEL
+    
+    //     return (
+    //         <>
+    //             <div className="home_categories_row row text-center flex-row flex-nowrap overflow-auto">
+    //                 {store.categories ? (
+    //                     firstSixCategories.map((x, index) => {
+    //                         return (
+    //                             <div className="home_foodbox col-3 col-md-6 mx-3 my-5" key={x}>
+    //                                 <img src={`/${x}.png`} alt="..." className="home_categoryimg" />
+    //                             </div>
+    //                         );
+    //                     })
+    //                 ) : (
+    //                     ""
+    //                 )}
+    //             </div>
+    //         </>
+    //     );
+    // }
 
         <>
             <div className=" home_categories_row row text-center flex-row flex-nowrap overflow-auto ">
