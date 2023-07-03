@@ -3,29 +3,21 @@ import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/signupCliente.css";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 export const SingupCliente = () => {
   const { store, actions } = useContext(Context);
   const [formComplete, setFormComplete] = useState(false);
   const navigate = useNavigate()
 
-  const handleSignupCliente = (e) => {
+  const handleSignupCliente = async (e) => {
     e.preventDefault();
     // actions.signupCliente(formData.nombre, formData.apellido, formData.telefono, formData.nacimiento, formData.sexo, formData.calleNumero, formData.pisoPuerta, formData.instrucciones, formData.codigoPostal, formData.estado, formData.ciudad, formData.terminosCondiciones)
-    if (
-      formData.nombre &&
-      formData.apellido &&
-      formData.telefono &&
-      formData.nacimiento &&
-      formData.sexo &&
-      formData.calleNumero &&
-      formData.pisoPuerta &&
-      formData.codigoPostal &&
-      formData.estado &&
-      formData.ciudad &&
-      formData.terminosCondiciones
-    ) {
-      actions.signupCliente(
+    if (formData.terminosCondiciones === false){
+      return Swal.fire("You have to agree to Terms and Conditions to be able to signup")
+    }
+    else {
+      const register = actions.signupCliente(
         formData.nombre,
         formData.apellido,
         formData.telefono,
@@ -39,10 +31,11 @@ export const SingupCliente = () => {
         formData.ciudad,
         formData.terminosCondiciones
       );
-      setFormComplete(true);
-      navigate('/');
-    } else {
-      console.log("Por favor, complete todos los campos requeridos.");
+      if (register){setFormComplete(true);
+        navigate('/');}
+      else {
+        return Swal.fire ("Address not found try again")
+      }
     }
   };
 

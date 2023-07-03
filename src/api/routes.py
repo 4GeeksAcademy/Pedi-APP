@@ -86,8 +86,7 @@ def signupCliente():
     nacimiento = data.get("nacimiento")
     sexo = data.get("sexo")
     direccion = data.get("direccion")
-
-
+    instrucciones = data.get("instrucciones")
 
     if not email or not password or not nombre or not apellido or not telefono:
         return jsonify({"message": "no email o contraseña"}),400
@@ -98,13 +97,18 @@ def signupCliente():
     if existe: 
         return jsonify({"message": "el usuario existe"})
     
-    addUsuario = Usuario(role="cliente", email=email, password=password, direccion=direccion)
+    realaddress = geopy_processinator(direccion)
+    print(realaddress.address)
+    if (realaddress == None):
+        return jsonify({"message": "Address not found try again"}),400
+    
+    addUsuario = Usuario(role="cliente", email=email, password=password, direccion=realaddress.address)
     db.session.add(addUsuario)
     db.session.commit()
 
     id_usuario = Usuario.query.filter_by(email=email).first()
 
-    addCliente = Cliente(nombre=nombre, apellido=apellido, sexo=sexo, nacimiento=nacimiento, telefono=telefono, is_active=True, idUsuario = id_usuario.id)
+    addCliente = Cliente(nombre=nombre, apellido=apellido, sexo=sexo, nacimiento=nacimiento, telefono=telefono, instrucciones=instrucciones, is_active=True, idUsuario = id_usuario.id)
     db.session.add(addCliente)
     db.session.commit()
 
@@ -136,7 +140,12 @@ def signupEmpresa():
     if existe: 
         return jsonify({"message": "el usuario existe"}), 400
 
-    addUsuario = Usuario(role = role, email = email, password = password,  direccion = direccion)
+    realaddress = geopy_processinator(direccion)
+    print(realaddress.address)
+    if (realaddress == None):
+        return jsonify({"message": "Address not found try again"}),400
+    
+    addUsuario = Usuario(role = role, email = email, password = password,  direccion = realaddress.address)
     db.session.add(addUsuario)
     db.session.commit()
 
