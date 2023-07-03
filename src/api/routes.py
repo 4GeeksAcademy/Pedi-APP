@@ -154,12 +154,12 @@ def signupEmpresa():
 def category_creatinator():
     
     tipo = request.json
-
+    tipotext = (tipo.get("tipo"))
     type = TipoComida(tipoComida = tipo.get("tipo"))
-
-    if type:
-        a = TipoComida.query.all()
-        print(a[0].tipoComida)
+    exists = TipoComida.query.filter_by(tipoComida = tipotext).first()
+    
+    if exists:
+        
         return jsonify({"message": "ya ta ese"})
 
     db.session.add(type)
