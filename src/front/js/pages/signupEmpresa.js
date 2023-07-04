@@ -71,7 +71,7 @@ export const SingupEmpresa = () => {
 
     const navigate = useNavigate()
 
-    const handleSignupCompanies = (e) => {
+    const handleSignupCompanies = async (e) => {
         e.preventDefault()
         
         if (formData.nombre === "" && formData.cif === "" && formData.calleNumero === "" && formData.pisoPuerta === "" && formData.codigoPostal === "" && formData.ciudad === "" && formData.estado === "" && formData.img) {
@@ -81,9 +81,12 @@ export const SingupEmpresa = () => {
             return Swal.fire("You have to agree to Terms and Conditions to be able to signup")
           }
         else{
-            actions.signupEmpresa( formData.nombre,  formData.cif,  formData.calleNumero, formData.pisoPuerta, formData.codigoPostal, formData.estado, formData.ciudad, formData.delivery, formData.reserva, formData.mañana, formData.tarde, formData.img);
-            navigate('/', { replace: true });}
-    };
+            const register = actions.signupEmpresa(formData.nombre, formData.cif, formData.calleNumero, formData.pisoPuerta, formData.codigoPostal, formData.estado, formData.ciudad, formData.delivery, formData.reserva, formData.mañana, formData.tarde, formData.terminosCondiciones);
+            if (register) {navigate('/', { replace: true });}
+            else {
+                 return Swal.fire ("Address not found try again")
+             }
+    }};
 
     // the react post request sender
     const uploadFile = async (e) => {
@@ -201,4 +204,3 @@ export const SingupEmpresa = () => {
     </>
     )
 }
-
