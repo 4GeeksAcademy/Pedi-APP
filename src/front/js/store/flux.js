@@ -69,8 +69,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 				});
 			},
-			signupEmpresa: (nombre, cif, calleNumero, pisoPuerta, codigoPostal, estado, ciudad, delivery, reserva, mañana, tarde) => {
+			signupEmpresa: (nombre, cif, calleNumero, pisoPuerta, codigoPostal, estado, ciudad, delivery, reserva, mañana, tarde,img) => {
 				const store = getStore()
+				console.log(nombre, cif, calleNumero, pisoPuerta, codigoPostal, estado, ciudad, delivery, reserva, mañana, tarde,img)
 				const newUser = { // lo que se ponga aquí tiene que coincidir con el back nombre: 
 					role: store.user.role,
 					email : store.user.email,
@@ -81,9 +82,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 					reserva: reserva,
 					delivery: delivery,
 					mañana: mañana,
-					tarde: tarde
+					tarde: tarde,
+					img : img
 					/*dia: {lunes,martes...} o 	dia: dia, o horario: {lunes: {mañana: "", tarde: ""}*/
 			}
+			console.log(newUser)
 			fetch(process.env.BACKEND_URL + "/api/signupEmpresa", {
 				method: "POST",
 				headers: {
@@ -214,6 +217,30 @@ const getState = ({ getStore, getActions, setStore }) => {
 				.then(result => setStore({top_5: result.top_5_data}))
 				.catch(error => console.log('error', error));
 
+			},
+			img_uploadinator: async (img) =>{
+				const store = getStore()
+				
+				
+				try {
+					const response = await fetch(process.env.BACKEND_URL + "/api/companyimg", {
+						method : "POST",
+						body: img
+						
+					})
+					const result = await response.json()
+					if(response.status == 400){
+						return {"message" : "Max image size is 10MB"}
+					}else if( response.status == 200){
+						return result
+					} else {					
+						return {"message" : "Error uploading image"}
+					}
+					
+
+				}catch(error){
+					console.log("Error loading message from backend")
+				}		
 			}
 
 
