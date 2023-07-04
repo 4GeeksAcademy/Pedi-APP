@@ -76,7 +76,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				});
 			},
 
-			signupEmpresa: async (nombre, cif, calleNumero, pisoPuerta, codigoPostal, estado, ciudad, delivery, reserva, mañana, tarde) => {
+			signupEmpresa: async (nombre, cif, calleNumero, pisoPuerta, codigoPostal, estado, ciudad, delivery, reserva, mañana, tarde,img) => {
 				const store = getStore()
 				console.log(nombre, cif, calleNumero, pisoPuerta, codigoPostal, estado, ciudad, delivery, reserva, mañana, tarde,img)
 				const newUser = { // lo que se ponga aquí tiene que coincidir con el back nombre: 
