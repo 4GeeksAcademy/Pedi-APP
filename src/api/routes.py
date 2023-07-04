@@ -21,9 +21,15 @@ from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
 from geopy.geocoders import Nominatim
+import os
+import cloudinary
+import cloudinary.uploader
+
+
 
 api = Blueprint("api", __name__)
 
+cloudinary.config(cloud_name = os.getenv('CLOUD_NAME'), api_key=os.getenv('API_KEY'), api_secret=os.getenv('API_SECRET'))
 
 @api.route("/hello", methods=["POST", "GET"])
 def handle_hello():
@@ -132,6 +138,7 @@ def signupEmpresa():
     # dia = data.get("dia")
     mañana = data.get("mañana")
     tarde = data.get("tarde")
+    img = data.get("img")
 
     if not email or not password or not cif or not direccion:
         return jsonify({"message": "Por favor introduce un email, password, dirección y cif válidos"}),400
@@ -149,7 +156,7 @@ def signupEmpresa():
     db.session.add(addUsuario)
     db.session.commit()
 
-    addEmpresa = Empresa(nombre = nombre, cif = cif, is_active=True, reserva = reserva, delivery = delivery, idUsuario = addUsuario.id)
+    addEmpresa = Empresa(nombre = nombre, cif = cif, is_active=True, reserva = reserva, delivery = delivery, idUsuario = addUsuario.id, imagen = img)
     db.session.add(addEmpresa)
     db.session.commit()
 
@@ -163,18 +170,19 @@ def signupEmpresa():
 def category_creatinator():
     
     tipo = request.json
-
+    tipotext = (tipo.get("tipo"))
     type = TipoComida(tipoComida = tipo.get("tipo"))
 
-    if type:
-        a = TipoComida.query.all()
-        print(a[0].tipoComida)
+    exists = TipoComida.query.filter_by(tipoComida = tipotext).first()
+    
+    if exists:
         return jsonify({"message": "ya ta ese"})
 
     db.session.add(type)
     db.session.commit()
 
     return jsonify({"message": "añadido"})
+
 
 @api.route("/category", methods = ["get"])
 def category_loadinator():
@@ -185,6 +193,7 @@ def category_loadinator():
     
     
     return jsonify({"message": "returned", "categories":serialized_categories})
+
 
 
 @api.route("/top_sales", methods = ["GET"])
@@ -200,7 +209,6 @@ def top_sales_loadinator():
         companys_id[i.idEmpresa] += 1
 
    
-
     sorted_companys_id =  sorted(companys_id, key=companys_id.get, reverse=True)
     
     c = 0
@@ -240,6 +248,27 @@ def address_convertinator():
 
 
     return jsonify({"coordinates": lat_lon, "address":location.address}),200
+
+
+@api.route("/companyimg", methods=['POST'])
+def img_uploadinator():
+        
+
+    try:
+        
+        file_to_upload = request.files['company_img']
+        
+        if file_to_upload:
+            upload_result = cloudinary.uploader.upload(file_to_upload)
+            print(upload_result)
+            if upload_result:
+                return jsonify({"message" : "exito", "img" : upload_result.get("secure_url")}),200
+            
+    except Exception as ex:
+        print(ex)
+
+    return jsonify({"message" : "error"}),400
+    
 
 
 def geopy_processinator(address):
