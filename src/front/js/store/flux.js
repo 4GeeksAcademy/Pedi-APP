@@ -62,7 +62,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					Swal.fire(result.message)
 					if(response.status == 200){
 						console.log(response)
+						return true
 					}
+					return false
 				}catch(error) {console.log(error)
 				}
 			},
@@ -105,7 +107,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					Swal.fire(result.message)
 					if(response.status == 200){
 						console.log(response)
+						return true
 					}
+					return false
 				}catch(error) {console.log(error)
 				}
 			},

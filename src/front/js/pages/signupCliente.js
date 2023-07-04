@@ -28,13 +28,14 @@ export const SingupCliente = () => {
         formData.instrucciones,
         formData.codigoPostal,
         formData.estado,
-        formData.ciudad,
-        formData.terminosCondiciones
+        formData.ciudad
       );
-      if (register){setFormComplete(true);
-        navigate('/');}
+      if (register == true){
+        setFormComplete(true);
+        navigate('/');
+      }
       else {
-        return Swal.fire ("Address not found try again")
+        Swal.fire ("Address not found try again")
       }
     }
   };

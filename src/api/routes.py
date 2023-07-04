@@ -104,8 +104,7 @@ def signupCliente():
         return jsonify({"message": "el usuario existe"})
     
     realaddress = geopy_processinator(direccion)
-    print(realaddress.address)
-    if (realaddress == None):
+    if (not realaddress ):
         return jsonify({"message": "Address not found try again"}),400
     
     addUsuario = Usuario(role="cliente", email=email, password=password, direccion=realaddress.address)
@@ -146,9 +145,11 @@ def signupEmpresa():
     existe = Usuario.query.filter_by(email=email).first()
     if existe: 
         return jsonify({"message": "el usuario existe"}), 400
+    #cif existe = Empresafsagfsa (cif =cif)
+    #if existe: 
+    #    return jsonify({"message": "el cif existe"}), 400
 
     realaddress = geopy_processinator(direccion)
-    print(realaddress.address)
     if (realaddress == None):
         return jsonify({"message": "Address not found try again"}),400
     
