@@ -107,6 +107,8 @@ def signupCliente():
     if (not realaddress ):
         return jsonify({"message": "Address not found try again"}),400
     
+    
+    
     addUsuario = Usuario(role="cliente", email=email, password=password, direccion=realaddress.address)
     db.session.add(addUsuario)
     db.session.commit()
