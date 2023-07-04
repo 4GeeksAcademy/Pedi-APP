@@ -17,7 +17,7 @@ export const SingupCliente = () => {
       return Swal.fire("You have to agree to Terms and Conditions to be able to signup")
     }
     else {
-      const register = actions.signupCliente(
+      const register = await actions.signupCliente(
         formData.nombre,
         formData.apellido,
         formData.telefono,
@@ -31,11 +31,12 @@ export const SingupCliente = () => {
         formData.ciudad
       );
       if (register == true){
-        setFormComplete(true);
-        navigate('/');
+        setFormComplete(true)
+        navigate('/')
       }
       else {
-        Swal.fire ("Address not found try again")
+        if (register == false) {
+          Swal.fire ("Address not found try again")}
       }
     }
   };
@@ -146,7 +147,7 @@ export const SingupCliente = () => {
                     Birthdate
                   </label>
                   <input
-                    type="lastName"
+                    type="date"
                     className="form-control"
                     id="exampleInputPassword1"
                     placeholder="Birth Date"

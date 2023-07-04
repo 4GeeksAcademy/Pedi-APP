@@ -31,6 +31,11 @@ api = Blueprint("api", __name__)
 
 cloudinary.config(cloud_name = os.getenv('CLOUD_NAME'), api_key=os.getenv('API_KEY'), api_secret=os.getenv('API_SECRET'))
 
+def geopy_processinator(address):
+    geolocator = Nominatim(user_agent="dishdash")
+    location = geolocator.geocode(address, language="es", timeout=None)
+    return location
+
 @api.route("/hello", methods=["POST", "GET"])
 def handle_hello():
     response_body = {
@@ -86,6 +91,7 @@ def signupCliente():
     data = request.json
     email = data.get("email")
     password = data.get("password")
+    role = "Cliente"
     nombre = data.get("nombre")
     apellido = data.get("apellido")
     telefono = data.get("telefono")
@@ -99,12 +105,11 @@ def signupCliente():
     
     existe = Usuario.query.filter_by(email=email).first()
     
-    
     if existe: 
         return jsonify({"message": "el usuario existe"})
     
     realaddress = geopy_processinator(direccion)
-    if (not realaddress ):
+    if (realaddress == None) :
         return jsonify({"message": "Address not found try again"}),400
     
     addUsuario = Usuario(role="cliente", email=email, password=password, direccion=realaddress.address)
@@ -142,12 +147,13 @@ def signupEmpresa():
     if not email or not password or not cif or not direccion:
         return jsonify({"message": "Por favor introduce un email, password, dirección y cif válidos"}),400
     
-    existe = Usuario.query.filter_by(email=email).first()
-    if existe: 
+    existemail = Usuario.query.filter_by(email=email).first()
+    if existemail: 
         return jsonify({"message": "el usuario existe"}), 400
-    #cif existe = Empresafsagfsa (cif =cif)
-    #if existe: 
-    #    return jsonify({"message": "el cif existe"}), 400
+    
+    existecif = Empresa.query.filter_by(cif=cif).first()
+    if existecif:
+        return jsonify({"message": "el usuario existe"}), 400
 
     realaddress = geopy_processinator(direccion)
     if (realaddress == None):
@@ -272,7 +278,4 @@ def img_uploadinator():
     
 
 
-def geopy_processinator(address):
-    geolocator = Nominatim(user_agent="dishdash")
-    location = geolocator.geocode(address,language="es")
-    return location
+
