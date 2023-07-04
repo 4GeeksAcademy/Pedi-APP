@@ -71,15 +71,15 @@ export const SingupCliente = () => {
 
   return (
     <>
-      <div className="container-fluid text-center mt-5 login_page_container p-5 ">
-        <div className="row all ">
-          <div className="col-4 d-flex login_logo_container">
-            <p className="login_logo border">dishdash</p>
+      <div className="container-fluid text-center signupCliente_page_container p-5 ">
+        <div className="row signupCliente_all">
+          <div className="col-sm-4  d-none d-sm-flex signupCliente_logo_container">
+            <p className="signupCliente_logo border">dishdash</p>
           </div>
 
-          <div className="col-8 login_form_container ">
-            <h1 className="login_title">Signup Cliente</h1>
-            <p className="login_subtitle">Welcome! Please sign up</p>
+          <div className="col-sm-8 col-12 signupCliente_form_container ">
+            <h1 className="signupCliente_title">Signup Cliente</h1>
+            <p className="signupCliente_subtitle">Welcome! Please sign up</p>
 
             <form
               className="col-12 col-md-12 mb-3 mx-auto"
@@ -88,7 +88,7 @@ export const SingupCliente = () => {
               <div className="mb-3">
                 <label
                   htmlFor="exampleInputEmail1"
-                  className="form-label login_label"
+                  className="form-label signupCliente_label"
                 >
                   Name
                 </label>
@@ -108,7 +108,7 @@ export const SingupCliente = () => {
               <div className="mb-3">
                 <label
                   htmlFor="exampleInputPassword1"
-                  className="form-label login_label"
+                  className="form-label signupCliente_label"
                 >
                   Last Name
                 </label>
@@ -125,10 +125,10 @@ export const SingupCliente = () => {
                 />
               </div>
               <div className="row">
-                <div className="col-5 mb-3">
+                <div className="col-12 col-md-12 col-sm-12 mb-3">
                   <label
                     htmlFor="exampleInputPassword1"
-                    className="form-label login_label"
+                    className="form-label signupCliente_label"
                   >
                     Phone
                   </label>
@@ -144,10 +144,10 @@ export const SingupCliente = () => {
                     required
                   />
                 </div>
-                <div className="col-4 mb-3">
+                <div className="col-12 col-md-6 col-sm-6 mb-3">
                   <label
                     htmlFor="exampleInputPassword1"
-                    className="form-label login_label"
+                    className="form-label signupCliente_label"
                   >
                     Birthdate
                   </label>
@@ -166,10 +166,10 @@ export const SingupCliente = () => {
                     required
                   />
                 </div>
-                <div className="col-3 mb-3">
+                <div className="col-12 col-md-6 col-sm-6 mb-3">
                   <label
                     htmlFor="exampleInputPassword1"
-                    className="form-label login_label"
+                    className="form-label signupCliente_label"
                   >
                     Sex
                   </label>
@@ -187,9 +187,9 @@ export const SingupCliente = () => {
                   </select>
                 </div>
               </div>
-              <p className="login_label">Adress</p>
+              <p className="signupCliente_label">Adress</p>
               <div className="row">
-                <div className="col-7 mb-3">
+                <div className="col-12 col-sm-6 mb-3">
                   <input
                     type="lastName"
                     className="form-control"
@@ -205,7 +205,7 @@ export const SingupCliente = () => {
                     required
                   />
                 </div>
-                <div className="col-5 mb-3">
+                <div className="col-12 col-sm-6 mb-3">
                   <input
                     type="lastName"
                     className="form-control"
@@ -223,7 +223,7 @@ export const SingupCliente = () => {
                 </div>
               </div>
               <div className="row">
-                <div className="col-7 mb-3">
+                <div className="col-12 col-sm-6 mb-3">
                   <input
                     type="lastName"
                     className="form-control"
@@ -238,7 +238,7 @@ export const SingupCliente = () => {
                     }}
                   />
                 </div>
-                <div className="col-5 mb-3">
+                <div className="col-12 col-sm-6 mb-3">
                   <input
                     type="lastName"
                     className="form-control"
@@ -256,7 +256,7 @@ export const SingupCliente = () => {
                 </div>
               </div>
               <div className="row">
-                <div className="col-6 mb-3">
+                <div className="col-12 col-sm-6 mb-3">
                   <input
                     type="lastName"
                     className="form-control"
@@ -270,7 +270,7 @@ export const SingupCliente = () => {
                     required
                   />
                 </div>
-                <div className="col-6 mb-3">
+                <div className="col-12 col-sm-6 mb-3">
                   <input
                     type="lastName"
                     className="form-control"
@@ -288,7 +288,7 @@ export const SingupCliente = () => {
               <div className="mb-3 form-check">
                 <input
                   type="checkbox"
-                  className="form-check-input"
+                  className="form-check-input checkBox"
                   id="exampleCheck1"
                   checked={formData.terminosCondiciones}
                   onChange={handleCheckboxChange}
@@ -299,7 +299,7 @@ export const SingupCliente = () => {
               </div>
               <button
                 type="submit"
-                className="btn btn-danger col-12 mb-2 login_submit"
+                className="btn btn-danger col-12 mb-2 signupCliente_submit"
               >
                 Sign up
               </button>

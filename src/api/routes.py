@@ -163,10 +163,10 @@ def category_creatinator():
     tipo = request.json
     tipotext = (tipo.get("tipo"))
     type = TipoComida(tipoComida = tipo.get("tipo"))
-    a = TipoComida.query.filter_by(tipoComida = tipotext).first()
+
+    exists = TipoComida.query.filter_by(tipoComida = tipotext).first()
     
-    if a:
-        print(a)
+    if exists:
         return jsonify({"message": "ya ta ese"})
 
     db.session.add(type)

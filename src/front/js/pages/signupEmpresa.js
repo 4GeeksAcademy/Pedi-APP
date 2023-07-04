@@ -112,13 +112,14 @@ export const SingupEmpresa = () => {
         <>
             <div className="container-fluid text-center signupcompany_page_container p-5" onSubmit={(e) => handleSignupCompanies(e)}>
                 <div className="row signupcompany_all">
-                    <div className="col-4 d-flex signupcompany_logo_container">
+                    <div className="col-sm-4 d-none d-sm-flex signupcompany_logo_container">
+
                         <p className="signupcompany_logo border">dishdash</p>
                 </div>
-                <div className="col-8 signupcompany_form_container ">
+                <div className="col-sm-8 col-12 signupcompany_form_container ">
                     <h1 className="signupcompany_title">Signup Company</h1>
                     <p className="signupcompany_subtitle">Welcome! Please sign up</p>
-                    <form className="col-12 col-md-12 mb-3 mx-auto" >
+                    <form className="col-12 col-md-12 mb-3 mx-auto">
                         <div className="mb-3">
                             <label htmlFor="name" className="form-label signupcompany_label">Name</label>
                             <input className="form-control" id="name" aria-describedby="emailHelp" placeholder="Name" value={formData.nombre} onChange={(data) => {setFormData({...formData, nombre: data.target.value})}} required/>
@@ -129,16 +130,17 @@ export const SingupEmpresa = () => {
                         </div>
                         <p className="signupcompany_label">Adress</p>
                         <div className="row">
-                            <div className="col-12 mb-3">
-                                <input className="form-control" id="number" placeholder="Street and number" value={formData.calleNumero} onChange={(data) => {setFormData({...formData, calleNumero: data.target.value})}} required/>
+
+                            <div className="col-12 col-sm-12 mb-3">
+                                <input type="lastName" className="form-control" id="exampleInputPassword1" placeholder="Street and number" value={formData.calleNumero} onChange={(data) => {setFormData({...formData, calleNumero: data.target.value})}} required/>
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-6 mb-3">
-                                <input  className="form-control" id="unit" placeholder="Floor, door" value={formData.pisoPuerta} onChange={(data) => {setFormData({...formData, pisoPuerta: data.target.value})}} required/>
+                            <div className="col-12 col-sm-6 mb-3">
+                                <input type="lastName" className="form-control" id="exampleInputPassword1" placeholder="Postal Code" value={formData.codigoPostal} onChange={(data) => {setFormData({...formData, codigoPostal: data.target.value})}} required/>
                             </div>
-                            <div className="col-6 mb-3">
-                                <input  className="form-control" id="postalCode" placeholder="Postal Code" value={formData.codigoPostal} onChange={(data) => {setFormData({...formData, codigoPostal: data.target.value})}} required/>
+                            <div className="col-12 col-sm-6 mb-3">
+                                <input type="lastName" className="form-control" id="exampleInputPassword1" placeholder="Floor, door" value={formData.pisoPuerta} onChange={(data) => {setFormData({...formData, pisoPuerta: data.target.value})}} required/>
                             </div>
                         </div>
                         <div className="row">
@@ -160,26 +162,22 @@ export const SingupEmpresa = () => {
                                 </div>
                             </div>)}
                         <p>Are you doing?</p>
-                        <div className="row">
-                            <div className="col-12 col-md-4 form-check ms-5">
-                                <input className="checkbox form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" checked={formData.delivery} onChange={handleCheckboxChange('delivery')}/>
-                                <label className="form-check-label" htmlFor="inlineCheckbox1">Delivery</label>
-                            </div>
-                            <div className="col-12 col-md-4 form-check ms-5">
-                                <input className="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2" checked={formData.reserva} onChange={handleCheckboxChange('reserva')}/>
-                                <label className="form-check-label" htmlFor="inlineCheckbox2">Reservation</label>
-                            </div>
+                        <div className="form-check form-check-inline ms-4 me-5">
+                            <input className="form-check-input inputBox" type="checkbox" id="inlineCheckbox1" value="option1" checked={formData.delivery} onChange={handleCheckboxChange('delivery')}/>
+                            <label className="form-check-label" htmlFor="inlineCheckbox1">Delivery</label>
+                        </div>
+                        <div className="form-check form-check-inline ms-5">
+                            <input className="form-check-input inputBox" type="checkbox" id="inlineCheckbox2" value="option2" checked={formData.reserva} onChange={handleCheckboxChange('reserva')}/>
+                            <label className="form-check-label" htmlFor="inlineCheckbox2">Reservation</label>
                         </div>
                         <p className="mt-2">Choose your opening times:</p>
-                        <div className="row">
-                            <div className="col-12 col-md-4 form-check ms-5">
-                                <input className="form-check-input" type="checkbox" id="mondayMorning" value="option1" checked={formData.mañana} onChange={handleCheckboxChange('mañana')}/>
-                                <label className="form-check-label" htmlFor="monday">Morning</label>
-                            </div>
-                            <div className="col-12 col-md-4 form-check ms-5">
-                                <input className="form-check-input" type="checkbox" id="mondayAfternoon" value="option2"checked={formData.tarde} onChange={handleCheckboxChange('tarde')} />
-                                <label className="form-check-label" htmlFor="monday">Afternoon</label>
-                            </div> 
+                        <div className="form-check form-check-inline ms-4 me-5">
+                            <input className="form-check-input inputBox" type="checkbox" id="inlineCheckbox3" value="option1" checked={formData.mañana} onChange={handleCheckboxChange('mañana')}/>
+                            <label className="form-check-label" htmlFor="inlineCheckbox3">Morning</label>
+                        </div>
+                        <div className="form-check form-check-inline ms-5">
+                            <input className="form-check-input inputBox" type="checkbox" id="inlineCheckbox4" value="option2"checked={formData.tarde} onChange={handleCheckboxChange('tarde')} />
+                            <label className="form-check-label" htmlFor="inlineCheckbox4">Afternoon</label>
                         </div>
                         {/* <div className="row">
                             <p className="col-12 col-md-3 ms-5">Monday</p>
@@ -192,10 +190,10 @@ export const SingupEmpresa = () => {
                                 <label className="form-check-label" htmlFor="monday">Afternoon</label>
                             </div> */}
                         <div className="mb-3 form-check mt-3">
-                            <input type="checkbox" className="form-check-input" id="exampleCheck4" checked={formData.terminosCondiciones} onChange={handleCheckboxChange('terminosCondiciones')}/>
+                            <input type="checkbox" className="form-check-input inputBox" id="exampleCheck4" checked={formData.terminosCondiciones} onChange={handleCheckboxChange('terminosCondiciones')}/>
                             <label className="form-check-label" htmlFor="exampleCheck1">I agree the <b>Terms and Conditions</b></label>
                         </div>
-                        <button type="submit" className="btn col-12 mb-2 login_submit">Sign up</button>
+                        <button type="submit" className="btn col-12 mb-2 signupcompany_submit">Sign up</button>
                     </form>
                 </div>
             </div>
