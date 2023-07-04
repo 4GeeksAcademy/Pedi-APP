@@ -61,7 +61,7 @@ export const SingupEmpresa = () => {
     //       }));
     //     };
     //   };
-    let img_uploaded = false
+    const [img_uploaded, setImg_uploaded] = useState(false)
 
     const handleCheckboxChange = (fieldName) => {
         return (event) => {
@@ -92,14 +92,15 @@ export const SingupEmpresa = () => {
             let data = new FormData();
             data.append('company_img', file);
             const img = await actions.img_uploadinator(data)
-            console.log(img)
-            if (img.message == "Max image size is 10MB"){
+            
+            if (img.message == "Max image size is 10MB"){ 
                 Swal.fire(img.message)
+                img_uploaded == true? setImg_uploaded(false):""
             } else if (img.message == "exito"){
-                img_uploaded = true
-                console.log({...formData, img: img.img})
+                setImg_uploaded(true)
                 setFormData({...formData, img: img.img})
             } else {
+                img_uploaded == true? setImg_uploaded(false):
                 Swal.fire(img.message)
             }
         }
@@ -152,6 +153,12 @@ export const SingupEmpresa = () => {
                             <label htmlFor="company_img" className="form-label">Upload an image for your business</label>
                             <input className="form-control form-control" id="company_img" type="file" onChange={(e) => {uploadFile(e)}} required/>
                         </div>
+                        {img_uploaded && (
+                            <div className="row signupcompany_rowimg ">
+                                <div className="signupcompany_preview  my-3">
+                                    <img src={formData.img} alt="..." className="signupcompany_img" />
+                                </div>
+                            </div>)}
                         <p>Are you doing?</p>
                         <div className="row">
                             <div className="col-12 col-md-4 form-check ms-5">

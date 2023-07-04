@@ -200,7 +200,6 @@ def top_sales_loadinator():
         companys_id[i.idEmpresa] += 1
 
    
-
     sorted_companys_id =  sorted(companys_id, key=companys_id.get, reverse=True)
     
     c = 0
