@@ -113,8 +113,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 						setStore({isloged:true})
 						console.log(result.userdata)
 						/*  EDITAR ESTO CON LA INFO DEL USUARIO QUE HAGA FALTA*/
-						setStore({current_user_data:{...store.current_user_data, nombre : result.userdata.nombre}})
-						setStore({current_user_data:{...store.current_user_data, direccion : result.userdata.direccion}})
+						if(result.userdata.role == "cliente") {
+							setStore({current_user_data:{...store.current_user_data, nombre : result.userdata.nombre}})
+							setStore({current_user_data:{...store.current_user_data, direccion : result.userdata.direccion}})
+							setStore({current_user_data:{...store.current_user_data, role : result.userdata.role}})
+						} else if (result.userdata.role == "empresa"){
+							setStore({current_user_data:{...store.current_user_data, nombre : result.userdata.nombre}})
+							setStore({current_user_data:{...store.current_user_data, direccion : result.userdata.direccion}})
+							setStore({current_user_data:{...store.current_user_data, role : result.userdata.role}})
+						}
 						
 						return true
 					} else {

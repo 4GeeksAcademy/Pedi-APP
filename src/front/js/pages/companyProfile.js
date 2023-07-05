@@ -3,11 +3,11 @@ import "../../styles/companyProfile.css";
 
 export const CompanyProfile = () => {
     return(
-        <div className="container">
+        <div className="container-fluid container-company-profile">
             <div className="row">
-                <div className="card sidebar col-4 col-md-3 company-profile-box m-5">
-                    <ul className="nav flex-column company-profile-list">
-                        <li className="nav-item">
+                <div className="card sidebar col-12 col-md-6 company-profile-box">
+                    <ul className="nav company-profile-list">
+                        <li className="nav-item text-box">
                             <a className="nav-link company-profile-box-text" href="#">Account info</a>
                         </li>
                         <li className="nav-item">
@@ -21,11 +21,11 @@ export const CompanyProfile = () => {
                         </li>
                      </ul>
                 </div>
-                <div className="col-6 col-md-7 company-basic-info my-5 ms-5">
+                <div className="col-12 col-md-6 company-basic-info">
                     <h1 className="title-acount-company">Acount info</h1>
                     <h3 className="">Basic info</h3>
                     <h5 className="ms-3">Company name</h5>
-                    <p className="ms-5">HOLA</p>
+                    {/* <p className="ms-5">{store.current_user_data.name}</p> */}
                     <h5 className="ms-3">Email</h5>
                     <p className="ms-5">test@test.com</p>
                     <h5 className="ms-3">Tax code</h5>
