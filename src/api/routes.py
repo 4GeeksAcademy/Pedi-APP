@@ -118,9 +118,8 @@ def signupCliente():
     db.session.add(addUsuario)
     db.session.commit()
 
-    id_usuario = Usuario.query.filter_by(email=email).first()
-
-    addCliente = Cliente(nombre=nombre, apellido=apellido, sexo=sexo, nacimiento=nacimiento, telefono=telefono, instrucciones=instrucciones, is_active=True, idUsuario = id_usuario.id)
+    
+    addCliente = Cliente(nombre=nombre, apellido=apellido, sexo=sexo, nacimiento=nacimiento, telefono=telefono, instrucciones=instrucciones, is_active=True, idUsuario = addUsuario.id)
     db.session.add(addCliente)
     db.session.commit()
 
