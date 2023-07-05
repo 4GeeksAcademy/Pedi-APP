@@ -1,0 +1,76 @@
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .company-profile-box {
+        background-color: #C62828;
+        margin: 3rem 0rem 3rem;
+        border-radius: 2rem;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        height: 20rem;
+
+    }
+    .company-profile-list{
+        background-color: #C62828;
+        border-radius: 2rem;
+        padding: 2rem;
+        text-align: center;
+    }
+    .company-profile-box-text{
+        color:white;
+    }
+    .company-profile-box-text:hover{
+        color:white;
+    }
+    .company-profile-box-text:focus{
+        color:white;
+        text-decoration: underline;
+    }
+    .company-basic-info{
+        margin: 2rem;
+    }
+
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+
+    .company-profile-box {
+        background-color: #C62828;
+        margin: 3rem 0rem 3rem;
+        border-radius: 2rem;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        height: 20rem;
+
+    }
+    .company-profile-list{
+        background-color: #C62828;
+        border-radius: 2rem;
+        padding: 2rem;
+        text-align: center;
+    }
+    .company-profile-box-text{
+        color:white;
+    }
+    .company-profile-box-text:hover{
+        color:white;
+    }
+    .company-profile-box-text:focus{
+        color:white;
+        text-decoration: underline;
+    }
+    .company-basic-info{
+        margin: 2rem;
+    }
+    .title-acount-company{
+        text-align: center;
+    }
+
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {}
