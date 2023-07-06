@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/userProfile.css";
 import User_info from "../component/user_info";
+import User_history from "../component/user_history";
 
 const UserProfile = () => {
     const { store, actions } = useContext(Context);
@@ -23,8 +24,8 @@ const UserProfile = () => {
                             </li>
                         </ul>
                     </div>
-                    <div className="col-6 col-md-7 acount_basic_info my-5 ms-5">
-                        <User_info/>
+                    <div className="col-6 col-md-7 acount_basic_info my-5 ms-5 border">
+                        <User_history/>
                     </div>
                 </div>
             </div>
