@@ -7,3 +7,25 @@
     
     border-radius: 0.8rem;
 }
+.order_date{
+    margin-top: auto;   
+    margin-bottom: auto;
+}
+.order_date_box{
+    display: flex;
+}
+.order_amount{
+    margin-top: auto;   
+    margin-bottom: auto;
+    margin-left: 0.5rem;
+}
+.order_amount_box{
+    display: flex;
+    width: 100%;
+}
+.order_recipt{
+    margin-top: auto;   
+    margin-bottom: auto;
+    margin-left: 1rem;
+    
+}

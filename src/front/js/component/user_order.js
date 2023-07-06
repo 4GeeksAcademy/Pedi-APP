@@ -16,13 +16,20 @@ const User_order = () =>{
 
                 </div>
                 <div className="col-8 border py-4">  
-                    <div className="row">
-                        <div className="col-6">
+                    <div className="row text-center">
+                        <div className="col-5 ">
                             <h2>Burger King</h2>
                         </div>
-                        <div className="col-6">
-
+                        <div className="col-5 order_date_box">
+                            <p className="order_date">Delivered on 05/05/1999</p>
                         </div>
+                    </div>
+                    <div className="row order_secondrow">
+                        <div className="col-5 order_amount_box ">
+                            <p className="order_amount ">2 items for 30$</p>
+                            <p className="order_recipt ">- View recipt</p>
+                        </div>
+                        
                     </div>
 
 
