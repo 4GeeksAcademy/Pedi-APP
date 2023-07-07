@@ -146,6 +146,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 							setStore({current_user_data:{...store.current_user_data, nombre : result.userdata.nombre}})
 							setStore({current_user_data:{...store.current_user_data, direccion : result.userdata.direccion}})
 							setStore({current_user_data:{...store.current_user_data, role : result.userdata.role}})
+							setStore({current_user_data:{...store.current_user_data, idEmpresa : result.userdata.id}})
+							setStore({current_user_data:{...store.current_user_data, cif : result.userdata.cif}})
 						}
 						
 						
@@ -275,7 +277,43 @@ const getState = ({ getStore, getActions, setStore }) => {
 			logoutinator: () => {
 				setStore({isloged:false})
 				localStorage.clear();
-			}
+			},
+			addProduct: async () => {
+				const store= getStore()
+				const newProduct = {
+					nombre : nombre,
+					precio : precio,
+					descripcion : descripcion,
+					idEmpresa : store.
+					nombre : nombre,
+					apellido: apellido,
+					telefono : telefono,
+					nacimiento: nacimiento,
+					sexo: sexo,
+					direccion: `${calleNumero}, ${pisoPuerta}, ${codigoPostal}, ${estado}, ${ciudad}`,
+					instrucciones: instrucciones,
+					email: store.user.email,
+					password: store.user.password,
+					role: store.user.role
+				}
+				try{
+					const response = await fetch(process.env.BACKEND_URL + "/api/signupCliente", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json"
+						},
+						body: JSON.stringify(newClient)
+					})
+					const result = await response.json()
+					Swal.fire(result.message)
+					if(response.status == 200){
+						console.log(response)
+						return true
+					}
+					return false
+				}catch(error) {console.log(error)
+				}
+			},
 
 
 		}

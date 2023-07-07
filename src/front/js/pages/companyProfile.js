@@ -6,7 +6,7 @@ export const CompanyProfile = () => {
     return(
         <div className="container-fluid container-company-profile">
             <div className="row">
-                    <form className="card sidebar col-12 col-md-6 company-profile-box">
+                    <form className="card sidebar col-12 col-md-5 company-profile-box">
                         <ul className="nav company-profile-list">
                             <li className="nav-item text-box">
                                 <a className="nav-link company-profile-box-text" href="">Account info</a>
@@ -22,7 +22,7 @@ export const CompanyProfile = () => {
                             </li>
                         </ul>
                     </form>
-                <div className="col-12 col-md-6 company-basic-info">
+                <div className="col-12 col-md-7">
                     <Addproduct/>
                 </div>
             </div>

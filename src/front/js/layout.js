@@ -15,7 +15,6 @@ import Login
  from "./pages/login";
 import { CompanyProfile } from "./pages/companyProfile";
 
-import Login from "./pages/login";
 import UserProfile from "./pages/userProfile";
 
 //create your first component

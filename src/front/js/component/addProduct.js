@@ -8,6 +8,7 @@ export const Addproduct = () => {
     const {actions} = useContext(Context)
     const [form, setForm] = useState(false);
     const navigate = useNavigate()
+    const [img_uploaded, setImg_uploaded] = useState(false)
 
     const hadnleAddProduct = async(e) => {
         e.preventDefault();
@@ -27,11 +28,31 @@ export const Addproduct = () => {
     const [formData, setFormData] = useState({
         nombre: "",
         precio: "",
-        descripcion: "",
+        descripcion: ""
     })
 
     useEffect(()=> {
         console.log(formData);}, [formData]);
+
+        const uploadFile = async (e) => {
+            const file = e.target.files[0];
+            if (file != null) {
+                let data = new FormData();
+                data.append('product_img', file);
+                const img = await actions.img_uploadinator(data)
+                
+                if (img.message == "Max image size is 10MB"){ 
+                    Swal.fire(img.message)
+                    img_uploaded == true? setImg_uploaded(false):""
+                } else if (img.message == "exito"){
+                    setImg_uploaded(true)
+                    setFormData({...formData, img: img.img})
+                } else {
+                    img_uploaded == true? setImg_uploaded(false):
+                    Swal.fire(img.message)
+                }
+            }
+          };
 
     return(
         <div className="container rounded add-product-container">
@@ -50,7 +71,7 @@ export const Addproduct = () => {
                 </div>
                 <div class="mb-3 add-product-upload">
                     <label htmlFor="formFile" className="form-label">Upload image</label>
-                    <input className="form-control" type="file" id="formFile"/>
+                    <input className="form-control" type="file" id="formFile" onChange={(e) => {uploadFile(e)}}/>
                 </div>
                 <button type="submit" className="btn add-product-btn">Submit</button>
             </form>

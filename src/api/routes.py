@@ -264,7 +264,6 @@ def addProduct():
     precio = data.get("precio")
     descripcion = data.get("descripcion")
     idEmpresa = data.get("idEmpresa")
-   # idEmpresa = Empresa.query.filter_by(id=id).first()
 
     if not nombre or not precio:
         return jsonify({"message": "Fill in name and price of your product"})
