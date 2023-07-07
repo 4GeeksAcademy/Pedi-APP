@@ -277,7 +277,7 @@ def img_uploadinator():
 
     return jsonify({"message" : "error"}),400
     
-@api.route("/bill", methods=['GET'])
-def img_uploadinator():
-    
+@api.route("/bill", methods=['POST'])
+def bill_getinator():
+    return jsonify({"message":"asd"})
 
