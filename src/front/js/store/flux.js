@@ -31,6 +31,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 			isloged: false,
 			current_user_data: {
 
+			},
+			product: {
+				nombre:"",
+				precio:"",
+				descripcion: ""
 			}
 		},
 		
@@ -221,6 +226,30 @@ const getState = ({ getStore, getActions, setStore }) => {
 				.then(result => setStore({top_5: result.top_5_data}))
 				.catch(error => console.log('error', error));
 
+			},
+			addProduct: async(nombre, precio, descripcion) => {
+				const newProduct = {
+					nombre : nombre,
+					precio: precio,
+					descripcion: descripcion
+				}
+				try{
+					const response = await fetch(process.env.BACKEND_URL + "/api/addProduct", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json"
+						},
+						body: JSON.stringify(newProduct)
+					})
+					const result = await response.json()
+					Swal.fire(result.message)
+					if(response.status == 200){
+						console.log(response)
+						return true
+					}
+					return false
+				}catch(error) {console.log(error)
+				}
 			}
 
 

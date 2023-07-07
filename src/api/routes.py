@@ -232,6 +232,23 @@ def address_convertinator():
 
     return jsonify({"coordinates": lat_lon, "address":location.address}),200
 
+@api.route("/addProduct", methods = ["POST"])
+def addProduct():
+    data = request.json
+    nombre = data.get("nombre")
+    precio = data.get("precio")
+    descripcion = data.get("descripcion")
+    idEmpresa = data.get("idEmpresa")
+   # idEmpresa = Empresa.query.filter_by(id=id).first()
+
+    if not nombre or not precio:
+        return jsonify({"message": "Fill in name and price of your product"})
+
+    addOneProduct = Productos(nombre = nombre, precio= precio, descripcion = descripcion, idEmpresa = idEmpresa)
+    db.session.add(addOneProduct)
+    db.session.commit()
+
+    return jsonify({"message": "Product add successfull"})
 
 def geopy_processinator(address):
     geolocator = Nominatim(user_agent="dishdash")
