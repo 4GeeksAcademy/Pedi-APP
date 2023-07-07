@@ -20,10 +20,9 @@
     justify-content: end;
 }
 .add-product-label{
-    font-size: 18px;
+    font-size: 20px;
 }
 .add-product-text{
-    color: #7A7A7A;
     margin: 1rem 2rem 0rem 2rem;
 }
 .add-product-upload{
