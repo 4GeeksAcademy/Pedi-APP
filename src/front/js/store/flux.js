@@ -137,6 +137,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							setStore({current_user_data:{...store.current_user_data, role : result.userdata.role}})
 							setStore({current_user_data:{...store.current_user_data, email : result.userdata.email}})
 							setStore({current_user_data:{...store.current_user_data, telefono : result.userdata.telefono}})
+							setStore({current_user_data:{...store.current_user_data, id : result.userdata.id}})
 						} else if (result.userdata.role == "Empresa"){
 							setStore({current_user_data:{...store.current_user_data, nombre : result.userdata.nombre}})
 							setStore({current_user_data:{...store.current_user_data, direccion : result.userdata.direccion}})

@@ -28,11 +28,11 @@ const User_order = () =>{
                         <div className="col-5 order_amount_box ">
                             <p className="order_amount ">2 items for 30$</p>
                             <a className=" ms-3 order_recipt" data-bs-toggle="modal" data-bs-target="#reciptmodal">View recipt</a>
-                                    <div className="modal fade" id="reciptmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div className="modal fade" id="reciptmodal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div className="modal-dialog">
                                             <div className="modal-content">
                                             <div className="modal-header">        
-                                            <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button>            
+                                            <button type="button" className="btn-close " data-bs-dismiss="modal" aria-label="Close"></button>            
                                                 <div className="row align-self-start"> 
                                                     <div className="col"> 
                                                         <p className="text-light ms-2 mt-2">Thanks for ordering with</p> 
@@ -90,16 +90,16 @@ const User_order = () =>{
                         
                     </div>
                     <div className="row my-3">
-                        <ol class="list-group list-group-numbered  order_menu">
-                            <li class="list-group-item d-flex justify-content-between align-items-start order_items">
-                                <div class="ms-2 me-auto ">
-                                <div class="fw-bold">Big mac</div>
+                        <ol className="list-group list-group-numbered  order_menu">
+                            <li className="list-group-item d-flex justify-content-between align-items-start order_items">
+                                <div className="ms-2 me-auto ">
+                                <div className="fw-bold">Big mac</div>
                                 <small className="order_description">lechuga y cosas</small>
                                 </div>
                             </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-start order_items">
-                                <div class="ms-2 me-auto ">
-                                <div class="fw-bold">whooper</div>
+                            <li className="list-group-item d-flex justify-content-between align-items-start order_items">
+                                <div className="ms-2 me-auto ">
+                                <div className="fw-bold">whooper</div>
                                 <small className="order_description">lechuga y cosas</small>
                                 </div>
                             </li>
