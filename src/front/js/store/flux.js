@@ -284,25 +284,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 					nombre : nombre,
 					precio : precio,
 					descripcion : descripcion,
-					idEmpresa : store.
-					nombre : nombre,
-					apellido: apellido,
-					telefono : telefono,
-					nacimiento: nacimiento,
-					sexo: sexo,
-					direccion: `${calleNumero}, ${pisoPuerta}, ${codigoPostal}, ${estado}, ${ciudad}`,
-					instrucciones: instrucciones,
-					email: store.user.email,
-					password: store.user.password,
-					role: store.user.role
+					idEmpresa : store.empresa.id
 				}
 				try{
-					const response = await fetch(process.env.BACKEND_URL + "/api/signupCliente", {
+					const response = await fetch(process.env.BACKEND_URL + "/api/addProduct", {
 						method: "POST",
 						headers: {
 							"Content-Type": "application/json"
 						},
-						body: JSON.stringify(newClient)
+						body: JSON.stringify(newProduct)
 					})
 					const result = await response.json()
 					Swal.fire(result.message)
