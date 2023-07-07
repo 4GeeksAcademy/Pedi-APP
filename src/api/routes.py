@@ -21,9 +21,20 @@ from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
 from geopy.geocoders import Nominatim
+import os
+import cloudinary
+import cloudinary.uploader
+
+
 
 api = Blueprint("api", __name__)
 
+cloudinary.config(cloud_name = os.getenv('CLOUD_NAME'), api_key=os.getenv('API_KEY'), api_secret=os.getenv('API_SECRET'))
+
+def geopy_processinator(address):
+    geolocator = Nominatim(user_agent="dishdash")
+    location = geolocator.geocode(address, language="es", timeout=None)
+    return location
 
 @api.route("/hello", methods=["POST", "GET"])
 def handle_hello():
@@ -80,31 +91,36 @@ def signupCliente():
     data = request.json
     email = data.get("email")
     password = data.get("password")
+    role = "Cliente"
     nombre = data.get("nombre")
     apellido = data.get("apellido")
     telefono = data.get("telefono")
     nacimiento = data.get("nacimiento")
     sexo = data.get("sexo")
     direccion = data.get("direccion")
-
-
+    instrucciones = data.get("instrucciones")
 
     if not email or not password or not nombre or not apellido or not telefono:
         return jsonify({"message": "no email o contraseña"}),400
     
     existe = Usuario.query.filter_by(email=email).first()
     
-    
     if existe: 
         return jsonify({"message": "el usuario existe"})
     
-    addUsuario = Usuario(role="cliente", email=email, password=password, direccion=direccion)
+    realaddress = geopy_processinator(direccion)
+    if (realaddress == None) :
+        return jsonify({"message": "Address not found try again"}),400
+    
+    
+    
+    addUsuario = Usuario(role="cliente", email=email, password=password, direccion=realaddress.address)
     db.session.add(addUsuario)
     db.session.commit()
 
     id_usuario = Usuario.query.filter_by(email=email).first()
 
-    addCliente = Cliente(nombre=nombre, apellido=apellido, sexo=sexo, nacimiento=nacimiento, telefono=telefono, is_active=True, idUsuario = id_usuario.id)
+    addCliente = Cliente(nombre=nombre, apellido=apellido, sexo=sexo, nacimiento=nacimiento, telefono=telefono, instrucciones=instrucciones, is_active=True, idUsuario = id_usuario.id)
     db.session.add(addCliente)
     db.session.commit()
 
@@ -128,19 +144,28 @@ def signupEmpresa():
     # dia = data.get("dia")
     mañana = data.get("mañana")
     tarde = data.get("tarde")
+    img = data.get("img")
 
     if not email or not password or not cif or not direccion:
         return jsonify({"message": "Por favor introduce un email, password, dirección y cif válidos"}),400
     
-    existe = Usuario.query.filter_by(email=email).first()
-    if existe: 
+    existemail = Usuario.query.filter_by(email=email).first()
+    if existemail: 
+        return jsonify({"message": "el usuario existe"}), 400
+    
+    existecif = Empresa.query.filter_by(cif=cif).first()
+    if existecif:
         return jsonify({"message": "el usuario existe"}), 400
 
-    addUsuario = Usuario(role = role, email = email, password = password,  direccion = direccion)
+    realaddress = geopy_processinator(direccion)
+    if (realaddress == None):
+        return jsonify({"message": "Address not found try again"}),400
+    
+    addUsuario = Usuario(role = role, email = email, password = password,  direccion = realaddress.address)
     db.session.add(addUsuario)
     db.session.commit()
 
-    addEmpresa = Empresa(nombre = nombre, cif = cif, is_active=True, reserva = reserva, delivery = delivery, idUsuario = addUsuario.id)
+    addEmpresa = Empresa(nombre = nombre, cif = cif, is_active=True, reserva = reserva, delivery = delivery, idUsuario = addUsuario.id, imagen = img)
     db.session.add(addEmpresa)
     db.session.commit()
 
@@ -156,16 +181,17 @@ def category_creatinator():
     tipo = request.json
     tipotext = (tipo.get("tipo"))
     type = TipoComida(tipoComida = tipo.get("tipo"))
+
     exists = TipoComida.query.filter_by(tipoComida = tipotext).first()
     
     if exists:
-        
         return jsonify({"message": "ya ta ese"})
 
     db.session.add(type)
     db.session.commit()
 
     return jsonify({"message": "añadido"})
+
 
 @api.route("/category", methods = ["get"])
 def category_loadinator():
@@ -176,6 +202,7 @@ def category_loadinator():
     
     
     return jsonify({"message": "returned", "categories":serialized_categories})
+
 
 
 @api.route("/top_sales", methods = ["GET"])
@@ -191,7 +218,6 @@ def top_sales_loadinator():
         companys_id[i.idEmpresa] += 1
 
    
-
     sorted_companys_id =  sorted(companys_id, key=companys_id.get, reverse=True)
     
     c = 0
@@ -250,7 +276,25 @@ def addProduct():
 
     return jsonify({"message": "Product add successfull"})
 
-def geopy_processinator(address):
-    geolocator = Nominatim(user_agent="dishdash")
-    location = geolocator.geocode(address,language="es")
-    return location
+@api.route("/companyimg", methods=['POST'])
+def img_uploadinator():
+        
+
+    try:
+        
+        file_to_upload = request.files['company_img']
+        
+        if file_to_upload:
+            upload_result = cloudinary.uploader.upload(file_to_upload)
+            print(upload_result)
+            if upload_result:
+                return jsonify({"message" : "exito", "img" : upload_result.get("secure_url")}),200
+            
+    except Exception as ex:
+        print(ex)
+
+    return jsonify({"message" : "error"}),400
+    
+
+
+

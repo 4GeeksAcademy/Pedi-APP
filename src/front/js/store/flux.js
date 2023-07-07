@@ -10,6 +10,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				telefono:"",
 				nacimiento:"",
 				direccion:"",
+				instrucciones: "",
 				email:"", 
 				password:"", 
 				role: "",
@@ -40,7 +41,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		},
 		
 		actions: {			
-      signupCliente:(nombre, apellido, telefono, nacimiento, sexo, calleNumero, pisoPuerta, instrucciones, codigoPostal, estado, ciudad) => {
+      signupCliente: async (nombre, apellido, telefono, nacimiento, sexo, calleNumero, pisoPuerta, instrucciones, codigoPostal, estado, ciudad) => {
 				const store= getStore()
 				const newClient = { //lo que ponga aqui tiene que coincidir con el models
 					nombre : nombre,
@@ -48,22 +49,29 @@ const getState = ({ getStore, getActions, setStore }) => {
 					telefono : telefono,
 					nacimiento: nacimiento,
 					sexo: sexo,
-					direccion: `${calleNumero}, ${pisoPuerta}, ${instrucciones}, ${codigoPostal}, ${estado}, ${ciudad}`,
+					direccion: `${calleNumero}, ${pisoPuerta}, ${codigoPostal}, ${estado}, ${ciudad}`,
+					instrucciones: instrucciones,
 					email: store.user.email,
 					password: store.user.password,
 					role: store.user.role
-
 				}
-				fetch(process.env.BACKEND_URL + "/api/signupCliente", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json"
-					},
-					body: JSON.stringify(newClient)
-				})
-				.then (response =>response.json())
-				.then (response => console.log(response))
-				.catch(error => console.log(error))
+				try{
+					const response = await fetch(process.env.BACKEND_URL + "/api/signupCliente", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json"
+						},
+						body: JSON.stringify(newClient)
+					})
+					const result = await response.json()
+					Swal.fire(result.message)
+					if(response.status == 200){
+						console.log(response)
+						return true
+					}
+					return false
+				}catch(error) {console.log(error)
+				}
 			},
 			getNewUser: (email, password, role) => {
 				setStore({
@@ -74,8 +82,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 				});
 			},
-			signupEmpresa: (nombre, cif, calleNumero, pisoPuerta, codigoPostal, estado, ciudad, delivery, reserva, mañana, tarde) => {
+
+			signupEmpresa: async (nombre, cif, calleNumero, pisoPuerta, codigoPostal, estado, ciudad, delivery, reserva, mañana, tarde,img) => {
 				const store = getStore()
+				console.log(nombre, cif, calleNumero, pisoPuerta, codigoPostal, estado, ciudad, delivery, reserva, mañana, tarde,img)
 				const newUser = { // lo que se ponga aquí tiene que coincidir con el back nombre: 
 					role: store.user.role,
 					email : store.user.email,
@@ -86,20 +96,28 @@ const getState = ({ getStore, getActions, setStore }) => {
 					reserva: reserva,
 					delivery: delivery,
 					mañana: mañana,
-					tarde: tarde
+					tarde: tarde,
+					img : img
 					/*dia: {lunes,martes...} o 	dia: dia, o horario: {lunes: {mañana: "", tarde: ""}*/
-			}
-			fetch(process.env.BACKEND_URL + "/api/signupEmpresa", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json"
-				},
-				body: JSON.stringify(newUser)
-			})
-			.then (response => response.json())
-			.then (response => console.log(response))
-			.catch(error => console.log(error))
-		},
+				}
+				try{
+					const response = await fetch(process.env.BACKEND_URL + "/api/signupEmpresa", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json"
+					},
+					body: JSON.stringify(newUser)
+					})
+					const result = await response.json()
+					Swal.fire(result.message)
+					if(response.status == 200){
+						console.log(response)
+						return true
+					}
+					return false
+				}catch(error) {console.log(error)
+				}
+			},
 			
 			login_handlinator: async (user) => {
 				const store = getStore()
@@ -127,6 +145,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							setStore({current_user_data:{...store.current_user_data, direccion : result.userdata.direccion}})
 							setStore({current_user_data:{...store.current_user_data, role : result.userdata.role}})
 						}
+						
 						
 						return true
 					} else {
@@ -226,30 +245,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				.then(result => setStore({top_5: result.top_5_data}))
 				.catch(error => console.log('error', error));
 
-			},
-			addProduct: async(nombre, precio, descripcion) => {
-				const newProduct = {
-					nombre : nombre,
-					precio: precio,
-					descripcion: descripcion
-				}
-				try{
-					const response = await fetch(process.env.BACKEND_URL + "/api/addProduct", {
-						method: "POST",
-						headers: {
-							"Content-Type": "application/json"
-						},
-						body: JSON.stringify(newProduct)
-					})
-					const result = await response.json()
-					Swal.fire(result.message)
-					if(response.status == 200){
-						console.log(response)
-						return true
-					}
-					return false
-				}catch(error) {console.log(error)
-				}
 			}
 
 

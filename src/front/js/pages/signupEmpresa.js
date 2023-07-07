@@ -61,7 +61,8 @@ export const SingupEmpresa = () => {
     //       }));
     //     };
     //   };
-      
+    const [img_uploaded, setImg_uploaded] = useState(false)
+
     const handleCheckboxChange = (fieldName) => {
         return (event) => {
           setFormData({ ...formData, [fieldName]: event.target.checked });
@@ -70,22 +71,47 @@ export const SingupEmpresa = () => {
 
     const navigate = useNavigate()
 
-    const handleSignupCompanies = (e) => {
+    const handleSignupCompanies = async (e) => {
         e.preventDefault()
-        if (formData.nombre === "" && formData.cif === "" && formData.calleNumero === "" && formData.pisoPuerta === "" && formData.codigoPostal === "" && formData.ciudad === "" && formData.estado === "") {
+        
+        if (formData.nombre === "" && formData.cif === "" && formData.calleNumero === "" && formData.pisoPuerta === "" && formData.codigoPostal === "" && formData.ciudad === "" && formData.estado === "" && formData.img) {
             return  Swal.fire("Check all the fields");
           }
           else if (formData.terminosCondiciones === false){
             return Swal.fire("You have to agree to Terms and Conditions to be able to signup")
           }
         else{
-            actions.signupEmpresa(formData.nombre, formData.cif, formData.calleNumero, formData.pisoPuerta, formData.codigoPostal, formData.estado, formData.ciudad, formData.delivery, formData.reserva, formData.mañana, formData.tarde, formData.terminosCondiciones);
-            navigate('/', { replace: true });}
-    };
+            const register = await actions.signupEmpresa(formData.nombre, formData.cif, formData.calleNumero, formData.pisoPuerta, formData.codigoPostal, formData.estado, formData.ciudad, formData.delivery, formData.reserva, formData.mañana, formData.tarde, formData.img);
+            if (register == true) {
+                    navigate('/', { replace: true });
+            }
+            else {
+                 if (register == false) {
+                    return Swal.fire ("Address not found try again")}}
+    }};
 
-    useEffect(() => {
-         console.log(formData);
-     }, [formData]);
+    // the react post request sender
+    const uploadFile = async (e) => {
+        const file = e.target.files[0];
+        if (file != null) {
+            let data = new FormData();
+            data.append('company_img', file);
+            const img = await actions.img_uploadinator(data)
+            
+            if (img.message == "Max image size is 10MB"){ 
+                Swal.fire(img.message)
+                img_uploaded == true? setImg_uploaded(false):""
+            } else if (img.message == "exito"){
+                setImg_uploaded(true)
+                setFormData({...formData, img: img.img})
+            } else {
+                img_uploaded == true? setImg_uploaded(false):
+                Swal.fire(img.message)
+            }
+        }
+      };
+
+    
 
     return(
         <>
@@ -123,13 +149,23 @@ export const SingupEmpresa = () => {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-12 col-sm-6 mb-3">
-                                <input type="lastName" className="form-control" id="exampleInputPassword1" placeholder="State" value={formData.estado} onChange={(data) => {setFormData({...formData, estado: data.target.value}); console.log(formData)}} required/>
+                            <div className="col-6 mb-3">
+                                <input type="lastName" className="form-control" id="city" placeholder="City" value={formData.ciudad} onChange={(data) => {setFormData({...formData, ciudad: data.target.value})}} required/>
                             </div>
-                            <div className="col-12 col-sm-6 mb-3">
-                                <input type="lastName" className="form-control" id="exampleInputPassword1" placeholder="City" value={formData.ciudad} onChange={(data) => {setFormData({...formData, ciudad: data.target.value}); console.log(formData)}} required/>
+                            <div className="col-6 mb-3">
+                                <input className="form-control" id="state" placeholder="State" value={formData.estado} onChange={(data) => {setFormData({...formData, estado: data.target.value}) }} required/>
                             </div>
                         </div>
+                        <div>
+                            <label htmlFor="company_img" className="form-label">Upload an image for your business</label>
+                            <input className="form-control form-control" id="company_img" type="file" onChange={(e) => {uploadFile(e)}} required/>
+                        </div>
+                        {img_uploaded && (
+                            <div className="row signupcompany_rowimg ">
+                                <div className="signupcompany_preview  my-3">
+                                    <img src={formData.img} alt="..." className="signupcompany_img" />
+                                </div>
+                            </div>)}
                         <p>Are you doing?</p>
                         <div className="form-check form-check-inline ms-4 me-5">
                             <input className="form-check-input inputBox" type="checkbox" id="inlineCheckbox1" value="option1" checked={formData.delivery} onChange={handleCheckboxChange('delivery')}/>
@@ -170,4 +206,3 @@ export const SingupEmpresa = () => {
     </>
     )
 }
-

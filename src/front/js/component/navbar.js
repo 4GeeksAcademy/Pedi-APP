@@ -7,31 +7,67 @@ export const Navbar = () => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
 
-  return (
-    <nav className="navbar">
-      <div className="container-fluid">
-        <Link to="/">
-          <h1 className="nav_title">DishDash</h1>
-        </Link>
-        <div className="ml-auto">
-          <button
-            className="btn nav_btn_login"
-            onClick={() => {
-              navigate("/login", { replace: true });
-            }}
-          >
-            Login
-          </button>
-          <button
-            className="btn nav_btn_signup"
-            onClick={() => {
-              navigate("/signup", { replace: true });
-            }}
-          >
-            Signup
-          </button>
-        </div>
-      </div>
-    </nav>
-  );
+
+  if(store.isloged){
+    return(
+      <>
+          
+        <nav className="navbar">
+          <div className="container-fluid">
+            <Link to="/">
+              <h1 className="nav_title">DishDash</h1>
+            </Link>
+            <div className="ml-auto">
+              <button
+                className="btn nav_btn_login"
+                onClick={() => {
+                  actions.isloged()
+                  if(store.isloged == true){
+                    navigate("/profile", { replace: true });
+                  } else{
+                    navigate("/", { replace: true });
+                  }
+                  
+                }}
+              >
+                Profile
+              </button>
+            </div>
+          </div>
+        </nav>
+      
+          
+      </>
+    )
+  } else{
+      return (
+        <nav className="navbar">
+          <div className="container-fluid">
+            <Link to="/">
+              <h1 className="nav_title">DishDash</h1>
+            </Link>
+            <div className="ml-auto">
+              <button
+                className="btn nav_btn_login"
+                onClick={() => {
+                  navigate("/login", { replace: true });
+                }}
+              >
+                Login
+              </button>
+              <button
+                className="btn nav_btn_signup"
+                onClick={() => {
+                  navigate("/signup", { replace: true });
+                }}
+              >
+                Signup
+              </button>
+            </div>
+          </div>
+        </nav>
+      );
+  }
+
+  
 };
