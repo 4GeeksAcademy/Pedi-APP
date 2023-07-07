@@ -4,7 +4,7 @@ import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
-export const Addproduct = () => {
+export const AddProduct = () => {
     const {actions} = useContext(Context)
     const [form, setForm] = useState(false);
     const navigate = useNavigate()

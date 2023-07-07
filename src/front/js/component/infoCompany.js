@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/infoCompany.css";
 
-const InfoCompany = () =>{
+export const InfoCompany = () =>{
     const { store, actions } = useContext(Context);
 
     return(
@@ -45,6 +45,3 @@ const InfoCompany = () =>{
         </>
     )
 }
-
-
-export default User_info

@@ -16,6 +16,7 @@ import Login
 import { CompanyProfile } from "./pages/companyProfile";
 
 import UserProfile from "./pages/userProfile";
+import { CompanyAddProduct } from "./pages/companyAddProduct";
 
 //create your first component
 const Layout = () => {
@@ -37,6 +38,7 @@ const Layout = () => {
                         <Route element={<Login/>} path="/login"/>
                         <Route element={<CompanyProfile />} path="/companyProfile"/>
                         <Route element={<UserProfile/>} path="/userProfile"/>
+                        <Route element={<CompanyAddProduct />} path="/companyAddProduct"/>
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />
