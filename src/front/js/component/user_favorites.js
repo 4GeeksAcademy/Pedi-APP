@@ -7,33 +7,29 @@ import bk from "../../img/bk.png"
 const User_favorites = () => {
     const { store, actions } = useContext(Context);
     return(
-        <>
-            <div className="row border order_container">
-                <div className="col-4">
-                    <div className="order_imgbox  mx-3 my-5">
+        <>  
+            <h1 className="title_acount_user">Your favorites</h1>
+            <div className="row border favorites_container">
+                <div className="col-4  d-flex">
+                    <div className="favorites_imgbox   ">
                             <img src= {bk}alt="..." className="home_categoryimg" />
                     </div>
 
                 </div>
-                <div className="col-8  py-4">  
-                    <div className="row text-center">
-                        <div className="col-5 ">
-                            <h2>Burger King</h2>
-                        </div>
-                        <div className="col-5 order_date_box">
-                            <p className="order_date">Delivered on 05/05/1999</p>
+                <div className="col-8  py-4 ps-5 h-100">  
+                    <div className="row text-start ">
+                        <div className="col ">
+                            <h3>Burger King</h3>
                         </div>
                     </div>
-                    <div className="row order_secondrow">
-                        <div className="col-5 order_amount_box ">
-                            <p className="order_amount ">2 items for 30$</p>
+    
+                    <div className="row text-start mt-2">
+                        <div className="col">
+                            <p className="favorites_address">Calle Pico Clavero, Numancia, Puente de Vallecas, Madrid, Comunidad de Madrid, 28038, España</p>
                         </div>
+                    </div>
                         
-                    </div>
-                    <div className="row my-3">
-                        adress
-                        
-                    </div>
+                    
 
 
                 </div>

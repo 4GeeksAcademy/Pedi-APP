@@ -1,0 +1,22 @@
+.favorites_container{
+    background-color: #FBFBFB;
+    border-radius: 2.5rem;
+    margin: 2rem;
+    box-shadow: 0px 5px 10px 0px rgb(59, 61, 61);
+    height: 10rem;
+    width: 70%;
+}
+.favorites_imgbox{
+    width: 6rem;
+    height: 6rem;
+    border-radius: 0.8rem;
+    margin: auto;
+    
+}
+.favorites_address{
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.title_acount_user{
+    text-align: center;
+}
