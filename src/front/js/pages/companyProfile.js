@@ -9,7 +9,7 @@ export const CompanyProfile = () => {
                     <form className="card sidebar col-12 col-md-6 company-profile-box">
                         <ul className="nav company-profile-list">
                             <li className="nav-item text-box">
-                                <a className="nav-link company-profile-box-text" href="#">Account info</a>
+                                <a className="nav-link company-profile-box-text" href="">Account info</a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link company-profile-box-text" href="#">Menu</a>
