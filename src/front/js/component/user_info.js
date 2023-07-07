@@ -36,7 +36,7 @@ const User_info = () =>{
                 </div>
                 <div className="category_container_user">
                     <div className="info_title_user">
-                        <h5 className="ms-3">Adress</h5>
+                        <h5 className="ms-3">Address</h5>
                     </div>
                     <div className="container_user my-3 ">
                         <p className="box_text_user">{store.current_user_data.direccion}</p>

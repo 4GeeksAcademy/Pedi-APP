@@ -61,10 +61,10 @@ def loginator():
         else:
             role = user.role
             
-            if role == "cliente":
+            if role == "Cliente":
                 
                 user_data = user.cliente[0].serialize()
-            elif role == "empresa":
+            elif role == "Empresa":
                 user_data = user.empresa[0].serialize()
             else:
                 return (
@@ -114,7 +114,7 @@ def signupCliente():
     
     
     
-    addUsuario = Usuario(role="cliente", email=email, password=password, direccion=realaddress.address)
+    addUsuario = Usuario(role=role, email=email, password=password, direccion=realaddress.address)
     db.session.add(addUsuario)
     db.session.commit()
 

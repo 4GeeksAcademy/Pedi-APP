@@ -131,13 +131,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 						setStore({isloged:true})
 						console.log(result.userdata)
 						/*  EDITAR ESTO CON LA INFO DEL USUARIO QUE HAGA FALTA*/
-						if(result.userdata.role == "cliente") {
+						if(result.userdata.role == "Cliente") {
 							setStore({current_user_data:{...store.current_user_data, nombre : result.userdata.nombre}})
 							setStore({current_user_data:{...store.current_user_data, direccion : result.userdata.direccion}})
 							setStore({current_user_data:{...store.current_user_data, role : result.userdata.role}})
 							setStore({current_user_data:{...store.current_user_data, email : result.userdata.email}})
 							setStore({current_user_data:{...store.current_user_data, telefono : result.userdata.telefono}})
-						} else if (result.userdata.role == "empresa"){
+						} else if (result.userdata.role == "Empresa"){
 							setStore({current_user_data:{...store.current_user_data, nombre : result.userdata.nombre}})
 							setStore({current_user_data:{...store.current_user_data, direccion : result.userdata.direccion}})
 							setStore({current_user_data:{...store.current_user_data, role : result.userdata.role}})

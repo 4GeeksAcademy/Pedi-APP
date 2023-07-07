@@ -4,6 +4,7 @@ import { Context } from "../store/appContext";
 import "../../styles/userProfile.css";
 import User_info from "../component/user_info";
 import User_history from "../component/user_history";
+import User_favorites from "../component/user_favorites";
 
 const UserProfile = () => {
     const { store, actions } = useContext(Context);
@@ -25,7 +26,7 @@ const UserProfile = () => {
                         </ul>
                     </div>
                     <div className="col-6 col-md-7 acount_basic_info my-5 ms-5 border">
-                        <User_history/>
+                        <User_favorites/>
                     </div>
                 </div>
             </div>

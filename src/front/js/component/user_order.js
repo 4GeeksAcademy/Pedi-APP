@@ -50,16 +50,38 @@ const User_order = () =>{
                                                 
                                             </div>
                                             <div className="modal-body">
-                                            <ul className="ps-5 border">
+                                            <ul className="ps-5 ">
                                                 <li> <h5 className="mt-3">Big mac</h5> </li>
                                                 <li> <h5 className="mt-3">whooper</h5> </li>
                                                 
                                             </ul>
                                             </div>
-                                            <div className="modal-footer border">
-                                                <div className="row border"> 
-                                                    <p className="modal_price_footer"> Subtotal </p> 
+                                            <div className="modal-footer ">
+                                                <div className="row  modal_footer_row"> 
+                                                    <div className="col-6 d-flex">
+                                                        <p className="modal_price_footer ms-3"> Subtotal </p> 
+                                                    </div>
+                                                    <div className="col-6 d-flex ">
+                                                        <p className="modal_subtotal_footer  me-3 ms-auto"> $15</p>   
+                                                    </div>                                                 
                                                 </div>
+                                                <div className="row  modal_footer_row"> 
+                                                    <div className="col-6 d-flex">
+                                                        <p className="modal_price_footer ms-3"> IVA </p> 
+                                                    </div>
+                                                    <div className="col-6 d-flex ">
+                                                        <p className="modal_subtotal_footer  me-3 ms-auto"> $15</p>   
+                                                    </div>                                                 
+                                                </div>
+                                                <div className="row  modal_footer_row"> 
+                                                    <div className="col-6 d-flex">
+                                                        <h4 className="modal_total_footer ms-3"> Total </h4> 
+                                                    </div>
+                                                    <div className="col-6 d-flex ">
+                                                        <h4 className="modal_total_footer  me-3 ms-auto"> $30</h4>   
+                                                    </div>                                                 
+                                                </div>
+                                            
                                             </div>
                                             </div>
                                         </div>
