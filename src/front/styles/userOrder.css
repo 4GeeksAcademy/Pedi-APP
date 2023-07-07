@@ -39,3 +39,36 @@
 .order_description{
     color: gray;
 }
+.order_recipt{
+    color: black;
+}
+.modal-header{
+    background-color: #C62828;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+.modal-content{
+    border-radius: 1rem;
+}
+.modal_price_col{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; 
+}
+.modal_price_col p {
+    margin-top: 0; 
+    margin-bottom: 0; 
+}
+.modal_row_header{
+    height: 4rem;
+}
+.modal-footer{
+    display: flex;
+    justify-content: start;
+}
+.modal_price_footer{
+    color: gray;
+    margin-top: auto;
+    margin-bottom: auto;
+}
