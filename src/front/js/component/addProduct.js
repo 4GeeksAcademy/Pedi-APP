@@ -38,7 +38,7 @@ export const Addproduct = () => {
             const file = e.target.files[0];
             if (file != null) {
                 let data = new FormData();
-                data.append('product_img', file);
+                data.append('company_img', file);
                 const img = await actions.img_uploadinator(data)
                 
                 if (img.message == "Max image size is 10MB"){ 

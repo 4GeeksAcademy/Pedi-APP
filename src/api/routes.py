@@ -264,11 +264,12 @@ def addProduct():
     precio = data.get("precio")
     descripcion = data.get("descripcion")
     idEmpresa = data.get("idEmpresa")
+    img = data.get("img")
 
-    if not nombre or not precio:
-        return jsonify({"message": "Fill in name and price of your product"})
+    if not nombre or not precio or not descripcion or not idEmpresa:
+        return jsonify({"message": "Complete all data of your product"})
 
-    addOneProduct = Productos(nombre = nombre, precio= precio, descripcion = descripcion, idEmpresa = idEmpresa)
+    addOneProduct = Productos(nombre = nombre, precio= precio, descripcion = descripcion, idEmpresa = idEmpresa, img = img)
     db.session.add(addOneProduct)
     db.session.commit()
 
