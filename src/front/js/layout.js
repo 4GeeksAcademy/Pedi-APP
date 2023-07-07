@@ -15,6 +15,9 @@ import Login
  from "./pages/login";
 import { CompanyProfile } from "./pages/companyProfile";
 
+import Login from "./pages/login";
+import UserProfile from "./pages/userProfile";
+
 //create your first component
 const Layout = () => {
     //the basename is used when your project is published in a subdirectory and not in the root of the domain
@@ -34,6 +37,7 @@ const Layout = () => {
                         <Route element={<Signup />} path="/signup" />
                         <Route element={<Login/>} path="/login"/>
                         <Route element={<CompanyProfile />} path="/companyProfile"/>
+                        <Route element={<UserProfile/>} path="/userProfile"/>
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />

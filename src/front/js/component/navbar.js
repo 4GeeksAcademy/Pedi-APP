@@ -23,7 +23,13 @@ export const Navbar = () => {
                 onClick={() => {
                   actions.isloged()
                   if(store.isloged == true){
-                    navigate("/profile", { replace: true });
+                    if(store.current_user_data.role == "Cliente"){
+                      navigate("/userProfile", { replace: true });
+                    } else if (store.current_user_data.role == "Empresa" ){
+                      navigate("/companyProfile", { replace: true });
+                    }
+                      
+                    
                   } else{
                     navigate("/", { replace: true });
                   }
@@ -31,6 +37,16 @@ export const Navbar = () => {
                 }}
               >
                 Profile
+              </button>
+              <button
+                className="btn nav_btn_signup"
+                onClick={() => {
+                  actions.logoutinator()
+                  navigate("/", { replace: true });
+                }}
+                
+              >
+                Logout
               </button>
             </div>
           </div>

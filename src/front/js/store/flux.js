@@ -136,11 +136,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 						setStore({isloged:true})
 						console.log(result.userdata)
 						/*  EDITAR ESTO CON LA INFO DEL USUARIO QUE HAGA FALTA*/
-						if(result.userdata.role == "cliente") {
+						if(result.userdata.role == "Cliente") {
 							setStore({current_user_data:{...store.current_user_data, nombre : result.userdata.nombre}})
 							setStore({current_user_data:{...store.current_user_data, direccion : result.userdata.direccion}})
 							setStore({current_user_data:{...store.current_user_data, role : result.userdata.role}})
-						} else if (result.userdata.role == "empresa"){
+							setStore({current_user_data:{...store.current_user_data, email : result.userdata.email}})
+							setStore({current_user_data:{...store.current_user_data, telefono : result.userdata.telefono}})
+						} else if (result.userdata.role == "Empresa"){
 							setStore({current_user_data:{...store.current_user_data, nombre : result.userdata.nombre}})
 							setStore({current_user_data:{...store.current_user_data, direccion : result.userdata.direccion}})
 							setStore({current_user_data:{...store.current_user_data, role : result.userdata.role}})
@@ -245,6 +247,34 @@ const getState = ({ getStore, getActions, setStore }) => {
 				.then(result => setStore({top_5: result.top_5_data}))
 				.catch(error => console.log('error', error));
 
+			},
+			img_uploadinator: async (img) =>{
+				const store = getStore()
+				
+				
+				try {
+					const response = await fetch(process.env.BACKEND_URL + "/api/companyimg", {
+						method : "POST",
+						body: img
+						
+					})
+					const result = await response.json()
+					if(response.status == 400){
+						return {"message" : "Max image size is 10MB"}
+					}else if( response.status == 200){
+						return result
+					} else {					
+						return {"message" : "Error uploading image"}
+					}
+					
+
+				}catch(error){
+					console.log("Error loading message from backend")
+				}		
+			},
+			logoutinator: () => {
+				setStore({isloged:false})
+				localStorage.clear();
 			}
 
 
