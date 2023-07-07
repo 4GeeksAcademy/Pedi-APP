@@ -23,9 +23,9 @@ export const Navbar = () => {
                 onClick={() => {
                   actions.isloged()
                   if(store.isloged == true){
-                    if(store.current_user_data.role == "cliente"){
+                    if(store.current_user_data.role == "Cliente"){
                       navigate("/userProfile", { replace: true });
-                    } else if (store.current_user_data.role == "empresa" ){
+                    } else if (store.current_user_data.role == "Empresa" ){
                       navigate("/companyProfile", { replace: true });
                     }
                       
