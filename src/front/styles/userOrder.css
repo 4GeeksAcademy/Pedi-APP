@@ -15,6 +15,13 @@
 .order_date_box{
     display: flex;
 }
+.order_title_box{
+    display: flex;
+    
+}
+.order_title{
+    margin-left: 0.5rem;
+}
 .order_amount{
     margin-top: auto;   
     margin-bottom: auto;

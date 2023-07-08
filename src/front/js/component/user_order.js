@@ -56,8 +56,8 @@ const User_order = (props) =>{
                     </div>
                     <div className="col-8  py-4">  
                         <div className="row text-center">
-                            <div className="col-6 ">
-                                <h2>{company.nombre}{bill_id}</h2>
+                            <div className="col-6 order_title_box ">
+                                <h2 className="order_title">{company.nombre}</h2>
                             </div>
                             <div className="col-5 order_date_box">
                                 <p className="order_date">Ordered on {date}</p>
@@ -65,7 +65,7 @@ const User_order = (props) =>{
                         </div>
                         <div className="row order_secondrow">
                             <div className="col-5 order_amount_box ">
-                                <p className="order_amount ">{amount? `${amount} items for ${price}$` : ""}</p>
+                                <p className="order_amount s">{amount? `${amount} items for ${price}$` : ""}</p>
                                 <a className=" ms-3 order_recipt" data-bs-toggle="modal" data-bs-target={`#reciptmodal${bill_id}`}>View recipt</a>
                                         <div className="modal fade" id={`reciptmodal${bill_id}`} tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div className="modal-dialog">

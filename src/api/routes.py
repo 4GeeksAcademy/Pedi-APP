@@ -374,3 +374,39 @@ def product_addinator():
     db.session.commit()
 
     return jsonify({"message" : "added" , "product" : to_add.serialize()}),200
+
+@api.route("/favoriteCreator", methods=['POST'])
+def favorite_addinator():
+    data = request.json
+    user_id = data.get("user_id")
+    company_id = data.get("company_id")
+    
+    if not user_id or not company_id:
+         return jsonify({"message":"Error, missing data"}),400
+    to_add = Favoritos (idCliente = user_id, idEmpresa = company_id)
+    
+    db.session.add(to_add)
+    db.session.commit()
+
+    return jsonify({"message" : "added" , "faved" : to_add.serialize()}),200
+
+@api.route("/favorites", methods=['POST'])
+def favorites_getinator():
+    data = request.json
+    user_id = data.get("id")
+
+    if not user_id:
+        return jsonify({"message" : "need to know the user"})
+    favorites = Favoritos.query.filter_by(idCliente = user_id).all()
+    
+    if not favorites:
+        return jsonify({"favorites" : []})
+    
+    serialized_favorites = []
+    for i in favorites:
+        add = i.empresa.serialize()
+        add["direccion"] = i.empresa.usuario.direccion
+        serialized_favorites.append(add)
+
+    
+    return jsonify({"favorites":serialized_favorites})
