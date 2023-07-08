@@ -192,7 +192,7 @@ def category_creatinator():
     return jsonify({"message": "añadido"})
 
 
-@api.route("/category", methods = ["get"])
+@api.route("/category", methods = ["GET"])
 def category_loadinator():
     all_categories = TipoComida.query.all()
     serialized_categories = []
@@ -279,5 +279,29 @@ def img_uploadinator():
     
 @api.route("/bill", methods=['POST'])
 def bill_getinator():
+    data = request.json
     return jsonify({"message":"asd"})
 
+
+
+@api.route("/billCreator", methods=['POST'])
+def bill_creatinator():
+    data = request.json
+    client_id = data.get("client_id")
+    company_id = data.get("company_id")
+    pay_id = data.get("pay_id")
+    delivery = data.get("delivery")
+    time = data.get("time")
+    date = data.get("date")
+
+    print("asd")
+
+    if not client_id or not company_id or not pay_id or not pay_id or not delivery or not date or not time:
+        return jsonify({"message":"Error, missing data"}),400
+    
+    to_add = Factura(idCliente = client_id, idEmpresa = company_id, idPago = pay_id, delivery = delivery, hora = time, fecha = date)
+    return jsonify({"factura":to_add})
+    #db.session.add(to_add)
+    #db.session.commit()
+
+    return jsonify({"message":"asd"})
