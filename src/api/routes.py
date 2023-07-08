@@ -237,3 +237,21 @@ def geopy_processinator(address):
     geolocator = Nominatim(user_agent="dishdash")
     location = geolocator.geocode(address,language="es")
     return location
+
+
+
+@api.route("/searchEmpresa", methods = ["POST"])
+def search_empresa(): 
+   data = request.json
+   print(data)
+   searchEmpresa = (data.get("nombre"))
+   empresas = Empresa.query.filter(Empresa.nombre.startswith(searchEmpresa[:3])).all()
+#  empresas = Empresa.query.filter(Empresa.nombre.ilike(f"%{searchEmpresa}%")).all()
+   resultados = []
+   for empresa in empresas:
+        resultados.append(empresa.serialize())
+
+   if not empresas:
+       return jsonify({"message": "Busqueda no encontrada"})
+   return jsonify(resultados)
+

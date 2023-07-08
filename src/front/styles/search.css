@@ -1,0 +1,49 @@
+
+.form_empresas_container{
+    border-radius: 5%;
+    background-color: #FFC3C3;
+    box-shadow: 0px 5px 10px 0px rgb(59, 61, 61);
+    font-size: 17px;
+    height: 270px;
+}
+
+.inputSearch[type="radio"]:checked + label{
+    border: #C62828;
+    font-weight: bold;
+  }
+
+.inputSearch[type="radio"]:checked{
+    background-color: #C62828;
+    box-shadow: 0 0 5px red;
+    border: #C62828;
+    font-weight: bold;
+  }
+
+.inputSearch[type="radio"]{
+    border: 1px solid #C62828;
+  }
+
+.rowInput{
+    color: #bc2626;
+  }
+
+.bodyCard{
+    background-color: #C62828;
+    width: 100%;
+    height: 40px;
+    color: white;
+    font-size: 13px;
+}
+.cardRestaurante{
+  border-radius: 9 9 9 9px;
+}
+
+.btn-star:hover {
+  color: yellow;
+}
+
+.btn-star{
+  font-size: 13px;
+  color: white;
+}
+

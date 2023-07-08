@@ -31,11 +31,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 			isloged: false,
 			current_user_data: {
 
-			}
+			},
+
+			searchCompany: {
+				nombre:""
+			},
+
+			favorites: [],
+			company: null,
 		},
 		
 		actions: {			
-      signupCliente:(nombre, apellido, telefono, nacimiento, sexo, calleNumero, pisoPuerta, instrucciones, codigoPostal, estado, ciudad) => {
+      		signupCliente:(nombre, apellido, telefono, nacimiento, sexo, calleNumero, pisoPuerta, instrucciones, codigoPostal, estado, ciudad) => {
 				const store= getStore()
 				const newClient = { //lo que ponga aqui tiene que coincidir con el models
 					nombre : nombre,
@@ -214,7 +221,53 @@ const getState = ({ getStore, getActions, setStore }) => {
 				.then(result => setStore({top_5: result.top_5_data}))
 				.catch(error => console.log('error', error));
 
+			},
+
+
+			searchEmpresa: (nombre) => {
+				const store = getStore()
+				const busquedaEmpresa = { // lo que se ponga aquí tiene que coincidir con el back nombre: 
+					nombre: nombre
+
 			}
+			console.log(busquedaEmpresa)
+			fetch(process.env.BACKEND_URL + "/api/searchEmpresa", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify(busquedaEmpresa)
+			})
+			.then (response => response.json())
+			.then (response => console.log(response))
+			.catch(error => console.log(error))
+			},
+
+			// setFavorite: (element) => {
+			// 	const store = getStore();
+			// 	if(!store.favorites.includes(element)) {
+			// 		setStore ({favorites : [...store.favorites, element]})
+			// 	}
+			// },
+
+			getCompany: (nombre, cif, calleNumero, pisoPuerta, codigoPostal, estado, ciudad, delivery, reserva, mañana, tarde) => {
+				setStore({
+					company: {
+						role: store.user.role,
+						email : store.user.email,
+						password : store.user.password,
+						direccion: `${calleNumero}, ${pisoPuerta}, ${codigoPostal}, ${ciudad}, ${estado}`,
+						nombre: nombre,
+						cif: cif,
+						reserva: reserva,
+						delivery: delivery,
+						mañana: mañana,
+						tarde: tarde
+					}
+				});
+			},
+
+
 
 
 		}

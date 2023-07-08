@@ -1,7 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
-import "/workspaces/Pedi-APP/src/front/styles/signupCliente.css";
 import "../../styles/signupEmpresa.css";
 import Swal from "sweetalert2";
 
