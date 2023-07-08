@@ -11,31 +11,7 @@ import "../../styles/userProfileMenu.css"
 
 const UserHistory = () => {
     const { store, actions } = useContext(Context);
-    useEffect( () =>{
-        
-        (async () => {
-            console.log(store.current_user_data.id)
-            try {
-                const response = await fetch(process.env.BACKEND_URL + "/api/bill", { /* hacer fetch a las facturas de este usuario, cada componente se le madna una factura */
-                    method : "POST",
-                    body: JSON.stringify(store.current_user_data.id),
-                    headers: { 
-                        "Content-Type": "application/json",
-                        } 
-                    
-                    
-                })
-                const result = await response.json()
-                
-                
-
-            }catch(error){
-                console.log("Error loading message from backend")
-            }		
-        })()
-       
-
-    }, []);
+   
 
     return(
         <>

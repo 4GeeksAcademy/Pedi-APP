@@ -282,19 +282,20 @@ def img_uploadinator():
 def bill_getinator():
     data = request.json
     user_id = data.get("id")
+    
     if not user_id:
         return jsonify({"message" : "user not loged in"})
     bills = Factura.query.filter_by(idCliente = user_id).all()
     
-
+    
     if not bills:
         return jsonify({"bills" : []})
     
     serialized_bills = []
     for i in bills:
-        serialized_bills.append(i.serialize())
-    
-    return jsonify({"bills" : serialized_bills})
+        company = Empresa.query.filter_by(id = i.serialize().get("idempresa")).first()
+        serialized_bills.append({"bill" : i.serialize(), "company" : company.serialize()})
+    return jsonify({"bills":serialized_bills})
 
 
 
@@ -350,6 +351,26 @@ def history_getinator():
     
     serialized_bill_history = []
     for i in bill_history:
-        serialized_bill_history.append(i.serialize())
-    print(serialized_bill_history)
-    return jsonify({"bills" : serialized_bill_history})
+        product = Productos.query.filter_by(id = i.serialize().get("idProducto")).first()
+        serialized_bill_history.append({"detail" : i.serialize(), "product" : product.serialize()})
+
+    
+    return jsonify({"history":serialized_bill_history})
+    
+    
+
+@api.route("/productCreator", methods=['POST'])
+def product_addinator():
+    data = request.json
+    name = data.get("name")
+    description = data.get("description")
+    price = data.get("price")
+    company_id = data.get("company_id")
+
+    if not name or not description or not company_id or not price:
+         return jsonify({"message":"Error, missing data"}),400
+    to_add = Productos(nombre = name, descripcion = description, precio = price, idEmpresa=company_id)
+    db.session.add(to_add)
+    db.session.commit()
+
+    return jsonify({"message" : "added" , "product" : to_add.serialize()}),200
