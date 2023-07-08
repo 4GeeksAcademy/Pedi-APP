@@ -34,9 +34,7 @@ const User_order = (props) =>{
         })()
         
     }, []);
-    console.log("esto es para la empresa")
-    console.log(company.id)
-    console.log(order)
+    
     let amount = 0;
     let price = 0
         for (let i of order){
@@ -68,8 +66,8 @@ const User_order = (props) =>{
                         <div className="row order_secondrow">
                             <div className="col-5 order_amount_box ">
                                 <p className="order_amount ">{amount? `${amount} items for ${price}$` : ""}</p>
-                                <a className=" ms-3 order_recipt" data-bs-toggle="modal" data-bs-target="#reciptmodal">View recipt</a>
-                                        <div className="modal fade" id="reciptmodal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <a className=" ms-3 order_recipt" data-bs-toggle="modal" data-bs-target={`#reciptmodal${bill_id}`}>View recipt</a>
+                                        <div className="modal fade" id={`reciptmodal${bill_id}`} tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div className="modal-dialog">
                                                 <div className="modal-content">
                                                 <div className="modal-header">        
@@ -96,7 +94,6 @@ const User_order = (props) =>{
                                                         console.log(x.product.nombre)
                                                         return (<li key={index}> <h5 className="mt-3"> {x.product.nombre} </h5> </li>)
                                                     })}
-                                                        WHYYYYYYYYYYY
                                                 </ul>
                                                 </div>
                                                 <div className="modal-footer ">
