@@ -24,6 +24,7 @@ from geopy.geocoders import Nominatim
 import os
 import cloudinary
 import cloudinary.uploader
+from datetime import datetime
 
 
 
@@ -280,7 +281,20 @@ def img_uploadinator():
 @api.route("/bill", methods=['POST'])
 def bill_getinator():
     data = request.json
-    return jsonify({"message":"asd"})
+    user_id = data.get("id")
+    if not user_id:
+        return jsonify({"message" : "user not loged in"})
+    bills = Factura.query.filter_by(idCliente = user_id).all()
+    
+
+    if not bills:
+        return jsonify({"bills" : []})
+    
+    serialized_bills = []
+    for i in bills:
+        serialized_bills.append(i.serialize())
+    
+    return jsonify({"bills" : serialized_bills})
 
 
 
@@ -291,17 +305,51 @@ def bill_creatinator():
     company_id = data.get("company_id")
     pay_id = data.get("pay_id")
     delivery = data.get("delivery")
-    time = data.get("time")
-    date = data.get("date")
-
-    print("asd")
+    time = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
+    date = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
+    
+    
 
     if not client_id or not company_id or not pay_id or not pay_id or not delivery or not date or not time:
         return jsonify({"message":"Error, missing data"}),400
     
     to_add = Factura(idCliente = client_id, idEmpresa = company_id, idPago = pay_id, delivery = delivery, hora = time, fecha = date)
-    return jsonify({"factura":to_add})
-    #db.session.add(to_add)
-    #db.session.commit()
+    print(to_add)
+    db.session.add(to_add)
+    db.session.commit()
+    return jsonify({"message" : "added" , "bill" : to_add.serialize()}),200
 
-    return jsonify({"message":"asd"})
+@api.route("/historyCreator", methods=['POST'])
+def history_addinator():
+    data = request.json
+    bill_id = data.get("bill_id")
+    product_id = data.get("product_id")
+    amount = data.get("amount")
+    price = data.get("price")
+
+    if not bill_id or not product_id or not amount or not price:
+         return jsonify({"message":"Error, missing data"}),400
+    to_add = HistorialPedidos(idFactura = bill_id, idProducto = product_id, cantidad = amount, precioActual = price)
+    db.session.add(to_add)
+    db.session.commit()
+
+    return jsonify({"message" : "added" , "to_history" : to_add.serialize()}),200
+
+@api.route("/history", methods=['POST'])
+def history_getinator():
+    data = request.json
+    bill_id = data.get("id")
+
+    if not bill_id:
+        return jsonify({"message" : "need to know the bill"})
+    bill_history = HistorialPedidos.query.filter_by(idFactura = bill_id).all()
+    
+
+    if not bill_history:
+        return jsonify({"bill_history" : []})
+    
+    serialized_bill_history = []
+    for i in bill_history:
+        serialized_bill_history.append(i.serialize())
+    print(serialized_bill_history)
+    return jsonify({"bills" : serialized_bill_history})
