@@ -67,6 +67,7 @@ def loginator():
                 user_data = user.cliente[0].serialize()
             elif role == "Empresa":
                 user_data = user.empresa[0].serialize()
+                
             else:
                 return (
                     jsonify(
