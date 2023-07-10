@@ -23,7 +23,7 @@ const OrderDetail = () => {
                 <div className="col-5 d-flex ">
                   <div className="order_btn_box ">
                     <input type="radio" className="btn-check order_btn " name="options" id="option1" autoComplete="off" checked/>
-                    <label className="btn  order_btn " htmlFor="option1">Delivery</label>
+                    <label className="btn  order_btn me-2" htmlFor="option1">Delivery</label>
 
                     <input type="radio" className="btn-check order_btn" name="options" id="option2" autoComplete="off"/>
                     <label className="btn  order_btn text-nowrap" htmlFor="option2">Take away</label>
@@ -93,10 +93,10 @@ const OrderDetail = () => {
                 </div>
                 <div className="col-4  order_product_price  ">
                   <p className="order_product_price fs-5">15$  </p> 
-                  <div class="btn-group order_product_btnbox" role="group" aria-label="Basic example">
-                    <button type="button" class="btn  btn-sm order_product_btn"><i class="fa-solid fa-trash-can  mx-1"></i></button>
-                    <button type="button" class="btn  btn-sm order_product_btn"><p className="my-auto mx-1" >1</p></button>
-                    <button type="button" class="btn  btn-sm order_product_btn"><p className="my-auto mx-1" >+</p></button>
+                  <div className="btn-group order_product_btnbox" role="group" aria-label="Basic example">
+                    <button type="button" className="btn  btn-sm order_product_btn"><i className="fa-solid fa-trash-can  mx-1"></i></button>
+                    <button type="button" className="btn  btn-sm order_product_btn"><p className="my-auto mx-1" >1</p></button>
+                    <button type="button" className="btn  btn-sm order_product_btn"><p className="my-auto mx-1" >+</p></button>
                   </div>
                 </div>
               </div>
@@ -111,7 +111,7 @@ const OrderDetail = () => {
                       if you are not avaiable.</p></div> 
               </div>
               
-              <button type="submit" class="btn btn-primary btn-lg order_submit">Place order</button>
+              <button type="submit" className="btn btn-primary btn-lg order_submit">Place order</button>
           </div>
         </div>
       </div>
