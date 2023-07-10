@@ -81,23 +81,38 @@ const OrderDetail = () => {
               <div className="row right_first_row py-4 ">
                 <h3 className=" text-start">Order summary</h3> 
               </div>
-              <div className="row right_second_row py-4 pt-1">
-                <div className="col-7 order_detail_box border">
-                  <div className=" d-flex border w-100">
+              <div className="row right_second_row py-4 pt-1 ">
+                <div className="col-7 order_detail_box ">
+                  <div className=" d-flex  w-100">
                     <p className="order_product fs-5">Whooper  </p> 
-                    <p className="order_quant fs-5 text-secondary border ">Whooper  </p> 
+                    <p className="order_quant fs-5 text-secondary  ">1  </p> 
                   </div>
                   <p className="order_adress text-secondary fs-6 ">Size: Medium</p>
                   <p className="order_adress text-secondary fs-6 ">Side: French fries</p>
                   <p className="order_adress text-secondary fs-6 ">Drink: Coca cola</p>
                 </div>
-                <div className="col-4">
-                  
+                <div className="col-4  order_product_price  ">
+                  <p className="order_product_price fs-5">15$  </p> 
+                  <div class="btn-group order_product_btnbox" role="group" aria-label="Basic example">
+                    <button type="button" class="btn  btn-sm order_product_btn"><i class="fa-solid fa-trash-can  mx-1"></i></button>
+                    <button type="button" class="btn  btn-sm order_product_btn"><p className="my-auto mx-1" >1</p></button>
+                    <button type="button" class="btn  btn-sm order_product_btn"><p className="my-auto mx-1" >+</p></button>
+                  </div>
                 </div>
               </div>
-
+              <div className="row right_third_row py-4 ">
+                  <div className="col d-flex  w-100"> <h4 className=" text-start">Subtotal</h4> <h4 className=" ms-auto me-3">15$</h4></div> 
+                  <div className="col d-flex  w-100"> <h4 className=" text-start">Tax</h4> <h4 className=" ms-auto me-3">3$</h4></div> 
+                  <div className="col d-flex  w-100"> <h3 className=" text-start">Total</h3> <h3 className=" ms-auto me-3">18$</h3></div> 
+                  <div className="col d-flex  w-100"> <p className=" text-secondary order_disclaimer">If you’re not around when the delivery person arrives,   they’ll leave your 
+                      order at the door. By placing your order, you agree to take full responsibility
+                      for it once it’s delivered. Orders containing alcohol or other restricted
+                      items may not be eligible for leave at door and will be returned to the store
+                      if you are not avaiable.</p></div> 
+              </div>
+              
+              <button type="submit" class="btn btn-primary btn-lg order_submit">Place order</button>
           </div>
-          
         </div>
       </div>
     </form></>
