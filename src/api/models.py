@@ -218,7 +218,7 @@ class HorariosEmpresas (db.Model):
 class HistorialPedidos (db.Model):
     id = db.Column(db.Integer, primary_key=True)
     idFactura = db.Column(db.Integer, db.ForeignKey('factura.id'), nullable=False)
-    idProducto = db.Column(db.Integer, unique=False, nullable=False)
+    idProducto = db.Column(db.Integer,db.ForeignKey('productos.id'), unique=False, nullable=False)
     cantidad = db.Column(db.Integer, unique=False, nullable=False)
     precioActual = db.Column(db.Float(2), unique=False,nullable=True)
     

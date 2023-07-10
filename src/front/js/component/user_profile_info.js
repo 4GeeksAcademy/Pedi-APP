@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/user_info.css";
 
-const User_info = () =>{
+const User_profile_info = () =>{
     const { store, actions } = useContext(Context);
 
     return(
@@ -47,4 +47,4 @@ const User_info = () =>{
 }
 
 
-export default User_info
+export default User_profile_info

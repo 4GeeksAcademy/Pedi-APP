@@ -24,6 +24,7 @@ from geopy.geocoders import Nominatim
 import os
 import cloudinary
 import cloudinary.uploader
+from datetime import datetime
 
 
 
@@ -192,7 +193,7 @@ def category_creatinator():
     return jsonify({"message": "añadido"})
 
 
-@api.route("/category", methods = ["get"])
+@api.route("/category", methods = ["GET"])
 def category_loadinator():
     all_categories = TipoComida.query.all()
     serialized_categories = []
@@ -277,6 +278,135 @@ def img_uploadinator():
 
     return jsonify({"message" : "error"}),400
     
+@api.route("/bill", methods=['POST'])
+def bill_getinator():
+    data = request.json
+    user_id = data.get("id")
+    
+    if not user_id:
+        return jsonify({"message" : "user not loged in"})
+    bills = Factura.query.filter_by(idCliente = user_id).all()
+    
+    
+    if not bills:
+        return jsonify({"bills" : []})
+    
+    serialized_bills = []
+    for i in bills:
+        company = Empresa.query.filter_by(id = i.serialize().get("idempresa")).first()
+        serialized_bills.append({"bill" : i.serialize(), "company" : company.serialize()})
+    return jsonify({"bills":serialized_bills})
 
 
 
+@api.route("/billCreator", methods=['POST'])
+def bill_creatinator():
+    data = request.json
+    client_id = data.get("client_id")
+    company_id = data.get("company_id")
+    pay_id = data.get("pay_id")
+    delivery = data.get("delivery")
+    time = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
+    date = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
+    
+    
+
+    if not client_id or not company_id or not pay_id or not pay_id or not delivery or not date or not time:
+        return jsonify({"message":"Error, missing data"}),400
+    
+    to_add = Factura(idCliente = client_id, idEmpresa = company_id, idPago = pay_id, delivery = delivery, hora = time, fecha = date)
+    print(to_add)
+    db.session.add(to_add)
+    db.session.commit()
+    return jsonify({"message" : "added" , "bill" : to_add.serialize()}),200
+
+@api.route("/historyCreator", methods=['POST'])
+def history_addinator():
+    data = request.json
+    bill_id = data.get("bill_id")
+    product_id = data.get("product_id")
+    amount = data.get("amount")
+    price = data.get("price")
+
+    if not bill_id or not product_id or not amount or not price:
+         return jsonify({"message":"Error, missing data"}),400
+    to_add = HistorialPedidos(idFactura = bill_id, idProducto = product_id, cantidad = amount, precioActual = price)
+    db.session.add(to_add)
+    db.session.commit()
+
+    return jsonify({"message" : "added" , "to_history" : to_add.serialize()}),200
+
+@api.route("/history", methods=['POST'])
+def history_getinator():
+    data = request.json
+    bill_id = data.get("id")
+
+    if not bill_id:
+        return jsonify({"message" : "need to know the bill"})
+    bill_history = HistorialPedidos.query.filter_by(idFactura = bill_id).all()
+    
+
+    if not bill_history:
+        return jsonify({"bill_history" : []})
+    
+    serialized_bill_history = []
+    for i in bill_history:
+        product = Productos.query.filter_by(id = i.serialize().get("idProducto")).first()
+        serialized_bill_history.append({"detail" : i.serialize(), "product" : product.serialize()})
+
+    
+    return jsonify({"history":serialized_bill_history})
+    
+    
+
+@api.route("/productCreator", methods=['POST'])
+def product_addinator():
+    data = request.json
+    name = data.get("name")
+    description = data.get("description")
+    price = data.get("price")
+    company_id = data.get("company_id")
+
+    if not name or not description or not company_id or not price:
+         return jsonify({"message":"Error, missing data"}),400
+    to_add = Productos(nombre = name, descripcion = description, precio = price, idEmpresa=company_id)
+    db.session.add(to_add)
+    db.session.commit()
+
+    return jsonify({"message" : "added" , "product" : to_add.serialize()}),200
+
+@api.route("/favoriteCreator", methods=['POST'])
+def favorite_addinator():
+    data = request.json
+    user_id = data.get("user_id")
+    company_id = data.get("company_id")
+    
+    if not user_id or not company_id:
+         return jsonify({"message":"Error, missing data"}),400
+    to_add = Favoritos (idCliente = user_id, idEmpresa = company_id)
+    
+    db.session.add(to_add)
+    db.session.commit()
+
+    return jsonify({"message" : "added" , "faved" : to_add.serialize()}),200
+
+@api.route("/favorites", methods=['POST'])
+def favorites_getinator():
+    data = request.json
+    user_id = data.get("id")
+
+    if not user_id:
+        return jsonify({"message" : "need to know the user"})
+    favorites = Favoritos.query.filter_by(idCliente = user_id).all()
+    
+    if not favorites:
+        return jsonify({"favorites" : []})
+    
+    serialized_favorites = []
+    for i in favorites:
+        add = i.empresa.serialize()
+        add["direccion"] = i.empresa.usuario.direccion
+        serialized_favorites.append(add)
+
+    
+    return jsonify({"favorites":serialized_favorites})
