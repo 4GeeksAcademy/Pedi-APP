@@ -77,8 +77,25 @@ const OrderDetail = () => {
                   
             </div>
           </div>
-          <div className="col-5 order_left_col px-4 pb-4">
-            
+          <div className="col-5 order_right_col px-4 pb-4">
+              <div className="row right_first_row py-4 ">
+                <h3 className=" text-start">Order summary</h3> 
+              </div>
+              <div className="row right_second_row py-4 pt-1">
+                <div className="col-7 order_detail_box border">
+                  <div className=" d-flex border w-100">
+                    <p className="order_product fs-5">Whooper  </p> 
+                    <p className="order_quant fs-5 text-secondary border ">Whooper  </p> 
+                  </div>
+                  <p className="order_adress text-secondary fs-6 ">Size: Medium</p>
+                  <p className="order_adress text-secondary fs-6 ">Side: French fries</p>
+                  <p className="order_adress text-secondary fs-6 ">Drink: Coca cola</p>
+                </div>
+                <div className="col-4">
+                  
+                </div>
+              </div>
+
           </div>
           
         </div>
