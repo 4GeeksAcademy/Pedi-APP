@@ -18,6 +18,12 @@ import UserHistory from "./pages/userHistory";
 import UserFavorites from "./pages/userFavorites";
 import OrderDetail from "./pages/orderDetail";
 
+
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+
+import CheckoutForm from "./pages/checkoutForm";
+
 //create your first component
 const Layout = () => {
     //the basename is used when your project is published in a subdirectory and not in the root of the domain
@@ -25,6 +31,9 @@ const Layout = () => {
     const basename = process.env.BASENAME || "";
 
     if(!process.env.BACKEND_URL || process.env.BACKEND_URL == "") return <BackendURL/ >;
+
+    const promise = loadStripe("pk_test_51NShHZGaOqlS5geCwKPZaHTaW5yq3C9nFeNqD13fcdrVdcp810PI3GeYW43IcsVqXTSg7ip0saQtuVnDq0FjvSyl00tpotDJnL");
+
 
     return (
         <div>
@@ -40,6 +49,13 @@ const Layout = () => {
                         <Route element={<UserHistory/>} path="/userProfile/history"/>
                         <Route element={<UserFavorites/>} path="/userProfile/favorites"/>
                         <Route element={<OrderDetail/>} path="/orderDetail"/>
+                        <Route path="/checkout" element={
+                            <Elements stripe={promise}>
+                                <CheckoutForm />
+                            </Elements>
+                        }
+                        />
+                        
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />
@@ -49,3 +65,4 @@ const Layout = () => {
 };
 
 export default injectContext(Layout);
+

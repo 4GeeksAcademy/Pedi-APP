@@ -25,6 +25,9 @@ import os
 import cloudinary
 import cloudinary.uploader
 from datetime import datetime
+import stripe
+stripe.api_key = "sk_test_51NShHZGaOqlS5geCWJ4pA2RkcPB3jcXCFTp15A8ARNaJciSz6ezxsS12MGRrSsfVe1xtTrhlA5W4nyPKqE5w6DBu00vfdqAxLm"
+
 
 
 
@@ -411,3 +414,28 @@ def favorites_getinator():
 
     
     return jsonify({"favorites":serialized_favorites})
+
+
+def calculate_order_amount(items):
+    amount = items.get("precio") * items.get("cantidad")
+    return amount
+
+@api.route('/create-payment-intent', methods=['POST'])
+def create_payment():
+    try:
+        data = request.json
+        
+        print(data)
+        
+
+        intent = stripe.PaymentIntent.create(
+            amount=calculate_order_amount(data),
+            currency='usd'
+        )
+        
+
+        return jsonify({
+          'clientSecret': intent['client_secret']
+        })
+    except Exception as e:
+        return jsonify(error=str(e)), 403
