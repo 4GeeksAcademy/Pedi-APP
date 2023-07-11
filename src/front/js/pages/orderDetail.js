@@ -5,15 +5,19 @@ import "../../styles/orderDetail.css";
 import bk from "../../img/bk.png"
 
 
+
 const OrderDetail = () => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
   const [user, setUser] = useState({});
 
-  
+  const handleSubmit = (e) =>{
+    e.preventDefault
+    navigate("/checkout", { replace: true });
+  }
 
   return (
-    <><form>
+    <><form onSubmit={(e) => handleSubmit(e)}>
     
       <div className="container-fluid text-center  order_page_container p-5 ">
         <div className="row order_all p-5">

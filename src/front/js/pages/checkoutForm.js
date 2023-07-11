@@ -21,9 +21,9 @@ export default function CheckoutForm() {
       id : 1,
       nombre : "whooper",
       descripcion : "cosas",
-      precio : 29,
+      precio : 30,
       idEmpresa: 1,
-      cantidad : 2
+      cantidad : 10
     }
     
     
@@ -89,7 +89,7 @@ export default function CheckoutForm() {
   };
 
   return (
-    <form id="payment-form " onSubmit={handleSubmit}>
+    <form id="payment-form " className="pay_form" onSubmit={handleSubmit}>
       <CardElement id="card-element" options={cardStyle} onChange={handleChange} />
       <button
         disabled={processing || disabled || succeeded}

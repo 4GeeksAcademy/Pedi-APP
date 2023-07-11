@@ -3,18 +3,8 @@
     align-items: center;
   }
   
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-    font-size: 16px;
-    -webkit-font-smoothing: antialiased;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    height: 100vh;
-    width: 100vw;
-  }
   
-  form {
+  .pay_form {
     width: 100%;
     align-self: center;
     box-shadow: 0px 0px 0px 0.5px rgba(50, 50, 93, 0.1),
@@ -27,7 +17,7 @@
     flex-direction: column;
   }
   
-  input {
+  /*input {              ---------------guat is dis
     border-radius: 6px;
     margin-bottom: 6px;
     padding: 12px;
@@ -37,7 +27,7 @@
     width: 100%;
     background: white;
     box-sizing: border-box;
-  }
+  }*/
   
   .result-message {
     line-height: 22px;
@@ -76,12 +66,12 @@
     margin-bottom: 32px;
   }
   
-  button:hover {
+  #submit:hover {
     filter: contrast(115%);
     
   }
   
-  button:disabled {
+  #submit:disabled {
     opacity: 0.5;
     cursor: default;
     
