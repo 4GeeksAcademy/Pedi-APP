@@ -1,5 +1,6 @@
 import React from "react";
 import "../../styles/companyProfileBox.css";
+import { Link } from "react-router-dom";
 
 
 export const InfoCompanyBox = () => {
@@ -7,16 +8,16 @@ export const InfoCompanyBox = () => {
             <div className="card sidebar col-12 col-md-5 company-profile-box">
                 <ul className="nav company-profile-list">
                     <li className="nav-item text-box">
-                        <a className="nav-link company-profile-box-text" href="">Account info</a>
+                        <Link className="nav-link company-profile-box-text" to="/companyProfile">Account info</Link>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link company-profile-box-text" href="#">Menu</a>
+                        <Link className="nav-link company-profile-box-text" to="/menu">Menu</Link>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link company-profile-box-text" href="#">Add product</a>
+                        <Link className="nav-link company-profile-box-text" to="/addProduct">Add product</Link>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link company-profile-box-text" href="#">Order history</a>
+                        <Link className="nav-link company-profile-box-text" to="/companyOrderHistory">Order history</Link>
                     </li>
                 </ul>
             </div>

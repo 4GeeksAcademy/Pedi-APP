@@ -1,6 +1,7 @@
 import React from "react";
 import { AddProduct } from "../component/addProduct";
 import { InfoCompanyBox } from "../component/infoCompanyBox";
+import "../../styles/companyProfileBox.css";
 
 export const CompanyAddProduct = () => {
     return(

@@ -16,7 +16,7 @@ export const AddProduct = () => {
             formData.nombre && formData.precio
         ){
             actions.addProduct(
-                formData.nombre, formData.precio, formData.descripcion
+                formData.nombre, formData.precio, formData.descripcion, formData.img
             );
             setForm(true);
             navigate('/addProduct')
@@ -28,7 +28,8 @@ export const AddProduct = () => {
     const [formData, setFormData] = useState({
         nombre: "",
         precio: "",
-        descripcion: ""
+        descripcion: "",
+        img: ""
     })
 
     useEffect(()=> {
@@ -69,7 +70,7 @@ export const AddProduct = () => {
                     <label htmlFor="description" className="form-label add-product-label">Description</label>
                     <textarea className="form-control" id="description" rows="3" value={formData.descripcion} onChange={(data)=> setFormData({...formData, descripcion: data.target.value})}></textarea>
                 </div>
-                <div class="mb-3 add-product-upload">
+                <div className="mb-3 add-product-upload">
                     <label htmlFor="formFile" className="form-label">Upload image</label>
                     <input className="form-control" type="file" id="formFile" onChange={(e) => {uploadFile(e)}}/>
                 </div>

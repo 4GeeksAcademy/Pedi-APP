@@ -32,11 +32,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			isloged: false,
 			current_user_data: {
 
-			},
-			product: {
-				nombre:"",
-				precio:"",
-				descripcion: ""
 			}
 		},
 		
@@ -135,6 +130,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						localStorage.setItem("jwt-token", result.token);
 						setStore({isloged:true})
 						console.log(result.userdata)
+						console.log(result)
 						/*  EDITAR ESTO CON LA INFO DEL USUARIO QUE HAGA FALTA*/
 						if(result.userdata.role == "Cliente") {
 							setStore({current_user_data:{...store.current_user_data, nombre : result.userdata.nombre}})
@@ -148,6 +144,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 							setStore({current_user_data:{...store.current_user_data, role : result.userdata.role}})
 							setStore({current_user_data:{...store.current_user_data, idEmpresa : result.userdata.id}})
 							setStore({current_user_data:{...store.current_user_data, cif : result.userdata.cif}})
+							setStore({current_user_data:{...store.current_user_data, email : result.userdata.email}})
+							setStore({current_user_data:{...store.current_user_data, delivery : result.userdata.delivery}})
+							setStore({current_user_data:{...store.current_user_data, reserva : result.userdata.reserva}})
+							setStore({current_user_data:{...store.current_user_data, mañana : result.userdata.horario.mañana}})
+							setStore({current_user_data:{...store.current_user_data, tarde : result.userdata.horario.tarde}})
 						}
 						
 						
@@ -278,14 +279,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({isloged:false})
 				localStorage.clear();
 			},
-			addProduct: async () => {
+			addProduct: async (nombre, precio, descripcion, img) => {
 				const store= getStore()
 				const newProduct = {
 					nombre : nombre,
 					precio : precio,
 					descripcion : descripcion,
-					idEmpresa : store.empresa.id
+					idEmpresa : store.current_user_data.idEmpresa,
+					img : img
 				}
+				console.log(newProduct)
 				try{
 					const response = await fetch(process.env.BACKEND_URL + "/api/addProduct", {
 						method: "POST",
