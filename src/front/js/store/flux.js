@@ -130,6 +130,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						localStorage.setItem("jwt-token", result.token);
 						setStore({isloged:true})
 						console.log(result.userdata)
+						console.log(result)
 						/*  EDITAR ESTO CON LA INFO DEL USUARIO QUE HAGA FALTA*/
 						if(result.userdata.role == "Cliente") {
 							setStore({current_user_data:{...store.current_user_data, nombre : result.userdata.nombre}})
@@ -142,6 +143,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 							setStore({current_user_data:{...store.current_user_data, nombre : result.userdata.nombre}})
 							setStore({current_user_data:{...store.current_user_data, direccion : result.userdata.direccion}})
 							setStore({current_user_data:{...store.current_user_data, role : result.userdata.role}})
+							setStore({current_user_data:{...store.current_user_data, idEmpresa : result.userdata.id}})
+							setStore({current_user_data:{...store.current_user_data, cif : result.userdata.cif}})
+							setStore({current_user_data:{...store.current_user_data, email : result.userdata.email}})
+							setStore({current_user_data:{...store.current_user_data, delivery : result.userdata.delivery}})
+							setStore({current_user_data:{...store.current_user_data, reserva : result.userdata.reserva}})
+							setStore({current_user_data:{...store.current_user_data, mañana : result.userdata.horario.mañana}})
+							setStore({current_user_data:{...store.current_user_data, tarde : result.userdata.horario.tarde}})
 						}
 						
 						
@@ -272,10 +280,36 @@ const getState = ({ getStore, getActions, setStore }) => {
 			logoutinator: () => {
 				setStore({isloged:false})
 				localStorage.clear();
-				console.log("outted")
-			}
-
-
+        console.log("outted")
+			},
+			addProduct: async (nombre, precio, descripcion, img) => {
+				const store= getStore()
+				const newProduct = {
+					nombre : nombre,
+					precio : precio,
+					descripcion : descripcion,
+					idEmpresa : store.current_user_data.idEmpresa,
+					img : img
+				}
+				console.log(newProduct)
+				try{
+					const response = await fetch(process.env.BACKEND_URL + "/api/addProduct", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json"
+						},
+						body: JSON.stringify(newProduct)
+					})
+					const result = await response.json()
+					Swal.fire(result.message)
+					if(response.status == 200){
+						console.log(response)
+						return true
+					}
+					return false
+				}catch(error) {console.log(error)
+				}
+			},
 		}
 	}
 };

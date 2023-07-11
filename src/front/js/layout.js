@@ -11,11 +11,18 @@ import { SingupCliente } from "./pages/signupCliente";
 import { Signup } from "./pages/signup";
 import { SingupEmpresa } from "./pages/signupEmpresa";
 
+import Login
+ from "./pages/login";
+import { CompanyProfile } from "./pages/companyProfile";
+import UserProfile from "./pages/userProfile";
+import { CompanyAddProduct } from "./pages/companyAddProduct";
+import { MenuCompany } from "./pages/menuCompany";
 
 import Login from "./pages/login";
 import UserInfo from "./pages/userInfo";
 import UserHistory from "./pages/userHistory";
 import UserFavorites from "./pages/userFavorites";
+
 
 //create your first component
 const Layout = () => {
@@ -35,6 +42,10 @@ const Layout = () => {
                         <Route element={<SingupEmpresa/>} path="/signupEmpresa" />
                         <Route element={<Signup />} path="/signup" />
                         <Route element={<Login/>} path="/login"/>
+                        <Route element={<CompanyProfile />} path="/companyProfile"/>
+                        <Route element={<UserProfile/>} path="/userProfile"/>
+                        <Route element={<MenuCompany/>} path="/menu"/>
+                        <Route element={<CompanyAddProduct />} path="/addProduct"/>
                         <Route element={<UserInfo/>} path="/userProfile/info"/>
                         <Route element={<UserHistory/>} path="/userProfile/history"/>
                         <Route element={<UserFavorites/>} path="/userProfile/favorites"/>

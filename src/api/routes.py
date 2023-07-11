@@ -67,6 +67,7 @@ def loginator():
                 user_data = user.cliente[0].serialize()
             elif role == "Empresa":
                 user_data = user.empresa[0].serialize()
+                user_data["horario"] = user.empresa[0].horarios[0].serialize()
             else:
                 return (
                     jsonify(
@@ -258,6 +259,23 @@ def address_convertinator():
 
     return jsonify({"coordinates": lat_lon, "address":location.address}),200
 
+@api.route("/addProduct", methods = ["POST"])
+def addProduct():
+    data = request.json
+    nombre = data.get("nombre")
+    precio = data.get("precio")
+    descripcion = data.get("descripcion")
+    idEmpresa = data.get("idEmpresa")
+    img = data.get("img")
+
+    if not nombre or not precio or not descripcion:
+        return jsonify({"message": "Complete all data of your product"}), 400
+
+    addOneProduct = Productos(nombre = nombre, precio= precio, descripcion = descripcion, idEmpresa = idEmpresa, img = img)
+    db.session.add(addOneProduct)
+    db.session.commit()
+
+    return jsonify({"message": "Product add successfull"}), 200
 
 @api.route("/companyimg", methods=['POST'])
 def img_uploadinator():
@@ -278,6 +296,23 @@ def img_uploadinator():
 
     return jsonify({"message" : "error"}),400
     
+
+@api.route("/menu/<int:idEmpresa>", methods=['GET']) #la url tiene que coincidir con el fetch
+def menu_empresa(idEmpresa):
+    # Obtener los productos del menú asociados al usuario
+    empresa = Empresa.query.get(idEmpresa)
+    if not empresa:
+        return jsonify({"message": "empresa not found"}), 404
+
+    menu = Productos.query.filter_by(idEmpresa = empresa.id).all()
+
+    # Serializar los productos del menú
+    serialized_menu = []
+    for producto in menu:
+        serialized_menu.append(producto.serialize()) #append agrega elemento a la lista de arriba (array)
+
+    return jsonify({"menu": serialized_menu}), 200
+
 @api.route("/bill", methods=['POST'])
 def bill_getinator():
     data = request.json
