@@ -118,8 +118,9 @@ class Productos (db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(120), unique=False, nullable=False)
     descripcion = db.Column(db.String(240), unique=False, nullable=False)
-    precio = db.Column(db.Float(2), unique=False,nullable=True)
+    precio = db.Column(db.Float(2), unique=False,nullable=False)
     idEmpresa = db.Column(db.Integer, db.ForeignKey('empresa.id'), nullable=False)
+    img = db.Column(db.String(10000000), unique=False, nullable=True)
 
     def __repr__(self):
         return f'<Producto {self.id}>'
@@ -130,7 +131,8 @@ class Productos (db.Model):
                 "nombre": self.nombre,
                 "descripcion": self.descripcion,
                 "precio" : self.precio,
-                "idEmpresa": self.idEmpresa
+                "idEmpresa": self.idEmpresa,
+                "img": self.img
             }
 
 class Factura (db.Model):
@@ -218,7 +220,7 @@ class HorariosEmpresas (db.Model):
 class HistorialPedidos (db.Model):
     id = db.Column(db.Integer, primary_key=True)
     idFactura = db.Column(db.Integer, db.ForeignKey('factura.id'), nullable=False)
-    idProducto = db.Column(db.Integer, unique=False, nullable=False)
+    idProducto = db.Column(db.Integer,db.ForeignKey('productos.id'), unique=False, nullable=False)
     cantidad = db.Column(db.Integer, unique=False, nullable=False)
     precioActual = db.Column(db.Float(2), unique=False,nullable=True)
     

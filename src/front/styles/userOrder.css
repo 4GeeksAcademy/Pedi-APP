@@ -78,6 +78,7 @@
     width: 100%;
     display: flex;
     flex-direction: row;
+    
 }
 .modal_price_footer{
     color: gray;
@@ -92,6 +93,19 @@
     margin-bottom: auto;
     justify-self: end;
     text-align: end;
+}
+.modal_subtotal_body{
+    color: gray;
+    
+    margin-bottom: auto;
+    justify-self: end;
+    text-align: end;
+}
+.modal_ul_box{
+    display: flex;
+    flex-direction: column;
+    padding-left: 0px;
+
 }
 
 /* Extra small devices (phones, 600px and down) */

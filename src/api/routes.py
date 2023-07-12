@@ -70,7 +70,8 @@ def loginator():
                 user_data = user.cliente[0].serialize()
             elif role == "Empresa":
                 user_data = user.empresa[0].serialize()
-                
+                user_data["horario"] = user.empresa[0].horarios[0].serialize()
+
             else:
                 return (
                     jsonify(
@@ -262,6 +263,23 @@ def address_convertinator():
 
     return jsonify({"coordinates": lat_lon, "address":location.address}),200
 
+@api.route("/addProduct", methods = ["POST"])
+def addProduct():
+    data = request.json
+    nombre = data.get("nombre")
+    precio = data.get("precio")
+    descripcion = data.get("descripcion")
+    idEmpresa = data.get("idEmpresa")
+    img = data.get("img")
+
+    if not nombre or not precio or not descripcion:
+        return jsonify({"message": "Complete all data of your product"}), 400
+
+    addOneProduct = Productos(nombre = nombre, precio= precio, descripcion = descripcion, idEmpresa = idEmpresa, img = img)
+    db.session.add(addOneProduct)
+    db.session.commit()
+
+    return jsonify({"message": "Product add successfull"}), 200
 
 @api.route("/companyimg", methods=['POST'])
 def img_uploadinator():
@@ -282,25 +300,55 @@ def img_uploadinator():
 
     return jsonify({"message" : "error"}),400
     
+
+@api.route("/menu/<int:idEmpresa>", methods=['GET']) #la url tiene que coincidir con el fetch
+def menu_empresa(idEmpresa):
+    # Obtener los productos del menú asociados al usuario
+    empresa = Empresa.query.get(idEmpresa)
+    if not empresa:
+        return jsonify({"message": "empresa not found"}), 404
+
+    menu = Productos.query.filter_by(idEmpresa = empresa.id).all()
+
+    # Serializar los productos del menú
+    serialized_menu = []
+    for producto in menu:
+        serialized_menu.append(producto.serialize()) #append agrega elemento a la lista de arriba (array)
+
+    return jsonify({"menu": serialized_menu}), 200
+
 @api.route("/bill", methods=['POST'])
 def bill_getinator():
     data = request.json
     user_id = data.get("id")
-    
-    if not user_id:
+    role = data.get("role")
+    print(role)
+    print(user_id)
+   
+    if not user_id or not role:
         return jsonify({"message" : "user not loged in"})
-    bills = Factura.query.filter_by(idCliente = user_id).all()
+    
+    serialized_bills = []
+
+    if (role == "Cliente"):
+        bills = Factura.query.filter_by(idCliente = user_id).all()
+    elif (role =="Empresa"):
+        bills = Factura.query.filter_by(idEmpresa = user_id).all()
     
     
     if not bills:
         return jsonify({"bills" : []})
     
-    serialized_bills = []
-    for i in bills:
-        company = Empresa.query.filter_by(id = i.serialize().get("idempresa")).first()
-        serialized_bills.append({"bill" : i.serialize(), "company" : company.serialize()})
-    return jsonify({"bills":serialized_bills})
-
+    if (role == "Cliente"):
+        for i in bills:
+            company = Empresa.query.filter_by(id = i.serialize().get("idempresa")).first()
+            serialized_bills.append({"bill" : i.serialize(), "company" : company.serialize()})
+        return jsonify({"bills":serialized_bills})
+    elif (role =="Empresa"):
+        for i in bills:
+            user = Cliente.query.filter_by(id = i.serialize().get("idcliente")).first()
+            serialized_bills.append({"bill" : i.serialize(), "user" : user.serialize().get("nombre")})
+        return jsonify({"bills":serialized_bills})
 
 
 @api.route("/billCreator", methods=['POST'])
@@ -332,6 +380,8 @@ def history_addinator():
     amount = data.get("amount")
     price = data.get("price")
 
+    print(Factura.query.all()[0].serialize())
+
     if not bill_id or not product_id or not amount or not price:
          return jsonify({"message":"Error, missing data"}),400
     to_add = HistorialPedidos(idFactura = bill_id, idProducto = product_id, cantidad = amount, precioActual = price)
@@ -344,6 +394,8 @@ def history_addinator():
 def history_getinator():
     data = request.json
     bill_id = data.get("id")
+
+    
 
     if not bill_id:
         return jsonify({"message" : "need to know the bill"})
