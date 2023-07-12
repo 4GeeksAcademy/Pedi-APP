@@ -425,7 +425,7 @@ def create_payment():
     try:
         data = request.json
         
-        print(data)
+        
         
 
         intent = stripe.PaymentIntent.create(
@@ -433,7 +433,8 @@ def create_payment():
             currency='usd'
         )
         
-
+        
+        #agregar para meter entradas a la tabla de facturas e historial de pedidos
         return jsonify({
           'clientSecret': intent['client_secret']
         })

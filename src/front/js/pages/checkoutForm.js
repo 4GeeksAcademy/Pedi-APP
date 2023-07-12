@@ -85,6 +85,8 @@ export default function CheckoutForm() {
       setError(null);
       setProcessing(false);
       setSucceeded(true);
+      /* redirigir a pago exitoso */
+      /* */
     }
   };
 
