@@ -317,21 +317,34 @@ def menu_empresa(idEmpresa):
 def bill_getinator():
     data = request.json
     user_id = data.get("id")
-    
-    if not user_id:
+    role = data.get("role")
+    print(role)
+    print(user_id)
+   
+    if not user_id or not role:
         return jsonify({"message" : "user not loged in"})
-    bills = Factura.query.filter_by(idCliente = user_id).all()
+    
+    serialized_bills = []
+
+    if (role == "Cliente"):
+        bills = Factura.query.filter_by(idCliente = user_id).all()
+    elif (role =="Empresa"):
+        bills = Factura.query.filter_by(idEmpresa = user_id).all()
     
     
     if not bills:
         return jsonify({"bills" : []})
     
-    serialized_bills = []
-    for i in bills:
-        company = Empresa.query.filter_by(id = i.serialize().get("idempresa")).first()
-        serialized_bills.append({"bill" : i.serialize(), "company" : company.serialize()})
-    return jsonify({"bills":serialized_bills})
-
+    if (role == "Cliente"):
+        for i in bills:
+            company = Empresa.query.filter_by(id = i.serialize().get("idempresa")).first()
+            serialized_bills.append({"bill" : i.serialize(), "company" : company.serialize()})
+        return jsonify({"bills":serialized_bills})
+    elif (role =="Empresa"):
+        for i in bills:
+            user = Cliente.query.filter_by(id = i.serialize().get("idcliente")).first()
+            serialized_bills.append({"bill" : i.serialize(), "user" : user.serialize().get("nombre")})
+        return jsonify({"bills":serialized_bills})
 
 
 @api.route("/billCreator", methods=['POST'])
@@ -363,6 +376,8 @@ def history_addinator():
     amount = data.get("amount")
     price = data.get("price")
 
+    print(Factura.query.all()[0].serialize())
+
     if not bill_id or not product_id or not amount or not price:
          return jsonify({"message":"Error, missing data"}),400
     to_add = HistorialPedidos(idFactura = bill_id, idProducto = product_id, cantidad = amount, precioActual = price)
@@ -375,6 +390,8 @@ def history_addinator():
 def history_getinator():
     data = request.json
     bill_id = data.get("id")
+
+    
 
     if not bill_id:
         return jsonify({"message" : "need to know the bill"})

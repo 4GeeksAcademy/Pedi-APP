@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 3d30e0da7d90
-Revises: 08d94ff6dc7e
-Create Date: 2023-07-11 15:55:47.473730
+Revision ID: dd4db230fa68
+Revises: 804a82db6aa3
+Create Date: 2023-07-12 14:45:47.849024
 
 """
 from alembic import op
@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '3d30e0da7d90'
-down_revision = '08d94ff6dc7e'
+revision = 'dd4db230fa68'
+down_revision = '804a82db6aa3'
 branch_labels = None
 depends_on = None
 
@@ -23,7 +23,6 @@ def upgrade():
                existing_type=sa.REAL(),
                type_=sa.Float(precision=2),
                existing_nullable=True)
-        batch_op.create_foreign_key(None, 'productos', ['idProducto'], ['id'])
 
     with op.batch_alter_table('productos', schema=None) as batch_op:
         batch_op.alter_column('precio',
@@ -43,7 +42,6 @@ def downgrade():
                existing_nullable=False)
 
     with op.batch_alter_table('historial_pedidos', schema=None) as batch_op:
-        batch_op.drop_constraint(None, type_='foreignkey')
         batch_op.alter_column('precioActual',
                existing_type=sa.Float(precision=2),
                type_=sa.REAL(),
