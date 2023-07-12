@@ -434,7 +434,7 @@ def create_payment():
         )
         
         
-        #agregar para meter entradas a la tabla de facturas e historial de pedidos
+        # ----------------------------------------------------------------------agregar para meter entradas a la tabla de facturas e historial de pedidos
         return jsonify({
           'clientSecret': intent['client_secret']
         })
