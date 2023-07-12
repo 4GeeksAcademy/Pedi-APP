@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import "../../styles/addProduct.css";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +10,8 @@ export const AddProduct = () => {
     const navigate = useNavigate()
     const [img_uploaded, setImg_uploaded] = useState(false)
 
+    const fileInputRef = useRef(null);
+
     const hadnleAddProduct = async(e) => {
         e.preventDefault();
         if(
@@ -19,7 +21,18 @@ export const AddProduct = () => {
                 formData.nombre, formData.precio, formData.descripcion, formData.img
             );
             setForm(true);
-            navigate('/addProduct')
+            navigate("/addProduct");
+            // Limpia el formulario y lo cargado en setFormData
+            setFormData({
+              nombre: "",
+              precio: "",
+              descripcion: "",
+              img: ""
+            });
+            // Restablece el campo de carga de imágenes
+            if (fileInputRef.current) {
+                fileInputRef.current.value = "";
+              }
         } else{
             Swal.fire("Please, fill in all require data")
         }
@@ -63,7 +76,7 @@ export const AddProduct = () => {
                     <input type="text" className="form-control" id="productName" placeholder="Product Name" value={formData.nombre} onChange={(data) => setFormData({...formData, nombre: data.target.value})} required/>
                 </div>
                 <div className="mb-3 add-product-text">
-                    <label htmlForfor="price" className="form-label add-product-label">Price</label>
+                    <label htmlFor="price" className="form-label add-product-label">Price</label>
                     <input type="price" className="form-control" id="price" placeholder="XXXXX $" value={formData.precio} onChange={(data)=> setFormData({...formData, precio: data.target.value})} required/>
                 </div>
                 <div className="mb-3 add-product-text">
@@ -72,7 +85,7 @@ export const AddProduct = () => {
                 </div>
                 <div className="mb-3 add-product-upload">
                     <label htmlFor="formFile" className="form-label">Upload image</label>
-                    <input className="form-control" type="file" id="formFile" onChange={(e) => {uploadFile(e)}}/>
+                    <input className="form-control" type="file" id="formFile" ref={fileInputRef} onChange={(e) => {uploadFile(e)}}/>
                 </div>
                 <button type="submit" className="btn add-product-btn">Submit</button>
             </form>
