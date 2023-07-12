@@ -150,6 +150,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							setStore({current_user_data:{...store.current_user_data, reserva : result.userdata.reserva}})
 							setStore({current_user_data:{...store.current_user_data, mañana : result.userdata.horario.mañana}})
 							setStore({current_user_data:{...store.current_user_data, tarde : result.userdata.horario.tarde}})
+							setStore({current_user_data:{...store.current_user_data, id : result.userdata.id}})
 						}
 						
 						
