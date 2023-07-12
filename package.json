@@ -73,6 +73,8 @@
         ]
     },
     "dependencies": {
+        "@stripe/react-stripe-js": "^2.1.1",
+        "@stripe/stripe-js": "^1.54.1",
         "browserify-zlib": "^0.2.0",
         "buffer": "^6.0.3",
         "crypto-js": "^4.1.1",

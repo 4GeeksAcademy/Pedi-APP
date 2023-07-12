@@ -25,6 +25,9 @@ import os
 import cloudinary
 import cloudinary.uploader
 from datetime import datetime
+import stripe
+stripe.api_key = "sk_test_51NShHZGaOqlS5geCWJ4pA2RkcPB3jcXCFTp15A8ARNaJciSz6ezxsS12MGRrSsfVe1xtTrhlA5W4nyPKqE5w6DBu00vfdqAxLm"
+
 
 
 
@@ -68,6 +71,7 @@ def loginator():
             elif role == "Empresa":
                 user_data = user.empresa[0].serialize()
                 user_data["horario"] = user.empresa[0].horarios[0].serialize()
+
             else:
                 return (
                     jsonify(
@@ -462,3 +466,29 @@ def favorites_getinator():
 
     
     return jsonify({"favorites":serialized_favorites})
+
+
+def calculate_order_amount(items):
+    amount = items.get("precio") * items.get("cantidad")
+    return amount
+
+@api.route('/create-payment-intent', methods=['POST'])
+def create_payment():
+    try:
+        data = request.json
+        
+        
+        
+
+        intent = stripe.PaymentIntent.create(
+            amount=calculate_order_amount(data),
+            currency='usd'
+        )
+        
+        
+        # ----------------------------------------------------------------------agregar para meter entradas a la tabla de facturas e historial de pedidos
+        return jsonify({
+          'clientSecret': intent['client_secret']
+        })
+    except Exception as e:
+        return jsonify(error=str(e)), 403
