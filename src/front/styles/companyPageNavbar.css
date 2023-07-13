@@ -1,0 +1,161 @@
+
+  /* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .cover-image{
+    width: 100%; 
+    height: 300px;
+    background-image: url('https://media-cdn.tripadvisor.com/media/photo-s/1d/52/c8/5c/tarta-cremosa-de-queso.jpg'); /* Reemplaza con la ruta de tu imagen */
+    background-size: cover;
+    background-position: center;
+}
+.portada-container {
+    position: relative;
+  }
+.card-overlay {
+    position: absolute; 
+    height: auto;
+    width: auto;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    margin-left: 12rem;
+    transform: translate(-40%, 10%);
+    z-index: 1;
+    background-color: rgba(255, 255, 255, 0.8); /* Color de fondo con opacidad */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1rem; 
+  }
+  .text-card-company-page-navbar{
+    background-color: transparent;
+    color: #080808; /* Color de texto */
+    text-align: center;
+  }
+  .card-text-company-page-direction{
+    color:#7A7676
+  }
+
+  .rating {
+    font-size: 24px; /* Tamaño de las estrellas */
+    color: #c8c8c8; /* Color de las estrellas no seleccionadas */
+  }
+  
+  .star {
+    display: inline-block;
+    width: 1em; /* Tamaño de cada estrella */
+    height: 1em; /* Tamaño de cada estrella */
+    margin-right: 0.25em; /* Espacio entre las estrellas */
+    background-color: transparent;
+    position: relative;
+  }
+  
+  .star:before {
+    content: '\2605'; /* Código unicode de la estrella (★) */
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  
+  .star.filled:before {
+    color: #ffc107; /* Color de la estrella rellena */
+  }
+  
+  .star.half-filled:before {
+    color: #ffc107; /* Color de la mitad de la estrella rellena */
+    mask: linear-gradient(to right, transparent 50%, #ffc107 50%);
+  }
+    
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .cover-image{
+    width: 100%; 
+    height: 300px;
+    background-image: url('https://media-cdn.tripadvisor.com/media/photo-s/1d/52/c8/5c/tarta-cremosa-de-queso.jpg'); /* Reemplaza con la ruta de tu imagen */
+    background-size: cover;
+    background-position: center;
+}
+.portada-container {
+    position: relative;
+  }
+.card-overlay {
+    position: absolute; 
+    height: auto;
+    width: auto;
+    margin: 1rem 0rem 0rem 20rem;
+    transform: translate(-70%, 20%);
+    z-index: 1;
+    background-color: rgba(255, 255, 255, 0.9); /* Color de fondo con opacidad */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1rem; 
+  }
+  .text-card-company-page-navbar{
+    background-color: transparent;
+    color: #080808; /* Color de texto */
+    text-align: center;
+  }
+  .card-text-company-page-direction{
+    color:#7A7676;
+  }
+  .rating {
+    font-size: 24px; /* Tamaño de las estrellas */
+    color: #c8c8c8; /* Color de las estrellas no seleccionadas */
+  }
+  
+  .star {
+    display: inline-block;
+    width: 1em; /* Tamaño de cada estrella */
+    height: 1em; /* Tamaño de cada estrella */
+    margin-right: 0.25em; /* Espacio entre las estrellas */
+    background-color: transparent;
+    position: relative;
+  }
+  
+  .star:before {
+    content: '\2605'; /* Código unicode de la estrella (★) */
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  
+  .star.filled:before {
+    color: #ffc107; /* Color de la estrella rellena */
+  }
+  
+  .star.half-filled:before {
+    color: #ffc107; /* Color de la mitad de la estrella rellena */
+    mask: linear-gradient(to right, transparent 50%, #ffc107 50%);
+  }
+
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .card-text-company-page-direction{
+    font-size:15px ;
+    margin-left: 7rem;
+    margin-right: 7rem;
+  }
+  .card-overlay {
+    transform: translate(-40%, 40%); 
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .card-text-company-page-direction{
+    font-size:15px ;
+
+  }
+  .card-overlay {
+    transform: translate(-40%, 40%); 
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+
+}

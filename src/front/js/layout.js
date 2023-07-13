@@ -20,6 +20,7 @@ import Login from "./pages/login";
 import UserInfo from "./pages/userInfo";
 import UserHistory from "./pages/userHistory";
 import UserFavorites from "./pages/userFavorites";
+import { CompanyPage } from "./pages/companyPage";
 
 
 //create your first component
@@ -47,6 +48,7 @@ const Layout = () => {
                         <Route element={<UserInfo/>} path="/userProfile/info"/>
                         <Route element={<UserHistory/>} path="/userProfile/history"/>
                         <Route element={<UserFavorites/>} path="/userProfile/favorites"/>
+                        <Route element={<CompanyPage/>} path="/companyPage/:idEmpresa"/>
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />
