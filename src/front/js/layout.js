@@ -11,7 +11,6 @@ import { SingupCliente } from "./pages/signupCliente";
 import { Signup } from "./pages/signup";
 import { SingupEmpresa } from "./pages/signupEmpresa";
 import { Search } from "./pages/search";
-import { FavoriteList } from "./component/favoritesCompanies";
 
 import Login
  from "./pages/login";
@@ -31,9 +30,8 @@ const Layout = () => {
                     <Routes>
                         <Route element={<Home />} path="/" />
                         <Route element={<SingupCliente/>} path="/signupCliente" />
-                        <Route element={<SingupEmpresa/>} path="/signupEmpresa" />
-                        <Route element={<Search/>} path="/searchEmpresa" />
-                        <Route element={<FavoriteList/>} path="/favorite"/>
+                        <Route element={<SingupEmpresa />} path="/signupEmpresa" />
+                        <Route element={<Search />} path="/searchEmpresa" />
                         <Route element={<Signup />} path="/signup" />
                         <Route element={<Login/>} path="/login"/>
                         <Route element={<h1>Not found!</h1>} />

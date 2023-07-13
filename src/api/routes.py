@@ -245,7 +245,8 @@ def search_empresa():
    data = request.json
    print(data)
    searchEmpresa = (data.get("nombre"))
-   empresas = Empresa.query.filter(Empresa.nombre.startswith(searchEmpresa[:3])).all()
+   empresas = Empresa.query.filter(Empresa.nombre.ilike(f"{searchEmpresa[:3]}%")).all()
+#    empresas = Empresa.query.filter(Empresa.nombre.startswith(searchEmpresa[:3])).all()
 #  empresas = Empresa.query.filter(Empresa.nombre.ilike(f"%{searchEmpresa}%")).all()
    resultados = []
    for empresa in empresas:
@@ -255,3 +256,28 @@ def search_empresa():
        return jsonify({"message": "Busqueda no encontrada"})
    return jsonify(resultados)
 
+@api.route("/filterDelivery", methods=["GET"])
+def filterByDelivery():
+    empresas = Empresa.query.filter_by(delivery = True).all()
+    resultados = []
+    
+    for empresa in empresas:
+        resultados.append(empresa.serialize())
+    
+    if not empresas:
+       return jsonify({"message": "No hay ninguna empresa que haga delivery"})
+    return jsonify(resultados)
+
+@api.route("/filterFavorites", methods=["POST"])
+def filterByFavorites():
+    data = request.json
+    idCliente = data.get("idCliente")
+    empresas = Favoritos.query.filter_by(idCliente = idCliente).all()
+    resultados = []
+    
+    for empresa in empresas:
+        resultados.append(empresa.serialize())
+    
+    if not empresas:
+       return jsonify([])
+    return jsonify(resultados)

@@ -33,12 +33,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			},
 
-			searchCompany: {
-				nombre:""
-			},
-
-			favorites: [],
-			company: null,
+			searchCompany:[],
+			// company: null,
 		},
 		
 		actions: {			
@@ -239,9 +235,73 @@ const getState = ({ getStore, getActions, setStore }) => {
 				body: JSON.stringify(busquedaEmpresa)
 			})
 			.then (response => response.json())
-			.then (response => console.log(response))
+			.then (result => setStore({searchCompany : result}))
 			.catch(error => console.log(error))
 			},
+
+
+			filterDelivery: () => {
+				const store = getStore()
+
+			fetch(process.env.BACKEND_URL + "/api/filterDelivery", {
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				
+
+			})
+			.then (response => response.json())
+			.then (result => setStore({searchCompany : result}))
+			.catch(error => console.log(error))
+			},
+
+			filterFavorites: () => {
+				const store = getStore()
+				const filtrarfavoritos = { // lo que se ponga aquí tiene que coincidir con el back nombre: 
+					idCliente: store.current_user_data.id
+
+			}
+
+			fetch(process.env.BACKEND_URL + "/api/filterFavorites", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify(filtrarfavoritos)
+
+			})
+			.then (response => response.json())
+			.then (result => setStore({searchCompany : result}))
+			.catch(error => console.log(error))
+			},
+
+			
+
+			// filtebyDelivery: (nombre, showOnlyDelivery) => {
+			// 	const store = getStore();
+			// 	const filtroDelivery = {
+			// 	  nombre: nombre
+			// 	};
+			  
+			// 	fetch(process.env.BACKEND_URL + "/api/searchEmpresa", {
+			// 	  method: "POST",
+			// 	  headers: {
+			// 		"Content-Type": "application/json"
+			// 	  },
+			// 	  body: JSON.stringify(filtroDelivery)
+			// 	})
+			// 	  .then(response => response.json())
+			// 	  .then(result => {
+			// 		if (showOnlyDelivery) {
+			// 		  const filteredCompanies = result.filter(company => company.delivery);
+			// 		  setStore({ filterDelivery: filteredCompanies });
+			// 		} else {
+			// 		  setStore({ filterDelivery: result });
+			// 		}
+			// 	  })
+			// 	  .catch(error => console.log(error));
+			//   },
 
 			// setFavorite: (element) => {
 			// 	const store = getStore();
@@ -250,22 +310,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// 	}
 			// },
 
-			getCompany: (nombre, cif, calleNumero, pisoPuerta, codigoPostal, estado, ciudad, delivery, reserva, mañana, tarde) => {
-				setStore({
-					company: {
-						role: store.user.role,
-						email : store.user.email,
-						password : store.user.password,
-						direccion: `${calleNumero}, ${pisoPuerta}, ${codigoPostal}, ${ciudad}, ${estado}`,
-						nombre: nombre,
-						cif: cif,
-						reserva: reserva,
-						delivery: delivery,
-						mañana: mañana,
-						tarde: tarde
-					}
-				});
-			},
+			// getCompany: (nombre, cif, calleNumero, pisoPuerta, codigoPostal, estado, ciudad, delivery, reserva, mañana, tarde) => {
+			// 	setStore({
+			// 		company: {
+			// 			role: store.user.role,
+			// 			email : store.user.email,
+			// 			password : store.user.password,
+			// 			direccion: `${calleNumero}, ${pisoPuerta}, ${codigoPostal}, ${ciudad}, ${estado}`,
+			// 			nombre: nombre,
+			// 			cif: cif,
+			// 			reserva: reserva,
+			// 			delivery: delivery,
+			// 			mañana: mañana,
+			// 			tarde: tarde
+			// 		}
+			// 	});
+			// },
 
 
 
