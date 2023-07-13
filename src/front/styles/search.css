@@ -51,6 +51,7 @@
 .busquedaEmpresas{
   width: 100%;
   justify-content: center;
+  
 }
 
 .cardImage{
@@ -58,6 +59,20 @@
  width: 100%;
 }
 
+/*--------------------------------- beigining of map*/
+.map_box{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  height: 20rem;
+  
+}
+
+
+
+
+
+/*--------------------------------- end of map*/
 
 @media only screen and (max-width: 600px) {
 

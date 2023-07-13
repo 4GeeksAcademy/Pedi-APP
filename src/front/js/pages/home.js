@@ -29,7 +29,7 @@ export const Home = () => {
     if (search  == "Address not found try again"){
       Swal.fire(search)
     } else {
-      /*navigate("/search", { replace: true });  ---- no hay pagina de search yet*/
+      navigate("/searchEmpresa", { replace: true }); 
       console.log(search)
     }
       
@@ -78,63 +78,3 @@ export const Home = () => {
 };
 
 
-/*@app.route("/upload", methods=['POST'])
-def upload_file():
-  app.logger.info('in upload route')
-
-  cloudinary.config(cloud_name = os.getenv('CLOUD_NAME'), api_key=os.getenv('API_KEY'), 
-    api_secret=os.getenv('API_SECRET'))
-  
-    file_to_upload = request.files['file']
-
-    if file_to_upload:
-      upload_result = cloudinary.uploader.upload(file_to_upload)
-
-
-
-
-
-
-
-          <div>
-            <label for="formFileLg" class="form-label">Large file input example</label>
-            <input class="form-control form-control-lg" id="formFileLg" type="file"/>
-          </div>
-
-
-          
-
-  // the react post request sender
-    uploadFile = async (e) => {
-      const file = e.target.files[0];
-      if (file != null) {
-        const data = new FormData();
-        data.append('file_from_react', file);
-
-        let response = await fetch('/url_route',
-          {
-            method: 'post',
-            body: data,
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            }
-          }
-        );
-        let res = await response.json();
-        if (res.status !== 1){
-          alert('Error uploading file');
-        }
-      }
-    };
-      
-    // the react form
-    <form>
-      <input
-        type="file"
-        onChange={this.uploadFile}>
-      </input>
-    </form>
- */
-
-
-   
