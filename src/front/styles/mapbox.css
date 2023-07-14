@@ -25,10 +25,11 @@
 }
 
 .marker {
-    background-image: url("/workspaces/Pedi-APP/src/front/img/mapicon.png");
+    background-image: url("../img/mapicon.png");
+    background-color: red;
     background-size: cover;
-    width: 50px;
-    height: 50px;
+    width: 1rem;
+    height:1rem;
     border-radius: 50%;
     cursor: pointer;
   }

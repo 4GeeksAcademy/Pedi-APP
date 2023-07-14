@@ -23,25 +23,62 @@ export const Mapbox = () => {
     const [lat, setLat] = useState(40.416775);
     const [zoom, setZoom] = useState(4);
 
+    const [companies, setCompanies] = useState([])
+             
+       
+        
+    
+
     useEffect(() => {
+        (async () => {
+            try {
+                const response = await fetch(process.env.BACKEND_URL + "/api/allcompanies", { 
+                    method : "GET",
+                    headers: { 
+                        "Content-Type": "application/json",
+                        } 
+                    
+                    
+                })
+                const result = await response.json()
+                setCompanies(result)
+                
+                
+                if (map.current) return; // initialize map only once
         
-        if (map.current) return; // initialize map only once
+                map.current = new mapboxgl.Map({
+                    container: mapContainer.current,
+                    style: 'mapbox://styles/mapbox/streets-v12',
+                    center: [lng, lat],
+                    zoom: zoom
+                    });
+                
         
-        map.current = new mapboxgl.Map({
-            container: mapContainer.current,
-            style: 'mapbox://styles/mapbox/streets-v12',
-            center: [lng, lat],
-            zoom: zoom
-            });
-        });
-        if (map.current && mapContainer.current) {
-        const el = document.createElement('div');
-        el.className = 'marker';
-      
-        // make a marker for each feature and add to the map
-        new mapboxgl.Marker(el).setLngLat([39.862832,-4.027323]).addTo(map.current);
-        console.log("asd")
-        }
+                
+                
+                /*array to go trough all companies and set markers */
+                for (let i of result.companies){
+                    
+                    if (map.current && mapContainer.current) {
+                        const el = document.createElement('div');
+                        el.className = 'marker';
+                        // make a marker for each feature and add to the map
+                        new mapboxgl.Marker(el).setLngLat([i.longitude,i.latitude]).addTo(map.current);
+                        
+                    }
+                } 
+                
+                    
+    
+            }catch(error){
+                console.log("Error loading message from backend")
+            }
+            
+            })();
+        }, []);
+        
+        
+            
 
     
     return (
