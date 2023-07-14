@@ -492,3 +492,69 @@ def create_payment():
         })
     except Exception as e:
         return jsonify(error=str(e)), 403
+
+
+
+@api.route("/searchEmpresa", methods = ["POST"])
+def search_empresa(): 
+   data = request.json
+   print(data)
+   searchEmpresa = (data.get("nombre"))
+   empresas = Empresa.query.filter(Empresa.nombre.ilike(f"{searchEmpresa[:3]}%")).all()
+#    empresas = Empresa.query.filter(Empresa.nombre.startswith(searchEmpresa[:3])).all()
+#  empresas = Empresa.query.filter(Empresa.nombre.ilike(f"%{searchEmpresa}%")).all()
+   resultados = []
+   for empresa in empresas:
+        resultados.append(empresa.serialize())
+
+   if not empresas:
+       return jsonify({"message": "Busqueda no encontrada"})
+   return jsonify(resultados)
+
+@api.route("/filterDelivery", methods=["GET"])
+def filterByDelivery():
+    empresas = Empresa.query.filter_by(delivery = True).all()
+    resultados = []
+    
+    for empresa in empresas:
+        resultados.append(empresa.serialize())
+    
+    if not empresas:
+       return jsonify({"message": "No hay ninguna empresa que haga delivery"})
+    return jsonify(resultados)
+
+@api.route("/filterFavorites", methods=["POST"])
+def filterByFavorites():
+    data = request.json
+    idCliente = data.get("idCliente")
+    empresas = Favoritos.query.filter_by(idCliente = idCliente).all()
+    resultados = []
+    
+    for empresa in empresas:
+        resultados.append(empresa.serialize())
+    
+    if not empresas:
+       return jsonify([])
+    return jsonify(resultados)
+
+@api.route("/allcompanies", methods=["GET"])
+def company_getinator():
+    
+    empresas = Empresa.query.all()
+    company_locations = []
+    if not empresas:
+        return jsonify({"companies": company_locations}),200
+
+    for i in empresas:
+        company_data = i.serialize()
+        location = geopy_processinator(i.usuario.direccion)
+        company_data["direccion"] = location.address
+        if (location == None):
+            return jsonify({"message": "Address not found try again"}),400
+        company_data["longitude"] = location.longitude
+        company_data["latitude"] = location.latitude
+        company_locations.append(company_data)
+    
+    return jsonify({"companies": company_locations}),200
+    
+

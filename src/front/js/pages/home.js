@@ -29,7 +29,7 @@ export const Home = () => {
     if (search  == "Address not found try again"){
       Swal.fire(search)
     } else {
-      /*navigate("/search", { replace: true });  ---- no hay pagina de search yet*/
+      navigate("/searchEmpresa", { replace: true }); 
       console.log(search)
     }
       
@@ -76,4 +76,5 @@ export const Home = () => {
     </div>
   );
 };
+
 
