@@ -95,6 +95,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					img : img
 					/*dia: {lunes,martes...} o 	dia: dia, o horario: {lunes: {mañana: "", tarde: ""}*/
 				}
+				console.log(newUser.direccion)
 				try{
 					const response = await fetch(process.env.BACKEND_URL + "/api/signupEmpresa", {
 					method: "POST",

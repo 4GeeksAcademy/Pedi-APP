@@ -151,6 +151,7 @@ def signupEmpresa():
     tarde = data.get("tarde")
     img = data.get("img")
 
+    print(direccion)
     if not email or not password or not cif or not direccion:
         return jsonify({"message": "Por favor introduce un email, password, dirección y cif válidos"}),400
     
@@ -162,7 +163,9 @@ def signupEmpresa():
     if existecif:
         return jsonify({"message": "el usuario existe"}), 400
 
+    
     realaddress = geopy_processinator(direccion)
+    
     if (realaddress == None):
         return jsonify({"message": "Address not found try again"}),400
     
@@ -250,7 +253,7 @@ def address_convertinator():
     data = request.json
     address = data.get("address")
     
-
+    print(address)
     
     location = geopy_processinator(address)
     if (location == None):

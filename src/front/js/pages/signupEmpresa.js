@@ -76,7 +76,7 @@ export const SingupEmpresa = () => {
     const handleSignupCompanies = async (e) => {
         e.preventDefault()
         
-        if (formData.nombre === "" && formData.cif === "" && formData.calleNumero === "" && formData.pisoPuerta === "" && formData.codigoPostal === "" && formData.ciudad === "" && formData.estado === "" && formData.img) {
+        if (formData.nombre === "" || formData.cif === "" || formData.calleNumero === "" || formData.pisoPuerta === "" || formData.codigoPostal === "" || formData.ciudad === "" ||formData.estado === "" || !formData.img || categories.length == 0) {
             return  Swal.fire("Check all the fields");
           }
           else if (formData.terminosCondiciones === false){
@@ -161,7 +161,7 @@ export const SingupEmpresa = () => {
                                 <input type="lastName" className="form-control" id="exampleInputPassword1" placeholder="Postal Code" value={formData.codigoPostal} onChange={(data) => {setFormData({...formData, codigoPostal: data.target.value})}} required/>
                             </div>
                             <div className="col-12 col-sm-6 mb-3">
-                                <input type="lastName" className="form-control" id="exampleInputPassword1" placeholder="Floor, door" value={formData.pisoPuerta} onChange={(data) => {setFormData({...formData, pisoPuerta: data.target.value})}} required/>
+                                <input type="lastName" className="form-control" id="exampleInputPassword1" placeholder="Floor, door" value={formData.pisoPuerta} onChange={(data) => {setFormData({...formData, pisoPuerta: data.target.value})}} />
                             </div>
                         </div>
                         <div className="row">
@@ -222,7 +222,7 @@ export const SingupEmpresa = () => {
                                 
                             </ul>
                         </div>
-                        <div className="btn-group my-5">
+                        <div className="btn-group my-3">
                             <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
                                 Select categories
                             </button>
