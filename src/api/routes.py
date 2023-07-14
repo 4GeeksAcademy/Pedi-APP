@@ -150,18 +150,23 @@ def signupEmpresa():
     mañana = data.get("mañana")
     tarde = data.get("tarde")
     img = data.get("img")
+    categories = data.get("categories")
 
-    print(direccion)
+    if not categories:
+        return jsonify({"message": "No categories were given"}),400
+    
+    
+    
     if not email or not password or not cif or not direccion:
         return jsonify({"message": "Por favor introduce un email, password, dirección y cif válidos"}),400
     
     existemail = Usuario.query.filter_by(email=email).first()
     if existemail: 
-        return jsonify({"message": "el usuario existe"}), 400
+        return jsonify({"message": "Mail already registered"}), 400
     
     existecif = Empresa.query.filter_by(cif=cif).first()
     if existecif:
-        return jsonify({"message": "el usuario existe"}), 400
+        return jsonify({"message": "Tax code already registered"}), 400
 
     
     realaddress = geopy_processinator(direccion)
@@ -179,6 +184,12 @@ def signupEmpresa():
 
     addHorario = HorariosEmpresas(mañana = mañana, tarde = tarde, idEmpresa = addEmpresa.id)
     db.session.add(addHorario)
+    db.session.commit()
+
+    for i in categories: 
+        food = TipoComida.query.filter_by(tipoComida = i).first()
+        food_to_add = TipoComidaEmpresa(idEmpresa = addEmpresa.id, idTipoComida = food.id)
+        db.session.add(food_to_add)
     db.session.commit()
 
     return jsonify({"message": "Sign up successfull"}),200
@@ -253,7 +264,7 @@ def address_convertinator():
     data = request.json
     address = data.get("address")
     
-    print(address)
+    
     
     location = geopy_processinator(address)
     if (location == None):
@@ -294,7 +305,7 @@ def img_uploadinator():
         
         if file_to_upload:
             upload_result = cloudinary.uploader.upload(file_to_upload)
-            print(upload_result)
+            
             if upload_result:
                 return jsonify({"message" : "exito", "img" : upload_result.get("secure_url")}),200
             
@@ -325,8 +336,7 @@ def bill_getinator():
     data = request.json
     user_id = data.get("id")
     role = data.get("role")
-    print(role)
-    print(user_id)
+   
    
     if not user_id or not role:
         return jsonify({"message" : "user not loged in"})
@@ -370,7 +380,7 @@ def bill_creatinator():
         return jsonify({"message":"Error, missing data"}),400
     
     to_add = Factura(idCliente = client_id, idEmpresa = company_id, idPago = pay_id, delivery = delivery, hora = time, fecha = date)
-    print(to_add)
+    
     db.session.add(to_add)
     db.session.commit()
     return jsonify({"message" : "added" , "bill" : to_add.serialize()}),200
@@ -383,7 +393,7 @@ def history_addinator():
     amount = data.get("amount")
     price = data.get("price")
 
-    print(Factura.query.all()[0].serialize())
+   
 
     if not bill_id or not product_id or not amount or not price:
          return jsonify({"message":"Error, missing data"}),400

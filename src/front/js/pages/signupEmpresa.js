@@ -83,13 +83,13 @@ export const SingupEmpresa = () => {
             return Swal.fire("You have to agree to Terms and Conditions to be able to signup")
           }
         else{
-            const register = await actions.signupEmpresa(formData.nombre, formData.cif, formData.calleNumero, formData.pisoPuerta, formData.codigoPostal, formData.estado, formData.ciudad, formData.delivery, formData.reserva, formData.mañana, formData.tarde, formData.img);
+            const register = await actions.signupEmpresa(formData.nombre, formData.cif, formData.calleNumero, formData.pisoPuerta, formData.codigoPostal, formData.estado, formData.ciudad, formData.delivery, formData.reserva, formData.mañana, formData.tarde, formData.img,categories);
             if (register == true) {
                     navigate('/', { replace: true });
             }
             else {
-                 if (register == false) {
-                    return Swal.fire ("Address not found try again")}}
+                return Swal.fire (register)
+            }
     }};
 
     // the react post request sender
@@ -146,8 +146,8 @@ export const SingupEmpresa = () => {
                             <input className="form-control" id="name" aria-describedby="emailHelp" placeholder="Name" value={formData.nombre} onChange={(data) => {setFormData({...formData, nombre: data.target.value})}} required/>
                         </div>
                         <div className="mb-3">
-                            <label htmlFor="cif" className="form-label signupcompany_label">CIF</label>
-                            <input className="form-control" id="cif" placeholder="CIF" value={formData.cif} onChange={(data) => {setFormData({...formData, cif: data.target.value})}} required/>
+                            <label htmlFor="cif" className="form-label signupcompany_label">Tax Code</label>
+                            <input className="form-control" id="cif" placeholder="Tax code" value={formData.cif} onChange={(data) => {setFormData({...formData, cif: data.target.value})}} required/>
                         </div>
                         <p className="signupcompany_label">Adress</p>
                         <div className="row">

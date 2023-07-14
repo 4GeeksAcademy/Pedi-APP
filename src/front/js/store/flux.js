@@ -78,7 +78,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				});
 			},
 
-			signupEmpresa: async (nombre, cif, calleNumero, pisoPuerta, codigoPostal, estado, ciudad, delivery, reserva, mañana, tarde,img) => {
+			signupEmpresa: async (nombre, cif, calleNumero, pisoPuerta, codigoPostal, estado, ciudad, delivery, reserva, mañana, tarde,img,categories) => {
 				const store = getStore()
 				console.log(nombre, cif, calleNumero, pisoPuerta, codigoPostal, estado, ciudad, delivery, reserva, mañana, tarde,img)
 				const newUser = { // lo que se ponga aquí tiene que coincidir con el back nombre: 
@@ -92,10 +92,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 					delivery: delivery,
 					mañana: mañana,
 					tarde: tarde,
-					img : img
+					img : img,
+					categories: categories
 					/*dia: {lunes,martes...} o 	dia: dia, o horario: {lunes: {mañana: "", tarde: ""}*/
 				}
-				console.log(newUser.direccion)
+				console.log(newUser)
 				try{
 					const response = await fetch(process.env.BACKEND_URL + "/api/signupEmpresa", {
 					method: "POST",
@@ -107,10 +108,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const result = await response.json()
 					Swal.fire(result.message)
 					if(response.status == 200){
-						console.log(response)
 						return true
 					}
-					return false
+					return result.message
 				}catch(error) {console.log(error)
 				}
 			},
