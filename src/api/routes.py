@@ -287,6 +287,8 @@ def company_getinator():
     
     empresas = Empresa.query.all()
     company_locations = []
+    if not empresas:
+        return jsonify({"companies": company_locations}),200
 
     for i in empresas:
         company_data = i.serialize()
