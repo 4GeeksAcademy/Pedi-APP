@@ -3,29 +3,21 @@ import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/signupCliente.css";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 export const SingupCliente = () => {
   const { store, actions } = useContext(Context);
   const [formComplete, setFormComplete] = useState(false);
   const navigate = useNavigate()
 
-  const handleSignupCliente = (e) => {
+  const handleSignupCliente = async (e) => {
     e.preventDefault();
     // actions.signupCliente(formData.nombre, formData.apellido, formData.telefono, formData.nacimiento, formData.sexo, formData.calleNumero, formData.pisoPuerta, formData.instrucciones, formData.codigoPostal, formData.estado, formData.ciudad, formData.terminosCondiciones)
-    if (
-      formData.nombre &&
-      formData.apellido &&
-      formData.telefono &&
-      formData.nacimiento &&
-      formData.sexo &&
-      formData.calleNumero &&
-      formData.pisoPuerta &&
-      formData.codigoPostal &&
-      formData.estado &&
-      formData.ciudad &&
-      formData.terminosCondiciones
-    ) {
-      actions.signupCliente(
+    if (formData.terminosCondiciones === false){
+      return Swal.fire("You have to agree to Terms and Conditions to be able to signup")
+    }
+    else {
+      const register = await actions.signupCliente(
         formData.nombre,
         formData.apellido,
         formData.telefono,
@@ -36,13 +28,16 @@ export const SingupCliente = () => {
         formData.instrucciones,
         formData.codigoPostal,
         formData.estado,
-        formData.ciudad,
-        formData.terminosCondiciones
+        formData.ciudad
       );
-      setFormComplete(true);
-      navigate('/');
-    } else {
-      console.log("Por favor, complete todos los campos requeridos.");
+      if (register == true){
+        setFormComplete(true)
+        navigate('/')
+      }
+      else {
+        if (register == false) {
+          Swal.fire ("Address not found try again")}
+      }
     }
   };
 
@@ -152,7 +147,7 @@ export const SingupCliente = () => {
                     Birthdate
                   </label>
                   <input
-                    type="lastName"
+                    type="date"
                     className="form-control"
                     id="exampleInputPassword1"
                     placeholder="Birth Date"

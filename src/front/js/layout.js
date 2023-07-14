@@ -12,8 +12,26 @@ import { Signup } from "./pages/signup";
 import { SingupEmpresa } from "./pages/signupEmpresa";
 import { Search } from "./pages/search";
 
-import Login
- from "./pages/login";
+import { CompanyProfile } from "./pages/companyProfile";
+
+import { CompanyAddProduct } from "./pages/companyAddProduct";
+import { MenuCompany } from "./pages/menuCompany";
+
+import Login from "./pages/login";
+import UserInfo from "./pages/userInfo";
+import UserHistory from "./pages/userHistory";
+import UserFavorites from "./pages/userFavorites";
+
+import OrderDetail from "./pages/orderDetail";
+
+
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+
+import CheckoutForm from "./pages/checkoutForm";
+import CompanyOrderHistory from "./pages/companyOrderHistory";
+
+
 
 //create your first component
 const Layout = () => {
@@ -22,6 +40,9 @@ const Layout = () => {
     const basename = process.env.BASENAME || "";
 
     if(!process.env.BACKEND_URL || process.env.BACKEND_URL == "") return <BackendURL/ >;
+
+    const promise = loadStripe("pk_test_51NShHZGaOqlS5geCwKPZaHTaW5yq3C9nFeNqD13fcdrVdcp810PI3GeYW43IcsVqXTSg7ip0saQtuVnDq0FjvSyl00tpotDJnL");
+
 
     return (
         <div>
@@ -34,6 +55,21 @@ const Layout = () => {
                         <Route element={<Search />} path="/searchEmpresa" />
                         <Route element={<Signup />} path="/signup" />
                         <Route element={<Login/>} path="/login"/>
+                        <Route element={<CompanyProfile />} path="/companyProfile"/>
+                        {<Route element={<CompanyOrderHistory/>} path="/companyOrderHistory"/> }
+                        <Route element={<MenuCompany/>} path="/menu"/>
+                        <Route element={<CompanyAddProduct />} path="/addProduct"/>
+                        <Route element={<UserInfo/>} path="/userProfile/info"/>
+                        <Route element={<UserHistory/>} path="/userProfile/history"/>
+                        <Route element={<UserFavorites/>} path="/userProfile/favorites"/>
+                        <Route element={<OrderDetail/>} path="/orderDetail"/>
+                        <Route path="/checkout" element={
+                            <Elements stripe={promise}>
+                                <CheckoutForm />
+                            </Elements>
+                        }
+                        />
+                        
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />
@@ -43,3 +79,4 @@ const Layout = () => {
 };
 
 export default injectContext(Layout);
+

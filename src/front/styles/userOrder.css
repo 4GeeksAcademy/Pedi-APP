@@ -1,0 +1,124 @@
+.order_container{
+    background-color: #FBFBFB;
+    border-radius: 2.5rem;
+    margin: 2rem;
+    box-shadow: 0px 5px 10px 0px rgb(59, 61, 61);
+}
+.order_imgbox{
+    
+    border-radius: 0.8rem;
+}
+.order_date{
+    margin-top: auto;   
+    margin-bottom: auto;
+}
+.order_date_box{
+    display: flex;
+}
+.order_title_box{
+    display: flex;
+    
+}
+.order_title{
+    margin-left: 0.5rem;
+}
+.order_amount{
+    margin-top: auto;   
+    margin-bottom: auto;
+    margin-left: 0.5rem;
+}
+.order_amount_box{
+    display: flex;
+    width: 100%;
+}
+.order_recipt{
+    margin-top: auto;   
+    margin-bottom: auto;
+    margin-left: 1rem;
+    
+}
+.order_menu{
+    width: 100%;
+}
+.order_items{
+    margin-left: 1rem;
+}
+.order_description{
+    color: gray;
+}
+.order_recipt{
+    color: black;
+}
+.modal-header{
+    background-color: #C62828;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+.modal-content{
+    border-radius: 1rem;
+}
+.modal_price_col{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; 
+}
+.modal_price_col p {
+    margin-top: 0; 
+    margin-bottom: 0; 
+}
+.modal_row_header{
+    height: 4rem;
+}
+.modal-footer{
+    display: flex;
+    justify-content: start;
+}
+.modal_footer_row{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    
+}
+.modal_price_footer{
+    color: gray;
+    margin-top: auto;
+    margin-bottom: auto;
+    justify-self: start;
+    
+}
+.modal_subtotal_footer{
+    color: gray;
+    margin-top: auto;
+    margin-bottom: auto;
+    justify-self: end;
+    text-align: end;
+}
+.modal_subtotal_body{
+    color: gray;
+    
+    margin-bottom: auto;
+    justify-self: end;
+    text-align: end;
+}
+.modal_ul_box{
+    display: flex;
+    flex-direction: column;
+    padding-left: 0px;
+
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {}

@@ -1,0 +1,119 @@
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .add-product-container{
+        margin: auto;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .card-add-product{
+        box-shadow: 0px 5px 10px 0px rgb(59, 61, 61);
+        width: auto;
+        margin: auto;
+        border-radius: 2rem;
+        background-color: #FFFFFF;
+        display: flex;
+        justify-content: end;
+    }
+    .add-product-label{
+        font-size: 20px;
+    }
+    .add-product-text{
+        margin: 1rem 2rem 0rem 2rem;
+    }
+    .add-product-upload{
+        color:#7A7A7A;
+        margin: 1rem 2rem 0rem 2rem;
+    }
+    
+    .add-product-btn{
+        display: block;
+        width: 100%;
+        border: none;
+        padding: 14px 28px;
+        font-size: 16px;
+        cursor: pointer;
+        text-align: center;
+        background-color: #C62828;
+        border-radius: 0.5rem;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 3rem;
+        margin-bottom: 3rem;
+        width: auto;
+        color:white;
+    }
+    .add-product-btn:hover{
+        background-color: #D6D6D6;
+        color: #C62828;
+        font-weight: bold;
+    }
+}
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+.add-product-container{
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.card-add-product{
+    box-shadow: 0px 5px 10px 0px rgb(59, 61, 61);
+    width: 70rem;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+    border-radius: 2rem;
+    background-color: #FFFFFF;
+    display: flex;
+    justify-content: end;
+}
+.add-product-label{
+    font-size: 20px;
+}
+.add-product-text{
+    margin: 1rem 2rem 0rem 2rem;
+}
+.add-product-upload{
+    color:#7A7A7A;
+    margin: 1rem 2rem 0rem 2rem;
+}
+
+.add-product-btn{
+    display: block;
+    width: 100%;
+    border: none;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    background-color: #C62828;
+    border-radius: 0.5rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    width: auto;
+    color:white;
+}
+.add-product-btn:hover{
+    background-color: #D6D6D6;
+    color: #C62828;
+    font-weight: bold;
+}
+}
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    
+}
