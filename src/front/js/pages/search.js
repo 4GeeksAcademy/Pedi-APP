@@ -96,7 +96,7 @@ return(
                 <div className="row">
 
                     {store.searchCompany.length > 0 ? store.searchCompany.map((element, index) => (
-                        <div className=" gx-3 gy-4 col-12 col-md-4 contenedorCards">
+                        <div className=" gx-3 gy-4 col-12 col-md-12 col-lg-4 contenedorCards">
                             <div className="card cardRestaurante contenedorCards" key={index}>
                                 <img src={element.imagen} className="card-img-top p-5 cardImage" alt={element.nombre} />
                                 <div className="card-body bodyCard ">
