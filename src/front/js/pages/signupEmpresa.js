@@ -63,6 +63,8 @@ export const SingupEmpresa = () => {
     //   };
     const [img_uploaded, setImg_uploaded] = useState(false)
 
+    const [categories, setCategories] = useState([])
+
     const handleCheckboxChange = (fieldName) => {
         return (event) => {
           setFormData({ ...formData, [fieldName]: event.target.checked });
@@ -91,7 +93,7 @@ export const SingupEmpresa = () => {
     }};
 
     // the react post request sender
-    const uploadFile = async (e) => {
+    const uploadFile = async (e,x) => {
         const file = e.target.files[0];
         if (file != null) {
             let data = new FormData();
@@ -103,7 +105,10 @@ export const SingupEmpresa = () => {
                 img_uploaded == true? setImg_uploaded(false):""
             } else if (img.message == "exito"){
                 setImg_uploaded(true)
-                setFormData({...formData, img: img.img})
+                if (x == 1){
+                    setFormData({...formData, img: img.img})
+                }
+                
             } else {
                 img_uploaded == true? setImg_uploaded(false):
                 Swal.fire(img.message)
@@ -111,7 +116,18 @@ export const SingupEmpresa = () => {
         }
       };
 
-    
+    const category_addinator = (category) =>{
+        
+        if( categories.includes(category)) {
+            setCategories((current) => 
+                current.filter(x => x != category)
+            )
+        } else {
+            setCategories([...categories,category])
+        }
+        
+
+    }
 
     return(
         <>
@@ -158,7 +174,7 @@ export const SingupEmpresa = () => {
                         </div>
                         <div>
                             <label htmlFor="company_img" className="form-label">Upload an image for your business</label>
-                            <input className="form-control form-control" id="company_img" type="file" onChange={(e) => {uploadFile(e)}} required/>
+                            <input className="form-control form-control" id="company_img" type="file" onChange={(e) => {uploadFile(e,1)}} required/>
                         </div>
                         {img_uploaded && (
                             <div className="row signupcompany_rowimg ">
@@ -194,10 +210,35 @@ export const SingupEmpresa = () => {
                                 <input className="form-check-input" type="checkbox" id="mondayAfternoon" value="option2"checked={formData.lunes.tarde} onChange={handleCheckboxChange('tarde', 'lunes')} />
                                 <label className="form-check-label" htmlFor="monday">Afternoon</label>
                             </div> */}
+                        <div className="row  w-75">
+                            <ul className="list-group my-3">
+
+                            {categories && ( categories.map((x,index) =>{
+                                
+                                
+                    
+                                    return <li key= {index} className="list-group-item d-flex"><p  className="my-auto"> {x}</p>  <button type="button" className="btn  ms-auto  favlist_delete" onClick={() => {category_addinator(x)}}><i className="fas fa-trash"></i></button></li>
+                            }))}
+                                
+                            </ul>
+                        </div>
+                        <div className="btn-group my-5">
+                            <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                Select categories
+                            </button>
+                            <ul className="dropdown-menu scrollable-menu categories_dropdown" role="menu" >
+                                {store.categories? store.categories.map((x, index) =>{
+                                    
+                                    return <li key={index}> <p className="dropdown-item" onClick={() => { category_addinator(x)}}>{x}</p>  </li>
+                                }) : ""}
+                                
+                            </ul>
+                        </div>
                         <div className="mb-3 form-check mt-3">
                             <input type="checkbox" className="form-check-input inputBox" id="exampleCheck4" checked={formData.terminosCondiciones} onChange={handleCheckboxChange('terminosCondiciones')}/>
                             <label className="form-check-label" htmlFor="exampleCheck1">I agree the <b>Terms and Conditions</b></label>
                         </div>
+                        
                         <button type="submit" className="btn col-12 mb-2 signupcompany_submit">Sign up</button>
                     </form>
                 </div>

@@ -63,6 +63,12 @@
     justify-content: center;
 }
 
+.categories_dropdown{
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+}
+
 @media only screen and (max-width: 600px) {
     .signupcompany_all{
 
@@ -159,7 +165,7 @@
 @media only screen and (min-width: 768px) {
     /*  Start of Login */
     .signupcompany_all{
-        height: 57rem;
+        height: 80rem;
         width: 42rem;
     }
     .signupcompany_title{
