@@ -1,9 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState,useRef } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import Categories from "../component/categories";
 import "../../styles/search.css";
 import { useNavigate } from "react-router-dom";
+import mapboxgl from '!mapbox-gl';
+import Mapbox from "../component/mapbox";
+
 
 
 export const Search = (props) => {
@@ -49,8 +52,6 @@ const handleFilterbyFavorites = () => {
     setDeliveryChecked(false);
 };
 
-  
-
 // useEffect(() => {
     // llamar aqui al most popular
 // }, [formData]);
@@ -69,7 +70,10 @@ return(
                  <button type="submit" class="btn btn-danger mb-3">Search</button>
              </div>
         </form>
-        <p>Aquí va el mapa</p>
+        <div className="row map_box ">
+            <Mapbox/>
+        </div>
+        
         <div className="row rowInput">
              <div className="col-12 col-md-2 m-5 p-3 form_empresas_container">
                  <p><b>Filter by:</b></p>
