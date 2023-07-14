@@ -1,10 +1,21 @@
 import React, { useContext, useState, useEffect }  from "react";
 import { Context } from "../store/appContext";
 import "../../styles/companyPageMenu.css"
+import { useNavigate } from "react-router-dom";
 
 export const CompanyPageMenu = ({ idEmpresa }) =>{
     const {store,actions} = useContext(Context)
-    const [products, setProduct] = useState([]);
+    const [products, setProducts] = useState([]);
+    const [producto, setProducto] = useState({ //Esto esta por terminar
+        nombre:"",
+        precio:""
+    })
+    const navigate = useNavigate()
+
+    const handleBuyProduct = (e)=> { //esto esta por terminar
+        e.preventDefault()
+        actions.buyProduct(producto.nombre,producto.precio);
+    }
 
     useEffect(()=>{
         (async()=>{
@@ -18,7 +29,7 @@ export const CompanyPageMenu = ({ idEmpresa }) =>{
                 })
                 const result = await response.json()
                 console.log(result)
-                setProduct(result)
+                setProducts(result)
             }catch(error){
                 console.log("error")
             }
@@ -32,20 +43,28 @@ export const CompanyPageMenu = ({ idEmpresa }) =>{
                     {products.map((product,index)=>{
                             return (
                         <div className="col-12 col-md-4 border menu_container_page" key={index}>
-                            <div className="col-12 py-4 menu_text_page">  
-                                <div className="row">
-                                    <div className="col-9 menu_title_page">
-                                        <h4 className="menu_title">{product && product.nombre}</h4>
+                            <div className="row"> 
+                                <div className="col-3">
+                                    <div className="menu_imgbox  mx-2 my-5">
+                                            <img src={product && product.img} alt="foto producto" className="home_categoryimg" />
                                     </div>
-                                    <button className="btn col-1 menu_icono">
-                                        <i className="fa-solid fa-plus fa-lg"></i>
-                                    </button>
                                 </div>
-                                <div className="menu_price_data">
-                                        <h6 className="menu_price_page">{product && product.precio}$</h6>
-                                </div>
-                                <div className="menu_description_page">
-                                    <p>{product && product.descripcion}</p>
+                                <div className="col-7 py-4 menu_text_page">  
+                                    <div className="row">
+                                        <div className="col-9 menu_title_page">
+                                            <h4 className="menu_title">{product && product.nombre}</h4>
+                                        </div>
+                                        <button className="btn col-1 menu_icono" value={product} onChange={(data)=> {setProducto({...producto, nombre: data.target.value, precio: data.target.value})}}>
+                                            {/* Esto está por terminar */}
+                                            <i className="fa-solid fa-plus fa-lg"></i>
+                                        </button>
+                                    </div>
+                                    <div className="menu_price_data">
+                                            <h6 className="menu_price_page">{product && product.precio}$</h6>
+                                    </div>
+                                    <div className="menu_description_page">
+                                        <p>{product && product.descripcion}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

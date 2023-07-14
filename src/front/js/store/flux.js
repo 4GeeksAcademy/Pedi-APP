@@ -32,6 +32,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 			isloged: false,
 			current_user_data: {
 
+			},
+			product:{
+				nombre: "",
+				precio: ""
 			}
 		},
 		
@@ -309,6 +313,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false
 				}catch(error) {console.log(error)
 				}
+			},
+			buyProduct: (nombre, precio)=> {
+				setStore({
+					producto: {
+						nombre : nombre,
+						precio : precio,
+					}
+				})
 			},
 		}
 	}

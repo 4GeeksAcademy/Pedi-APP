@@ -1,4 +1,13 @@
+@media only screen and (min-width: 350px) and (max-width: 486px) {
+  .card-text-company-page-direction{
+    font-size: 12px;
+  }
+  .card-overlay {
+    margin: 3rem 0rem 2rem 10rem;
+    transform: translate(-20%, 10%);
+  }
 
+}
   /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
   .cover-image{
@@ -15,9 +24,7 @@
     position: absolute; 
     height: auto;
     width: auto;
-    margin-top: 3rem;
-    margin-bottom: 2rem;
-    margin-left: 12rem;
+    margin: 3rem 0rem 2rem 12rem;
     transform: translate(-40%, 10%);
     z-index: 1;
     background-color: rgba(255, 255, 255, 0.8); /* Color de fondo con opacidad */
@@ -79,11 +86,11 @@
 .portada-container {
     position: relative;
   }
-.card-overlay {
+.card-overlay { /*Tamaño caja*/
     position: absolute; 
     height: auto;
     width: auto;
-    margin: 1rem 0rem 0rem 20rem;
+    margin: 1rem 2rem 1rem 18.5rem;
     transform: translate(-70%, 20%);
     z-index: 1;
     background-color: rgba(255, 255, 255, 0.9); /* Color de fondo con opacidad */
@@ -136,11 +143,10 @@
 @media only screen and (min-width: 768px) {
   .card-text-company-page-direction{
     font-size:15px ;
-    margin-left: 7rem;
-    margin-right: 7rem;
   }
   .card-overlay {
-    transform: translate(-40%, 40%); 
+    transform: translate(-40%, 20%); 
+    margin: 1rem 15rem 0rem 15rem;
   }
 }
 
@@ -148,10 +154,10 @@
 @media only screen and (min-width: 992px) {
   .card-text-company-page-direction{
     font-size:15px ;
-
   }
   .card-overlay {
     transform: translate(-40%, 40%); 
+    margin: 1rem 20rem 0rem 20rem;
   }
 }
 
