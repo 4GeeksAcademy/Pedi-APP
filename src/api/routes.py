@@ -281,3 +281,23 @@ def filterByFavorites():
     if not empresas:
        return jsonify([])
     return jsonify(resultados)
+
+@api.route("/allcompanies", methods=["GET"])
+def company_getinator():
+    
+    empresas = Empresa.query.all()
+    company_locations = []
+
+    for i in empresas:
+        company_data = i.serialize()
+        location = geopy_processinator(i.usuario.direccion)
+        company_data["direccion"] = location.address
+        if (location == None):
+            return jsonify({"message": "Address not found try again"}),400
+        company_data["longitude"] = location.longitude
+        company_data["latitude"] = location.latitude
+        company_locations.append(company_data)
+    
+    return jsonify({"companies": company_locations}),200
+    
+
