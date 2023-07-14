@@ -21,7 +21,7 @@ export const Mapbox = () => {
     const mapContainer = useRef(null);
     const [lng, setLng] = useState(-3.703790);
     const [lat, setLat] = useState(40.416775);
-    const [zoom, setZoom] = useState(4);
+    const [zoom, setZoom] = useState(6);
 
     const [companies, setCompanies] = useState([])
              
