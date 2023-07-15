@@ -25,6 +25,9 @@ import os
 import cloudinary
 import cloudinary.uploader
 from datetime import datetime
+import stripe
+stripe.api_key = "sk_test_51NShHZGaOqlS5geCWJ4pA2RkcPB3jcXCFTp15A8ARNaJciSz6ezxsS12MGRrSsfVe1xtTrhlA5W4nyPKqE5w6DBu00vfdqAxLm"
+
 
 
 
@@ -68,6 +71,7 @@ def loginator():
             elif role == "Empresa":
                 user_data = user.empresa[0].serialize()
                 user_data["horario"] = user.empresa[0].horarios[0].serialize()
+
             else:
                 return (
                     jsonify(
@@ -146,19 +150,28 @@ def signupEmpresa():
     mañana = data.get("mañana")
     tarde = data.get("tarde")
     img = data.get("img")
+    categories = data.get("categories")
+    banner = data.get("banner")
 
-    if not email or not password or not cif or not direccion:
+    if not categories:
+        return jsonify({"message": "No categories were given"}),400
+    
+    
+    
+    if not email or not password or not cif or not direccion: #cambio esto? para validar todos los datos
         return jsonify({"message": "Por favor introduce un email, password, dirección y cif válidos"}),400
     
     existemail = Usuario.query.filter_by(email=email).first()
     if existemail: 
-        return jsonify({"message": "el usuario existe"}), 400
+        return jsonify({"message": "Mail already registered"}), 400
     
     existecif = Empresa.query.filter_by(cif=cif).first()
     if existecif:
-        return jsonify({"message": "el usuario existe"}), 400
+        return jsonify({"message": "Tax code already registered"}), 400
 
+    
     realaddress = geopy_processinator(direccion)
+    
     if (realaddress == None):
         return jsonify({"message": "Address not found try again"}),400
     
@@ -166,12 +179,18 @@ def signupEmpresa():
     db.session.add(addUsuario)
     db.session.commit()
 
-    addEmpresa = Empresa(nombre = nombre, cif = cif, is_active=True, reserva = reserva, delivery = delivery, idUsuario = addUsuario.id, imagen = img)
+    addEmpresa = Empresa(nombre = nombre, cif = cif, is_active=True, reserva = reserva, delivery = delivery, idUsuario = addUsuario.id, imagen = img, banner = banner)
     db.session.add(addEmpresa)
     db.session.commit()
 
     addHorario = HorariosEmpresas(mañana = mañana, tarde = tarde, idEmpresa = addEmpresa.id)
     db.session.add(addHorario)
+    db.session.commit()
+
+    for i in categories: 
+        food = TipoComida.query.filter_by(tipoComida = i).first()
+        food_to_add = TipoComidaEmpresa(idEmpresa = addEmpresa.id, idTipoComida = food.id)
+        db.session.add(food_to_add)
     db.session.commit()
 
     return jsonify({"message": "Sign up successfull"}),200
@@ -246,7 +265,7 @@ def address_convertinator():
     data = request.json
     address = data.get("address")
     
-
+    
     
     location = geopy_processinator(address)
     if (location == None):
@@ -287,7 +306,7 @@ def img_uploadinator():
         
         if file_to_upload:
             upload_result = cloudinary.uploader.upload(file_to_upload)
-            print(upload_result)
+            
             if upload_result:
                 return jsonify({"message" : "exito", "img" : upload_result.get("secure_url")}),200
             
@@ -317,21 +336,33 @@ def menu_empresa(idEmpresa):
 def bill_getinator():
     data = request.json
     user_id = data.get("id")
-    
-    if not user_id:
+    role = data.get("role")
+   
+   
+    if not user_id or not role:
         return jsonify({"message" : "user not loged in"})
-    bills = Factura.query.filter_by(idCliente = user_id).all()
+    
+    serialized_bills = []
+
+    if (role == "Cliente"):
+        bills = Factura.query.filter_by(idCliente = user_id).all()
+    elif (role =="Empresa"):
+        bills = Factura.query.filter_by(idEmpresa = user_id).all()
     
     
     if not bills:
         return jsonify({"bills" : []})
     
-    serialized_bills = []
-    for i in bills:
-        company = Empresa.query.filter_by(id = i.serialize().get("idempresa")).first()
-        serialized_bills.append({"bill" : i.serialize(), "company" : company.serialize()})
-    return jsonify({"bills":serialized_bills})
-
+    if (role == "Cliente"):
+        for i in bills:
+            company = Empresa.query.filter_by(id = i.serialize().get("idempresa")).first()
+            serialized_bills.append({"bill" : i.serialize(), "company" : company.serialize()})
+        return jsonify({"bills":serialized_bills})
+    elif (role =="Empresa"):
+        for i in bills:
+            user = Cliente.query.filter_by(id = i.serialize().get("idcliente")).first()
+            serialized_bills.append({"bill" : i.serialize(), "user" : user.serialize().get("nombre")})
+        return jsonify({"bills":serialized_bills})
 
 
 @api.route("/billCreator", methods=['POST'])
@@ -350,7 +381,7 @@ def bill_creatinator():
         return jsonify({"message":"Error, missing data"}),400
     
     to_add = Factura(idCliente = client_id, idEmpresa = company_id, idPago = pay_id, delivery = delivery, hora = time, fecha = date)
-    print(to_add)
+    
     db.session.add(to_add)
     db.session.commit()
     return jsonify({"message" : "added" , "bill" : to_add.serialize()}),200
@@ -362,6 +393,8 @@ def history_addinator():
     product_id = data.get("product_id")
     amount = data.get("amount")
     price = data.get("price")
+
+   
 
     if not bill_id or not product_id or not amount or not price:
          return jsonify({"message":"Error, missing data"}),400
@@ -375,6 +408,8 @@ def history_addinator():
 def history_getinator():
     data = request.json
     bill_id = data.get("id")
+
+    
 
     if not bill_id:
         return jsonify({"message" : "need to know the bill"})
@@ -514,3 +549,94 @@ def menuEmpresa(id):
     
     serialized_productos = [producto.serialize() for producto in productos]
     return jsonify(serialized_productos), 200
+
+def calculate_order_amount(items):
+    amount = items.get("precio") * items.get("cantidad")
+    return amount
+
+@api.route('/create-payment-intent', methods=['POST'])
+def create_payment():
+    try:
+        data = request.json
+        
+        
+        
+
+        intent = stripe.PaymentIntent.create(
+            amount=calculate_order_amount(data),
+            currency='usd'
+        )
+        
+        
+        # ----------------------------------------------------------------------agregar para meter entradas a la tabla de facturas e historial de pedidos
+        return jsonify({
+          'clientSecret': intent['client_secret']
+        })
+    except Exception as e:
+        return jsonify(error=str(e)), 403
+
+
+
+@api.route("/searchEmpresa", methods = ["POST"])
+def search_empresa(): 
+   data = request.json
+   print(data)
+   searchEmpresa = (data.get("nombre"))
+   empresas = Empresa.query.filter(Empresa.nombre.ilike(f"{searchEmpresa[:3]}%")).all()
+#    empresas = Empresa.query.filter(Empresa.nombre.startswith(searchEmpresa[:3])).all()
+#  empresas = Empresa.query.filter(Empresa.nombre.ilike(f"%{searchEmpresa}%")).all()
+   resultados = []
+   for empresa in empresas:
+        resultados.append(empresa.serialize())
+
+   if not empresas:
+       return jsonify({"message": "Busqueda no encontrada"})
+   return jsonify(resultados)
+
+@api.route("/filterDelivery", methods=["GET"])
+def filterByDelivery():
+    empresas = Empresa.query.filter_by(delivery = True).all()
+    resultados = []
+    
+    for empresa in empresas:
+        resultados.append(empresa.serialize())
+    
+    if not empresas:
+       return jsonify({"message": "No hay ninguna empresa que haga delivery"})
+    return jsonify(resultados)
+
+@api.route("/filterFavorites", methods=["POST"])
+def filterByFavorites():
+    data = request.json
+    idCliente = data.get("idCliente")
+    empresas = Favoritos.query.filter_by(idCliente = idCliente).all()
+    resultados = []
+    
+    for empresa in empresas:
+        resultados.append(empresa.serialize())
+    
+    if not empresas:
+       return jsonify([])
+    return jsonify(resultados)
+
+@api.route("/allcompanies", methods=["GET"])
+def company_getinator():
+    
+    empresas = Empresa.query.all()
+    company_locations = []
+    if not empresas:
+        return jsonify({"companies": company_locations}),200
+
+    for i in empresas:
+        company_data = i.serialize()
+        location = geopy_processinator(i.usuario.direccion)
+        company_data["direccion"] = location.address
+        if (location == None):
+            return jsonify({"message": "Address not found try again"}),400
+        company_data["longitude"] = location.longitude
+        company_data["latitude"] = location.latitude
+        company_locations.append(company_data)
+    
+    return jsonify({"companies": company_locations}),200
+    
+

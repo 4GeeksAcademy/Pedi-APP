@@ -40,11 +40,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 				img: "",
 				cantidad : 1,
 				id: ""
-			}
+			},
+			searchCompany:[],
+			// company: null,
 		},
 		
 		actions: {			
+
       signupCliente: async (nombre, apellido, telefono, nacimiento, sexo, calleNumero, pisoPuerta, instrucciones, codigoPostal, estado, ciudad) => {
+
 				const store= getStore()
 				const newClient = { //lo que ponga aqui tiene que coincidir con el models
 					nombre : nombre,
@@ -86,7 +90,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				});
 			},
 
-			signupEmpresa: async (nombre, cif, calleNumero, pisoPuerta, codigoPostal, estado, ciudad, delivery, reserva, mañana, tarde,img) => {
+			signupEmpresa: async (nombre, cif, calleNumero, pisoPuerta, codigoPostal, estado, ciudad, delivery, reserva, mañana, tarde,img,categories,banner) => {
 				const store = getStore()
 				console.log(nombre, cif, calleNumero, pisoPuerta, codigoPostal, estado, ciudad, delivery, reserva, mañana, tarde,img)
 				const newUser = { // lo que se ponga aquí tiene que coincidir con el back nombre: 
@@ -100,9 +104,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 					delivery: delivery,
 					mañana: mañana,
 					tarde: tarde,
-					img : img
+					img : img,
+					categories: categories,
+					banner: banner
 					/*dia: {lunes,martes...} o 	dia: dia, o horario: {lunes: {mañana: "", tarde: ""}*/
 				}
+				console.log(newUser)
 				try{
 					const response = await fetch(process.env.BACKEND_URL + "/api/signupEmpresa", {
 					method: "POST",
@@ -114,10 +121,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const result = await response.json()
 					Swal.fire(result.message)
 					if(response.status == 200){
-						console.log(response)
 						return true
 					}
-					return false
+					return result.message
 				}catch(error) {console.log(error)
 				}
 			},
@@ -158,6 +164,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							setStore({current_user_data:{...store.current_user_data, reserva : result.userdata.reserva}})
 							setStore({current_user_data:{...store.current_user_data, mañana : result.userdata.horario.mañana}})
 							setStore({current_user_data:{...store.current_user_data, tarde : result.userdata.horario.tarde}})
+							setStore({current_user_data:{...store.current_user_data, id : result.userdata.id}})
 						}
 						
 						
@@ -261,6 +268,64 @@ const getState = ({ getStore, getActions, setStore }) => {
 				.catch(error => console.log('error', error));
 
 			},
+
+			searchEmpresa: (nombre) => {
+				const store = getStore()
+				const busquedaEmpresa = { // lo que se ponga aquí tiene que coincidir con el back nombre: 
+					nombre: nombre
+
+			}
+			console.log(busquedaEmpresa)
+			fetch(process.env.BACKEND_URL + "/api/searchEmpresa", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify(busquedaEmpresa)
+			})
+			.then (response => response.json())
+			.then (result => setStore({searchCompany : result}))
+			.catch(error => console.log(error))
+			},
+
+
+			filterDelivery: () => {
+				const store = getStore()
+
+			fetch(process.env.BACKEND_URL + "/api/filterDelivery", {
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				
+
+			})
+			.then (response => response.json())
+			.then (result => setStore({searchCompany : result}))
+			.catch(error => console.log(error))
+			},
+
+			filterFavorites: () => {
+				const store = getStore()
+				const filtrarfavoritos = { // lo que se ponga aquí tiene que coincidir con el back nombre: 
+					idCliente: store.current_user_data.id
+
+			}
+
+			fetch(process.env.BACKEND_URL + "/api/filterFavorites", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify(filtrarfavoritos)
+
+			})
+			.then (response => response.json())
+			.then (result => setStore({searchCompany : result}))
+			.catch(error => console.log(error))
+			},
+
+
 			img_uploadinator: async (img) =>{
 				const store = getStore()
 				
