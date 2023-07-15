@@ -1,10 +1,18 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
+import { useNavigate } from "react-router-dom";
 
 
 
 const Top_5_carrousel = () =>{
     const {store,actions} = useContext(Context)
+    const navigate = useNavigate()
+
+    const page_redirectionator = (id) => {
+        navigate(`/companyPage/${id}`, { replace: true });
+
+
+    }
     return(
                     
         <>
@@ -12,7 +20,7 @@ const Top_5_carrousel = () =>{
                 {store.top_5? store.top_5.map((x,index) =>{
                     return (
                     <div className="home_foodbox  mx-3 my-5" key= {x.id}>
-                         <img src={x.imagen} alt="..." className="home_categoryimg" />
+                         <img src={x.imagen} alt="..." className="home_categoryimg" onClick={() => {page_redirectionator(x.id)}} />
                     </div>)
                 })
                 : ""}
