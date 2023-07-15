@@ -68,7 +68,7 @@ export const SingupEmpresa = () => {
     const navigate = useNavigate()
 
     useEffect( () =>{
-        console.log("asd")
+        
         if (Object.keys(store.user) == 0){
             navigate('/signup', { replace: true });
         }
@@ -86,7 +86,6 @@ export const SingupEmpresa = () => {
 
     const handleSignupCompanies = async (e) => {
         e.preventDefault()
-        
         if (formData.nombre === "" || formData.cif === "" || formData.calleNumero === "" || formData.pisoPuerta === "" || formData.codigoPostal === "" || formData.ciudad === "" ||formData.estado === "" || !formData.img || categories.length == 0 ||!formData.banner) {
             return  Swal.fire("Check all the fields");
           }

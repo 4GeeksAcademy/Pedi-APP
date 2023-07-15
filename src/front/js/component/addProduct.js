@@ -14,14 +14,11 @@ export const AddProduct = () => {
 
     const hadnleAddProduct = async(e) => {
         e.preventDefault();
-        if(
-            formData.nombre && formData.precio
-        ){
+        if(formData.nombre && formData.precio){
             actions.addProduct(
                 formData.nombre, formData.precio, formData.descripcion, formData.img
             );
             setForm(true);
-            navigate("/addProduct");
             // Limpia el formulario y lo cargado en setFormData
             setFormData({
               nombre: "",

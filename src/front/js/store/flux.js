@@ -114,7 +114,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}
 					})
 					const result = await response.json()
-					Swal.fire(result.message)
+					
 					if (response.status == 200){
 						localStorage.setItem("jwt-token", result.token);
 						setStore({isloged:true})
@@ -146,7 +146,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						return true
 					} else {
 						
-						return false
+						return result.message
 					}
 
 				}catch(error){

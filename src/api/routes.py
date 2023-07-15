@@ -86,7 +86,7 @@ def loginator():
             
 
             user_data["email"] = user.email
-            user_data["direccion"] = geopy_processinator(user.direccion).address #esto hay que ponerlo en el signup en realidad -----------------------------
+            user_data["direccion"] = user.direccion
             user_data["role"] = user.role
 
                 
@@ -106,8 +106,8 @@ def signupCliente():
     direccion = data.get("direccion")
     instrucciones = data.get("instrucciones")
 
-    if not email or not password or not nombre or not apellido or not telefono:
-        return jsonify({"message": "no email o contraseña"}),400
+    if not email or not password or not nombre or not apellido or not telefono or not nacimiento :
+        return jsonify({"message": "missing data"}),400
     
     existe = Usuario.query.filter_by(email=email).first()
     
@@ -132,8 +132,6 @@ def signupCliente():
     
     return jsonify({"message": "Sign up successfull"})
     
-    # role = cliente.role
-    # print(cliente.cliente)
 
 @api.route("/signupEmpresa", methods = ["POST"])
 def signupEmpresa():
@@ -158,8 +156,8 @@ def signupEmpresa():
     
     
     
-    if not email or not password or not cif or not direccion: #cambio esto? para validar todos los datos
-        return jsonify({"message": "Por favor introduce un email, password, dirección y cif válidos"}),400
+    if not email or not password or not cif or not direccion or nombre or reserva or delivery or mañana or tarde: #cambio esto? para validar todos los datos
+        return jsonify({"message": "missing data"}),400
     
     existemail = Usuario.query.filter_by(email=email).first()
     if existemail: 
@@ -200,12 +198,17 @@ def category_creatinator():
     
     tipo = request.json
     tipotext = (tipo.get("tipo"))
+
+    if not tipotext: 
+        return jsonify({"message": "no type of food given"})
+    
     type = TipoComida(tipoComida = tipo.get("tipo"))
 
+    
     exists = TipoComida.query.filter_by(tipoComida = tipotext).first()
     
     if exists:
-        return jsonify({"message": "ya ta ese"})
+        return jsonify({"message": "already exists"})
 
     db.session.add(type)
     db.session.commit()
@@ -252,9 +255,9 @@ def top_sales_loadinator():
 
     data_to_return = []
     for i in companys:
-        id ( i.id in top_5 )
-        company = i.serialize()
-        data_to_return.append(company)
+        if ( i.id in top_5 ):
+            company = i.serialize()
+            data_to_return.append(company)
 
 
     return jsonify({"top_5_data":data_to_return})
@@ -287,8 +290,9 @@ def addProduct():
     idEmpresa = data.get("idEmpresa")
     img = data.get("img")
 
-    if not nombre or not precio or not descripcion:
+    if not nombre or not precio :
         return jsonify({"message": "Complete all data of your product"}), 400
+    
 
     addOneProduct = Productos(nombre = nombre, precio= precio, descripcion = descripcion, idEmpresa = idEmpresa, img = img)
     db.session.add(addOneProduct)
@@ -299,7 +303,7 @@ def addProduct():
 @api.route("/companyimg", methods=['POST'])
 def img_uploadinator():
         
-
+    
     try:
         
         file_to_upload = request.files['company_img']
@@ -321,7 +325,7 @@ def menu_empresa(idEmpresa):
     # Obtener los productos del menú asociados al usuario
     empresa = Empresa.query.get(idEmpresa)
     if not empresa:
-        return jsonify({"message": "empresa not found"}), 404
+        return jsonify({"message": "company not found"}), 404
 
     menu = Productos.query.filter_by(idEmpresa = empresa.id).all()
 
@@ -377,7 +381,7 @@ def bill_creatinator():
     
     
 
-    if not client_id or not company_id or not pay_id or not pay_id or not delivery or not date or not time:
+    if not client_id or not company_id or not pay_id or not delivery or not date or not time:
         return jsonify({"message":"Error, missing data"}),400
     
     to_add = Factura(idCliente = client_id, idEmpresa = company_id, idPago = pay_id, delivery = delivery, hora = time, fecha = date)
@@ -412,7 +416,7 @@ def history_getinator():
     
 
     if not bill_id:
-        return jsonify({"message" : "need to know the bill"})
+        return jsonify({"message" : "Error, need to know the bill"})
     bill_history = HistorialPedidos.query.filter_by(idFactura = bill_id).all()
     
 
@@ -428,7 +432,7 @@ def history_getinator():
     return jsonify({"history":serialized_bill_history})
     
     
-
+# ----------------------------------------------------------------------------------------- delete this function when the addproduct enters
 @api.route("/productCreator", methods=['POST'])
 def product_addinator():
     data = request.json
@@ -444,6 +448,7 @@ def product_addinator():
     db.session.commit()
 
     return jsonify({"message" : "added" , "product" : to_add.serialize()}),200
+# -----------------------------------------------------------------------------------------  
 
 @api.route("/favoriteCreator", methods=['POST'])
 def favorite_addinator():
@@ -452,7 +457,7 @@ def favorite_addinator():
     company_id = data.get("company_id")
     
     if not user_id or not company_id:
-         return jsonify({"message":"Error, missing data"}),400
+        return jsonify({"message":"Error, missing data"}),400
     to_add = Favoritos (idCliente = user_id, idEmpresa = company_id)
     
     db.session.add(to_add)
@@ -466,7 +471,7 @@ def favorites_getinator():
     user_id = data.get("id")
 
     if not user_id:
-        return jsonify({"message" : "need to know the user"})
+        return jsonify({"message" : "Error, need to know the user"})
     favorites = Favoritos.query.filter_by(idCliente = user_id).all()
     
     if not favorites:
@@ -491,7 +496,8 @@ def create_payment():
     try:
         data = request.json
         
-        
+        if len (data) == 0:
+            return jsonify({"message" : "Error, no product given"}) 
         
 
         intent = stripe.PaymentIntent.create(
@@ -512,29 +518,29 @@ def create_payment():
 @api.route("/searchEmpresa", methods = ["POST"])
 def search_empresa(): 
    data = request.json
-   print(data)
    searchEmpresa = (data.get("nombre"))
    empresas = Empresa.query.filter(Empresa.nombre.ilike(f"{searchEmpresa[:3]}%")).all()
-#    empresas = Empresa.query.filter(Empresa.nombre.startswith(searchEmpresa[:3])).all()
+#   empresas = Empresa.query.filter(Empresa.nombre.startswith(searchEmpresa[:3])).all()
 #  empresas = Empresa.query.filter(Empresa.nombre.ilike(f"%{searchEmpresa}%")).all()
    resultados = []
    for empresa in empresas:
         resultados.append(empresa.serialize())
 
    if not empresas:
-       return jsonify({"message": "Busqueda no encontrada"})
+       return jsonify({"message": "Not found"})
    return jsonify(resultados)
 
 @api.route("/filterDelivery", methods=["GET"])
 def filterByDelivery():
     empresas = Empresa.query.filter_by(delivery = True).all()
     resultados = []
+
+    if not empresas:
+       return jsonify({"message": "No company does delivery"})
     
     for empresa in empresas:
         resultados.append(empresa.serialize())
-    
-    if not empresas:
-       return jsonify({"message": "No hay ninguna empresa que haga delivery"})
+
     return jsonify(resultados)
 
 @api.route("/filterFavorites", methods=["POST"])
@@ -543,12 +549,12 @@ def filterByFavorites():
     idCliente = data.get("idCliente")
     empresas = Favoritos.query.filter_by(idCliente = idCliente).all()
     resultados = []
+    if not empresas:
+        return jsonify([])
     
     for empresa in empresas:
         resultados.append(empresa.serialize())
     
-    if not empresas:
-       return jsonify([])
     return jsonify(resultados)
 
 @api.route("/allcompanies", methods=["GET"])
@@ -562,9 +568,9 @@ def company_getinator():
     for i in empresas:
         company_data = i.serialize()
         location = geopy_processinator(i.usuario.direccion)
-        company_data["direccion"] = location.address
         if (location == None):
-            return jsonify({"message": "Address not found try again"}),400
+            continue
+        company_data["direccion"] = location.address
         company_data["longitude"] = location.longitude
         company_data["latitude"] = location.latitude
         company_locations.append(company_data)
