@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/login.css";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const { store, actions } = useContext(Context);
@@ -18,8 +19,10 @@ const Login = () => {
     const loged = await actions.login_handlinator(user);
     // if lo de arriba es OK lo de abajo pasa
 
-    if (loged) {
-      navigate("/", { replace: true });
+    if (loged == true) {
+      navigate("/searchEmpresa", { replace: true });
+    } else {
+      Swal.fire(loged)
     }
   };
 

@@ -5,27 +5,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 
-			user:{nombre: "",
-				apellido:"",
-				telefono:"",
-				nacimiento:"",
-				direccion:"",
-				instrucciones: "",
-				email:"", 
-				password:"", 
-				role: "",
+			user:{
 			},
 			empresa: {
-				role:"",
-				email:"",
-				password:"",
-				direccion:"",
-				nombre: "",
-				cif: "",
-				reserva: "",
-				delivery: "",
-				mañana: "",
-				tarde:""
 				/*dia: "", o horario: {lunes: {mañana: "", tarde: ""}*/
 			},
 
@@ -139,7 +121,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}
 					})
 					const result = await response.json()
-					Swal.fire(result.message)
+					
 					if (response.status == 200){
 						localStorage.setItem("jwt-token", result.token);
 						setStore({isloged:true})
@@ -171,7 +153,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						return true
 					} else {
 						
-						return false
+						return result.message
 					}
 
 				}catch(error){
