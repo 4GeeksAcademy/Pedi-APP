@@ -156,7 +156,7 @@ def signupEmpresa():
     
     
     
-    if not email or not password or not cif or not direccion or nombre or reserva or delivery or mañana or tarde: #cambio esto? para validar todos los datos
+    if not email or not password or not cif or not direccion or not nombre : #cambio esto? para validar todos los datos
         return jsonify({"message": "missing data"}),400
     
     existemail = Usuario.query.filter_by(email=email).first()
