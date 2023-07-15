@@ -4,11 +4,6 @@ from flask_admin import Admin
 
 from .models import db, Usuario, Empresa, Cliente, TipoComida, HorariosEmpresas,Factura, HistorialPedidos, Productos, Favoritos, Reseñas, TipoComidaEmpresa
  
-
-
-
-
-
 from flask_admin.contrib.sqla import ModelView
 
 def setup_admin(app):
