@@ -62,6 +62,7 @@ export const SingupEmpresa = () => {
     //     };
     //   };
     const [img_uploaded, setImg_uploaded] = useState(false)
+    const [banner_uploaded, setBanner_uploaded] = useState(false)
 
     const [categories, setCategories] = useState([])
 
@@ -76,14 +77,14 @@ export const SingupEmpresa = () => {
     const handleSignupCompanies = async (e) => {
         e.preventDefault()
         
-        if (formData.nombre === "" || formData.cif === "" || formData.calleNumero === "" || formData.pisoPuerta === "" || formData.codigoPostal === "" || formData.ciudad === "" ||formData.estado === "" || !formData.img || categories.length == 0) {
+        if (formData.nombre === "" || formData.cif === "" || formData.calleNumero === "" || formData.pisoPuerta === "" || formData.codigoPostal === "" || formData.ciudad === "" ||formData.estado === "" || !formData.img || categories.length == 0 ||!formData.banner) {
             return  Swal.fire("Check all the fields");
           }
           else if (formData.terminosCondiciones === false){
             return Swal.fire("You have to agree to Terms and Conditions to be able to signup")
           }
         else{
-            const register = await actions.signupEmpresa(formData.nombre, formData.cif, formData.calleNumero, formData.pisoPuerta, formData.codigoPostal, formData.estado, formData.ciudad, formData.delivery, formData.reserva, formData.mañana, formData.tarde, formData.img,categories);
+            const register = await actions.signupEmpresa(formData.nombre, formData.cif, formData.calleNumero, formData.pisoPuerta, formData.codigoPostal, formData.estado, formData.ciudad, formData.delivery, formData.reserva, formData.mañana, formData.tarde, formData.img,categories,formData.banner);
             if (register == true) {
                     navigate('/', { replace: true });
             }
@@ -99,22 +100,27 @@ export const SingupEmpresa = () => {
             let data = new FormData();
             data.append('company_img', file);
             const img = await actions.img_uploadinator(data)
-            
-            if (img.message == "Max image size is 10MB"){ 
-                Swal.fire(img.message)
-                img_uploaded == true? setImg_uploaded(false):""
-            } else if (img.message == "exito"){
-                setImg_uploaded(true)
-                if (x == 1){
-                    setFormData({...formData, img: img.img})
+            if (x == 1){
+                if (img.message == "exito"){
+                        setFormData({...formData, img: img.img})
+                        setImg_uploaded(true)
+                } else {
+                    img_uploaded == true? setImg_uploaded(false):
+                    Swal.fire(img.message)
                 }
-                
-            } else {
-                img_uploaded == true? setImg_uploaded(false):
-                Swal.fire(img.message)
-            }
+            } else if (x==2){
+                if (img.message == "exito"){
+                    setFormData({...formData, banner: img.img})
+                    setBanner_uploaded(true)
+                } else {
+                    img_uploaded == true? setImg_uploaded(false):
+                    Swal.fire(img.message)
+                } 
+        }
+            
         }
       };
+        
 
     const category_addinator = (category) =>{
         
@@ -182,6 +188,19 @@ export const SingupEmpresa = () => {
                                     <img src={formData.img} alt="..." className="signupcompany_img" />
                                 </div>
                             </div>)}
+                        
+                        <div>
+                            <label htmlFor="company_banner" className="form-label">Upload an banner for your business page</label>
+                            <input className="form-control form-control" id="company_banner" type="file" onChange={(e) => {uploadFile(e,2)}} required/>
+                        </div>
+                        {banner_uploaded && (
+                            <div className="row signupcompany_rowimg ">
+                                <div className="signupcompany_preview  my-3"> 
+                                    <img src={formData.banner} alt="..." className="signupcompany_img" />
+                                </div>
+                            </div>)}
+        
+
                         <p>Are you doing?</p>
                         <div className="form-check form-check-inline ms-4 me-5">
                             <input className="form-check-input inputBox" type="checkbox" id="inlineCheckbox1" value="option1" checked={formData.delivery} onChange={handleCheckboxChange('delivery')}/>

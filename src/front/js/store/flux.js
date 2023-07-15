@@ -78,7 +78,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				});
 			},
 
-			signupEmpresa: async (nombre, cif, calleNumero, pisoPuerta, codigoPostal, estado, ciudad, delivery, reserva, mañana, tarde,img,categories) => {
+			signupEmpresa: async (nombre, cif, calleNumero, pisoPuerta, codigoPostal, estado, ciudad, delivery, reserva, mañana, tarde,img,categories,banner) => {
 				const store = getStore()
 				console.log(nombre, cif, calleNumero, pisoPuerta, codigoPostal, estado, ciudad, delivery, reserva, mañana, tarde,img)
 				const newUser = { // lo que se ponga aquí tiene que coincidir con el back nombre: 
@@ -93,7 +93,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					mañana: mañana,
 					tarde: tarde,
 					img : img,
-					categories: categories
+					categories: categories,
+					banner: banner
 					/*dia: {lunes,martes...} o 	dia: dia, o horario: {lunes: {mañana: "", tarde: ""}*/
 				}
 				console.log(newUser)

@@ -151,13 +151,14 @@ def signupEmpresa():
     tarde = data.get("tarde")
     img = data.get("img")
     categories = data.get("categories")
+    banner = data.get("banner")
 
     if not categories:
         return jsonify({"message": "No categories were given"}),400
     
     
     
-    if not email or not password or not cif or not direccion:
+    if not email or not password or not cif or not direccion: #cambio esto? para validar todos los datos
         return jsonify({"message": "Por favor introduce un email, password, dirección y cif válidos"}),400
     
     existemail = Usuario.query.filter_by(email=email).first()
@@ -178,7 +179,7 @@ def signupEmpresa():
     db.session.add(addUsuario)
     db.session.commit()
 
-    addEmpresa = Empresa(nombre = nombre, cif = cif, is_active=True, reserva = reserva, delivery = delivery, idUsuario = addUsuario.id, imagen = img)
+    addEmpresa = Empresa(nombre = nombre, cif = cif, is_active=True, reserva = reserva, delivery = delivery, idUsuario = addUsuario.id, imagen = img, banner = banner)
     db.session.add(addEmpresa)
     db.session.commit()
 
