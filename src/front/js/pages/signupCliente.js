@@ -137,7 +137,8 @@ export const SingupCliente = () => {
                     Phone
                   </label>
                   <input
-                    type="lastName"
+                    type="tel"
+                    pattern="[0-9]{9}"
                     className="form-control"
                     id="exampleInputPassword1"
                     placeholder="Phone"

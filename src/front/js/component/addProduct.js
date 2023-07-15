@@ -77,7 +77,7 @@ export const AddProduct = () => {
                 </div>
                 <div className="mb-3 add-product-text">
                     <label htmlFor="price" className="form-label add-product-label">Price</label>
-                    <input type="price" className="form-control" id="price" placeholder="XXXXX $" value={formData.precio} onChange={(data)=> setFormData({...formData, precio: data.target.value})} required/>
+                    <input type="number" className="form-control" id="price" placeholder="XXXXX $" value={formData.precio} onChange={(data)=> setFormData({...formData, precio: data.target.value})} required/>
                 </div>
                 <div className="mb-3 add-product-text">
                     <label htmlFor="description" className="form-label add-product-label">Description</label>

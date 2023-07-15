@@ -19,7 +19,7 @@ const Login = () => {
     // if lo de arriba es OK lo de abajo pasa
 
     if (loged) {
-      navigate("/", { replace: true });
+      navigate("/searchEmpresa", { replace: true });
     }
   };
 
