@@ -709,4 +709,4 @@ def menuEmpresa(id):
     
     serialized_productos = [producto.serialize() for producto in productos]
     return jsonify(serialized_productos), 200
->>>>>>>>> Temporary merge branch 2
+
