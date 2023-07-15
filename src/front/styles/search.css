@@ -1,0 +1,377 @@
+
+.form_empresas_container{
+    border-radius: 5%;
+    background-color: #FFC3C3;
+    box-shadow: 0px 5px 10px 0px rgb(59, 61, 61);
+    font-size: 17px;
+    height: 180px;
+}
+
+.inputSearch[type="radio"]:checked + label{
+    border: #C62828;
+    font-weight: bold;
+  }
+
+.inputSearch[type="radio"]:checked{
+    background-color: #C62828;
+    box-shadow: 0 0 5px red;
+    border: #C62828;
+    font-weight: bold;
+  }
+
+.inputSearch[type="radio"]{
+    border: 1px solid #C62828;
+  }
+
+.rowInput{
+    color: #bc2626;
+  }
+
+.bodyCard{
+    background-color: #C62828;
+    color: white;
+    font-size: 13px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    height: 50px;
+}
+.cardRestaurante{
+  border-radius: 10px;
+}
+
+.btn-star:hover {
+  color: yellow;
+}
+
+.btn-star{
+  font-size: 13px;
+  color: white;
+}
+
+.busquedaEmpresas{
+  width: 100%;
+  justify-content: center;
+  
+}
+
+.cardImage{
+ height: 220px;
+ width: 100%;
+}
+
+/*--------------------------------- beigining of map*/
+.map_box{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  height: 30rem;
+  
+}
+
+
+
+
+
+/*--------------------------------- end of map*/
+
+@media only screen and (max-width: 576px) {
+
+  .form_empresas_container{
+    border-radius: 5%;
+    background-color: #FFC3C3;
+    box-shadow: 0px 5px 10px 0px rgb(59, 61, 61);
+    font-size: 16px;
+    height: 70px;
+    width: 400px;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: auto;
+}
+
+.inputSearch[type="radio"]:checked + label{
+    border: #C62828;
+    font-weight: bold;
+  }
+
+.inputSearch[type="radio"]:checked{
+    background-color: #C62828;
+    box-shadow: 0 0 5px red;
+    border: #C62828;
+    font-weight: bold;
+  }
+
+.inputSearch[type="radio"]{
+    border: 1px solid #C62828;
+  }
+
+.rowInput{
+    color: #bc2626;
+  }
+
+.bodyCard{
+    background-color: #C62828;
+    color: white;
+    font-size: 13px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    height: 50px;
+}
+.cardRestaurante{
+  border-radius: 10px;
+  height: 280px;
+  width: 300px;
+  margin-left:50px;
+  
+}
+
+.btn-star:hover {
+  color: yellow;
+}
+
+.btn-star{
+  font-size: 13px;
+  color: white;
+}
+
+.busquedaEmpresas{
+  width: 100%;
+  justify-content: center;
+}
+
+.cardImage{
+ height: 280px;
+ width: 100%;
+}
+ 
+.contenedorCards{
+  justify-content: center;
+  text-align: center;  
+}
+
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 576px) {
+  .form_empresas_container{
+    border-radius: 5%;
+    background-color: #FFC3C3;
+    box-shadow: 0px 5px 10px 0px rgb(59, 61, 61);
+    font-size: 16px;
+    height: 70px;
+    width: 400px;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: auto;
+}
+
+.inputSearch[type="radio"]:checked + label{
+    border: #C62828;
+    font-weight: bold;
+  }
+
+.inputSearch[type="radio"]:checked{
+    background-color: #C62828;
+    box-shadow: 0 0 5px red;
+    border: #C62828;
+    font-weight: bold;
+  }
+
+.inputSearch[type="radio"]{
+    border: 1px solid #C62828;
+  }
+
+.rowInput{
+    color: #bc2626;
+  }
+
+.bodyCard{
+    background-color: #C62828;
+    color: white;
+    font-size: 13px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    height: 50px;
+}
+.cardRestaurante{
+  border-radius: 10px;
+  height: 350px;
+  width: 380px;
+  margin-left:70px;
+  
+}
+
+.btn-star:hover {
+  color: yellow;
+}
+
+.btn-star{
+  font-size: 13px;
+  color: white;
+}
+
+.busquedaEmpresas{
+  width: 100%;
+  justify-content: center;
+}
+
+.cardImage{
+ height: 280px;
+ width: 240px;
+}
+ 
+.contenedorCards{
+  justify-content: center;
+  text-align: center;  
+}
+  
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .form_empresas_container{
+    border-radius: 5%;
+    background-color: #FFC3C3;
+    box-shadow: 0px 5px 10px 0px rgb(59, 61, 61);
+    font-size: 17px;
+    height: 200px;
+    width: 20%;
+}
+
+.inputSearch[type="radio"]:checked + label{
+    border: #C62828;
+    font-weight: bold;
+  }
+
+.inputSearch[type="radio"]:checked{
+    background-color: #C62828;
+    box-shadow: 0 0 5px red;
+    border: #C62828;
+    font-weight: bold;
+  }
+
+.inputSearch[type="radio"]{
+    border: 1px solid #C62828;
+  }
+
+.rowInput{
+    color: #bc2626;
+  }
+
+.bodyCard{
+    background-color: #C62828;
+    color: white;
+    font-size: 13px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    height: 50px;
+}
+.cardRestaurante{
+  border-radius: 10px;
+  height: 290px;
+  width: 320px;
+  margin-left:70px;
+  
+}
+
+.btn-star:hover {
+  color: yellow;
+}
+
+.btn-star{
+  font-size: 13px;
+  color: white;
+}
+
+.busquedaEmpresas{
+  width: 100%;
+  justify-content: center;
+}
+
+.cardImage{
+ height: 230px;
+ width: 290px;
+}
+ 
+.contenedorCards{
+  justify-content: center;
+  text-align: center;  
+}
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+
+  .form_empresas_container{
+    border-radius: 5%;
+    background-color: #FFC3C3;
+    box-shadow: 0px 5px 10px 0px rgb(59, 61, 61);
+    font-size: 17px;
+    height: 190px;
+}
+
+.inputSearch[type="radio"]:checked + label{
+    border: #C62828;
+    font-weight: bold;
+  }
+
+.inputSearch[type="radio"]:checked{
+    background-color: #C62828;
+    box-shadow: 0 0 5px red;
+    border: #C62828;
+    font-weight: bold;
+  }
+
+.inputSearch[type="radio"]{
+    border: 1px solid #C62828;
+  }
+
+.rowInput{
+    color: #bc2626;
+  }
+
+.bodyCard{
+    background-color: #C62828;
+    color: white;
+    font-size: 13px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    height: 50px;
+}
+.cardRestaurante{
+  border-radius: 10px;
+  border-radius: 10px;
+  height: 220px;
+  width: 270px;
+  margin-left:40px;
+}
+
+.btn-star:hover {
+  color: yellow;
+}
+
+.btn-star{
+  font-size: 13px;
+  color: white;
+}
+
+.busquedaEmpresas{
+  width: 100%;
+  justify-content: center;
+}
+
+.cardImage{
+ height: 170px;
+ width: 230px;
+}
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    
+}
