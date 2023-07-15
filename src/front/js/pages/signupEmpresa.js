@@ -61,6 +61,9 @@ export const SingupEmpresa = () => {
     //     };
     //   };
     const [img_uploaded, setImg_uploaded] = useState(false)
+    const [banner_uploaded, setBanner_uploaded] = useState(false)
+
+    const [categories, setCategories] = useState([])
 
     const handleCheckboxChange = (fieldName) => {
         return (event) => {
@@ -73,44 +76,63 @@ export const SingupEmpresa = () => {
     const handleSignupCompanies = async (e) => {
         e.preventDefault()
         
-        if (formData.nombre === "" && formData.cif === "" && formData.calleNumero === "" && formData.pisoPuerta === "" && formData.codigoPostal === "" && formData.ciudad === "" && formData.estado === "" && formData.img) {
+        if (formData.nombre === "" || formData.cif === "" || formData.calleNumero === "" || formData.pisoPuerta === "" || formData.codigoPostal === "" || formData.ciudad === "" ||formData.estado === "" || !formData.img || categories.length == 0 ||!formData.banner) {
             return  Swal.fire("Check all the fields");
           }
           else if (formData.terminosCondiciones === false){
             return Swal.fire("You have to agree to Terms and Conditions to be able to signup")
           }
         else{
-            const register = await actions.signupEmpresa(formData.nombre, formData.cif, formData.calleNumero, formData.pisoPuerta, formData.codigoPostal, formData.estado, formData.ciudad, formData.delivery, formData.reserva, formData.mañana, formData.tarde, formData.img);
+            const register = await actions.signupEmpresa(formData.nombre, formData.cif, formData.calleNumero, formData.pisoPuerta, formData.codigoPostal, formData.estado, formData.ciudad, formData.delivery, formData.reserva, formData.mañana, formData.tarde, formData.img,categories,formData.banner);
             if (register == true) {
                     navigate('/', { replace: true });
             }
             else {
-                 if (register == false) {
-                    return Swal.fire ("Address not found try again")}}
+                return Swal.fire (register)
+            }
     }};
 
     // the react post request sender
-    const uploadFile = async (e) => {
+    const uploadFile = async (e,x) => {
         const file = e.target.files[0];
         if (file != null) {
             let data = new FormData();
             data.append('company_img', file);
             const img = await actions.img_uploadinator(data)
+            if (x == 1){
+                if (img.message == "exito"){
+                        setFormData({...formData, img: img.img})
+                        setImg_uploaded(true)
+                } else {
+                    img_uploaded == true? setImg_uploaded(false):
+                    Swal.fire(img.message)
+                }
+            } else if (x==2){
+                if (img.message == "exito"){
+                    setFormData({...formData, banner: img.img})
+                    setBanner_uploaded(true)
+                } else {
+                    img_uploaded == true? setImg_uploaded(false):
+                    Swal.fire(img.message)
+                } 
+        }
             
-            if (img.message == "Max image size is 10MB"){ 
-                Swal.fire(img.message)
-                img_uploaded == true? setImg_uploaded(false):""
-            } else if (img.message == "exito"){
-                setImg_uploaded(true)
-                setFormData({...formData, img: img.img})
-            } else {
-                img_uploaded == true? setImg_uploaded(false):
-                Swal.fire(img.message)
-            }
         }
       };
+        
 
-    
+    const category_addinator = (category) =>{
+        
+        if( categories.includes(category)) {
+            setCategories((current) => 
+                current.filter(x => x != category)
+            )
+        } else {
+            setCategories([...categories,category])
+        }
+        
+
+    }
 
     return(
         <>
@@ -129,8 +151,8 @@ export const SingupEmpresa = () => {
                             <input className="form-control" id="name" aria-describedby="emailHelp" placeholder="Name" value={formData.nombre} onChange={(data) => {setFormData({...formData, nombre: data.target.value})}} required/>
                         </div>
                         <div className="mb-3">
-                            <label htmlFor="cif" className="form-label signupcompany_label">CIF</label>
-                            <input className="form-control" id="cif" placeholder="CIF" value={formData.cif} onChange={(data) => {setFormData({...formData, cif: data.target.value})}} required/>
+                            <label htmlFor="cif" className="form-label signupcompany_label">Tax Code</label>
+                            <input className="form-control" id="cif" placeholder="Tax code" value={formData.cif} onChange={(data) => {setFormData({...formData, cif: data.target.value})}} required/>
                         </div>
                         <p className="signupcompany_label">Adress</p>
                         <div className="row">
@@ -144,7 +166,7 @@ export const SingupEmpresa = () => {
                                 <input type="lastName" className="form-control" id="exampleInputPassword1" placeholder="Postal Code" value={formData.codigoPostal} onChange={(data) => {setFormData({...formData, codigoPostal: data.target.value})}} required/>
                             </div>
                             <div className="col-12 col-sm-6 mb-3">
-                                <input type="lastName" className="form-control" id="exampleInputPassword1" placeholder="Floor, door" value={formData.pisoPuerta} onChange={(data) => {setFormData({...formData, pisoPuerta: data.target.value})}} required/>
+                                <input type="lastName" className="form-control" id="exampleInputPassword1" placeholder="Floor, door" value={formData.pisoPuerta} onChange={(data) => {setFormData({...formData, pisoPuerta: data.target.value})}} />
                             </div>
                         </div>
                         <div className="row">
@@ -157,7 +179,7 @@ export const SingupEmpresa = () => {
                         </div>
                         <div>
                             <label htmlFor="company_img" className="form-label">Upload an image for your business</label>
-                            <input className="form-control form-control" id="company_img" type="file" onChange={(e) => {uploadFile(e)}} required/>
+                            <input className="form-control form-control" id="company_img" type="file" onChange={(e) => {uploadFile(e,1)}} required/>
                         </div>
                         {img_uploaded && (
                             <div className="row signupcompany_rowimg ">
@@ -165,6 +187,19 @@ export const SingupEmpresa = () => {
                                     <img src={formData.img} alt="..." className="signupcompany_img" />
                                 </div>
                             </div>)}
+                        
+                        <div>
+                            <label htmlFor="company_banner" className="form-label">Upload an banner for your business page</label>
+                            <input className="form-control form-control" id="company_banner" type="file" onChange={(e) => {uploadFile(e,2)}} required/>
+                        </div>
+                        {banner_uploaded && (
+                            <div className="row signupcompany_rowimg ">
+                                <div className="signupcompany_preview  my-3"> 
+                                    <img src={formData.banner} alt="..." className="signupcompany_img" />
+                                </div>
+                            </div>)}
+        
+
                         <p>Are you doing?</p>
                         <div className="form-check form-check-inline ms-4 me-5">
                             <input className="form-check-input inputBox" type="checkbox" id="inlineCheckbox1" value="option1" checked={formData.delivery} onChange={handleCheckboxChange('delivery')}/>
@@ -193,10 +228,35 @@ export const SingupEmpresa = () => {
                                 <input className="form-check-input" type="checkbox" id="mondayAfternoon" value="option2"checked={formData.lunes.tarde} onChange={handleCheckboxChange('tarde', 'lunes')} />
                                 <label className="form-check-label" htmlFor="monday">Afternoon</label>
                             </div> */}
+                        <div className="row  w-75">
+                            <ul className="list-group my-3">
+
+                            {categories && ( categories.map((x,index) =>{
+                                
+                                
+                    
+                                    return <li key= {index} className="list-group-item d-flex"><p  className="my-auto"> {x}</p>  <button type="button" className="btn  ms-auto  favlist_delete" onClick={() => {category_addinator(x)}}><i className="fas fa-trash"></i></button></li>
+                            }))}
+                                
+                            </ul>
+                        </div>
+                        <div className="btn-group my-3">
+                            <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                Select categories
+                            </button>
+                            <ul className="dropdown-menu scrollable-menu categories_dropdown" role="menu" >
+                                {store.categories? store.categories.map((x, index) =>{
+                                    
+                                    return <li key={index}> <p className="dropdown-item" onClick={() => { category_addinator(x)}}>{x}</p>  </li>
+                                }) : ""}
+                                
+                            </ul>
+                        </div>
                         <div className="mb-3 form-check mt-3">
                             <input type="checkbox" className="form-check-input inputBox" id="exampleCheck4" checked={formData.terminosCondiciones} onChange={handleCheckboxChange('terminosCondiciones')}/>
                             <label className="form-check-label" htmlFor="exampleCheck1">I agree the <b>Terms and Conditions</b></label>
                         </div>
+                        
                         <button type="submit" className="btn col-12 mb-2 signupcompany_submit">Sign up</button>
                     </form>
                 </div>

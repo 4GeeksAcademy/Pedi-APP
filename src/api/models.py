@@ -63,6 +63,7 @@ class Empresa (db.Model):
     delivery = db.Column(db.Boolean(), unique=False, nullable=False)
     idUsuario = db.Column(db.Integer, db.ForeignKey('usuario.id'), nullable=False)
     imagen = db.Column(db.String(10000000), unique=False, nullable=True)
+    banner = db.Column(db.String(10000000), unique=False, nullable=True)
 
     productos = db.relationship("Productos" , backref = "empresa", lazy = True)
     horarios = db.relationship("HorariosEmpresas" , backref = "empresa", lazy = True)
