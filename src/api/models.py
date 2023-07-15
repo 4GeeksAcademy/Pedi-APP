@@ -169,7 +169,7 @@ class Reseñas (db.Model):
     puntuacion = db.Column(db.Integer, unique=False, nullable=False)
     reseña = db.Column(db.String(240), nullable = False)
     hora = db.Column (db.DateTime, unique=False, nullable=False)
-    fecha = hora = db.Column (db.DateTime, unique=False, nullable=False)
+    fecha = db.Column (db.DateTime, unique=False, nullable=False)
 
     def __repr__(self):
         return f'<Reseñas {self.id}>'
