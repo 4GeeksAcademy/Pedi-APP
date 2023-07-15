@@ -1,0 +1,35 @@
+
+
+.map-container {
+    height: 100%;
+    width: 80%;
+
+}
+     
+.sidebar {
+    background-color: rgba(35, 55, 75, 0.9);
+    color: #fff;
+    padding: 6px 12px;
+    font-family: monospace;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 12px;
+    border-radius: 4px;
+}
+.map{
+    display: flex;
+    justify-content: center;
+    height: 100%
+}
+
+.marker {
+    background-image: url("https://res.cloudinary.com/dwbpf1nax/image/upload/v1689352907/mapicon_whg24b.png");
+    
+    background-size: cover;
+    width: 3rem;
+    height:3rem;
+    border-radius: 50%;
+    cursor: pointer;
+  }

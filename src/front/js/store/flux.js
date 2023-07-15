@@ -32,11 +32,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 			isloged: false,
 			current_user_data: {
 
-			}
+			},
+
+			searchCompany:[],
+			// company: null,
 		},
 		
 		actions: {			
+
       signupCliente: async (nombre, apellido, telefono, nacimiento, sexo, calleNumero, pisoPuerta, instrucciones, codigoPostal, estado, ciudad) => {
+
 				const store= getStore()
 				const newClient = { //lo que ponga aqui tiene que coincidir con el models
 					nombre : nombre,
@@ -256,6 +261,64 @@ const getState = ({ getStore, getActions, setStore }) => {
 				.catch(error => console.log('error', error));
 
 			},
+
+			searchEmpresa: (nombre) => {
+				const store = getStore()
+				const busquedaEmpresa = { // lo que se ponga aquí tiene que coincidir con el back nombre: 
+					nombre: nombre
+
+			}
+			console.log(busquedaEmpresa)
+			fetch(process.env.BACKEND_URL + "/api/searchEmpresa", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify(busquedaEmpresa)
+			})
+			.then (response => response.json())
+			.then (result => setStore({searchCompany : result}))
+			.catch(error => console.log(error))
+			},
+
+
+			filterDelivery: () => {
+				const store = getStore()
+
+			fetch(process.env.BACKEND_URL + "/api/filterDelivery", {
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				
+
+			})
+			.then (response => response.json())
+			.then (result => setStore({searchCompany : result}))
+			.catch(error => console.log(error))
+			},
+
+			filterFavorites: () => {
+				const store = getStore()
+				const filtrarfavoritos = { // lo que se ponga aquí tiene que coincidir con el back nombre: 
+					idCliente: store.current_user_data.id
+
+			}
+
+			fetch(process.env.BACKEND_URL + "/api/filterFavorites", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify(filtrarfavoritos)
+
+			})
+			.then (response => response.json())
+			.then (result => setStore({searchCompany : result}))
+			.catch(error => console.log(error))
+			},
+
+
 			img_uploadinator: async (img) =>{
 				const store = getStore()
 				

@@ -10,6 +10,7 @@ import { Footer } from "./component/footer";
 import { SingupCliente } from "./pages/signupCliente";
 import { Signup } from "./pages/signup";
 import { SingupEmpresa } from "./pages/signupEmpresa";
+import { Search } from "./pages/search";
 
 import { CompanyProfile } from "./pages/companyProfile";
 
@@ -50,7 +51,8 @@ const Layout = () => {
                     <Routes>
                         <Route element={<Home />} path="/" />
                         <Route element={<SingupCliente/>} path="/signupCliente" />
-                        <Route element={<SingupEmpresa/>} path="/signupEmpresa" />
+                        <Route element={<SingupEmpresa />} path="/signupEmpresa" />
+                        <Route element={<Search />} path="/searchEmpresa" />
                         <Route element={<Signup />} path="/signup" />
                         <Route element={<Login/>} path="/login"/>
                         <Route element={<CompanyProfile />} path="/companyProfile"/>
