@@ -15,7 +15,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 			current_user_data: {
 
 			},
-
+			product:{
+				nombre: "",
+				precio: "",
+				descripcion: "",
+				img: "",
+				cantidad : 1,
+				id: ""
+			},
 			searchCompany:[],
 			// company: null,
 		},
@@ -357,6 +364,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false
 				}catch(error) {console.log(error)
 				}
+			},
+			buyProduct: (nombre, precio, descripcion, img, cantidad, id)=> {
+				setStore({
+					product: {
+						nombre : nombre,
+						precio : precio,
+						descripcion : descripcion,
+						img : img,
+						cantidad : cantidad,
+						id : id
+					}
+				})
 			},
 		}
 	}
