@@ -640,7 +640,7 @@ def company_getinator():
     return jsonify({"companies": company_locations}),200
     
 
-=========
+
 @api.route("/stars", methods=['POST'])
 def stars_poll():
     data = request.json
