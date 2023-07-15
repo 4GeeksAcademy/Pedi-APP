@@ -497,7 +497,7 @@ def stars_poll():
     date = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
     print(data)
 
-    if not user_id or not company_id:
+    if not user_id or not company_id or not puntuacion:
          return jsonify({"message":"Error, missing data"}),400
 
     addReseña = Reseñas(idCliente = user_id, idEmpresa = company_id, puntuacion = puntuacion, reseña = reseña, hora = time, fecha = date)
