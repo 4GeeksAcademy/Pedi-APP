@@ -21,6 +21,7 @@ import Login from "./pages/login";
 import UserInfo from "./pages/userInfo";
 import UserHistory from "./pages/userHistory";
 import UserFavorites from "./pages/userFavorites";
+import { CompanyPage } from "./pages/companyPage";
 
 import OrderDetail from "./pages/orderDetail";
 
@@ -62,6 +63,7 @@ const Layout = () => {
                         <Route element={<UserInfo/>} path="/userProfile/info"/>
                         <Route element={<UserHistory/>} path="/userProfile/history"/>
                         <Route element={<UserFavorites/>} path="/userProfile/favorites"/>
+                        <Route element={<CompanyPage/>} path="/companyPage/:idEmpresa"/>
                         <Route element={<OrderDetail/>} path="/orderDetail"/>
                         <Route path="/checkout" element={
                             <Elements stripe={promise}>
@@ -69,7 +71,6 @@ const Layout = () => {
                             </Elements>
                         }
                         />
-                        
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />
