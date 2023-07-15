@@ -5,27 +5,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 
-			user:{nombre: "",
-				apellido:"",
-				telefono:"",
-				nacimiento:"",
-				direccion:"",
-				instrucciones: "",
-				email:"", 
-				password:"", 
-				role: "",
+			user:{
 			},
 			empresa: {
-				role:"",
-				email:"",
-				password:"",
-				direccion:"",
-				nombre: "",
-				cif: "",
-				reserva: "",
-				delivery: "",
-				mañana: "",
-				tarde:""
 				/*dia: "", o horario: {lunes: {mañana: "", tarde: ""}*/
 			},
 

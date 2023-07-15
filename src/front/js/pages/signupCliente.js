@@ -10,6 +10,15 @@ export const SingupCliente = () => {
   const [formComplete, setFormComplete] = useState(false);
   const navigate = useNavigate()
 
+  useEffect( () =>{
+    console.log("asd")
+    if (Object.keys(store.user) == 0){
+        navigate('/signup', { replace: true });
+    }
+   
+
+}, []);
+
   const handleSignupCliente = async (e) => {
     e.preventDefault();
     // actions.signupCliente(formData.nombre, formData.apellido, formData.telefono, formData.nacimiento, formData.sexo, formData.calleNumero, formData.pisoPuerta, formData.instrucciones, formData.codigoPostal, formData.estado, formData.ciudad, formData.terminosCondiciones)

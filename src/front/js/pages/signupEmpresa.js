@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/signupEmpresa.css";
 import Swal from "sweetalert2";
+import { object } from "prop-types";
 
 export const SingupEmpresa = () => {
     const { store, actions } = useContext(Context);
@@ -64,6 +65,16 @@ export const SingupEmpresa = () => {
     const [banner_uploaded, setBanner_uploaded] = useState(false)
 
     const [categories, setCategories] = useState([])
+    const navigate = useNavigate()
+
+    useEffect( () =>{
+        console.log("asd")
+        if (Object.keys(store.user) == 0){
+            navigate('/signup', { replace: true });
+        }
+       
+
+    }, []);
 
     const handleCheckboxChange = (fieldName) => {
         return (event) => {
@@ -71,7 +82,7 @@ export const SingupEmpresa = () => {
         };
       };
 
-    const navigate = useNavigate()
+    
 
     const handleSignupCompanies = async (e) => {
         e.preventDefault()
