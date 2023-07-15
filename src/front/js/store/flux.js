@@ -38,7 +38,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				precio: "",
 				descripcion: "",
 				img: "",
-				cantidad : 1
+				cantidad : 1,
+				id: ""
 			},
 			searchCompany:[],
 			// company: null,
@@ -382,14 +383,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}catch(error) {console.log(error)
 				}
 			},
-			buyProduct: (nombre, precio, descripcion, img, cantidad)=> {
+			buyProduct: (nombre, precio, descripcion, img, cantidad, id)=> {
 				setStore({
 					product: {
 						nombre : nombre,
 						precio : precio,
 						descripcion : descripcion,
 						img : img,
-						cantidad : cantidad
+						cantidad : cantidad,
+						id : id
 					}
 				})
 			},
