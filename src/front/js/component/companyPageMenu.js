@@ -9,9 +9,9 @@ export const CompanyPageMenu = ({ idEmpresa }) =>{
 
     const navigate = useNavigate()
 
-    const handleBuyProduct = (e, nombre, precio, descripcion, img, cantidad) => {
+    const handleBuyProduct = (e, nombre, precio, descripcion, img, cantidad, id) => {
         e.preventDefault();
-        actions.buyProduct(nombre, precio, descripcion, img, cantidad);
+        actions.buyProduct(nombre, precio, descripcion, img, cantidad, id);
         navigate('/orderDetail', { replace: true });
     };
 
@@ -52,7 +52,7 @@ export const CompanyPageMenu = ({ idEmpresa }) =>{
                                         <div className="col-9 menu_title_page">
                                             <h4 className="menu_title">{product && product.nombre}</h4>
                                         </div>
-                                        <button className="btn col-1 menu_icono"  onClick={(e) => handleBuyProduct(e, product.nombre, product.precio, product.descripcion, product.img, 1)}>
+                                        <button className="btn col-1 menu_icono"  onClick={(e) => handleBuyProduct(e, product.nombre, product.precio, product.descripcion, product.img, 1, product.id)}>
                                             {/* Esto está por terminar */}
                                             <i className="fa-solid fa-plus fa-lg"></i>
                                         </button>
