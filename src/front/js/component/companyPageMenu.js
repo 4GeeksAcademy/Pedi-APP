@@ -6,16 +6,14 @@ import { useNavigate } from "react-router-dom";
 export const CompanyPageMenu = ({ idEmpresa }) =>{
     const {store,actions} = useContext(Context)
     const [products, setProducts] = useState([]);
-    const [producto, setProducto] = useState({ //Esto esta por terminar
-        nombre:"",
-        precio:""
-    })
+
     const navigate = useNavigate()
 
-    const handleBuyProduct = (e)=> { //esto esta por terminar
-        e.preventDefault()
-        actions.buyProduct(producto.nombre,producto.precio);
-    }
+    const handleBuyProduct = (e, nombre, precio, descripcion, img, cantidad) => {
+        e.preventDefault();
+        actions.buyProduct(nombre, precio, descripcion, img, cantidad);
+        navigate('/orderDetail', { replace: true });
+    };
 
     useEffect(()=>{
         (async()=>{
@@ -54,7 +52,7 @@ export const CompanyPageMenu = ({ idEmpresa }) =>{
                                         <div className="col-9 menu_title_page">
                                             <h4 className="menu_title">{product && product.nombre}</h4>
                                         </div>
-                                        <button className="btn col-1 menu_icono" value={product} onChange={(data)=> {setProducto({...producto, nombre: data.target.value, precio: data.target.value})}}>
+                                        <button className="btn col-1 menu_icono"  onClick={(e) => handleBuyProduct(e, product.nombre, product.precio, product.descripcion, product.img, 1)}>
                                             {/* Esto está por terminar */}
                                             <i className="fa-solid fa-plus fa-lg"></i>
                                         </button>
