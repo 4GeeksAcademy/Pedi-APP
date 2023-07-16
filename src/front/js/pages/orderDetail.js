@@ -12,6 +12,17 @@ const OrderDetail = () => {
   const navigate = useNavigate();
   const [company, setCompany] = useState({});
   const [delivery, setdelivery] = useState("");
+  
+  const [speed, setSpeed] = useState(null);
+  const [payMethod, setPayMethod] = useState(null);
+
+  const method_choosinator = (option) => {
+    setPayMethod(option)
+  }
+
+  const speed_choosinator = (option) => {
+    setSpeed(option);
+  };
 
   useEffect( () =>{
     (async () => {
@@ -82,37 +93,41 @@ const OrderDetail = () => {
                     <p className="order_adress fs-6">{store.current_user_data.direccion}</p>
                   </div>
                   <div className="col order_instructions_box d-flex mt-2  ">  
-                    <p className="order_adress fs-6">instrucciones de la direccion</p>
+                    <p className="order_adress fs-6">{store.current_user_data.instrucciones? store.current_user_data.instrucciones : ""}</p>
                   </div>
               </div>
               <div className="row left_second_row  ">
                   <div className="col order_delidet_box  "> 
                     <h3>Delivery estimate</h3>
                   </div>
-                    <div className="col order_delidet_box  "> 
-                      <i className="fas fa-bicycle fa-lg order_icon"></i>
-                      <div className=" ">
-                        <p className="order_adress fs-5 ">Standard</p>
-                        <p className="order_adress  text-secondary fs-6 ">10-20min</p>
-                      </div>
-                    </div>
-                    <div className="col order_instructions_box d-flex mt-2  ">  
-                        <i className="fas fa-calendar-alt fa-lg order_icon"></i>
-                        <div className="  ">
-                          <p className="order_adress fs-5 ">Scheduled</p>
-                          <p className="order_adress  text-secondary fs-6 ">Select a time</p>
+                    
+                      <div className={`col order_delidet_box ${speed === 'standard' ? 'order_standexp' : ''}`} onClick={() => speed_choosinator('standard')} tabindex="1"> 
+                        <i className="fas fa-bicycle fa-lg order_icon"></i>
+                        <div className=" ">
+                          <p className="order_adress fs-5 ">Standard</p>
+                          <p className="order_adress  text-secondary fs-6 ">30-40 min</p>
                         </div>
-                    </div>  
+                      </div>
+                    
+                    
+                      <div className={`col order_delidet_box d-flex mt-2 border ${speed === 'express' ? 'order_standexp' : ''}`} onClick={() => speed_choosinator('express')} tabindex="2">  
+                          <i class="fas fa-motorcycle fa-lg order_icon"></i>
+                          <div className="  ">
+                            <p className="order_adress fs-5 ">Express</p>
+                            <p className="order_adress  text-secondary fs-6 ">10-20 min</p>
+                          </div>
+                      </div>
+                  
               </div>
               <div className="row left_second_row  ">
                   <div className="col order_delidet_box  "> 
                     <h3>Payment</h3>
                   </div>
-                    <div className="col order_delidet_box  "> 
+                    <div className={`col order_delidet_box border ${payMethod === 'card' ? 'order_standexp' : ''}`} onClick={() => method_choosinator('card')} tabindex="1"> 
                       <i className="far fa-credit-card fa-lg order_icon"></i>
                       <p className="order_adress fs-5 ">Credit Card</p>
                     </div>
-                    <div className="col order_delidet_box  "> 
+                    <div className={`col order_delidet_box border ${payMethod === 'cash' ? 'order_standexp' : ''}`} onClick={() => method_choosinator('cash')} tabindex="2"> 
                       <i className="fas fa-coins fa-lg order_icon"></i>
                       <p className="order_adress fs-5 ">Cash</p>
                     </div>

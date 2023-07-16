@@ -72,7 +72,10 @@
     display: flex;
     margin-top: 1rem;
     text-align: start;
+    border-radius: 0.8rem;
+
 }
+
 .order_adress{
     margin-top: auto;
     margin-bottom: auto;
@@ -85,6 +88,16 @@
     height: 100%;
 }
 
+.order_standexp{
+    background-color:#FFC3C3
+}
+
+.order_delidet_box:focus {
+    background-color:#FFC3C3
+}
+.order_instructions_box:focus{
+    background-color:#FFC3C3
+}
 /*----------------------------------------------------------- right column*/
 .right_first_row{
     display: flex;
