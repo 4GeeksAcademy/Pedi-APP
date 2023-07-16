@@ -73,7 +73,7 @@
     margin-top: 1rem;
     text-align: start;
     border-radius: 0.8rem;
-
+    
 }
 
 .order_adress{
@@ -98,6 +98,7 @@
 .order_instructions_box:focus{
     background-color:#FFC3C3
 }
+
 /*----------------------------------------------------------- right column*/
 .right_first_row{
     display: flex;
@@ -170,6 +171,14 @@
     font-weight: bold;
     
 }
+
+.order_description{
+    width: 70%;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    text-align: start;
+}
+
 
 
 /* Extra small devices (phones, 600px and down) */

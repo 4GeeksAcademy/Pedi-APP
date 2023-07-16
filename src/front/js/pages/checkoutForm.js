@@ -23,26 +23,32 @@ export default function CheckoutForm() {
 
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
-     
-      if (Object.keys(store.product) == 0){
-          navigate('/searchEmpresa', { replace: true });
+    (async () => {
+                     
+      try {
+        if (!store.checkout_data){
+            navigate('/searchEmpresa', { replace: true });
+        }
+      
+        const data = store.checkout_data
+        console.log(data)
+        
+        const response = await fetch(process.env.BACKEND_URL + "/api/create-payment-intent", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(data)
+        })
+        const result = await response.json()
+        
+        setClientSecret(result.clientSecret);
+        
+      }catch(error){
+        console.log("Error loading message from backend")
       }
-     
-    
-    
-      fetch(process.env.BACKEND_URL + "/api/create-payment-intent", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(store.product)
-      })
-      .then(res => {
-        return res.json();
-      })
-      .then(data => {
-        setClientSecret(data.clientSecret);
-      });
+    })()		  
+
   }, []);
 
   const cardStyle = {

@@ -11,7 +11,8 @@ const OrderDetail = () => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
   const [company, setCompany] = useState({});
-  const [delivery, setdelivery] = useState("");
+  const [product, setProduct] = useState({});
+  const [delivery, setdelivery] = useState(null);
   
   const [speed, setSpeed] = useState(null);
   const [payMethod, setPayMethod] = useState(null);
@@ -46,6 +47,8 @@ const OrderDetail = () => {
         const result = await response.json()
       
         setCompany(result.company) 
+
+        setProduct(store.product)
         
       }catch(error){
           console.log("Error loading message from backend")
@@ -53,17 +56,68 @@ const OrderDetail = () => {
     })()
   }, []);
   
-  const handleSubmit = (e) =>{
+  const handleSubmit = async (e) =>{
     e.preventDefault()
-    if( delivery == ""){
-      Swal.fire("Select delivery or takeout option")
+    if (actions.isloged()){
+      if( delivery == null){
+        Swal.fire("Select delivery or takeout option")
+      } else {
+        if( product.cantidad <= 0){
+          Swal.fire("Select al least one product")
+        } else {
+            if (payMethod == null) {
+              Swal.fire("Select a payment method")
+            
+            } else if(payMethod == "cash"){
+              const checkout_data = {
+                product_id : product.id,
+                user_id: store.current_user_data.id,
+                cantidad : product.cantidad,
+                precio : product.precio,
+                delivery: delivery,
+                pay_method: payMethod
+              } 
+              const response = await fetch(process.env.BACKEND_URL + "/api/checkout_data", { 
+                method : "POST",
+                body: JSON.stringify(checkout_data),
+                headers: { 
+                    "Content-Type": "application/json",
+                    }       
+                
+              })
+              if(response.status == 200) {
+                Swal.fire("Your product is on the way!")
+                navigate("/searchEmpresa", { replace: true });
+              }
+
+              
+            } else if (payMethod == "card"){
+              const checkout_data = {
+                product_id : product.id,
+                user_id: store.current_user_data.id,
+                cantidad : product.cantidad,
+                precio : product.precio,
+                delivery: delivery,
+                pay_method: payMethod
+              } 
+              const checkout = actions.checkout_configurator(checkout_data)
+              if (checkout == false){
+                Swal.fire("Not loged in")
+                navigate('/searchEmpresa', { replace: true });
+              } else {
+                navigate("/checkout", { replace: true });
+              }
+              
+            }
+        }
+      }
+      
     } else {
-     
-      navigate("/checkout", { replace: true });
+      Swal.fire("User not loged")
+      navigate('/searchEmpresa', { replace: true });
     }
-    
   }
-  if (Object.keys(store.product) != 0 && Object.keys(company) != 0) {
+  if (Object.keys(product) != 0 && Object.keys(company) != 0) {
     return (
       <><form onSubmit={(e) => handleSubmit(e)}>
         
@@ -110,7 +164,7 @@ const OrderDetail = () => {
                       </div>
                     
                     
-                      <div className={`col order_delidet_box d-flex mt-2 border ${speed === 'express' ? 'order_standexp' : ''}`} onClick={() => speed_choosinator('express')} tabindex="2">  
+                      <div className={`col order_delidet_box d-flex mt-2  ${speed === 'express' ? 'order_standexp' : ''}`} onClick={() => speed_choosinator('express')} tabindex="2">  
                           <i class="fas fa-motorcycle fa-lg order_icon"></i>
                           <div className="  ">
                             <p className="order_adress fs-5 ">Express</p>
@@ -123,13 +177,15 @@ const OrderDetail = () => {
                   <div className="col order_delidet_box  "> 
                     <h3>Payment</h3>
                   </div>
-                    <div className={`col order_delidet_box border ${payMethod === 'card' ? 'order_standexp' : ''}`} onClick={() => method_choosinator('card')} tabindex="1"> 
+                    <div className={`col order_delidet_box  ${payMethod === 'card' ? 'order_standexp' : ''}`} onClick={() => method_choosinator('card')} tabindex="1"> 
                       <i className="far fa-credit-card fa-lg order_icon"></i>
                       <p className="order_adress fs-5 ">Credit Card</p>
                     </div>
-                    <div className={`col order_delidet_box border ${payMethod === 'cash' ? 'order_standexp' : ''}`} onClick={() => method_choosinator('cash')} tabindex="2"> 
+                    <div className={`col order_delidet_box  ${payMethod === 'cash' ? 'order_standexp' : ''}`} onClick={() => method_choosinator('cash')} tabindex="2"> 
                       <i className="fas fa-coins fa-lg order_icon"></i>
-                      <p className="order_adress fs-5 ">Cash</p>
+                      <div className="  ">
+                            <p className="order_adress fs-5 ">Cash</p>
+                      </div>
                     </div>
                     
                     
@@ -143,25 +199,27 @@ const OrderDetail = () => {
                 <div className="row right_second_row py-4 pt-1 ">
                   <div className="col-7 order_detail_box ">
                     <div className=" d-flex  w-100">
-                      <p className="order_product fs-5">{store.product.nombre}  </p> 
-                      <p className="order_quant fs-5 text-secondary  ">{store.product.cantidad}  </p> 
+                      <p className="order_product fs-5">{product.nombre}  </p> 
+                      <p className="order_quant fs-5 text-secondary  ">{product.cantidad}  </p> 
                     </div>
-                    <p className="order_adress text-secondary fs-6 ">{store.product.descripcion}</p>
+                    
+                    <p className="order_adress order_description text-secondary fs-6">{product.descripcion}</p>
+                    
                     
                   </div>
                   <div className="col-4  order_product_price  ">
-                    <p className="order_product_price fs-5">{(store.product.cantidad * store.product.precio).toFixed(2)}$  </p> 
+                    <p className="order_product_price fs-5">{(product.cantidad * product.precio).toFixed(2)}$  </p> 
                     <div className="btn-group order_product_btnbox" role="group" aria-label="Basic example">
-                      <button type="button" className="btn  btn-sm order_product_btn"><i className="fa-solid fa-trash-can  mx-1"></i></button>
-                      <button type="button" className="btn  btn-sm order_product_btn"><p className="my-auto mx-1" >1</p></button>
-                      <button type="button" className="btn  btn-sm order_product_btn"><p className="my-auto mx-1" >+</p></button>
+                      <button type="button" className="btn  btn-sm order_product_btn" onClick={() => {product.cantidad > 0 ?setProduct({...product, cantidad : product.cantidad - 1}) : ""}}>-</button>
+                      <button type="button" className="btn  btn-sm order_product_btn"><p className="my-auto mx-1" >{product.cantidad}</p></button>
+                      <button type="button" className="btn  btn-sm order_product_btn" onClick={() => {setProduct({...product, cantidad : product.cantidad + 1})}}><p className="my-auto mx-1" >+</p></button>
                     </div>
                   </div>
                 </div>
                 <div className="row right_third_row py-4 ">
-                    <div className="col d-flex  w-100"> <h4 className=" text-start">Subtotal</h4> <h4 className=" ms-auto me-3">{(store.product.cantidad * store.product.precio).toFixed(2)}$</h4></div> 
-                    <div className="col d-flex  w-100"> <h4 className=" text-start">Tax</h4> <h4 className=" ms-auto me-3">{(store.product.cantidad * store.product.precio * 0.21).toFixed(2)}$</h4></div> 
-                    <div className="col d-flex  w-100"> <h3 className=" text-start">Total</h3> <h3 className=" ms-auto me-3">{(store.product.cantidad * store.product.precio *1.21).toFixed(2)}$</h3></div> 
+                    <div className="col d-flex  w-100"> <h4 className=" text-start">Subtotal</h4> <h4 className=" ms-auto me-3">{(product.cantidad * product.precio).toFixed(2)}$</h4></div> 
+                    <div className="col d-flex  w-100"> <h4 className=" text-start">Tax</h4> <h4 className=" ms-auto me-3">{(product.cantidad * product.precio * 0.21).toFixed(2)}$</h4></div> 
+                    <div className="col d-flex  w-100"> <h3 className=" text-start">Total</h3> <h3 className=" ms-auto me-3">{(product.cantidad * product.precio *1.21).toFixed(2)}$</h3></div> 
                     <div className="col d-flex  w-100"> <p className=" text-secondary order_disclaimer">If you’re not around when the delivery person arrives,   they’ll leave your 
                         order at the door. By placing your order, you agree to take full responsibility
                         for it once it’s delivered. Orders containing alcohol or other restricted
