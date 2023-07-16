@@ -556,7 +556,7 @@ def menuEmpresa(id):
     return jsonify(serialized_productos), 200
 
 def calculate_order_amount(items):
-    amount = items.get("precio") * items.get("cantidad")
+    amount = items.get("precio") * items.get("cantidad") * 100* 1.21
     return amount
 
 @api.route('/create-payment-intent', methods=['POST'])
@@ -646,8 +646,8 @@ def company_getinator():
     return jsonify({"companies": company_locations}),200
 
 
-@api.route("/companyget", methods=["POST"])
-def company_selectionator():
+@api.route("/checkout_data", methods=["POST"])
+def checkout_configurator():
     data = request.json
     product_id = data.get("id")
     quantity = data.get("cantidad")
@@ -663,6 +663,22 @@ def company_selectionator():
 
     print(product.empresa.id)
 
-    
+    checkoutData = {
+        "final_price": price ,
+        "quantity" : quantity,
+        "product_id" : product_id,
+        "company_id" : product.empresa.id
+    }
 
     return jsonify({"message" : "asd"})
+
+@api.route("/companyget", methods=["POST"])
+def company_selectinator():     
+    data = request.json
+    product_id = data.get("id")
+
+    product = Productos.query.filter_by(id = product_id).first()
+    
+    if not product: 
+        return jsonify({"message": "product doesnt exist"}), 400 
+    return jsonify({"company": product.empresa.serialize()}), 200 

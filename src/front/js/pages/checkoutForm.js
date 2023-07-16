@@ -27,15 +27,7 @@ export default function CheckoutForm() {
       if (Object.keys(store.product) == 0){
           navigate('/searchEmpresa', { replace: true });
       }
-      console.log(store.product)
-      const items = {
-        id : 1,
-        nombre : "whooper",
-        descripcion : "cosas",
-        precio : 30,
-        idEmpresa: 1,
-        cantidad : 10
-      }
+     
     
     
       fetch(process.env.BACKEND_URL + "/api/create-payment-intent", {

@@ -384,7 +384,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 					
 					return false
 				}
-
+				/*this in checkoutform */
+				if (checkout == false){
+					Swal.fire("Not loged in")
+					navigate('/searchEmpresa', { replace: true });
+				}
 			}
 		}
 	}

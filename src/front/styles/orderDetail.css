@@ -71,6 +71,7 @@
 .order_delidet_box{
     display: flex;
     margin-top: 1rem;
+    text-align: start;
 }
 .order_adress{
     margin-top: auto;
