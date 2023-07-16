@@ -1,8 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/orderDetail.css";
 import bk from "../../img/bk.png"
+import Swal from "sweetalert2";
 
 
 
@@ -11,11 +12,32 @@ const OrderDetail = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState({});
 
+  (async () => {
+            
+            
+    try {
+      if (Object.keys(store.product) == 0){
+        navigate('/searchEmpresa', { replace: true });
+      }
+      
+      const checkout = await actions.checkout_configurator()
+     
+      if (checkout == false){
+        Swal.fire("Not loged in")
+        navigate('/searchEmpresa', { replace: true });
+      }
+
+    }catch(error){
+        console.log("Error loading message from backend")
+    }		
+  })()
+
+
   const handleSubmit = (e) =>{
     e.preventDefault
     navigate("/checkout", { replace: true });
   }
-
+  
   return (
     <><form onSubmit={(e) => handleSubmit(e)}>
     
@@ -82,22 +104,22 @@ const OrderDetail = () => {
                   
             </div>
           </div>
-          <div className="col-5 order_right_col px-4 pb-4">
+
+          { Object.keys(store.product) != 0 ? <div className="col-5 order_right_col px-4 pb-4">
               <div className="row right_first_row py-4 ">
                 <h3 className=" text-start">Order summary</h3> 
               </div>
               <div className="row right_second_row py-4 pt-1 ">
                 <div className="col-7 order_detail_box ">
                   <div className=" d-flex  w-100">
-                    <p className="order_product fs-5">Whooper  </p> 
-                    <p className="order_quant fs-5 text-secondary  ">1  </p> 
+                    <p className="order_product fs-5">{store.product.nombre}  </p> 
+                    <p className="order_quant fs-5 text-secondary  ">{store.product.cantidad}  </p> 
                   </div>
-                  <p className="order_adress text-secondary fs-6 ">Size: Medium</p>
-                  <p className="order_adress text-secondary fs-6 ">Side: French fries</p>
-                  <p className="order_adress text-secondary fs-6 ">Drink: Coca cola</p>
+                  <p className="order_adress text-secondary fs-6 ">{store.product.descripcion}</p>
+                  
                 </div>
                 <div className="col-4  order_product_price  ">
-                  <p className="order_product_price fs-5">15$  </p> 
+                  <p className="order_product_price fs-5">{(store.product.cantidad * store.product.precio).toFixed(2)}$  </p> 
                   <div className="btn-group order_product_btnbox" role="group" aria-label="Basic example">
                     <button type="button" className="btn  btn-sm order_product_btn"><i className="fa-solid fa-trash-can  mx-1"></i></button>
                     <button type="button" className="btn  btn-sm order_product_btn"><p className="my-auto mx-1" >1</p></button>
@@ -106,9 +128,9 @@ const OrderDetail = () => {
                 </div>
               </div>
               <div className="row right_third_row py-4 ">
-                  <div className="col d-flex  w-100"> <h4 className=" text-start">Subtotal</h4> <h4 className=" ms-auto me-3">15$</h4></div> 
-                  <div className="col d-flex  w-100"> <h4 className=" text-start">Tax</h4> <h4 className=" ms-auto me-3">3$</h4></div> 
-                  <div className="col d-flex  w-100"> <h3 className=" text-start">Total</h3> <h3 className=" ms-auto me-3">18$</h3></div> 
+                  <div className="col d-flex  w-100"> <h4 className=" text-start">Subtotal</h4> <h4 className=" ms-auto me-3">{(store.product.cantidad * store.product.precio).toFixed(2)}$</h4></div> 
+                  <div className="col d-flex  w-100"> <h4 className=" text-start">Tax</h4> <h4 className=" ms-auto me-3">{(store.product.cantidad * store.product.precio * 0.21).toFixed(2)}$</h4></div> 
+                  <div className="col d-flex  w-100"> <h3 className=" text-start">Total</h3> <h3 className=" ms-auto me-3">{(store.product.cantidad * store.product.precio *1.21).toFixed(2)}$</h3></div> 
                   <div className="col d-flex  w-100"> <p className=" text-secondary order_disclaimer">If you’re not around when the delivery person arrives,   they’ll leave your 
                       order at the door. By placing your order, you agree to take full responsibility
                       for it once it’s delivered. Orders containing alcohol or other restricted
@@ -117,7 +139,7 @@ const OrderDetail = () => {
               </div>
               
               <button type="submit" className="btn btn-primary btn-lg order_submit">Place order</button>
-          </div>
+          </div> :""}
         </div>
       </div>
     </form></>

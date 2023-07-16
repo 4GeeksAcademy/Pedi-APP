@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   CardElement,
   useStripe,
   useElements
 } from "@stripe/react-stripe-js";
 import "../../styles/checkout.css";
+import { Context } from "../store/appContext";
+import { useNavigate } from "react-router-dom";
 
 export default function CheckoutForm() {
   const [succeeded, setSucceeded] = useState(false);
@@ -15,16 +17,25 @@ export default function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
 
+  const { store, actions } = useContext(Context);
+  const navigate = useNavigate();
+
+
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
-    const items = {
-      id : 1,
-      nombre : "whooper",
-      descripcion : "cosas",
-      precio : 30,
-      idEmpresa: 1,
-      cantidad : 10
-    }
+     
+      if (Object.keys(store.product) == 0){
+          navigate('/searchEmpresa', { replace: true });
+      }
+      console.log(store.product)
+      const items = {
+        id : 1,
+        nombre : "whooper",
+        descripcion : "cosas",
+        precio : 30,
+        idEmpresa: 1,
+        cantidad : 10
+      }
     
     
       fetch(process.env.BACKEND_URL + "/api/create-payment-intent", {
@@ -32,7 +43,7 @@ export default function CheckoutForm() {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(items)
+        body: JSON.stringify(store.product)
       })
       .then(res => {
         return res.json();
