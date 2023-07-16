@@ -140,7 +140,7 @@ class Factura (db.Model):
     id = db.Column(db.Integer, primary_key=True)
     idCliente = db.Column(db.Integer, db.ForeignKey('cliente.id'), unique=False,nullable=False)
     idEmpresa = db.Column(db.Integer, db.ForeignKey('empresa.id'), unique=False,nullable=False)
-    idPago = db.Column(db.String(50), nullable = False)
+    idPago = db.Column(db.String(5000), nullable = False)
     delivery = db.Column(db.Boolean(), unique=False, nullable=False)
     hora = db.Column (db.DateTime, unique=False, nullable=False)
     fecha = db.Column (db.DateTime, unique=False, nullable=False)

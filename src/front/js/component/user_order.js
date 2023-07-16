@@ -66,7 +66,7 @@ const User_order = (props) =>{
                         </div>
                         <div className="row order_secondrow">
                             <div className="col-5 order_amount_box ">
-                                <p className="order_amount s">{amount? `${amount} items for ${price*1.2}$` : ""}</p>
+                                <p className="order_amount s">{amount? `${amount} items for ${(price*amount *1.21).toFixed(2)}$` : ""}</p>
                                 <a className=" ms-3 order_recipt" data-bs-toggle="modal" data-bs-target={`#reciptmodal${bill_id}`}>View recipt</a>
                                         <div className="modal fade" id={`reciptmodal${bill_id}`} tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div className="modal-dialog">
@@ -83,7 +83,7 @@ const User_order = (props) =>{
                                                             <h1 className="text-light text-center  "> DishDash</h1>
                                                     </div>
                                                     <div className="col-4 modal_price_col p-0 h-100">
-                                                            <p className=" text-light  text-end"> {price? `${price *1.2}$` : ""}</p>
+                                                            <p className=" text-light  text-end"> {price? `${(price *1.21).toFixed(2)}$` : ""}</p>
                                                             <p className=" text-light  text-end my-0"> {date}</p>
                                                     </div>
                                                     </div>
@@ -103,7 +103,7 @@ const User_order = (props) =>{
                                                             <p className="modal_price_footer ms-3"> Subtotal </p> 
                                                         </div>
                                                         <div className="col-6 d-flex pe-0">
-                                                            <p className="modal_subtotal_footer  me-3 ms-auto"> {price? `${price}$` : ""}</p>  
+                                                            <p className="modal_subtotal_footer  me-3 ms-auto"> {price? `${(price*amount).toFixed(2)}$` : ""}</p>  
                                                         </div>                                                 
                                                     </div>
                                                     <div className="row  modal_footer_row"> 
@@ -111,7 +111,7 @@ const User_order = (props) =>{
                                                             <p className="modal_price_footer ms-3"> IVA </p> 
                                                         </div>
                                                         <div className="col-6 d-flex pe-0">
-                                                            <p className="modal_subtotal_footer  me-3 ms-auto"> {price? `${price*0.2}$` : ""}</p>   
+                                                            <p className="modal_subtotal_footer  me-3 ms-auto"> {price? `${(price*amount*0.21).toFixed(2)}$` : ""}</p>   
                                                         </div>                                                 
                                                     </div>
                                                     <div className="row  modal_footer_row "> 
@@ -119,7 +119,7 @@ const User_order = (props) =>{
                                                             <h4 className="modal_total_footer ms-3"> Total </h4> 
                                                         </div>
                                                         <div className="col-6 d-flex pe-0">
-                                                            <h4 className="modal_total_footer  me-3 ms-auto"> {price? `${price *1.2}$` : ""}</h4>   
+                                                            <h4 className="modal_total_footer  me-3 ms-auto"> {price? `${(price*amount *1.21).toFixed(2)}$` : ""}</h4>   
                                                         </div>                                                 
                                                     </div>
                                                 

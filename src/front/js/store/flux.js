@@ -16,12 +16,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			},
 			product:{
-				nombre: "",
-				precio: "",
-				descripcion: "",
-				img: "",
-				cantidad : 1,
-				id: ""
+				
 			},
 			searchCompany:[],
 			// company: null,
@@ -377,6 +372,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 				})
 			},
+			checkout_configurator(checkout_data){
+				const store = getStore()
+				if (getActions().isloged()){
+					setStore({checkout_data : checkout_data})
+					return true
+				} else{ 
+					
+					return false
+				}
+				/*this in checkoutform */
+				
+			}
 		}
 	}
 };
