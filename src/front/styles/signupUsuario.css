@@ -20,6 +20,7 @@
 }
 .signup_logo{
     transform: rotate(-90deg);
+    height: 7rem;
 }
 
 .signup_submit:hover{

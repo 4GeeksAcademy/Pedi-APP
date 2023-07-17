@@ -41,7 +41,7 @@ export const Home = () => {
   return (
     <div className="text-center container-fluid ">
       <div className="row home_first_row">
-        <img className="nav_title" src={logoGrande} alt="Logo de la empresa" style={{ width: '250px'}}/>
+        <img className="home_title" src={logoGrande} alt="Logo de la empresa"/>
         <p className="home_subtitle"> Dashing to your door</p>
 
         <form className="home_searchform my-5" onSubmit={(e) => {search_handlinator(e)}}>

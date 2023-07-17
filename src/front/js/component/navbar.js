@@ -16,7 +16,7 @@ export const Navbar = () => {
         <nav className="navbar">
           <div className="container-fluid">
             <Link to="/">
-              <img className="nav_title" src={logoGrande} alt="Logo de la empresa" style={{ width: '200px'}}/>
+              <img id="logotipo-page" src={logoGrande} alt="Logo de la empresa" />
             </Link>
             <div className="ml-auto">
               <button
@@ -37,7 +37,7 @@ export const Navbar = () => {
                   
                 }}
               >
-                Profile
+                <i className="fa-solid fa-user"></i>
               </button>
               <button
                 className="btn nav_btn_signup"
@@ -47,7 +47,7 @@ export const Navbar = () => {
                 }}
                 
               >
-                Logout
+                <i className="fa-solid fa-right-from-bracket"></i>
               </button>
             </div>
           </div>
@@ -61,7 +61,7 @@ export const Navbar = () => {
         <nav className="navbar">
           <div className="container-fluid">
             <Link to="/">
-              <img className="nav_title" src={logoGrande} alt="Logo de la empresa" style={{ width: '200px'}}/>
+              <img id="logotipo-page" src={logoGrande} alt="Logo de la empresa"/>
             </Link>
             <div className="ml-auto">
               <button
@@ -70,7 +70,7 @@ export const Navbar = () => {
                   navigate("/login", { replace: true });
                 }}
               >
-                Login
+               <i className="fa-solid fa-user"></i> Log in
               </button>
               <button
                 className="btn nav_btn_signup"
@@ -78,7 +78,7 @@ export const Navbar = () => {
                   navigate("/signup", { replace: true });
                 }}
               >
-                Signup
+              <i className="fa-solid fa-user-plus"></i> Sign up
               </button>
             </div>
           </div>

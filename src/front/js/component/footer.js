@@ -8,7 +8,7 @@ export const Footer = () => (
     <div className="row footer_row ">
 		<div className="col-6 col-lg-2 footer_col mt-3">
 			<div className="footer_logo mb-2">
-				<img type="button" className="btn btn-danger footer_logo_btn" src={logo} alt="Logo de la empresa" style={{ width: '50px'}}/>
+				<img type="button" className="btn btn-danger footer_logo_btn" src={logo} alt="Logo de la empresa" style={{ width: '55px'}}/>
 			</div>
 			<p className="footer_col1_text"> Follow us:</p>
 			<div className="footer_social">

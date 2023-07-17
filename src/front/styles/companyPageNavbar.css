@@ -3,7 +3,6 @@
   .cover-image{
     width: 100%; 
     height: 300px;
-    background-image: url('https://media-cdn.tripadvisor.com/media/photo-s/1d/52/c8/5c/tarta-cremosa-de-queso.jpg'); /* Reemplaza con la ruta de tu imagen */
     background-size: cover;
     background-position: center;
 }
@@ -14,7 +13,7 @@
     position: absolute; 
     height: auto;
     width: 20rem;
-    margin: 1rem 5rem 1rem 5rem;
+    margin: 1rem 4rem 1rem 4rem;
     transform: translate(-15%, 20%);
     z-index: 1;
     background-color: rgba(255, 255, 255, 0.9); /* Color de fondo con opacidad */

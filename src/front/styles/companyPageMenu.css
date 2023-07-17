@@ -3,39 +3,19 @@
     .menu_container_page{
         background-color: #FBFBFB;
         border-radius: 2.5rem;
+        position: relative;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+    .page_company_img {
+        width: 100%;
+        height: 100px;
+        margin-top: 1rem;
+        margin-left: 0.5rem;
+        object-fit: cover;
+    }
+    .menu_text_page{
         margin: 1rem 2rem 1rem 2rem;
-        padding: auto;
-        box-shadow: 0px 5px 10px 0px rgb(59, 61, 61);
-    }
-    .menu_imgbox{
-        height: 4rem;
-    }
-    .menu_text_page{
-        margin: auto;
-    }
-    .menu_price_page{
-        margin-left: 0.5rem;
-    }
-    .menu_description_page{
-        color: gray;
-        margin-left: 0.5rem;
-    }
-
-}
-
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
-    .menu_container_page{
-        background-color: #FBFBFB;
-        border-radius: 2.5rem;
-        margin: 2rem;
-        box-shadow: 0px 5px 10px 0px rgb(59, 61, 61);
-    }
-    .menu_imgbox{
-        height: 4rem;
-    }
-    .menu_text_page{
-        margin: 0rem 2rem 0rem 2rem;
     }
     .menu_price_page{
         margin-left: 0.5rem;
@@ -45,11 +25,50 @@
         margin-left: 0.5rem;
     }
     .menu_icono{
+        position:absolute;
+        right:1rem;
         border: none;
         background-color: transparent;
         cursor: default;
-        padding: 0;
     }
+    
+
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .menu_container_page{
+        background-color: #FBFBFB;
+        border-radius: 2.5rem;
+        position: relative;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+    .page_company_img {
+        width: 100%;
+        height: 100px;
+        margin-top: 1rem;
+        margin-left: 0.5rem;
+        object-fit: cover;
+    }
+    .menu_text_page{
+        margin: 1rem 2rem 1rem 2rem;
+    }
+    .menu_price_page{
+        margin-left: 0.5rem;
+    }
+    .menu_description_page{
+        color: gray;
+        margin-left: 0.5rem;
+    }
+    .menu_icono{
+        position:absolute;
+        right:1rem;
+        border: none;
+        background-color: transparent;
+        cursor: default;
+    }
+    
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
@@ -62,7 +81,4 @@
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
-    .menu_container_page{
-        margin-left: 9rem;
-    }
 }
