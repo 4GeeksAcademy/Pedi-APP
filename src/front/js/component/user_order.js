@@ -6,7 +6,7 @@ import bk from "../../img/bk.png"
 
 const User_order = (props) =>{
     const {store,actions} = useContext(Context)
-    const {date, bill_id,company} = props 
+    const {date, bill_id,company,time} = props 
     const [order, setOrder] = useState([])
     useEffect( () =>{
         
@@ -84,7 +84,7 @@ const User_order = (props) =>{
                                                     </div>
                                                     <div className="col-4 modal_price_col p-0 h-100">
                                                             <p className=" text-light  text-end"> {price? `${(price *1.21).toFixed(2)}$` : ""}</p>
-                                                            <p className=" text-light  text-end my-0"> {date}</p>
+                                                            <p className=" text-light  text-end my-0"> {date} at {time}</p>
                                                     </div>
                                                     </div>
                                                     

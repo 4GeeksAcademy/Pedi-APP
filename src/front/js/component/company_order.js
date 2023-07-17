@@ -6,7 +6,7 @@ import bk from "../../img/bk.png"
 
 const Company_order = (props) =>{
     const {store,actions} = useContext(Context)
-    const {date, bill_id,user} = props 
+    const {date, bill_id,user,company_img,time} = props 
     const [order, setOrder] = useState([])
     useEffect( () =>{
         
@@ -51,7 +51,7 @@ const Company_order = (props) =>{
                 <div className="row border order_container">
                     <div className="col-4">
                         <div className="order_imgbox  mx-3 my-5">
-                                <img src= {bk}alt="..." className="home_categoryimg" />
+                                <img src= {company_img}alt="..." className="home_categoryimg rounded" />
                         </div>
 
                     </div>
@@ -84,7 +84,7 @@ const Company_order = (props) =>{
                                                     </div>
                                                     <div className="col-4 modal_price_col p-0 h-100">
                                                             <p className=" text-light  text-end"> {price? `${price *1.2}$` : ""}</p>
-                                                            <p className=" text-light  text-end my-0"> {date}</p>
+                                                            <p className=" text-light  text-end my-0"> {date} at {time}</p>
                                                     </div>
                                                     </div>
                                                     
