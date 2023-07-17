@@ -120,8 +120,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					if (response.status == 200){
 						localStorage.setItem("jwt-token", result.token);
 						setStore({isloged:true})
-						console.log(result.userdata)
-						console.log(result)
+						setStore({jwt_token:result.token})
 						/*  EDITAR ESTO CON LA INFO DEL USUARIO QUE HAGA FALTA*/
 						if(result.userdata.role == "Cliente") {
 							setStore({current_user_data:{...store.current_user_data, nombre : result.userdata.nombre}})
@@ -177,9 +176,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 					
 
-					
-
 				
+				
+				setStore({jwt_token:token})
 				setStore({isloged:true})
 				return true;
 				}

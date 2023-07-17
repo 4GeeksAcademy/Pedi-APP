@@ -43,7 +43,7 @@ const Company_history = () =>{
             <h1 className="title_history_user">Your orders</h1>
             {bills && (
                         bills.map((x,index) =>{    
-                            return <Company_order date = {x.bill.fecha} bill_id = {x.bill.id} user={x.user} key = {index}/>
+                            return <Company_order date = {x.bill.fecha} bill_id = {x.bill.id} user={x.user} company_img={x.company_img} time= {x.bill.hora} key = {index}/>
                         })
                          )}
         </>

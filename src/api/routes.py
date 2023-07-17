@@ -283,15 +283,14 @@ def top_sales_loadinator():
             break
 
         top_5.append(sorted_companys_id[c])
-
         c+=1
 
     data_to_return = []
     for i in companys:
         if ( i.id in top_5 ):
+            print(i)
             company = i.serialize()
             data_to_return.append(company)
-
 
     return jsonify({"top_5_data":data_to_return}),200
 
@@ -397,8 +396,9 @@ def bill_getinator():
         return jsonify({"bills":serialized_bills}),200
     elif (role =="Empresa"):
         for i in bills:
+            
             user = Cliente.query.filter_by(id = i.serialize().get("idcliente")).first()
-            serialized_bills.append({"bill" : i.serialize(), "user" : user.serialize().get("nombre")})
+            serialized_bills.append({"bill" : i.serialize(), "user" : user.serialize().get("nombre"), "company_img" : i.empresa.imagen})
         return jsonify({"bills":serialized_bills}),200
 
 

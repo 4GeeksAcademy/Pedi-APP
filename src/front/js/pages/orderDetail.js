@@ -47,7 +47,6 @@ const OrderDetail = () => {
         const result = await response.json()
       
         setCompany(result.company) 
-
         setProduct(store.product)
         
       }catch(error){

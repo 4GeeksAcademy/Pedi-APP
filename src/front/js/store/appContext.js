@@ -30,6 +30,7 @@ const injectContext = PassedComponent => {
 			 **/
 			state.actions.category_loadinator()
 			state.actions.top_5_loadinator()
+			state.actions.isloged()
 
 			// state.actions.getMessage(); // <---- calling this function from the flux.js actions
 		}, []);
