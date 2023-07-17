@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/navbar.css";
+import logoGrande from '../../img/Dishdash-blanco-grande.png';
 
 export const Navbar = () => {
   const { store, actions } = useContext(Context);
@@ -15,7 +16,7 @@ export const Navbar = () => {
         <nav className="navbar">
           <div className="container-fluid">
             <Link to="/">
-              <h1 className="nav_title">DishDash</h1>
+              <img className="nav_title" src={logoGrande} alt="Logo de la empresa" style={{ width: '200px'}}/>
             </Link>
             <div className="ml-auto">
               <button
@@ -60,7 +61,7 @@ export const Navbar = () => {
         <nav className="navbar">
           <div className="container-fluid">
             <Link to="/">
-              <h1 className="nav_title">DishDash</h1>
+              <img className="nav_title" src={logoGrande} alt="Logo de la empresa" style={{ width: '200px'}}/>
             </Link>
             <div className="ml-auto">
               <button

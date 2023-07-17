@@ -36,7 +36,7 @@ export const CompanyPageMenu = ({ idEmpresa }) =>{
 
     return(
         <div className="container_info_company">
-            <div className="tab-pane fade show active" id="nav-menu" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+            <div className="tab-pane fade show active" id="nav-menu" role="tabpanel" aria-labelledby="nav-home-tab" tabIndex="0">
                     <div className="row">
                     {products.map((product,index)=>{
                             return (

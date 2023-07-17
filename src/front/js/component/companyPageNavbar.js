@@ -45,7 +45,7 @@ export const CompanyPageNavbar = ({ idEmpresa }) => {
         console.log("Puntuación agregada:", newPuntuacion.puntuacion);
       
         const newResena = {
-          idCliente: store.current_user_data.id || 1,
+          idCliente: store.current_user_data.id,
           idEmpresa: idEmpresa,
           ...newPuntuacion,
           reseña: rating.reseña
@@ -69,7 +69,7 @@ export const CompanyPageNavbar = ({ idEmpresa }) => {
 
     return(
         <div className="portada-container">
-            <div className="cover-image">
+            <div className="cover-image" style={{ backgroundImage: `url(${company && company.empresa.banner})` }}>
                 <div className="card-overlay">
                         <div className="card-body text-card-company-page-navbar">
                             <h1 className="card-title-company-page">{company && company.empresa.nombre}</h1>
