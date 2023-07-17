@@ -500,12 +500,15 @@ def search_empresa():
    data = request.json
    print(data)
    searchEmpresa = (data.get("nombre"))
-   empresas = Empresa.query.filter(Empresa.nombre.ilike(f"{searchEmpresa[:3]}%")).all()
-#    empresas = Empresa.query.filter(Empresa.nombre.startswith(searchEmpresa[:3])).all()
+   print(f"{searchEmpresa[:5]}%")
+   empresas = Empresa.query.filter(Empresa.nombre.ilike(f"{searchEmpresa[:4]}%")).all()
+#  empresas = Empresa.query.filter(Empresa.nombre.startswith(searchEmpresa[:3])).all()
 #  empresas = Empresa.query.filter(Empresa.nombre.ilike(f"%{searchEmpresa}%")).all()
    resultados = []
    for empresa in empresas:
         resultados.append(empresa.serialize())
+    
+   print(resultados)
 
    if not empresas:
        return jsonify({"message": "Busqueda no encontrada"})

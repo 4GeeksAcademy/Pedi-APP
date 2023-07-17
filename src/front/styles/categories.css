@@ -1,0 +1,10 @@
+.home_categoryimg{
+    height: 120px;
+    width: 119px;
+    margin-left: -6px
+}
+
+.home_categories_row{
+    justify-content: center;
+    align-items: center;
+}

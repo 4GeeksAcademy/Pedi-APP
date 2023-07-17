@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
+import "../../styles/categories.css"
 
 import japanese from "../../img/japanese.png";
 import indian from "../../img/indian.png";
@@ -58,7 +59,7 @@ const Categories = () =>{
                 {store.categories? store.categories.map((x,index) =>{
                     return (
                     <div className="home_foodbox  mx-3 my-5" key= {x}>
-                        <img src={`/${x}.png`} alt="..." className="home_categoryimg" />
+                        <img src={`/${x}.png`} alt="..." className="home_categoryimg mt-1" />
                     </div>)
                 })
                 : ""}

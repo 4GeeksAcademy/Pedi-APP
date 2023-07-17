@@ -75,15 +75,15 @@ return(
         </div>
         
         <div className="row rowInput">
-             <div className="col-12 col-md-2 m-5 p-3 form_empresas_container">
+             <div className="col-12 col-md-3 m-5 p-2 form_empresas_container">
                  <p><b>Filter by:</b></p>
-                 <div className="form-check">
+                 <div className="form-check me-1">
                      <input className="form-check-input inputSearch" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="option1" checked={formData.mostPopular} onClick={handleCheckboxFilterby}/>
                      <label className="form-check-label labelSearch" for="flexRadioDefault1">
                          Most Popular
                      </label>
                  </div>
-                 <div className="form-check">
+                 <div className="form-check me-4">
                      <input className="form-check-input inputSearch" type="radio" name="flexRadioDefault" id="flexRadioDefault5" value="option5" checked={deliveryChecked} onClick={handleFilterbyDelivery}/>
                      <label className="form-check-label" for="flexRadioDefault5">
                          Delivery
@@ -96,12 +96,12 @@ return(
                      </label>
                  </div>   
             </div>
-            <div className="col-10 col-md-8 mb-5 ">
+            <div className="col-10 col-md-7 mb-5 ">
                 <div className="row">
 
                     {store.searchCompany.length > 0 ? store.searchCompany.map((element, index) => (
                         <div className=" gx-3 gy-4 col-12 col-md-12 col-lg-4 contenedorCards">
-                            <div className="card cardRestaurante contenedorCards" key={index}>
+                            <div className="card cardRestaurante" key={index}>
                                 <img src={element.imagen} className="card-img-top p-5 cardImage" alt={element.nombre} />
                                 <div className="card-body bodyCard ">
                                     <div className="row">
