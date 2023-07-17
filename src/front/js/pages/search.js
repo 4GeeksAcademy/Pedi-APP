@@ -56,6 +56,9 @@ const handleFilterbyFavorites = () => {
     // llamar aqui al most popular
 // }, [formData]);
 
+const pageNavigate = (id) => {
+    navigate(`/companyPage/${id}`, {replace:true});
+}
 
 
 return(
@@ -102,7 +105,7 @@ return(
                     {store.searchCompany.length > 0 ? store.searchCompany.map((element, index) => (
                         <div className=" gx-3 gy-4 col-12 col-md-12 col-lg-4 contenedorCards">
                             <div className="card cardRestaurante" key={index}>
-                                <img src={element.imagen} className="card-img-top p-5 cardImage" alt={element.nombre} />
+                                <img src={element.imagen} className="card-img-top p-5 cardImage" alt={element.nombre} onClick={() => {pageNavigate(index)}}/>
                                 <div className="card-body bodyCard ">
                                     <div className="row">
                                         <div className="card-text col-7">
