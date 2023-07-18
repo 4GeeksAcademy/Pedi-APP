@@ -20,7 +20,7 @@ export const Navbar = () => {
             </Link>
             <div className="ml-auto">
               <button
-                className="btn nav_btn_login"
+                className="btn nav_btn_signout" 
                 onClick={() => {
                   actions.isloged()
                   if(store.isloged == true){
@@ -37,17 +37,17 @@ export const Navbar = () => {
                   
                 }}
               >
-                <i className="fa-solid fa-user"></i>
+                <i className="fa-solid fa-user fa-xl custom-icon"></i>
               </button>
               <button
-                className="btn nav_btn_signup"
+                className="btn nav_btn_signout"
                 onClick={() => {
                   actions.logoutinator()
                   navigate("/", { replace: true });
                 }}
                 
               >
-                <i className="fa-solid fa-right-from-bracket"></i>
+                <i className="fa-solid fa-right-from-bracket fa-xl custom-icon"></i>
               </button>
             </div>
           </div>

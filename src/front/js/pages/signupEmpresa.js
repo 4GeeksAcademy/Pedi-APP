@@ -130,25 +130,45 @@ export const SingupEmpresa = () => {
             
         }
       };
-        
+    
+    const [foodTypes, setFoodTypes] = useState([]);
+    const [formularioClass, setFormularioClass] = useState("");
 
-    const category_addinator = (category) =>{
-        
-        if( categories.includes(category)) {
-            setCategories((current) => 
-                current.filter(x => x != category)
-            )
+    const category_addinator = (category) => {
+        if (categories.includes(category)) {
+          setCategories((current) => current.filter((x) => x !== category));
         } else {
-            setCategories([...categories,category])
+          setCategories([...categories, category]);
         }
-        
-
-    }
+      
+        // Actualizar el estado de foodTypes
+        if (foodTypes.includes(category)) {
+          setFoodTypes((current) => current.filter((x) => x !== category));
+        } else {
+          setFoodTypes([...foodTypes, category]);
+        }
+      };
+      
+      const aumentarFormulario = () => {
+        if (img_uploaded && banner_uploaded && foodTypes.length > 0) {
+          return "signupcompany_foodAdded";
+        } else if (img_uploaded && banner_uploaded) {
+          return "signupcompany_twoImage";
+        } else if (img_uploaded || banner_uploaded) {
+          return "signupcompany_oneImage";
+        } else {
+          return "signupcompany_all";
+        }
+      };
+      
+      useEffect(() => {
+        setFormularioClass(aumentarFormulario());
+      }, [img_uploaded, banner_uploaded, foodTypes]);
 
     return(
         <>
             <div className="container-fluid text-center signupcompany_page_container p-5" onSubmit={(e) => handleSignupCompanies(e)}>
-                <div className="row signupcompany_all">
+                <div className={`row ${aumentarFormulario()}`}>
                     <div className="col-sm-4 d-none d-sm-flex signupcompany_logo_container">
                         <img className="signupCompany_logo"src={logoGrande} alt="Logo de la empresa" />
                     </div>
