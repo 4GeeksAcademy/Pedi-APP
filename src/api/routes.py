@@ -314,6 +314,7 @@ def address_convertinator():
     return jsonify({"coordinates": lat_lon, "address":location.address}),200
 
 @api.route("/addProduct", methods = ["POST"])
+@jwt_required
 def addProduct():
     data = request.json
     nombre = data.get("nombre")
@@ -353,6 +354,7 @@ def img_uploadinator():
     
 
 @api.route("/menu/<int:idEmpresa>", methods=['GET']) #la url tiene que coincidir con el fetch
+@jwt_required()
 def menu_empresa(idEmpresa):
     # Obtener los productos del menú asociados al usuario
     empresa = Empresa.query.get(idEmpresa)
@@ -523,6 +525,7 @@ def favorites_getinator():
     return jsonify({"favorites":serialized_favorites}),200
 
 @api.route("/stars", methods=['POST'])
+@jwt_required
 def stars_poll():
     data = request.json
     user_id = data.get("idCliente")
@@ -596,6 +599,7 @@ def calculate_order_amount(items):
     return amount
 
 @api.route('/create-payment-intent', methods=['POST'])
+@jwt_required()
 def create_payment():
     try:
         
@@ -662,6 +666,7 @@ def filterByDelivery():
     return jsonify(resultados)
 
 @api.route("/filterFavorites", methods=["POST"])
+@jwt_required()
 def filterByFavorites():
     data = request.json
     idCliente = data.get("idCliente")
@@ -697,6 +702,7 @@ def company_getinator():
 
 
 @api.route("/checkout_data", methods=["POST"])
+@jwt_required()
 def checkout_configurator():
     data = request.json
     product_id = data.get("product_id")
@@ -721,6 +727,7 @@ def checkout_configurator():
     
 
 @api.route("/companyget", methods=["POST"])
+@jwt_required
 def company_selectinator():     
     data = request.json
     product_id = data.get("id")

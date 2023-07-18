@@ -13,19 +13,25 @@ const Company_history = () =>{
         
         (async () => {
             
-            
+            const token = localStorage.getItem('jwt-token');
             try {
                 const response = await fetch(process.env.BACKEND_URL + "/api/bill", { 
                     method : "POST",
                     body: JSON.stringify({id : store.current_user_data.id, role :store.current_user_data.role}),
                     headers: { 
                         "Content-Type": "application/json",
+                        'Authorization': 'Bearer '+token
                         } 
                     
                     
                 })
                 const result = await response.json()
-                console.log(result)
+                if(response.status == 401){
+                    Swal.fire(result.msg)
+                    
+                    navigate("/", { replace: true });
+
+                }
                 setBills(result.bills)
                 
                 

@@ -15,7 +15,7 @@ const UserInfo = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Create PaymentIntent as soon as the page loads
+        
         if(!actions.isloged()){
             navigate("/", { replace: true });
         }		  
