@@ -369,6 +369,7 @@ def menu_empresa(idEmpresa):
     return jsonify({"menu": serialized_menu}), 200
 
 @api.route("/bill", methods=['POST'])
+@jwt_required()
 def bill_getinator():
     data = request.json
     user_id = data.get("id")
@@ -442,6 +443,7 @@ def history_addinator():
     return jsonify({"message" : "added" , "to_history" : to_add.serialize()}),200
 
 @api.route("/history", methods=['POST'])
+@jwt_required()
 def history_getinator():
     data = request.json
     bill_id = data.get("id")
@@ -499,6 +501,7 @@ def favorite_addinator():
     return jsonify({"message" : "added" , "faved" : to_add.serialize()}),200
 
 @api.route("/favorites", methods=['POST'])
+@jwt_required()
 def favorites_getinator():
     data = request.json
     user_id = data.get("id")

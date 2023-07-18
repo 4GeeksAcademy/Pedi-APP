@@ -3,11 +3,15 @@ import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/userHistory.css";
 import User_order from "./user_order";
+import Swal from "sweetalert2";
 
 
 const User_history = () =>{
     const {store,actions} = useContext(Context)
     const [bills, setBills] = useState([])
+
+    const navigate = useNavigate();
+
 
     useEffect( () =>{
         
@@ -15,16 +19,25 @@ const User_history = () =>{
             
             
             try {
+                const token = localStorage.getItem('jwt-token');
                 const response = await fetch(process.env.BACKEND_URL + "/api/bill", { 
                     method : "POST",
                     body: JSON.stringify({id : store.current_user_data.id , role :store.current_user_data.role}),
                     headers: { 
                         "Content-Type": "application/json",
+                        'Authorization': 'Bearer '+token
                         } 
                     
                     
                 })
+                
                 const result = await response.json()
+                if(response.status == 401){
+                    Swal.fire(result.msg)
+                    navigate("/", { replace: true });
+
+                }
+                
                 
                 setBills(result.bills)
                 

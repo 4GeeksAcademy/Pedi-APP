@@ -172,7 +172,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						
 					if( currentTime >= expirationTime){	
 						console.log("outted")
-						Swal.fire("session timed out")
+						Swal.fire("Session timed out")
 						setStore({isloged:false})
 						localStorage.clear();
 						return false;
@@ -190,6 +190,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				// Token doesn't exist
 				setStore({isloged:false})
 				localStorage.clear();
+				Swal.fire("User not loged")
 				return false;
 
 			},
@@ -333,7 +334,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			logoutinator: () => {
 				setStore({isloged:false})
 				localStorage.clear();
-        console.log("outted")
+				
 			},
 			addProduct: async (nombre, precio, descripcion, img) => {
 				const store= getStore()
