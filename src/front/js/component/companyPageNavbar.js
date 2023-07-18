@@ -52,13 +52,21 @@ export const CompanyPageNavbar = ({ idEmpresa }) => {
         };
       
         try {
+          const token = localStorage.getItem('jwt-token');
           const response = await fetch(process.env.BACKEND_URL + "/api/stars/", {
             method: "POST",
             body: JSON.stringify(newResena),
             headers: {
-              "Content-Type": "application/json"
+              "Content-Type": "application/json",
+              'Authorization': 'Bearer '+token
             }
           });
+          if(response.status == 401){
+            Swal.fire(result.msg)
+            
+            navigate("/", { replace: true });
+  
+          }
           const result = await response.json();
           console.log(result);
         } catch (error) {

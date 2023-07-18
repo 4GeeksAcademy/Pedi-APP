@@ -14,17 +14,25 @@ const User_order = (props) =>{
             
             
             try {
+                const token = localStorage.getItem('jwt-token');
+
                 const response = await fetch(process.env.BACKEND_URL + "/api/history", { 
                     method : "POST",
                     body: JSON.stringify({id : bill_id}),
                     headers: { 
                         "Content-Type": "application/json",
+                        'Authorization': 'Bearer '+token
                         } 
                     
                     
                 })
                 const result = await response.json()
-                console.log(result)
+                if(response.status == 401){
+                    Swal.fire(result.msg)
+                    
+                    navigate("/", { replace: true });
+
+                }
                 setOrder(result.history)
                 
                 

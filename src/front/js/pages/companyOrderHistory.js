@@ -9,7 +9,15 @@ import Company_history from "../component/company_history";
 
 const CompanyOrderHistory = () => {
     const { store, actions } = useContext(Context);
-   
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        
+        if(!actions.isloged()){
+            navigate("/", { replace: true });
+        }		  
+    
+      }, []);
 
     return(
         <>

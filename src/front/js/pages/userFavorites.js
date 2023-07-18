@@ -19,17 +19,23 @@ const UserFavorites = () => {
             
             
             try {
+                const token = localStorage.getItem('jwt-token');
                 const response = await fetch(process.env.BACKEND_URL + "/api/favorites", { 
                     method : "POST",
                     body: JSON.stringify({id : store.current_user_data.id}),
                     headers: { 
                         "Content-Type": "application/json",
+                        'Authorization': 'Bearer '+token
                         } 
                     
                     
                 })
                 const result = await response.json()
-                
+                if(response.status == 401){
+                    Swal.fire(result.msg)                
+                    navigate("/", { replace: true });
+
+                }
                 setFavorites(result.favorites)
                 
                 
