@@ -143,6 +143,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 							setStore({current_user_data:{...store.current_user_data, id : result.userdata.id}})
 						}
 						
+						localStorage.setItem("user", JSON.stringify(store.current_user_data));
+						
 						
 						return true
 					} else {
@@ -159,15 +161,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 				
 
 				const token = localStorage.getItem('jwt-token');
+				const user = localStorage.getItem('user');
 				
 				// Check if the token exists and is not expired
 				if (token) {
 					const decodedToken = JSON.parse(atob(token.split('.')[1]));
 					const expirationTime = decodedToken.exp * 1000; // Convert expiration time to milliseconds
-					const currentTime = Date.now();
-
+					const currentTime = Date.now();	
 					
-					if( currentTime >= expirationTime){
+						
+					if( currentTime >= expirationTime){	
 						console.log("outted")
 						Swal.fire("session timed out")
 						setStore({isloged:false})
@@ -180,6 +183,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				
 				setStore({jwt_token:token})
 				setStore({isloged:true})
+				setStore({current_user_data:JSON.parse(user)})
 				return true;
 				}
 				
