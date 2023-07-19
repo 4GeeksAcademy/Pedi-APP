@@ -26,6 +26,7 @@
   border-radius: 2rem;
   width: 70rem;
   height: 3.5rem;
+  margin-top: 7.6rem;
 }
 .home_searchform {
   display: flex;
@@ -60,7 +61,8 @@
   background-color: transparent;
   display: flex;
   justify-content: center;
-  margin-bottom: 13rem;
+  margin-bottom: 2rem;
+  margin-top: 5rem;
 }
 
 .home_categories_title{
@@ -90,14 +92,14 @@ body{
 .home_categories_row{
   justify-content: center;
   align-items: center;
-  width: 90%;
-  margin-left: 11rem;
+  width: 80%;
+  margin-left: 0rem;
 }
 
 .home_foodbox{
   background-color: transparent;
-  width: 6rem;
-  height: 4rem;
+  width: 5rem;
+  height: 2rem;
 }
 
 .home_categoryimg1{

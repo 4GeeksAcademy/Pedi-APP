@@ -47,11 +47,11 @@ const Categories = () =>{
                     return (
                     <div className="home_foodbox row mx-3 my-5 p-0 ms-3" key= {x}>
                         
-                        <div className="col-5 me-1 ms-0 p-0">
-                            <p>{store.categories.tipo}</p>
-                        </div>
-                        <div className="col-7 me-0 pe-0 ">
+                        <div className="me-0 pe-0 ">
                             <img src={`/${x}.png`} alt="..." className="home_categoryimg" />
+                        </div>
+                        <div className="me-1 ms-0 p-0">
+                            <p>{x}</p>
                         </div>
                         
                         
