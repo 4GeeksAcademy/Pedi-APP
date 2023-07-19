@@ -152,7 +152,7 @@ export const SingupEmpresa = () => {
       const aumentarFormulario = () => {
         if (img_uploaded && banner_uploaded && foodTypes.length > 1) {
           return "signupcompany_foodAdded1";
-        } else if (img_uploaded && banner_uploaded && foodTypes.length >0) {
+        } else if (img_uploaded && banner_uploaded && foodTypes.length > 0) {
             return "signupcompany_foodAdded"
         }else if (img_uploaded && banner_uploaded || img_uploaded && foodTypes.length > 0 || banner_uploaded && foodTypes.length > 0) {
           return "signupcompany_twoImage";
