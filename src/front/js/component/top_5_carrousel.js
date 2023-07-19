@@ -16,11 +16,12 @@ const Top_5_carrousel = () =>{
     return(
                     
         <>
-            <div className=" home_categories_row row text-center flex-row flex-nowrap overflow-auto  justify-content-center">
+            <div className=" home_categories_row1 row text-center flex-row flex-nowrap overflow-auto  justify-content-center mb-5">
                 {store.top_5? store.top_5.map((x,index) =>{
                     return (
-                    <div className="home_foodbox  mx-3 my-5" key= {x.id}>
-                         <img src={x.imagen} alt="..." className="home_categoryimg" onClick={() => {page_redirectionator(x.id)}} />
+
+                    <div className="home_foodbox1  mx-3 my-2" key= {x.id}>
+                         <img src={x.imagen} alt="..." className="home_categoryimg1 mt-3" onClick={() => {page_redirectionator(x.id)}} />
                     </div>)
                 })
                 : ""}

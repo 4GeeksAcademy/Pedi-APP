@@ -41,8 +41,11 @@ export const Home = () => {
   return (
     <div className="text-center container-fluid ">
       <div className="row home_first_row">
-        <img className="home_title" src={logoGrande} alt="Logo de la empresa"/>
-        <p className="home_subtitle"> Dashing to your door</p>
+
+      <div className="row home_second_row mt-0">
+        <Categories/>
+      </div>
+
 
         <form className="home_searchform my-5" onSubmit={(e) => {search_handlinator(e)}}>
           <div className="mb-3 input-group home_searchbar">
@@ -64,15 +67,9 @@ export const Home = () => {
           
         </form>
       </div>
-      <div className="row home_second_row">
-        <h1 className="home_categories_title mt-4">Categories</h1>
-        <Categories/>
-        <h1 className="home_categories_title">Top rated</h1>
-
+      <div className="row home_third_row">
+        <h3 className="home_categories_title">Top rated</h3>
         <Top_5_carrousel/>
-        
-       
-
       </div>
     </div>
   );

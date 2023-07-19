@@ -646,12 +646,17 @@ def create_payment():
 def search_empresa(): 
    data = request.json
    searchEmpresa = (data.get("nombre"))
-   empresas = Empresa.query.filter(Empresa.nombre.ilike(f"{searchEmpresa[:3]}%")).all()
-#   empresas = Empresa.query.filter(Empresa.nombre.startswith(searchEmpresa[:3])).all()
+
+   print(f"{searchEmpresa[:5]}%")
+   empresas = Empresa.query.filter(Empresa.nombre.ilike(f"{searchEmpresa[:4]}%")).all()
+#  empresas = Empresa.query.filter(Empresa.nombre.startswith(searchEmpresa[:3])).all()
+
 #  empresas = Empresa.query.filter(Empresa.nombre.ilike(f"%{searchEmpresa}%")).all()
    resultados = []
    for empresa in empresas:
         resultados.append(empresa.serialize())
+    
+   print(resultados)
 
    if not empresas:
        return jsonify({"message": "Not found"}), 400
