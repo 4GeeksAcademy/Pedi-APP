@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/navbar.css";
+import logoGrande from '../../img/Dishdash-blanco-grande.png';
 
 export const Navbar = () => {
   const { store, actions } = useContext(Context);
@@ -14,12 +15,15 @@ export const Navbar = () => {
           
         <nav className="navbar">
           <div className="container-fluid">
-            <Link to="/" onClick={() => {actions.isloged()}}>
-              <h1 className="nav_title">DishDash</h1>
+
+
+            <Link to={actions.isloged? "/searchEmpresa" : "/"} onClick={() => {actions.isloged()}}>
+              <img id="logotipo-page" src={logoGrande} alt="Logo de la empresa" />
+
             </Link>
             <div className="ml-auto">
               <button
-                className="btn nav_btn_login"
+                className="btn nav_btn_signout" 
                 onClick={() => {
                   actions.isloged()
                   if(store.isloged == true){
@@ -36,17 +40,17 @@ export const Navbar = () => {
                   
                 }}
               >
-                Profile
+                <i className="fa-solid fa-user fa-xl custom-icon"></i>
               </button>
               <button
-                className="btn nav_btn_signup"
+                className="btn nav_btn_signout"
                 onClick={() => {
                   actions.logoutinator()
                   navigate("/", { replace: true });
                 }}
                 
               >
-                Logout
+                <i className="fa-solid fa-right-from-bracket fa-xl custom-icon"></i>
               </button>
             </div>
           </div>
@@ -60,7 +64,7 @@ export const Navbar = () => {
         <nav className="navbar">
           <div className="container-fluid">
             <Link to="/">
-              <h1 className="nav_title">DishDash</h1>
+              <img id="logotipo-page" src={logoGrande} alt="Logo de la empresa"/>
             </Link>
             <div className="ml-auto">
               <button
@@ -69,7 +73,7 @@ export const Navbar = () => {
                   navigate("/login", { replace: true });
                 }}
               >
-                Login
+               <i className="fa-solid fa-user"></i> Log in
               </button>
               <button
                 className="btn nav_btn_signup"
@@ -77,7 +81,7 @@ export const Navbar = () => {
                   navigate("/signup", { replace: true });
                 }}
               >
-                Signup
+              <i className="fa-solid fa-user-plus"></i> Sign up
               </button>
             </div>
           </div>

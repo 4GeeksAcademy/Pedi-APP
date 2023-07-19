@@ -1,80 +1,77 @@
-import React, { useContext, useEffect, useState,useRef } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import Categories from "../component/categories";
 import "../../styles/search.css";
 import { useNavigate } from "react-router-dom";
-import mapboxgl from '!mapbox-gl';
+import mapboxgl from "!mapbox-gl";
 import Mapbox from "../component/mapbox";
 
-
-
 export const Search = (props) => {
-const { store, actions } = useContext(Context);
-const [ formData, setFormData] = useState({
+  const { store, actions } = useContext(Context);
+  const [formData, setFormData] = useState({
     mostPopular: false,
     rating: false,
     priceRange: false,
     promotions: false,
     delivery: false,
-    yourFavorites: false
-})
-const [ search, setSearch] = useState({
-    nombre:""
-});
+    yourFavorites: false,
+  });
+  const [search, setSearch] = useState({
+    nombre: "",
+  });
 
-const handleCheckboxFilterby = (filter) => {
+  const handleCheckboxFilterby = (filter) => {
     return (event) => {
       setFormData({ ...formData, [filter]: event.target.checked });
     };
-};
+  };
 
-const navigate = useNavigate()
+  const navigate = useNavigate();
 
-const handleSearch = (event) => {
+  const handleSearch = (event) => {
     event.preventDefault();
     actions.searchEmpresa(search.nombre);
     // navigate('/searchEmpresa/)
-};
+  };
 
-const [deliveryChecked, setDeliveryChecked] = useState(false);
+  const [deliveryChecked, setDeliveryChecked] = useState(false);
 
-const handleFilterbyDelivery = () => {
+  const handleFilterbyDelivery = () => {
     actions.filterDelivery();
     setDeliveryChecked(!deliveryChecked);
-    setFavoritesChecked(false)
-};
+    setFavoritesChecked(false);
+  };
 
-const [favoritesChecked, setFavoritesChecked] = useState(false);
-const handleFilterbyFavorites = () => {
+  const [favoritesChecked, setFavoritesChecked] = useState(false);
+  const handleFilterbyFavorites = () => {
     actions.filterFavorites();
     setFavoritesChecked(!favoritesChecked);
     setDeliveryChecked(false);
-};
+  };
 
-// useEffect(() => {
-    // llamar aqui al most popular
-// }, [formData]);
 
 const pageNavigate = (id) => {
     navigate(`/companyPage/${id}`, {replace:true});
 }
 
-
-return(
+  return (
     <>
-        <Categories></Categories>
-        <form class="row mt-3 busquedaEmpresas" onSubmit={(e) => handleSearch(e)}>
-             <div class="col-5 ms-5">
-                 <label for="searchInput" class="visually-hidden">Search</label>
-                 <input type="search" class="form-control" id="searchInput" placeholder="Search" onChange={(data) => {setSearch({ ...search, nombre: data.target.value });}}/>
-             </div>
-             <div class="col-auto">
-                 <button type="submit" class="btn btn-danger mb-3">Search</button>
-             </div>
-        </form>
-        <div className="row map_box ">
-            <Mapbox/>
+      <Categories></Categories>
+      <form class="row mt-3 busquedaEmpresas" onSubmit={(e) => handleSearch(e)}>
+        <div class="col-5 ms-5">
+          <label for="searchInput" class="visually-hidden">
+            Search
+          </label>
+          <input
+            type="search"
+            class="form-control"
+            id="searchInput"
+            placeholder="Search"
+            onChange={(data) => {
+              setSearch({ ...search, nombre: data.target.value });
+            }}
+          />
         </div>
         
         <div className="row rowInput">
@@ -118,15 +115,20 @@ return(
                                 </div>
                             </div>
                         </div>
+
                         </div>
-                    )) : <h1>No hay registros</h1>}
+                        <p className="card-text col-5">35mins</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-            </div>
+              ))
+            ) : (
+              <h1>No hay registros</h1>
+            )}
+          </div>
         </div>
-   </>
-)
-}
-
-
-
-
+      </div>
+    </>
+  );
+};

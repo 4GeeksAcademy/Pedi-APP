@@ -3,6 +3,7 @@ import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 import "../../styles/signupUsuario.css";
 import Swal from "sweetalert2";
+import logoGrande from '../../img/Dishdash-blanco-grande.png';
 
 export const Signup = () => {
     const {store, actions } = useContext(Context)
@@ -55,7 +56,7 @@ export const Signup = () => {
         <div className="container-fluid text-center p-5 signup_page_container" >
             <div className="row signup_all">
                 <div className="col-sm-4 d-none d-sm-flex signup_logo_container">
-                    <p className="border signup_logo">dishdash</p>
+                    <img className="signup_logo"src={logoGrande} alt="Logo de la empresa" />
                 </div>
                 <div className="signup_form_container col-sm-8 col-12  ">
                     <h1 className="signup_title">Signup</h1>

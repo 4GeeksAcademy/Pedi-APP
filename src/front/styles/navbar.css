@@ -4,8 +4,8 @@
         background-color: #C62828;
     }
     
-    .nav_title{
-        color: black;   
+    #logotipo-page{
+        width: 150px
     }
     
     .nav_btn_signup{
@@ -14,7 +14,8 @@
         box-shadow: 0px 5px 10px 0px rgb(59, 61, 61);
         color: #C62828;
         font-weight: bold;
-        margin-left: 1rem;
+        margin-left: 0.5rem;
+        font-size: 12px;
     }
     .nav_btn_login{
         background-color: #FFFFFf;
@@ -22,6 +23,15 @@
         box-shadow: 0px 5px 10px 0px rgb(59, 61, 61);
         color: #C62828;
         font-weight: bold;
+        font-size: 12px;
+    }
+    .nav_btn_signout{
+        color: white;
+    }
+    .nav_btn_signout:focus,
+    .nav_btn_signout:active {
+      color: white;
+      outline: none;
     }
 }
 
@@ -31,11 +41,9 @@
     .navbar{
         background-color: #C62828;
     }
-    
-    .nav_title{
-        color: black;
+    #logotipo-page{
+        width: 200px
     }
-    
     .nav_btn_signup{
         background-color: #FFFFFf;
         border-radius: 1rem;
@@ -50,6 +58,14 @@
         box-shadow: 0px 5px 10px 0px rgb(59, 61, 61);
         color: #C62828;
         font-weight: bold;
+    }
+    .nav_btn_signout{
+        color: white;
+    }
+    .nav_btn_signout:focus,
+    .nav_btn_signout:active {
+      color: white;
+      outline: none;
     }
 }
 

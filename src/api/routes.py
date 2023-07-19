@@ -122,7 +122,12 @@ def loginator():
             user_data["direccion"] = user.direccion
             user_data["role"] = user.role
 
-                
+            geo_adress = geopy_processinator(user.direccion)
+            lng = geo_adress.longitude
+            lat = geo_adress.latitude
+            user_data["lng"] = lng
+            user_data["lat"] = lat
+
             return jsonify({"userdata": user_data, "token": token, "message":"login success"}),200
 
 @api.route("/signupCliente", methods = ["POST"])
@@ -314,7 +319,7 @@ def address_convertinator():
     return jsonify({"coordinates": lat_lon, "address":location.address}),200
 
 @api.route("/addProduct", methods = ["POST"])
-@jwt_required
+@jwt_required()
 def addProduct():
     data = request.json
     nombre = data.get("nombre")
@@ -525,7 +530,7 @@ def favorites_getinator():
     return jsonify({"favorites":serialized_favorites}),200
 
 @api.route("/stars", methods=['POST'])
-@jwt_required
+@jwt_required()
 def stars_poll():
     data = request.json
     user_id = data.get("idCliente")
@@ -732,7 +737,7 @@ def checkout_configurator():
     
 
 @api.route("/companyget", methods=["POST"])
-@jwt_required
+@jwt_required()
 def company_selectinator():     
     data = request.json
     product_id = data.get("id")

@@ -46,11 +46,12 @@
     .company-profile-box-text{
         color:white;
         font-size: 15px;
+        text-decoration: none;
     }
-    .company-profile-box-text:hover{
-        color:white;
-    }
-    .company-profile-box-text:focus{
+    .company-profile-box-text:hover,
+    .company-profile-box-text:focus,
+    .company-profile-box-text:active,
+    .company-profile-box-text.active {
         color:white;
         text-decoration: underline;
     }
@@ -75,18 +76,20 @@
         border-radius: 2rem;
         display: flex;
     }
-    .company-profile-box-text{
-        color:white;
+    .company-profile-box-text {
+        color: white;
         font-size: 17px;
         margin-bottom: 1rem;
-    }
-    .company-profile-box-text:hover{
-        color:white;
-    }
-    .company-profile-box-text:focus{
-        color:white;
+        text-decoration: none;
+      }
+      
+      .company-profile-box-text:hover,
+      .company-profile-box-text:focus,
+      .company-profile-box-text:active,
+      .company-profile-box-text.active {
         text-decoration: underline;
-    }
+        color:white
+      }
 
     .title-acount-company{
         text-align: center;

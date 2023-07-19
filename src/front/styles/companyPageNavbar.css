@@ -1,19 +1,8 @@
-@media only screen and (min-width: 350px) and (max-width: 486px) {
-  .card-text-company-page-direction{
-    font-size: 12px;
-  }
-  .card-overlay {
-    margin: 3rem 0rem 2rem 10rem;
-    transform: translate(-20%, 10%);
-  }
-
-}
   /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
   .cover-image{
     width: 100%; 
     height: 300px;
-    background-image: url('https://media-cdn.tripadvisor.com/media/photo-s/1d/52/c8/5c/tarta-cremosa-de-queso.jpg'); /* Reemplaza con la ruta de tu imagen */
     background-size: cover;
     background-position: center;
 }
@@ -23,11 +12,11 @@
 .card-overlay {
     position: absolute; 
     height: auto;
-    width: auto;
-    margin: 3rem 0rem 2rem 12rem;
-    transform: translate(-40%, 10%);
+    width: 20rem;
+    margin: 1rem 4rem 1rem 4rem;
+    transform: translate(-15%, 20%);
     z-index: 1;
-    background-color: rgba(255, 255, 255, 0.8); /* Color de fondo con opacidad */
+    background-color: rgba(255, 255, 255, 0.9); /* Color de fondo con opacidad */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -39,7 +28,10 @@
     text-align: center;
   }
   .card-text-company-page-direction{
-    color:#7A7676
+    color:#7A7676;
+    font-size: 12px;
+    padding-left: 4rem;
+    padding-right: 4rem;
   }
 
   .rating {
@@ -79,7 +71,6 @@
   .cover-image{
     width: 100%; 
     height: 300px;
-    background-image: url('https://media-cdn.tripadvisor.com/media/photo-s/1d/52/c8/5c/tarta-cremosa-de-queso.jpg'); /* Reemplaza con la ruta de tu imagen */
     background-size: cover;
     background-position: center;
 }
@@ -89,9 +80,9 @@
 .card-overlay { /*Tamaño caja*/
     position: absolute; 
     height: auto;
-    width: auto;
-    margin: 1rem 2rem 1rem 18.5rem;
-    transform: translate(-70%, 20%);
+    width: 25rem;
+    margin: 1rem 13rem 1rem 13rem;
+    transform: translate(-45%, 30%);
     z-index: 1;
     background-color: rgba(255, 255, 255, 0.9); /* Color de fondo con opacidad */
     display: flex;
@@ -106,6 +97,7 @@
   }
   .card-text-company-page-direction{
     color:#7A7676;
+    font-size:12px;
   }
   .rating {
     font-size: 24px; /* Tamaño de las estrellas */
@@ -145,23 +137,24 @@
     font-size:15px ;
   }
   .card-overlay {
-    transform: translate(-40%, 20%); 
+    transform: translate(-50%, 30%); 
     margin: 1rem 15rem 0rem 15rem;
   }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
-  .card-text-company-page-direction{
-    font-size:15px ;
-  }
+
   .card-overlay {
-    transform: translate(-40%, 40%); 
+    transform: translate(-70%, 30%); 
     margin: 1rem 20rem 0rem 20rem;
   }
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
-
+  .card-overlay {
+    transform: translate(-70%, 30%); 
+    margin: 1rem 20rem 0rem 20rem;
+  }
 }
