@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import "../../styles/footer.css";
 import Swal from "sweetalert2";
+import logo from '../../img/DC.png';
 
 export const Footer = () => (
   <footer className="py-3 border-top  footer_container">
     <div className="row footer_row ">
 		<div className="col-6 col-lg-2 footer_col mt-3">
 			<div className="footer_logo mb-2">
-				<button type="button" className="btn btn-danger footer_logo_btn">DishDash</button>
+				<img type="button" className="btn btn-danger footer_logo_btn" src={logo} alt="Logo de la empresa" style={{ width: '55px'}}/>
 			</div>
 			<p className="footer_col1_text"> Follow us:</p>
 			<div className="footer_social">

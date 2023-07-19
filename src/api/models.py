@@ -84,7 +84,8 @@ class Empresa (db.Model):
             "reserva": self.reserva,
             "delivery": self.delivery,
             "idUsuario": self.idUsuario,
-            "imagen": self.imagen
+            "imagen": self.imagen,
+            "banner" : self.banner
             # do not serialize the password, its a security breach
         }
     
