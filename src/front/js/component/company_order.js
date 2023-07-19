@@ -47,17 +47,13 @@ const Company_order = (props) => {
         <div className="row border order_container">
           <div className="col-4">
             <div className="order_imgbox  mx-3 my-5">
-              <img
-                src={company_img}
-                alt="..."
-                className="home_categoryimg rounded"
-              />
+              <img src={company_img} alt="..." className="order_img rounded" />
             </div>
           </div>
           <div className="col-8  py-4">
             <div className="row text-center">
               <div className="col-6 order_title_box ">
-                <h2 className="order_title">{user}</h2>
+                <h3 className="order_title">{user}</h3>
               </div>
               <div className="col-5 order_date_box">
                 <p className="order_date">Ordered on {date}</p>
