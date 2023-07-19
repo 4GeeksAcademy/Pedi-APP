@@ -14,7 +14,7 @@ export const Navbar = () => {
           
         <nav className="navbar">
           <div className="container-fluid">
-            <Link to="/" onClick={() => {actions.isloged()}}>
+            <Link to={actions.isloged? "/searchEmpresa" : "/"} onClick={() => {actions.isloged()}}>
               <h1 className="nav_title">DishDash</h1>
             </Link>
             <div className="ml-auto">

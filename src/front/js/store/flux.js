@@ -200,6 +200,18 @@ const getState = ({ getStore, getActions, setStore }) => {
                   id: result.userdata.id,
                 },
               });
+              setStore({
+                current_user_data: {
+                  ...store.current_user_data,
+                  lat: result.userdata.lat,
+                },
+              });
+              setStore({
+                current_user_data: {
+                  ...store.current_user_data,
+                  lng: result.userdata.lng,
+                },
+              });
             } else if (result.userdata.role == "Empresa") {
               setStore({
                 current_user_data: {
@@ -265,6 +277,18 @@ const getState = ({ getStore, getActions, setStore }) => {
                 current_user_data: {
                   ...store.current_user_data,
                   id: result.userdata.id,
+                },
+              });
+              setStore({
+                current_user_data: {
+                  ...store.current_user_data,
+                  lat: result.userdata.lat,
+                },
+              });
+              setStore({
+                current_user_data: {
+                  ...store.current_user_data,
+                  lng: result.userdata.lng,
                 },
               });
             }
@@ -404,24 +428,23 @@ const getState = ({ getStore, getActions, setStore }) => {
           // lo que se ponga aquí tiene que coincidir con el back nombre:
           idCliente: store.current_user_data.id,
         };
-		const token = localStorage.getItem('jwt-token');
+        const token = localStorage.getItem("jwt-token");
         fetch(process.env.BACKEND_URL + "/api/filterFavorites", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-			'Authorization': 'Bearer '+token
+            Authorization: "Bearer " + token,
           },
           body: JSON.stringify(filtrarfavoritos),
         })
           .then((response) => response.json())
-		  .then((result) => { 
-			if(response.status == 401){
-				Swal.fire(result.msg)
-				
-				navigate("/", { replace: true });
+          .then((result) => {
+            if (response.status == 401) {
+              Swal.fire(result.msg);
 
-			}
-		  })
+              navigate("/", { replace: true });
+            }
+          })
           .then((result) => setStore({ searchCompany: result }))
           .catch((error) => console.log(error));
       },
@@ -471,18 +494,17 @@ const getState = ({ getStore, getActions, setStore }) => {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
-                "Authorization": "Bearer " + token,
+                Authorization: "Bearer " + token,
               },
               body: JSON.stringify(newProduct),
             }
           );
           const result = await response.json();
-		  if(response.status == 401){
-			Swal.fire(result.msg)
-			
-			navigate("/", { replace: true });
+          if (response.status == 401) {
+            Swal.fire(result.msg);
 
-		}
+            navigate("/", { replace: true });
+          }
           Swal.fire(result.message);
           if (response.status == 200) {
             console.log(response);
