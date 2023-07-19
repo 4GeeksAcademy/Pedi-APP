@@ -1,38 +1,56 @@
-import React, { useContext, useState, useEffect }  from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
-import "../../styles/companyPageMenu.css"
+import "../../styles/companyPageMenu.css";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
-export const CompanyPageMenu = ({ idEmpresa }) =>{
-    const {store,actions} = useContext(Context)
-    const [products, setProducts] = useState([]);
+export const CompanyPageMenu = ({ idEmpresa }) => {
+  const { store, actions } = useContext(Context);
+  const [products, setProducts] = useState([]);
 
-    const navigate = useNavigate()
+  const navigate = useNavigate();
 
-    const handleBuyProduct = (e, nombre, precio, descripcion, img, cantidad, id) => {
-        e.preventDefault();
-        actions.buyProduct(nombre, precio, descripcion, img, cantidad, id);
-        navigate('/orderDetail', { replace: true });
-    };
+  const handleBuyProduct = (
+    e,
+    nombre,
+    precio,
+    descripcion,
+    img,
+    cantidad,
+    id
+  ) => {
+    e.preventDefault();
+    if (store.current_user_data.role == "Empresa") {
+      Swal.fire("Must be a client to buy!");
+    } else if (!store.current_user_data.role) {
+      Swal.fire("Must be loged to buy!");
+    } else {
+      actions.buyProduct(nombre, precio, descripcion, img, cantidad, id);
+      navigate("/orderDetail", { replace: true });
+    }
+  };
 
-    useEffect(()=>{
-        (async()=>{
-            try{
-                const response = await fetch(`${process.env.BACKEND_URL}/api/empresa/menu/${idEmpresa}`,{
-                    method : "GET",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await fetch(
+          `${process.env.BACKEND_URL}/api/empresa/menu/${idEmpresa}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        const result = await response.json();
+        console.log(result);
+        setProducts(result);
+      } catch (error) {
+        console.log("error");
+      }
+    })();
+  }, []);
 
-                })
-                const result = await response.json()
-                console.log(result)
-                setProducts(result)
-            }catch(error){
-                console.log("error")
-            }
-        })()
-    },[])
 
     return(
         <div className="container-fluid">
@@ -63,7 +81,13 @@ export const CompanyPageMenu = ({ idEmpresa }) =>{
                         </div>
                     )})}
                     </div>
-            </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};

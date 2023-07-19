@@ -16,7 +16,8 @@ export const Navbar = () => {
         <nav className="navbar">
           <div className="container-fluid">
 
-            <Link to="/" onClick={() => {actions.isloged()}}>
+
+            <Link to={actions.isloged? "/searchEmpresa" : "/"} onClick={() => {actions.isloged()}}>
               <img id="logotipo-page" src={logoGrande} alt="Logo de la empresa" />
 
             </Link>
