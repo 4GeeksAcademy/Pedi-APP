@@ -3,6 +3,7 @@ import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import "../../styles/checkout.css";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 export default function CheckoutForm() {
   const [succeeded, setSucceeded] = useState(false);
@@ -86,6 +87,7 @@ export default function CheckoutForm() {
       payment_method: {
         card: elements.getElement(CardElement),
       },
+      
     });
 
     if (payload.error) {
@@ -97,6 +99,10 @@ export default function CheckoutForm() {
       setSucceeded(true);
       /* redirigir a pago exitoso -----------------------------------------------------------------------------------------------------------------*/
       /* */
+      
+      Swal.fire("Your product is on the way!")
+      navigate("/searchEmpresa", { replace: true });
+      
     }
   };
 

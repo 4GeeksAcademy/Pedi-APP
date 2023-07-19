@@ -92,6 +92,8 @@ export const SingupEmpresa = () => {
           }
           else if (formData.terminosCondiciones === false){
             return Swal.fire("You have to agree to Terms and Conditions to be able to signup")
+          } else if (formData.mañana  ==false&& formData.tarde ==false ){
+            Swal.fire("Choose opening times!")
           }
         else{
             const register = await actions.signupEmpresa(formData.nombre, formData.cif, formData.calleNumero, formData.pisoPuerta, formData.codigoPostal, formData.estado, formData.ciudad, formData.delivery, formData.reserva, formData.mañana, formData.tarde, formData.img,categories,formData.banner);
