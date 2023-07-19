@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 
 import Categories from "../component/categories";
 import Top_5_carrousel from "../component/top_5_carrousel";
+import logoGrande from '../../img/Dishdash-blanco-grande.png';
 
 
 export const Home = () => {
@@ -40,7 +41,7 @@ export const Home = () => {
   return (
     <div className="text-center container-fluid ">
       <div className="row home_first_row">
-        <h1 className="home_title"> DishDash</h1>
+        <img className="home_title" src={logoGrande} alt="Logo de la empresa"/>
         <p className="home_subtitle"> Dashing to your door</p>
 
         <form className="home_searchform my-5" onSubmit={(e) => {search_handlinator(e)}}>

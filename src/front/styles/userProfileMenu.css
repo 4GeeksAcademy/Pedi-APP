@@ -46,16 +46,15 @@
     .user-profile-box-text{
         color:white;
         font-size: 15px;
+        text-decoration: none;
     }
-    .user-profile-box-text:hover{
-        color:white;
-    }
-    .user-profile-box-text:focus{
+    .user-profile-box-text:hover,
+    .user-profile-box-text:focus,
+    .user-profile-box-text:active,
+    .user-profile-box-text.active {
         color:white;
         text-decoration: underline;
     }
-
-   
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -81,17 +80,15 @@
         color:white;
         font-size: 17px;
         margin-bottom: 1rem;
+        text-decoration: none;
     }
-    .user-profile-box-text:hover{
-        color:white;
-    }
-    .user-profile-box-text:focus{
+    .user-profile-box-text:hover,
+    .user-profile-box-text:focus,
+    .user-profile-box-text:active,
+    .user-profile-box-text.active {
         color:white;
         text-decoration: underline;
     }
-
-    
-
 }
 
 /* Medium devices (landscape tablets, 768px and up) */

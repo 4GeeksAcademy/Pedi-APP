@@ -1,21 +1,29 @@
-#root {
-    display: flex;
-    align-items: center;
-  }
-  
+    #root {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .form-container{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   
   .pay_form {
-    width: 100%;
+    width: 50%;
     align-self: center;
     box-shadow: 0px 0px 0px 0.5px rgba(50, 50, 93, 0.1),
       0px 2px 5px 0px rgba(50, 50, 93, 0.1), 0px 1px 1.5px 0px rgba(0, 0, 0, 0.07);
-    border-radius: 7px;
+    border-radius: 10px;
     padding: 40px;
-    margin-top: 3rem;
-    margin-bottom: 3rem;
+    margin: 3rem 0rem 3rem 0rem;
     display: flex;
     flex-direction: column;
+    background-color:  rgb(255, 219, 219);
+    align-items: center;
+    justify-content: center;
   }
+
   
   /*input {              ---------------guat is dis
     border-radius: 6px;
@@ -60,27 +68,42 @@
     width: 100%;
     background: white;
     box-sizing: border-box;
+    border-radius: 10px;
   }
   
-  #payment-formrequest-button {
+  #payment-form #submit {
     margin-bottom: 32px;
   }
   
   #submit:hover {
     filter: contrast(115%);
-    
+    background-color: #C62828;
+    box-shadow: 0 0 5px;
+    border: #C62828;
   }
   
   #submit:disabled {
-    opacity: 0.5;
+    opacity: 0.8;
     cursor: default;
-    
+    background-color: #C62828;
+    box-shadow: 0 0 5px;
+    border: #C62828;
   }
   #submit{
     margin-top: 1rem;
-    justify-self: center;
+    background-color: #C62828;
+    box-shadow: 0 0 5px;
+    border: #C62828;
+    border-radius: 0.4rem;
+    width:30%;
+    justify-content: center;
+    display: flex;
   }
-  
+  #button-text{
+    color:white;
+    margin:0.4rem;
+  }
+
   /* spinner/processing state, errors */
   .spinner,
   .spinner:before,
@@ -144,9 +167,36 @@
       transform: rotate(360deg);
     }
   }
-  
-  @media only screen and (max-width: 600px) {
-    form {
-      width: 80vw;
-    }
+
+
+  /* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .pay_form {
+    width: 90%;
   }
+  .form {
+  width: 80vw;
+  }
+  #submit{
+    width:40%;
+  }
+}
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .pay_form {
+    width: 70%;
+  }
+}
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  
+}
