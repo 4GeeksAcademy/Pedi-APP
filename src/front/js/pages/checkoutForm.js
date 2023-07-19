@@ -33,15 +33,22 @@ export default function CheckoutForm() {
         const data = store.checkout_data
         console.log(data)
         
+        const token = localStorage.getItem('jwt-token');
         const response = await fetch(process.env.BACKEND_URL + "/api/create-payment-intent", {
           method: "POST",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            'Authorization': 'Bearer '+token
           },
           body: JSON.stringify(data)
         })
         const result = await response.json()
-        
+        if(response.status == 401){
+          Swal.fire(result.msg)
+          
+          navigate("/", { replace: true });
+
+        }
         setClientSecret(result.clientSecret);
         
       }catch(error){

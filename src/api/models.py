@@ -158,8 +158,8 @@ class Factura (db.Model):
                 "idempresa": self.idEmpresa,
                 "codigoDePago" : self.idPago,
                 "delivery": self.delivery,
-                "hora" : self.hora,
-                "fecha" : self.fecha
+                "hora" : self.hora.strftime("%H:%M"),
+                "fecha" : self.fecha.strftime("%d/%m/%Y")
 
             }
 

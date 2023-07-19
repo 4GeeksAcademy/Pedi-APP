@@ -60,10 +60,16 @@ export const Mapbox = () => {
                 for (let i of result.companies){
                     
                     if (map.current && mapContainer.current) {
+                        const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
+                            `${i.nombre} <br> ${i.direccion}`
+                        );
+
                         const el = document.createElement('div');
                         el.className = 'marker';
                         // make a marker for each feature and add to the map
-                        new mapboxgl.Marker(el).setLngLat([i.longitude,i.latitude]).addTo(map.current);
+                        new mapboxgl.Marker(el).setLngLat([i.longitude,i.latitude]).setPopup(popup).addTo(map.current);
+
+
                         
                     }
                 } 

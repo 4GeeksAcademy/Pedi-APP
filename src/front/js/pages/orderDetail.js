@@ -30,24 +30,31 @@ const OrderDetail = () => {
               
               
       try {
-        if (Object.keys(store.current_user_data) == 0 || Object.keys(store.product) == 0){
+        
+        if (!actions.isloged()|| Object.keys(store.product) == 0){
           
           Swal.fire("User not loged")
           navigate('/searchEmpresa', { replace: true });
         }
-        
+        const token = localStorage.getItem('jwt-token');
         const response = await fetch(process.env.BACKEND_URL + "/api/companyget", { 
           method : "POST",
           body: JSON.stringify({id : store.product.id}),
           headers: { 
               "Content-Type": "application/json",
+              'Authorization': 'Bearer '+token
+
               }       
           
         })
         const result = await response.json()
-      
-        setCompany(result.company) 
+        if(response.status == 401){
+          Swal.fire(result.msg)
+          
+          navigate("/", { replace: true });
 
+        }
+        setCompany(result.company) 
         setProduct(store.product)
         
       }catch(error){
@@ -77,14 +84,22 @@ const OrderDetail = () => {
                 delivery: delivery,
                 pay_method: payMethod
               } 
+              const token = localStorage.getItem('jwt-token');
               const response = await fetch(process.env.BACKEND_URL + "/api/checkout_data", { 
                 method : "POST",
                 body: JSON.stringify(checkout_data),
                 headers: { 
                     "Content-Type": "application/json",
+                    'Authorization': 'Bearer '+token
                     }       
                 
               })
+              if(response.status == 401){
+                Swal.fire(result.msg)
+                
+                navigate("/", { replace: true });
+
+              }
               if(response.status == 200) {
                 Swal.fire("Your product is on the way!")
                 navigate("/searchEmpresa", { replace: true });

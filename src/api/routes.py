@@ -283,15 +283,14 @@ def top_sales_loadinator():
             break
 
         top_5.append(sorted_companys_id[c])
-
         c+=1
 
     data_to_return = []
     for i in companys:
         if ( i.id in top_5 ):
+            print(i)
             company = i.serialize()
             data_to_return.append(company)
-
 
     return jsonify({"top_5_data":data_to_return}),200
 
@@ -315,6 +314,7 @@ def address_convertinator():
     return jsonify({"coordinates": lat_lon, "address":location.address}),200
 
 @api.route("/addProduct", methods = ["POST"])
+@jwt_required
 def addProduct():
     data = request.json
     nombre = data.get("nombre")
@@ -354,6 +354,7 @@ def img_uploadinator():
     
 
 @api.route("/menu/<int:idEmpresa>", methods=['GET']) #la url tiene que coincidir con el fetch
+@jwt_required()
 def menu_empresa(idEmpresa):
     # Obtener los productos del menú asociados al usuario
     empresa = Empresa.query.get(idEmpresa)
@@ -370,6 +371,7 @@ def menu_empresa(idEmpresa):
     return jsonify({"menu": serialized_menu}), 200
 
 @api.route("/bill", methods=['POST'])
+@jwt_required()
 def bill_getinator():
     data = request.json
     user_id = data.get("id")
@@ -397,8 +399,9 @@ def bill_getinator():
         return jsonify({"bills":serialized_bills}),200
     elif (role =="Empresa"):
         for i in bills:
+            
             user = Cliente.query.filter_by(id = i.serialize().get("idcliente")).first()
-            serialized_bills.append({"bill" : i.serialize(), "user" : user.serialize().get("nombre")})
+            serialized_bills.append({"bill" : i.serialize(), "user" : user.serialize().get("nombre"), "company_img" : i.empresa.imagen})
         return jsonify({"bills":serialized_bills}),200
 
 
@@ -442,6 +445,7 @@ def history_addinator():
     return jsonify({"message" : "added" , "to_history" : to_add.serialize()}),200
 
 @api.route("/history", methods=['POST'])
+@jwt_required()
 def history_getinator():
     data = request.json
     bill_id = data.get("id")
@@ -499,6 +503,7 @@ def favorite_addinator():
     return jsonify({"message" : "added" , "faved" : to_add.serialize()}),200
 
 @api.route("/favorites", methods=['POST'])
+@jwt_required()
 def favorites_getinator():
     data = request.json
     user_id = data.get("id")
@@ -520,6 +525,7 @@ def favorites_getinator():
     return jsonify({"favorites":serialized_favorites}),200
 
 @api.route("/stars", methods=['POST'])
+@jwt_required
 def stars_poll():
     data = request.json
     user_id = data.get("idCliente")
@@ -593,6 +599,7 @@ def calculate_order_amount(items):
     return amount
 
 @api.route('/create-payment-intent', methods=['POST'])
+@jwt_required()
 def create_payment():
     try:
         
@@ -659,6 +666,7 @@ def filterByDelivery():
     return jsonify(resultados)
 
 @api.route("/filterFavorites", methods=["POST"])
+@jwt_required()
 def filterByFavorites():
     data = request.json
     idCliente = data.get("idCliente")
@@ -694,6 +702,7 @@ def company_getinator():
 
 
 @api.route("/checkout_data", methods=["POST"])
+@jwt_required()
 def checkout_configurator():
     data = request.json
     product_id = data.get("product_id")
@@ -718,6 +727,7 @@ def checkout_configurator():
     
 
 @api.route("/companyget", methods=["POST"])
+@jwt_required
 def company_selectinator():     
     data = request.json
     product_id = data.get("id")
