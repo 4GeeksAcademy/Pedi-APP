@@ -150,11 +150,13 @@ export const SingupEmpresa = () => {
       };
       
       const aumentarFormulario = () => {
-        if (img_uploaded && banner_uploaded && foodTypes.length > 0) {
-          return "signupcompany_foodAdded";
-        } else if (img_uploaded && banner_uploaded) {
+        if (img_uploaded && banner_uploaded && foodTypes.length > 1) {
+          return "signupcompany_foodAdded1";
+        } else if (img_uploaded && banner_uploaded && foodTypes.length >0) {
+            return "signupcompany_foodAdded"
+        }else if (img_uploaded && banner_uploaded || img_uploaded && foodTypes.length > 0 || banner_uploaded && foodTypes.length > 0) {
           return "signupcompany_twoImage";
-        } else if (img_uploaded || banner_uploaded) {
+        } else if (img_uploaded || banner_uploaded || foodTypes.length > 0) {
           return "signupcompany_oneImage";
         } else {
           return "signupcompany_all";

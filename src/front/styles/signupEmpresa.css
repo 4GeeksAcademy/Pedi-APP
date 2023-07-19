@@ -13,22 +13,21 @@
     background-color: #FFFFFF;
     display: flex;
     justify-content: end;
-
-    
+    width: 42rem;    
 }
 .signupcompany_oneImage{
     border-radius: 2rem;
     background-color: #FFFFFF;
     display: flex;
     justify-content: end;
-    
+    width: 42rem;
 }
 .signupcompany_twoImage{
     border-radius: 2rem;
     background-color: #FFFFFF;
     display: flex;
     justify-content: end;
-    
+    width: 42rem;
 }
 
 .signupcompany_foodAdded{
@@ -36,6 +35,14 @@
     background-color: #FFFFFF;
     display: flex;
     justify-content: end;
+    width: 42rem;
+}
+.signupcompany_foodAdded1{
+    border-radius: 2rem;
+    background-color: #FFFFFF;
+    display: flex;
+    justify-content: end;   
+    width: 42rem;
 }
 
 .signupcompany_logo_container{
@@ -95,20 +102,18 @@
 
     .signupcompany_all{
         height: 77rem;
-        width: 42rem;
     }
     .signupcompany_oneImage{
         height: 87rem;
-        width: 42rem;
-        
     }
     .signupcompany_twoImage{
         height: 93rem;
-        width: 42rem;
     }
     .signupcompany_foodAdded{
         height: 96rem;
-        width: 45rem;
+    }
+    .signupcompany_foodAdded1{
+        height: 100rem;
     }
 
     .signupcompany_title{
@@ -155,20 +160,18 @@
 
     .signupcompany_all{
         height: 77rem;
-        width: 42rem;
     }
     .signupcompany_oneImage{
-        height: 86rem;
-        width: 42rem;
-        
+        height: 86rem;        
     }
     .signupcompany_twoImage{
         height: 97rem;
-        width: 42rem;
     }
     .signupcompany_foodAdded{
         height: 100rem;
-        width: 42rem;
+    }
+    .signupcompany_foodAdded1{
+        height: 103rem;
     }
 
     .signupcompany_title{
@@ -217,20 +220,18 @@
     
     .signupcompany_all{
         height: 73rem;
-        width: 42rem;
     }
     .signupcompany_oneImage{
         height: 80rem;
-        width: 42rem;
-        
     }
     .signupcompany_twoImage{
         height: 90rem;
-        width: 42rem;
     }
     .signupcompany_foodAdded{
         height: 93rem;
-        width: 42rem;
+    }
+    .signupcompany_foodAdded1{
+        height: 96rem;
     }
 
     .signupcompany_title{
