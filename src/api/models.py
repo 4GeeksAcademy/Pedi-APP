@@ -19,7 +19,7 @@ class Usuario(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "rol": self.rol,
+            "rol": self.role,
             "email": self.email,
             "direccion": self.direccion
         }
@@ -63,6 +63,7 @@ class Empresa (db.Model):
     delivery = db.Column(db.Boolean(), unique=False, nullable=False)
     idUsuario = db.Column(db.Integer, db.ForeignKey('usuario.id'), nullable=False)
     imagen = db.Column(db.String(10000000), unique=False, nullable=True)
+    banner = db.Column(db.String(10000000), unique=False, nullable=True)
 
     productos = db.relationship("Productos" , backref = "empresa", lazy = True)
     horarios = db.relationship("HorariosEmpresas" , backref = "empresa", lazy = True)
@@ -117,7 +118,7 @@ class TipoComidaEmpresa (db.Model):
 class Productos (db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(120), unique=False, nullable=False)
-    descripcion = db.Column(db.String(240), unique=False, nullable=False)
+    descripcion = db.Column(db.String(240), unique=False, nullable=True)
     precio = db.Column(db.Float(2), unique=False,nullable=False)
     idEmpresa = db.Column(db.Integer, db.ForeignKey('empresa.id'), nullable=False)
     img = db.Column(db.String(10000000), unique=False, nullable=True)
@@ -139,7 +140,7 @@ class Factura (db.Model):
     id = db.Column(db.Integer, primary_key=True)
     idCliente = db.Column(db.Integer, db.ForeignKey('cliente.id'), unique=False,nullable=False)
     idEmpresa = db.Column(db.Integer, db.ForeignKey('empresa.id'), unique=False,nullable=False)
-    idPago = db.Column(db.String(50), nullable = False)
+    idPago = db.Column(db.String(5000), nullable = False)
     delivery = db.Column(db.Boolean(), unique=False, nullable=False)
     hora = db.Column (db.DateTime, unique=False, nullable=False)
     fecha = db.Column (db.DateTime, unique=False, nullable=False)
@@ -156,8 +157,8 @@ class Factura (db.Model):
                 "idempresa": self.idEmpresa,
                 "codigoDePago" : self.idPago,
                 "delivery": self.delivery,
-                "hora" : self.hora,
-                "fecha" : self.fecha
+                "hora" : self.hora.strftime("%H:%M"),
+                "fecha" : self.fecha.strftime("%d/%m/%Y")
 
             }
 
@@ -168,7 +169,7 @@ class Reseñas (db.Model):
     puntuacion = db.Column(db.Integer, unique=False, nullable=False)
     reseña = db.Column(db.String(240), nullable = False)
     hora = db.Column (db.DateTime, unique=False, nullable=False)
-    fecha = hora = db.Column (db.DateTime, unique=False, nullable=False)
+    fecha = db.Column (db.DateTime, unique=False, nullable=False)
 
     def __repr__(self):
         return f'<Reseñas {self.id}>'

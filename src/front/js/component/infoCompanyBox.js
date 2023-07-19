@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 export const InfoCompanyBox = () => {
     return (
-            <div className="card sidebar col-12 col-md-5 company-profile-box">
+            <div className="card  col-12 col-md-5 company-profile-box">
                 <ul className="nav company-profile-list">
                     <li className="nav-item text-box">
                         <Link className="nav-link company-profile-box-text" to="/companyProfile">Account info</Link>

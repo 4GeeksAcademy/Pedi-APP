@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   CardElement,
   useStripe,
   useElements
 } from "@stripe/react-stripe-js";
 import "../../styles/checkout.css";
+import { Context } from "../store/appContext";
+import { useNavigate } from "react-router-dom";
 
 export default function CheckoutForm() {
   const [succeeded, setSucceeded] = useState(false);
@@ -15,31 +17,45 @@ export default function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
 
+  const { store, actions } = useContext(Context);
+  const navigate = useNavigate();
+
+
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
-    const items = {
-      id : 1,
-      nombre : "whooper",
-      descripcion : "cosas",
-      precio : 30,
-      idEmpresa: 1,
-      cantidad : 10
-    }
-    
-    
-      fetch(process.env.BACKEND_URL + "/api/create-payment-intent", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(items)
-      })
-      .then(res => {
-        return res.json();
-      })
-      .then(data => {
-        setClientSecret(data.clientSecret);
-      });
+    (async () => {
+                     
+      try {
+        if (!store.checkout_data){
+            navigate('/searchEmpresa', { replace: true });
+        }
+      
+        const data = store.checkout_data
+        console.log(data)
+        
+        const token = localStorage.getItem('jwt-token');
+        const response = await fetch(process.env.BACKEND_URL + "/api/create-payment-intent", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            'Authorization': 'Bearer '+token
+          },
+          body: JSON.stringify(data)
+        })
+        const result = await response.json()
+        if(response.status == 401){
+          Swal.fire(result.msg)
+          
+          navigate("/", { replace: true });
+
+        }
+        setClientSecret(result.clientSecret);
+        
+      }catch(error){
+        console.log("Error loading message from backend")
+      }
+    })()		  
+
   }, []);
 
   const cardStyle = {

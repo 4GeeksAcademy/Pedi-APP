@@ -71,7 +71,11 @@
 .order_delidet_box{
     display: flex;
     margin-top: 1rem;
+    text-align: start;
+    border-radius: 0.8rem;
+    
 }
+
 .order_adress{
     margin-top: auto;
     margin-bottom: auto;
@@ -82,6 +86,17 @@
     margin-right: 1rem;
     width: 1.5rem;
     height: 100%;
+}
+
+.order_standexp{
+    background-color:#FFC3C3
+}
+
+.order_delidet_box:focus {
+    background-color:#FFC3C3
+}
+.order_instructions_box:focus{
+    background-color:#FFC3C3
 }
 
 /*----------------------------------------------------------- right column*/
@@ -156,6 +171,14 @@
     font-weight: bold;
     
 }
+
+.order_description{
+    width: 70%;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    text-align: start;
+}
+
 
 
 /* Extra small devices (phones, 600px and down) */

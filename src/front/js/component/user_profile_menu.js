@@ -10,7 +10,7 @@ const User_profile_menu = () => {
 
     return(
         <>
-                    <div className="card sidebar col-12 col-md-5 user-profile-box">
+                    <div className="card  col-12 col-md-5 user-profile-box">
                         <ul className="nav user-profile-list">
                             <li className="nav-item text-box">
                                 <Link className="nav-link user-profile-box-text" href="" to={"/userProfile/info"}>Account info</Link>
