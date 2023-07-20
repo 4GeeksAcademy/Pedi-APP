@@ -7,7 +7,7 @@
     justify-content: center;
   }
   .order_all {
-    border-radius: 2rem;
+    border-radius: 0.8rem;
     background-color: #ffffff;
     display: flex;
     justify-content: center;
@@ -150,7 +150,7 @@
   }
 
   .order_product_btnbox {
-    margin-top: auto;
+    margin-top: 1rem;
     margin-bottom: auto;
   }
   .order_product_btn {
@@ -206,7 +206,6 @@
     text-align: start;
   }
   .right_second_row {
-    border: solid 1px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -355,9 +354,9 @@
     margin-left: auto;
     margin-right: 3rem;
   }
-  .order_product_price {
+  .order_product_price_box {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     align-items: center;
   }
   .order_product_price {
@@ -431,6 +430,26 @@
     align-items: center;
     justify-content: center;
   }
+  .order_img_box {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 5rem;
+    height: 5rem;
+  }
+  .order_img {
+    width: 100%;
+    height: 100%;
+
+    margin: 0;
+  }
+  .order_company_name {
+    margin-top: auto;
+    margin-bottom: auto;
+    display: flex;
+    justify-content: center;
+  }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
@@ -448,7 +467,14 @@
     margin-top: 0rem;
   }
   /*----------------------------------------------------------------------- first row*/
-
+  .order_img_box {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 6rem;
+    height: 6rem;
+  }
   .order_img {
     width: 100%;
     height: 70%;
@@ -460,11 +486,19 @@
     display: flex;
     margin-top: auto;
     margin-bottom: auto;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
   }
-  /*----------------------------------------------------------------------- second third and fourth row*/
+  .order_btn_box_box {
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .order_company_name {
+    width: auto !important;
+    margin-left: 2rem;
+  }
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */

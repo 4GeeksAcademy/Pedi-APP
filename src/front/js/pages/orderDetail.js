@@ -126,9 +126,9 @@ const OrderDetail = () => {
       <>
         <form onSubmit={(e) => handleSubmit(e)}>
           <div className="container-fluid text-center order_page_container p-5 ">
-            <div className="row order_all p-5 border">
+            <div className="row order_all p-sm-5 ">
               <div className="col-12 col-lg-5 order_left_col px-4 pb-4 ">
-                <div className="row left_first_row py-4 ">
+                <div className="row left_first_row pt-4 ">
                   <div className="col-sm-2 col-6  order_img_box ">
                     <img
                       src={company.imagen}
@@ -139,7 +139,7 @@ const OrderDetail = () => {
                   <div className="col-sm-5 col-6  order_company_name  ">
                     <h3 className="">{company.nombre}</h3>
                   </div>
-                  <div className="col-sm-5  col-12 d-flex  justify-content-center">
+                  <div className="col-sm-5  col-12 d-flex order_btn_box_box justify-content-center">
                     <div className="order_btn_box ">
                       <input
                         type="radio"
@@ -263,8 +263,8 @@ const OrderDetail = () => {
                 <div className="row right_first_row py-4 ">
                   <h3 className=" text-start">Order summary</h3>
                 </div>
-                <div className="row right_second_row py-sm-4 pt-1 ">
-                  <div className="col-7 order_detail_box border">
+                <div className="row right_second_row py-sm-4  ">
+                  <div className="col-7 order_detail_box ">
                     <div className=" d-flex   w-100">
                       <p className="order_product fs-5">{product.nombre} </p>
                       <p className="order_quant fs-5 text-secondary  ">
@@ -276,9 +276,9 @@ const OrderDetail = () => {
                       {product.descripcion}
                     </p>
                   </div>
-                  <div className="col-sm-4  order_product_price_box border ">
+                  <div className="col-sm-5  order_product_price_box  ">
                     <div
-                      className="btn-group order_product_btnbox border"
+                      className="btn-group order_product_btnbox "
                       role="group"
                       aria-label="Basic example"
                     >
