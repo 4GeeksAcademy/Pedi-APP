@@ -749,3 +749,17 @@ def company_selectinator():
     return jsonify({"company": product.empresa.serialize()}), 200 
 
 
+@api.route("/filter_category", methods=["POST"])
+def category_filtrator():
+    category = request.json
+    
+    category_id = TipoComida.query.filter_by(tipoComida = category).first()
+    companies = TipoComidaEmpresa.query.filter_by(idTipoComida = category_id).all()
+
+    resultados = []
+    if not companies:
+        return jsonify([])
+    
+    for i in companies:
+        resultados.append(i.empresa.serialize())
+    return jsonify(resultados),200

@@ -445,7 +445,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: "Bearer " + token,
+            "Authorization": "Bearer " + token,
           },
           body: JSON.stringify(filtrarfavoritos),
         })
@@ -459,6 +459,17 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
           .then((result) => setStore({ searchCompany: result }))
           .catch((error) => console.log(error));
+      },
+      caregory_filtrator: async (category) => {
+        const response = fetch ( process.env.BACKEND_URL + "/api/filter_category", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(category),
+        })
+        result = await response.json()
+        setStore({ searchCompany: result })
       },
 
       img_uploadinator: async (img) => {
