@@ -460,6 +460,22 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((result) => setStore({ searchCompany: result }))
           .catch((error) => console.log(error));
       },
+      caregory_filtrator: async (category) => {
+        const store = getStore();
+        const response = await fetch(
+          process.env.BACKEND_URL + "/api/filter_category",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(category),
+          }
+        );
+
+        const result = await response.json();
+        setStore({ searchCompany: result });
+      },
 
       img_uploadinator: async (img) => {
         const store = getStore();
