@@ -39,15 +39,15 @@ export const Home = () => {
   const categories = store.categories
 
   return (
-    <div className="text-center container-fluid ">
+    <div className="text-center container-fluid fondito">
       <div className="row home_first_row">
 
-      <div className="row home_second_row mt-0">
+      <div className="row home_second_row mt-0 mx-0 px-0">
         <Categories/>
       </div>
 
 
-        <form className="home_searchform my-5" onSubmit={(e) => {search_handlinator(e)}}>
+        <form className="home_searchform" onSubmit={(e) => {search_handlinator(e)}}>
           <div className="mb-3 input-group home_searchbar">
             <input
               type="text"

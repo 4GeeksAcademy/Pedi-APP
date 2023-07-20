@@ -18,6 +18,7 @@ const UserHistory = () => {
       navigate("/", { replace: true });
     }
   }, []);
+  
 
   return (
     <>

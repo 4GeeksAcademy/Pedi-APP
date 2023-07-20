@@ -51,7 +51,7 @@ export const CompanyPageMenu = ({ idEmpresa }) => {
     })();
   }, []);
 
-  return(
+  return (
     <div className="container-fluid">
         <div className="tab-pane fade show active" id="nav-menu" role="tabpanel" aria-labelledby="nav-home-tab" tabIndex="0">
                 <div className="row row-cols-2 d-flex justify-content-evenly">
@@ -84,12 +84,11 @@ export const CompanyPageMenu = ({ idEmpresa }) => {
                   </div>)
                 }
                 </div>
+              </div>
+            );
+          })}
         </div>
+      </div>
     </div>
-)
-}
-
-
-
-
-
+  );
+};

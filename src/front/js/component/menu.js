@@ -20,7 +20,7 @@ export const Menu = () => {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              "Authorization": "Bearer " + token,
+              Authorization: "Bearer " + token,
             },
           }
         );
@@ -35,7 +35,7 @@ export const Menu = () => {
         console.log(error);
       }
     })();
-  }, []);
+  }, [store.current_user_data]);
 
   return (
     <>
