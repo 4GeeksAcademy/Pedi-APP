@@ -1,13 +1,5 @@
 /* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
-}
-
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
-}
-
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
+@media only screen and (max-width: 579px) {
   .order_page_container {
     background: radial-gradient(at right, #c62828, #ffffff);
     background-position: 30%;
@@ -38,10 +30,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 5rem;
+    height: 5rem;
   }
   .order_img {
     width: 100%;
-    height: 70%;
+    height: 100%;
 
     margin: 0;
   }
@@ -50,7 +44,9 @@
     margin-top: auto;
     margin-bottom: auto;
     display: flex;
-    justify-content: center;
+    justify-content: end;
+    justify-content: end;
+    justify-self: end;
   }
 
   .order_btn {
@@ -77,9 +73,9 @@
   }
   .order_btn_box {
     display: flex;
-    margin-top: auto;
+    margin-top: 1rem;
     margin-bottom: auto;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
   }
@@ -128,7 +124,8 @@
   .order_detail_box {
     display: flex;
     flex-direction: column;
-    align-items: start;
+
+    width: 100%;
   }
   .order_product {
     font-weight: 600;
@@ -140,20 +137,21 @@
     margin-top: auto;
     margin-bottom: auto;
     margin-left: auto;
-    margin-right: 3rem;
+    margin-right: 1rem;
   }
-  .order_product_price {
+  .order_product_price_box {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: space-between;
   }
   .order_product_price {
     font-weight: 600;
     margin-bottom: auto;
+    margin-top: auto;
   }
 
   .order_product_btnbox {
-    margin-top: 0.5rem;
+    margin-top: auto;
+    margin-bottom: auto;
   }
   .order_product_btn {
     color: #ffffff;
@@ -164,6 +162,19 @@
     margin-bottom: auto;
   }
   .right_third_row {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .order_total {
+    display: flex;
+    flex-direction: column;
+  }
+  .order_tax {
+    display: flex;
+    flex-direction: column;
+  }
+  .order_subtotal {
     display: flex;
     flex-direction: column;
   }
@@ -194,10 +205,17 @@
     overflow-wrap: break-word;
     text-align: start;
   }
+  .right_second_row {
+    border: solid 1px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 579px) {
   .order_page_container {
     background: radial-gradient(at right, #c62828, #ffffff);
     background-position: 30%;
@@ -213,16 +231,15 @@
   .order_left_col {
     box-shadow: 0px 5px 10px 0px rgb(59, 61, 61);
     border-radius: 0.8rem;
-    margin-right: 1.5rem;
-
   }
   .order_right_col {
     box-shadow: 0px 5px 10px 0px rgb(59, 61, 61);
     border-radius: 0.8rem;
     display: flex;
     flex-direction: column;
-    margin-top: 0rem;
+    margin-top: 1.5rem;
   }
+
   /*----------------------------------------------------------------------- first row*/
 
   .order_img_box {
@@ -230,6 +247,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 4rem;
   }
   .order_img {
     width: 100%;
@@ -243,6 +261,9 @@
     margin-bottom: auto;
     display: flex;
     justify-content: center;
+
+    justify-content: end;
+    justify-self: end;
   }
 
   .order_btn {
@@ -386,6 +407,64 @@
     overflow-wrap: break-word;
     text-align: start;
   }
+  .order_total {
+    display: flex;
+    flex-direction: row;
+  }
+  .order_tax {
+    display: flex;
+    flex-direction: row;
+  }
+  .order_subtotal {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .order_btn_box {
+    display: flex;
+    margin-top: auto;
+    margin-bottom: auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .order_left_col {
+    box-shadow: 0px 5px 10px 0px rgb(59, 61, 61);
+    border-radius: 0.8rem;
+    margin-right: 1.5rem;
+  }
+  .order_right_col {
+    box-shadow: 0px 5px 10px 0px rgb(59, 61, 61);
+    border-radius: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    margin-top: 0rem;
+  }
+  /*----------------------------------------------------------------------- first row*/
+
+  .order_img {
+    width: 100%;
+    height: 70%;
+
+    margin: 0;
+  }
+
+  .order_btn_box {
+    display: flex;
+    margin-top: auto;
+    margin-bottom: auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  /*----------------------------------------------------------------------- second third and fourth row*/
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */

@@ -129,19 +129,17 @@ const OrderDetail = () => {
             <div className="row order_all p-5 border">
               <div className="col-12 col-lg-5 order_left_col px-4 pb-4 ">
                 <div className="row left_first_row py-4 ">
-                  <div className="col-2 order_img_box ">
-                    {" "}
+                  <div className="col-sm-2 col-6  order_img_box ">
                     <img
                       src={company.imagen}
                       alt="..."
                       className="order_img rounded"
                     />
                   </div>
-                  <div className="col-5 order_company_name  ">
-                    {" "}
+                  <div className="col-sm-5 col-6  order_company_name  ">
                     <h3 className="">{company.nombre}</h3>
                   </div>
-                  <div className="col-5 d-flex  justify-content-center">
+                  <div className="col-sm-5  col-12 d-flex  justify-content-center">
                     <div className="order_btn_box ">
                       <input
                         type="radio"
@@ -265,9 +263,9 @@ const OrderDetail = () => {
                 <div className="row right_first_row py-4 ">
                   <h3 className=" text-start">Order summary</h3>
                 </div>
-                <div className="row right_second_row py-4 pt-1 ">
-                  <div className="col-7 order_detail_box ">
-                    <div className=" d-flex  w-100">
+                <div className="row right_second_row py-sm-4 pt-1 ">
+                  <div className="col-7 order_detail_box border">
+                    <div className=" d-flex   w-100">
                       <p className="order_product fs-5">{product.nombre} </p>
                       <p className="order_quant fs-5 text-secondary  ">
                         {product.cantidad}{" "}
@@ -278,12 +276,9 @@ const OrderDetail = () => {
                       {product.descripcion}
                     </p>
                   </div>
-                  <div className="col-4  order_product_price  ">
-                    <p className="order_product_price fs-5">
-                      {(product.cantidad * product.precio).toFixed(2)}${" "}
-                    </p>
+                  <div className="col-sm-4  order_product_price_box border ">
                     <div
-                      className="btn-group order_product_btnbox"
+                      className="btn-group order_product_btnbox border"
                       role="group"
                       aria-label="Basic example"
                     >
@@ -320,24 +315,27 @@ const OrderDetail = () => {
                         <p className="my-auto mx-1">+</p>
                       </button>
                     </div>
+                    <p className="order_product_price fs-5">
+                      {(product.cantidad * product.precio).toFixed(2)}${" "}
+                    </p>
                   </div>
                 </div>
                 <div className="row right_third_row py-4 ">
-                  <div className="col d-flex  w-100">
+                  <div className="col  order_subtotal  w-100">
                     {" "}
                     <h4 className=" text-start">Subtotal</h4>{" "}
                     <h4 className=" ms-auto me-3">
                       {(product.cantidad * product.precio).toFixed(2)}$
                     </h4>
                   </div>
-                  <div className="col d-flex  w-100">
+                  <div className="col  order_tax w-100">
                     {" "}
                     <h4 className=" text-start">Tax</h4>{" "}
                     <h4 className=" ms-auto me-3">
                       {(product.cantidad * product.precio * 0.21).toFixed(2)}$
                     </h4>
                   </div>
-                  <div className="col d-flex  w-100">
+                  <div className="col   order_total w-100">
                     {" "}
                     <h3 className=" text-start">Total</h3>{" "}
                     <h3 className=" ms-auto me-3">
