@@ -7,12 +7,11 @@ const User_profile_info = () =>{
     const { store, actions } = useContext(Context);
 
     return(
-        <>
+        <div className="container-fluid container-user-profile-info">
                 <h1 className="title_acount_user">Acount info</h1>
-                <h3 className="subtitle_acount_user ms-3 my-3">Basic info</h3>
                 <div className="category_container_user">
                     <div className="info_title_user">
-                     <h5 className="ms-3  ">Name</h5>
+                     <h5 className="ms-3 text-info-user">Name</h5>
                     </div>
                     <div className="container_user my-3 ">
                         <p className="box_text_user">{store.current_user_data.nombre}</p>
@@ -20,7 +19,7 @@ const User_profile_info = () =>{
                 </div>
                 <div className="category_container_user">
                     <div className="info_title_user">
-                        <h5 className="ms-3  ">Email</h5>
+                        <h5 className="ms-3 text-info-user">Email</h5>
                     </div>
                     <div className="container_user my-3 ">
                         <p className="box_text_user ">{store.current_user_data.email}</p>
@@ -28,7 +27,7 @@ const User_profile_info = () =>{
                 </div>
                 <div className="category_container_user">
                     <div className="info_title_user">
-                        <h5 className="ms-3  ">Phone</h5>
+                        <h5 className="ms-3 text-info-user">Phone</h5>
                     </div>
                     <div className="container_user my-3 ">
                         <p className="box_text_user">{store.current_user_data.telefono}</p>
@@ -36,13 +35,13 @@ const User_profile_info = () =>{
                 </div>
                 <div className="category_container_user">
                     <div className="info_title_user">
-                        <h5 className="ms-3">Address</h5>
+                        <h5 className="ms-3 text-info-user">Address</h5>
                     </div>
                     <div className="container_user my-3 ">
                         <p className="box_text_user">{store.current_user_data.direccion}</p>
                     </div>
                 </div>
-        </>
+        </div>
     )
 }
 

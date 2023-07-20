@@ -1,5 +1,5 @@
 .container_info_company{
-    margin-bottom: 2rem;
+    margin: 2rem
 }
 .container_company{
     border: 0.1px solid #7A7A7A;
@@ -36,13 +36,17 @@
     text-align: start;
     margin-top: auto;
     margin-bottom: auto;
-    margin-left: 3rem;
     width: 7rem;
 }
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
-    
+    .title_acount_company{
+        text-align: center;
+    }
+    .subtitle_acount_company{
+        text-align: center;
+    }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -53,7 +57,7 @@
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
     .container_info_company{
-        margin-top: 2rem;
+        margin: 2rem 1rem 2rem 1rem
     }
 }
 
