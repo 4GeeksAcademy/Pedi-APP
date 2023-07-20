@@ -41,6 +41,10 @@ const User_order = (props) => {
     price += i.detail.precioActual;
   }
 
+  useEffect(() => {
+    console.log(store.current_user_data);
+  }, [store.current_user_data]);
+
   return (
     <>
       {order && (
