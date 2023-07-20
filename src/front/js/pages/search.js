@@ -57,7 +57,7 @@ export const Search = (props) => {
   return (
     <>
       <Categories></Categories>
-      <form class="row mt-3 busquedaEmpresas" onSubmit={(e) => handleSearch(e)}>
+      <form class="row busquedaEmpresas" onSubmit={(e) => handleSearch(e)}>
         <div class="col-5 ms-5">
           <label for="searchInput" class="visually-hidden">
             Search
@@ -162,7 +162,10 @@ export const Search = (props) => {
                 </div>
               ))
             ) : (
-              <h1>No hay registros</h1>
+              <div className="noRegistros">
+                <h3>No existen registros</h3>
+                <p><i class="far fa-tired icono"></i></p>
+              </div>
             )}
           </div>
         </div>
