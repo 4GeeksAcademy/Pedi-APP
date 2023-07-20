@@ -354,7 +354,19 @@ const getState = ({ getStore, getActions, setStore }) => {
             setStore({
               current_user_data: {
                 ...store.current_user_data,
-                direccion: result,
+                direccion: result.address,
+              },
+            });
+            setStore({
+              current_user_data: {
+                ...store.current_user_data,
+                lng: result.coordinates[1],
+              },
+            });
+            setStore({
+              current_user_data: {
+                ...store.current_user_data,
+                lat: result.coordinates[0],
               },
             });
 

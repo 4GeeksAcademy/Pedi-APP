@@ -31,6 +31,7 @@ export const Mapbox = () => {
           setLng(store.current_user_data.lng);
           setZoom(14);
         }
+        console.log(zoom);
         const response = await fetch(
           process.env.BACKEND_URL + "/api/allcompanies",
           {
@@ -43,7 +44,7 @@ export const Mapbox = () => {
         const result = await response.json();
         setCompanies(result);
 
-        if (map.current) return; // initialize map only once
+        // initialize map only once
 
         map.current = new mapboxgl.Map({
           container: mapContainer.current,
@@ -72,7 +73,7 @@ export const Mapbox = () => {
         console.log("Error loading message from backend");
       }
     })();
-  }, []);
+  }, [store.current_user_data, lng]);
 
   return (
     <div className="map ">

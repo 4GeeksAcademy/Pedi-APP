@@ -41,21 +41,13 @@ const User_order = (props) => {
     price += i.detail.precioActual;
   }
 
-  useEffect(() => {
-    console.log(store.current_user_data);
-  }, [store.current_user_data]);
-
   return (
     <>
       {order && (
         <div className="row border order_container">
           <div className="col-4">
             <div className="order_imgbox  mx-3 my-5">
-              <img
-                src={company.imagen}
-                alt="..."
-                className="order_img rounded"
-              />
+              <img src={company.imagen} alt="..." className="order_img " />
             </div>
           </div>
           <div className="col-8  py-4">

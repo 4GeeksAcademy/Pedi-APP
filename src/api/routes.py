@@ -381,7 +381,7 @@ def bill_getinator():
     data = request.json
     user_id = data.get("id")
     role = data.get("role")
-   
+    print(data)
    
     if not user_id or not role:
         return jsonify({"message" : "user not loged in"}), 400
