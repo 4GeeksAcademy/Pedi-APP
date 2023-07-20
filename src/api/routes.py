@@ -210,6 +210,8 @@ def signupEmpresa():
     
     if (realaddress == None):
         return jsonify({"message": "Address not found try again"}),400
+
+    
     
     addUsuario = Usuario(role = role, email = email, password = password,  direccion = realaddress.address)
     db.session.add(addUsuario)
@@ -222,12 +224,13 @@ def signupEmpresa():
     addHorario = HorariosEmpresas(mañana = mañana, tarde = tarde, idEmpresa = addEmpresa.id)
     db.session.add(addHorario)
     db.session.commit()
-
     for i in categories: 
         food = TipoComida.query.filter_by(tipoComida = i).first()
         food_to_add = TipoComidaEmpresa(idEmpresa = addEmpresa.id, idTipoComida = food.id)
         db.session.add(food_to_add)
     db.session.commit()
+
+    
 
     return jsonify({"message": "Sign up successfull"}),200
 
@@ -751,10 +754,11 @@ def company_selectinator():
 
 @api.route("/filter_category", methods=["POST"])
 def category_filtrator():
-    category = request.json
+    data = request.json
     
-    category_id = TipoComida.query.filter_by(tipoComida = category).first()
-    companies = TipoComidaEmpresa.query.filter_by(idTipoComida = category_id).all()
+    category_id = TipoComida.query.filter_by(tipoComida = data).first()
+    
+    companies = TipoComidaEmpresa.query.filter_by(idTipoComida = category_id.id).all()
 
     resultados = []
     if not companies:
@@ -762,4 +766,5 @@ def category_filtrator():
     
     for i in companies:
         resultados.append(i.empresa.serialize())
+    
     return jsonify(resultados),200
