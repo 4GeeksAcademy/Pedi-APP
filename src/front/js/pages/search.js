@@ -58,7 +58,7 @@ export const Search = (props) => {
     <>
       <Categories></Categories>
       <form class="row busquedaEmpresas" onSubmit={(e) => handleSearch(e)}>
-        <div class="col-5 ms-5">
+        <div class="col-11">
           <label for="searchInput" class="visually-hidden">
             Search
           </label>
@@ -72,7 +72,7 @@ export const Search = (props) => {
             }}
           />
         </div>
-        <div class="col-auto">
+        <div class="col-1 m-0 p-0">
           <button type="submit" class="btn btn-danger mb-3">
             Search
           </button>
@@ -81,8 +81,8 @@ export const Search = (props) => {
       <div className="row map_box ">
         <Mapbox />
       </div>
-      <div className="row rowInput">
-        <div className="col-12 col-md-3 m-5 p-2 form_empresas_container">
+      <div className="row rowInput cogeTodo">
+        <div className="col-12 col-md-3 form_empresas_container">
           <p>
             <b>Filter by:</b>
           </p>
@@ -103,7 +103,7 @@ export const Search = (props) => {
               Most Popular
             </label>
           </div>
-          <div className="form-check me-4">
+          <div className="form-check me-2">
             <input
               className="form-check-input inputSearch"
               type="radio"
@@ -133,15 +133,15 @@ export const Search = (props) => {
             </label>
           </div>
         </div>
-        <div className="col-10 col-md-7 mb-5 ">
+        <div className="col-10 col-md-9 mb-5 ">
           <div className="row">
             {store.searchCompany.length > 0 ? (
               store.searchCompany.map((element, index) => (
-                <div className=" gx-3 gy-4 col-12 col-md-12 col-lg-4 contenedorCards" key={index}>
+                <div className=" gx-2 gy-4 col-12 col-md-3 contenedorCards" key={index}>
                   <div className="card cardRestaurante" >
                     <img
                       src={element.imagen}
-                      className="card-img-top p-5 cardImage"
+                      className="card-img-top cardImage"
                       alt={element.nombre}
                       onClick={() => {
                         pageNavigate(element.id);
