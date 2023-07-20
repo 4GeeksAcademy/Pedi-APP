@@ -12,6 +12,7 @@
 .order_img {
   width: 100%;
   height: 100%;
+  border-radius: 0.8rem;
 }
 .order_date {
   margin-top: auto;

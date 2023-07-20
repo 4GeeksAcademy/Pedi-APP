@@ -354,7 +354,19 @@ const getState = ({ getStore, getActions, setStore }) => {
             setStore({
               current_user_data: {
                 ...store.current_user_data,
-                direccion: result,
+                direccion: result.address,
+              },
+            });
+            setStore({
+              current_user_data: {
+                ...store.current_user_data,
+                lng: result.coordinates[1],
+              },
+            });
+            setStore({
+              current_user_data: {
+                ...store.current_user_data,
+                lat: result.coordinates[0],
               },
             });
 
@@ -447,6 +459,22 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
           .then((result) => setStore({ searchCompany: result }))
           .catch((error) => console.log(error));
+      },
+      caregory_filtrator: async (category) => {
+        const store = getStore();
+        const response = await fetch(
+          process.env.BACKEND_URL + "/api/filter_category",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(category),
+          }
+        );
+
+        const result = await response.json();
+        setStore({ searchCompany: result });
       },
 
       img_uploadinator: async (img) => {

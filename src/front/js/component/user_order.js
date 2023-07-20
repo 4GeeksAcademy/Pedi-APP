@@ -47,11 +47,7 @@ const User_order = (props) => {
         <div className="row border order_container">
           <div className="col-4">
             <div className="order_imgbox  mx-3 my-5">
-              <img
-                src={company.imagen}
-                alt="..."
-                className="order_img rounded"
-              />
+              <img src={company.imagen} alt="..." className="order_img " />
             </div>
           </div>
           <div className="col-8  py-4">

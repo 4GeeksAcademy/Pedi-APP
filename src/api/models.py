@@ -10,7 +10,7 @@ class Usuario(db.Model):
     role = db.Column(db.String(), unique=False, nullable=False) 
     email = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(30), unique=False, nullable=False)
-    direccion = db.Column(db.String(120), unique=False, nullable=False)
+    direccion = db.Column(db.String(250), unique=False, nullable=False)
 
     empresa = db.relationship("Empresa", backref="usuario", lazy = True)
     cliente = db.relationship("Cliente", backref="usuario", lazy = True)
