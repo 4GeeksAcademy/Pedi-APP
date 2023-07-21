@@ -93,7 +93,7 @@ export const SingupEmpresa = () => {
             //     timer: 1500
             //   })
           toast.success('Sign up successfully', {
-            position: "top-right",
+            position: "bottom-right",
             autoClose: 1000,
             hideProgressBar: false,
             closeOnClick: true,

@@ -21,22 +21,6 @@ export const SingupCliente = () => {
 
 }, []);
 
-const showToast = () => {
-  return new Promise((resolve) => {
-    toast.success('Sign up successfully', {
-      position: "top-right",
-      autoClose: 1000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "colored",
-      onClose: resolve, // Resuelve la promesa cuando se cierra la notificación
-    });
-  });
-};
-
   const handleSignupCliente = async (e) => {
     e.preventDefault();
     // actions.signupCliente(formData.nombre, formData.apellido, formData.telefono, formData.nacimiento, formData.sexo, formData.calleNumero, formData.pisoPuerta, formData.instrucciones, formData.codigoPostal, formData.estado, formData.ciudad, formData.terminosCondiciones)
@@ -66,20 +50,16 @@ const showToast = () => {
         formData.ciudad
       );
       if (register == true){
-        const toastPromise = showToast();
-        setTimeout(() => {
-          navigate('/', { replace: true });
-        }, 1000);
-        await toastPromise;
+
         
-        // setFormComplete(true)
-        // navigate('/', {replace: true})
-        // Swal.fire({
-        //   icon: 'success',
-        //   title: 'Sign up successfully',
-        //   showConfirmButton: false,
-        //   timer: 1500
-        // })
+        setFormComplete(true)
+        navigate('/', {replace: true})
+        Swal.fire({
+          icon: 'success',
+          title: 'Sign up successfully',
+          showConfirmButton: false,
+          timer: 1500
+        })
       }
       else {
           toast.error(register,  {position: "bottom-right",
