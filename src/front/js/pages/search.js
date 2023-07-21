@@ -67,7 +67,7 @@ export const Search = (props) => {
             type="search"
             class="form-control"
             id="searchInput"
-            placeholder="Search"
+            placeholder="Search restaurant"
             onChange={(data) => {
               setSearch({ ...search, nombre: data.target.value });
             }}
@@ -138,10 +138,10 @@ export const Search = (props) => {
 
 
         <div className=" mb-5 ">
-          <div className="row mx-4">
+          <div className="row mx-3">
             {store.searchCompany.length > 0 ? (
               store.searchCompany.map((element, index) => (
-                <div className=" gx-3 gy-4 col-6 col-md-3 contenedorCards" key={index}>
+                <div className=" gx-2 gy-4 col-12 col-sm-6 col-md-3 contenedorCards" key={index}>
                   <div className="card cardRestaurante" >
                     <img
                       src={element.imagen}
