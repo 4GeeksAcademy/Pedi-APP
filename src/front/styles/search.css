@@ -94,80 +94,105 @@
 
 }
 
+@media only screen and (max-width: 460px) {
 
-@media only screen and (max-width: 576px) {
-
-
-  /* .form_empresas_container{
+  .form_empresas_container{
     font-size: 11px;
     height: 2.5rem;
     width: 19rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 7%;
-    margin-bottom: 5%;
+    margin-left: 14%;
+    margin-bottom: 4%;
+}
+.cardImage{
+  height: 9rem;
+ }
+ .cardRestaurante{
+  width: 70%;
+  margin-left: 15%;
+} 
 }
 
-.busquedaEmpresas{
-  justify-content: center;
+@media only screen and (min-width: 460px) {
+
+  .form_empresas_container{
+    font-size: 12px;
+    height: 2.5rem;
+    width: 21rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15%;
+    margin-bottom: 4%;
+}
+.cardImage{
+  height: 9rem;
+ }
+ .cardRestaurante{
   width: 70%;
-  margin-left: 5%;
-  margin-top: 5%;
-} */
-
-
-/* cardImage{
-  height: 6rem;
-  width: 100%;
-  margin-left: none;
-} */
-/* .cardRestaurante{
-  width: 109%;
-  margin-left: -10%;
-}  */
+  margin-left: 15%;
+} 
 
 }
 
 @media only screen and (min-width: 576px) {
 
-/* .form_empresas_container{
-    font-size: 16px;
-    height: 3.6rem;
-    width: 24rem;
+  .form_empresas_container{
+    font-size: 13px;
+    height: 2.5rem;
+    width: 23rem;
     display: flex;
-} */
-/* .cardImage{
-  height: 12rem;
-  width: 100%;
-  margin-left: none;
+    justify-content: center;
+    align-items: center;
+    margin-left: 18%;
+    margin-bottom: 4%;
+}
+.cardImage{
+  height: 9rem;
  }
  .cardRestaurante{
-  width: 55%;
-  margin-left: 22%;
-} */
+  width: 70%;
+  margin-left: 15%;
+} 
 }
 
+
+@media only screen and (min-width: 678px){
+  .form_empresas_container{
+    margin-left: 21%;
+}
+}
+
+@media only screen and (min-width: 690px){
+  .form_empresas_container{
+    margin-left: 22%;
+}
+}
+
+
 @media only screen and (min-width: 768px){
-  /* .form_empresas_container{
-    font-size: 16px;
-    height: 3.6rem;
-    width: 26rem;
+  .form_empresas_container{
+    font-size: 14px;
+    height: 3rem;
+    width: 25rem;
     display: flex;
-} */
-/* .cardImage{
-  height: 12rem;
-  width: 100%;
-  margin-left: none;
+    justify-content: center;
+    align-items: center;
+    margin-left: 26%;
+    margin-bottom: 3%;
+}
+.cardImage{
+  height: 10rem;
  }
  .cardRestaurante{
-  width:100%;
-  margin-left: none;
-  margin-right: none;
-}
-.bodyCard{
+  width: 100%;
+  margin-left: 5%;
+} 
+/* .bodyCard{
   height: 4rem;
-} */
+}  */
 }
 
 @media only screen and (min-width: 991px){
@@ -180,26 +205,28 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 33%;
+    margin-left: 32%;
     margin-bottom: 3%;
 }
 
-/* 
+/*  
 .bodyCard{
   font-size: 13px;
   height: 3rem;
-}
-.cardRestaurante{
-border-radius: 10px;
 } */
+.cardImage{
+  height: 12rem;
+ }
+ .cardRestaurante{
+  width: 100%;
+  margin-left: 2%;
+  padding-left: none;
+} 
 
 /* .contenedorCards{
  width: 40%;
 } */
 
-.cardImage{
-  height: 8.5rem;
-}
 
 .btn-star:hover {
 color: yellow;
