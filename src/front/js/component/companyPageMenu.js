@@ -2,7 +2,8 @@ import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/companyPageMenu.css";
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const CompanyPageMenu = ({ idEmpresa }) => {
   const { store, actions } = useContext(Context);
@@ -21,9 +22,25 @@ export const CompanyPageMenu = ({ idEmpresa }) => {
   ) => {
     e.preventDefault();
     if (store.current_user_data.role == "Empresa") {
-      Swal.fire("Must be a client to buy!");
+      toast.error('Must be a client to buy!',  {position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            });
     } else if (!store.current_user_data.role) {
-      Swal.fire("Must be logged to buy!");
+        toast.error('Must be logged to buy!',  {position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
     } else {
       actions.buyProduct(nombre, precio, descripcion, img, cantidad, id);
       navigate("/orderDetail", { replace: true });
@@ -53,6 +70,7 @@ export const CompanyPageMenu = ({ idEmpresa }) => {
 
   return (
     <div className="container-fluid">
+        <ToastContainer />
         <div className="tab-pane fade show active" id="nav-menu" role="tabpanel" aria-labelledby="nav-home-tab" tabIndex="0">
                 <div className="row row-cols-2 d-flex justify-content-evenly">
                 { products.length > 0 ?
@@ -85,10 +103,6 @@ export const CompanyPageMenu = ({ idEmpresa }) => {
                 }
                 </div>
               </div>
-            );
-          })}
         </div>
-      </div>
-    </div>
   );
 };

@@ -3,7 +3,9 @@ import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import "../../styles/checkout.css";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export default function CheckoutForm() {
   const [succeeded, setSucceeded] = useState(false);
@@ -42,7 +44,15 @@ export default function CheckoutForm() {
         );
         const result = await response.json();
         if (response.status == 401) {
-          Swal.fire(result.msg);
+          toast.error(result.msg,  {position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          });
 
           navigate("/", { replace: true });
         }
@@ -92,6 +102,15 @@ export default function CheckoutForm() {
 
     if (payload.error) {
       setError(`Payment failed ${payload.error.message}`);
+      toast.error(payload.error.message, {position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      });
       setProcessing(false);
     } else {
       setError(null);
@@ -99,8 +118,12 @@ export default function CheckoutForm() {
       setSucceeded(true);
       /* redirigir a pago exitoso -----------------------------------------------------------------------------------------------------------------*/
       /* */
-      
-      Swal.fire("Your product is on the way!")
+      Swal.fire({
+        icon: 'success',
+        title: 'Your product is on the way!',
+        showConfirmButton: false,
+        timer: 1500
+      })
       navigate("/searchEmpresa", { replace: true });
       
     }
@@ -140,6 +163,7 @@ export default function CheckoutForm() {
             </a> Refresh the page to pay again.
           </p>
         </form>
+        <ToastContainer />
     </div>
   );
 }

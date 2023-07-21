@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "../../styles/userOrder.css";
 import logoGrande from '../../img/Dishdash-blanco-grande.png';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 const User_order = (props) => {
@@ -21,8 +24,15 @@ const User_order = (props) => {
         });
         const result = await response.json();
         if (response.status == 401) {
-          Swal.fire(result.msg);
-
+          toast.error(result.msg,  {position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          });
           navigate("/", { replace: true });
         }
         setOrder(result.history);
@@ -41,6 +51,7 @@ const User_order = (props) => {
 
   return (
     <>
+      <ToastContainer />
       {order && (
         <div className="row border order_container">
           <div className="col-12 col-sm-4 order_imgbox">

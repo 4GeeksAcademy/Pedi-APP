@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/signupCliente.css";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import logoGrande from '../../img/Dishdash-blanco-grande.png';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const SingupCliente = () => {
   const { store, actions } = useContext(Context);
@@ -20,11 +21,35 @@ export const SingupCliente = () => {
 
 }, []);
 
+const showToast = () => {
+  return new Promise((resolve) => {
+    toast.success('Sign up successfully', {
+      position: "top-right",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      onClose: resolve, // Resuelve la promesa cuando se cierra la notificación
+    });
+  });
+};
+
   const handleSignupCliente = async (e) => {
     e.preventDefault();
     // actions.signupCliente(formData.nombre, formData.apellido, formData.telefono, formData.nacimiento, formData.sexo, formData.calleNumero, formData.pisoPuerta, formData.instrucciones, formData.codigoPostal, formData.estado, formData.ciudad, formData.terminosCondiciones)
     if (formData.terminosCondiciones === false){
-      return Swal.fire("You have to agree to Terms and Conditions to be able to signup")
+        toast.error('You have to agree to Terms and Conditions to be able to signup',  {position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
     }
     else {
       const register = await actions.signupCliente(
@@ -41,12 +66,31 @@ export const SingupCliente = () => {
         formData.ciudad
       );
       if (register == true){
-        setFormComplete(true)
-        navigate('/')
+        const toastPromise = showToast();
+        setTimeout(() => {
+          navigate('/', { replace: true });
+        }, 1000);
+        await toastPromise;
+        
+        // setFormComplete(true)
+        // navigate('/', {replace: true})
+        // Swal.fire({
+        //   icon: 'success',
+        //   title: 'Sign up successfully',
+        //   showConfirmButton: false,
+        //   timer: 1500
+        // })
       }
       else {
-        if (register == false) {
-          Swal.fire ("Address not found try again")}
+          toast.error(register,  {position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          });
       }
     }
   };
@@ -73,6 +117,7 @@ export const SingupCliente = () => {
   useEffect(() => {
     console.log(formData);
   }, [formData]);
+  
 
   return (
     <>
@@ -309,6 +354,7 @@ export const SingupCliente = () => {
               >
                 Sign up
               </button>
+              <ToastContainer/>
             </form>
           </div>
         </div>

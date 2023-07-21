@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/companyPageNavbar.css"
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 
 export const CompanyPageNavbar = ({ idEmpresa }) => {
     const {store, actions } = useContext(Context)
@@ -62,7 +64,15 @@ export const CompanyPageNavbar = ({ idEmpresa }) => {
             }
           });
           if(response.status == 401){
-            Swal.fire(result.msg)
+            // toast.error(result.msg,  {position: "bottom-right",
+            // autoClose: 5000,
+            // hideProgressBar: false,
+            // closeOnClick: true,
+            // pauseOnHover: true,
+            // draggable: true,
+            // progress: undefined,
+            // theme: "colored",
+            // });
             
             navigate("/", { replace: true });
   
@@ -91,6 +101,7 @@ export const CompanyPageNavbar = ({ idEmpresa }) => {
                                 <span className={`star${rating.puntuacion >= 4 ? ' filled' : ''}`} onClick={() => handleRating(4)}></span>
                                 <span className={`star${rating.puntuacion >= 5 ? ' filled' : ''}`} onClick={() => handleRating(5)}></span>
                             </form>
+                            {/* <ToastContainer /> */}
                         </div>
                 </div>
             </div>

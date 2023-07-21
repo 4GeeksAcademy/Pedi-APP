@@ -1,14 +1,11 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
-import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
-import bk from "../../img/bk.png";
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Categories from "../component/categories";
 import Top_5_carrousel from "../component/top_5_carrousel";
-import logoGrande from '../../img/Dishdash-blanco-grande.png';
 
 
 export const Home = () => {
@@ -28,7 +25,15 @@ export const Home = () => {
     event.preventDefault()
     const search = await actions.search_handlinator(address)
     if (search  == "Address not found try again"){
-      Swal.fire(search)
+      toast.error(search,  {position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      });
     } else {
       navigate("/searchEmpresa", { replace: true }); 
       console.log(search)
@@ -70,6 +75,7 @@ export const Home = () => {
       <div className="row home_third_row">
         <h3 className="home_categories_title">Top rated</h3>
         <Top_5_carrousel/>
+        <ToastContainer />
       </div>
     </div>
   );

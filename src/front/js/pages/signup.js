@@ -2,8 +2,9 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 import "../../styles/signupUsuario.css";
-import Swal from "sweetalert2";
 import logoGrande from '../../img/Dishdash-blanco-grande.png';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const Signup = () => {
     const {store, actions } = useContext(Context)
@@ -19,7 +20,15 @@ export const Signup = () => {
     const handleSignup = (e) => {
         e.preventDefault()
         if (user.role === "") {
-            return  Swal.fire("Select User or Company");
+            toast.error('Select User or Company',  {position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            });
           }
         else{actions.getNewUser(user.email, user.password, user.role);}
         
@@ -35,10 +44,26 @@ export const Signup = () => {
             navigate('/signupEmpresa', { replace: true }); 
         }
         else if (user.password !== user.password2){
-            return Swal.fire("Password does not match")
+            toast.error('Password does not match',  {position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            });
         }
         else {
-            return Swal.fire("Check all the fields")
+            toast.error('Check all the fields',  {position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            });
         }
     } 
 
@@ -90,6 +115,7 @@ export const Signup = () => {
                             </div>
                         </div>
                         <button type="submit" className="btn btn-primary signup_submit">Next</button>
+                        <ToastContainer />
                     </form>
                 </div>
             </div>
