@@ -67,7 +67,7 @@ export const Search = (props) => {
             type="search"
             class="form-control"
             id="searchInput"
-            placeholder="Search"
+            placeholder="Search restaurant"
             onChange={(data) => {
               setSearch({ ...search, nombre: data.target.value });
             }}
