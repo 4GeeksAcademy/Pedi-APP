@@ -85,10 +85,6 @@ export const CompanyPageMenu = ({ idEmpresa }) => {
                 }
                 </div>
               </div>
-            );
-          })}
         </div>
-      </div>
-    </div>
   );
 };
