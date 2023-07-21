@@ -6,6 +6,7 @@ import "../../styles/search.css";
 import { useNavigate } from "react-router-dom";
 import mapboxgl from "!mapbox-gl";
 import Mapbox from "../component/mapbox";
+import Top_5_carrousel from "../component/top_5_carrousel";
 
 export const Search = (props) => {
   const { store, actions } = useContext(Context);
@@ -78,14 +79,11 @@ export const Search = (props) => {
           </button>
         </div>
       </form>
-      <div className="row map_box ">
-        <Mapbox />
-      </div>
-      <div className="row rowInput cogeTodo">
-        <div className="col-12 col-md-3 form_empresas_container">
-          <p>
-            <b>Filter by:</b>
-          </p>
+
+      <div className="form_empresas_container">
+          <div className="me-1">
+            <b>Search by:</b>
+          </div>
           <div className="form-check me-1">
             <input
               className="form-check-input inputSearch"
@@ -103,7 +101,7 @@ export const Search = (props) => {
               Most Popular
             </label>
           </div>
-          <div className="form-check me-2">
+          <div className="form-check me-3">
             <input
               className="form-check-input inputSearch"
               type="radio"
@@ -133,11 +131,17 @@ export const Search = (props) => {
             </label>
           </div>
         </div>
-        <div className="col-10 col-md-9 mb-5 ">
-          <div className="row">
+
+      <div className="row map_box ">
+        <Mapbox />
+      </div>
+
+
+        <div className=" mb-5 ">
+          <div className="row mx-4">
             {store.searchCompany.length > 0 ? (
               store.searchCompany.map((element, index) => (
-                <div className=" gx-2 gy-4 col-12 col-md-3 contenedorCards" key={index}>
+                <div className=" gx-3 gy-4 col-6 col-md-3 contenedorCards" key={index}>
                   <div className="card cardRestaurante" >
                     <img
                       src={element.imagen}
@@ -163,13 +167,13 @@ export const Search = (props) => {
               ))
             ) : (
               <div className="noRegistros">
-                <h3>No existen registros</h3>
-                <p><i class="far fa-tired icono"></i></p>
+                <h3 className="topRated">Top rated</h3>
+                <Top_5_carrousel/>
               </div>
             )}
           </div>
         </div>
-      </div>
+
     </>
   );
 };
