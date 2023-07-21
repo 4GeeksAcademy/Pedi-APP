@@ -77,7 +77,7 @@ export const Mapbox = () => {
 
   return (
     <div className="map ">
-      <div ref={mapContainer} className="map-container" />
+      <div ref={mapContainer} className="map-container d-flex justify-content-center" />
     </div>
   );
 };

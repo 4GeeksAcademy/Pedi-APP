@@ -4,7 +4,14 @@
     background-color: #FFC3C3;
     box-shadow: 0px 5px 10px 0px rgb(59, 61, 61);
     font-size: 17px;
-    height: 180px;
+    margin-top: 2%;
+    height: 3rem;
+    width: 22rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 16.5%;
+    margin-bottom: 5%;
 }
 
 .inputSearch[type="radio"]:checked + label{
@@ -33,11 +40,12 @@
     font-size: 13px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-    height: 50px;
+    height: 3rem;
 }
-.cardRestaurante{
+/* .cardRestaurante{
   border-radius: 10px;
-}
+  width: 96%;
+} */
 
 .btn-star:hover {
   color: yellow;
@@ -49,34 +57,190 @@
 }
 
 .busquedaEmpresas{
-  width: 100%;
   justify-content: center;
-  
+  width: 57%;
+  margin-left: 19.8%;
+  margin-top: 3%;
 }
 
 .cardImage{
- height: 220px;
- width: 100%;
+  height: 8.5rem;
 }
 
-/*--------------------------------- beigining of map*/
+
 .map_box{
   display: flex;
-  justify-content: center;
+  height: 22rem;
+  border-radius: 30%;
+  margin-bottom: 2%;
+}
+
+.noRegistros{
+  margin-top: 7%;
   text-align: center;
-  height: 30rem;
+}
+
+.icono{
+  margin-top: 1rem;
+  font-size: 2.3rem;
+}
+
+/* .home_categories_row1{
+ margin-top: ;
+} */
+
+
+.home_foodbox1{
+
+}
+
+
+@media only screen and (max-width: 576px) {
+
+
+  /* .form_empresas_container{
+    font-size: 11px;
+    height: 2.5rem;
+    width: 19rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 7%;
+    margin-bottom: 5%;
+}
+
+.busquedaEmpresas{
+  justify-content: center;
+  width: 70%;
+  margin-left: 5%;
+  margin-top: 5%;
+} */
+
+
+/* cardImage{
+  height: 6rem;
+  width: 100%;
+  margin-left: none;
+} */
+/* .cardRestaurante{
+  width: 109%;
+  margin-left: -10%;
+}  */
+
+}
+
+@media only screen and (min-width: 576px) {
+
+/* .form_empresas_container{
+    font-size: 16px;
+    height: 3.6rem;
+    width: 24rem;
+    display: flex;
+} */
+/* .cardImage{
+  height: 12rem;
+  width: 100%;
+  margin-left: none;
+ }
+ .cardRestaurante{
+  width: 55%;
+  margin-left: 22%;
+} */
+}
+
+@media only screen and (min-width: 768px){
+  /* .form_empresas_container{
+    font-size: 16px;
+    height: 3.6rem;
+    width: 26rem;
+    display: flex;
+} */
+/* .cardImage{
+  height: 12rem;
+  width: 100%;
+  margin-left: none;
+ }
+ .cardRestaurante{
+  width:100%;
+  margin-left: none;
+  margin-right: none;
+}
+.bodyCard{
+  height: 4rem;
+} */
+}
+
+@media only screen and (min-width: 991px){
   
+
+.form_empresas_container{
+    font-size: 15px;
+    height: 3rem;
+    width: 27rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 33%;
+    margin-bottom: 3%;
+}
+
+/* 
+.bodyCard{
+  font-size: 13px;
+  height: 3rem;
+}
+.cardRestaurante{
+border-radius: 10px;
+} */
+
+/* .contenedorCards{
+ width: 40%;
+} */
+
+.cardImage{
+  height: 8.5rem;
+}
+
+.btn-star:hover {
+color: yellow;
+}
+
+.btn-star{
+font-size: 13px;
+color: white;
+}
+
+.busquedaEmpresas{
+justify-content: center;
+width: 57%;
+margin-left: 19.8%;
+margin-top: 3%;
+}
+
+.map_box{
+display: flex;
+height: 22rem;
+border-radius: 30%;
+margin-bottom: 1%;
+}
+
+
+.noRegistros{
+margin-top: 7%;
+text-align: center;
+}
+
+.icono{
+margin-top: 1rem;
+font-size: 2.3rem;
+}
+
 }
 
 
 
 
-
-/*--------------------------------- end of map*/
-
-
-
-
+/* 
 @media only screen and (max-width: 576px) {
 
   .form_empresas_container{
@@ -158,46 +322,17 @@
 
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
-
+/* 
 @media only screen and (min-width: 576px) {
   .form_empresas_container{
-    border-radius: 5%;
-    background-color: #FFC3C3;
-    box-shadow: 0px 5px 10px 0px rgb(59, 61, 61);
-    font-size: 16px;
     height: 70px;
-    width: 460px;
+    width: 400px;
     display: flex;
     justify-content: center;
     flex-direction: row;
-    flex-grow: 0;
-    flex-shrink: 1;
-    flex-basis: auto;
 }
 
-.inputSearch[type="radio"]:checked + label{
-    border: #C62828;
-    font-weight: bold;
-  }
-
-.inputSearch[type="radio"]:checked{
-    background-color: #C62828;
-    box-shadow: 0 0 5px red;
-    border: #C62828;
-    font-weight: bold;
-  }
-
-.inputSearch[type="radio"]{
-    border: 1px solid #C62828;
-  }
-
-.rowInput{
-    justify-content: center;
-  }
-
 .bodyCard{
-    background-color: #C62828;
-    color: white;
     font-size: 13px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -210,13 +345,8 @@
   margin-left: 95px;
 }
 
-.btn-star:hover {
-  color: yellow;
-}
-
 .btn-star{
   font-size: 13px;
-  color: white;
 }
 
 .busquedaEmpresas{
@@ -234,49 +364,41 @@
   text-align: center;  
 }
 
-  
+.map_box{
+  height: 23rem;
+  margin-left: -3rem;
+  width: 45rem;
+  align-items: center;
+
 }
+
+
+.noRegistros{
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.icono{
+  margin-top: 1rem;
+  font-size: 2.3rem;
+}
+  
+} */
 
 /* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
+/* @media only screen and (min-width: 768px) {
   .form_empresas_container{
-    border-radius: 5%;
-    background-color: #FFC3C3;
-    box-shadow: 0px 5px 10px 0px rgb(59, 61, 61);
-    font-size: 16px;
-    height: 70px;
-    width: 400px;
+    height:150px;
+    width: 200px;
     display: flex;
     justify-content: center;
-    flex-direction: row;
+    flex-direction: column;
     flex-grow: 0;
     flex-shrink: 1;
     flex-basis: auto;
-}
-
-.inputSearch[type="radio"]:checked + label{
-    border: #C62828;
-    font-weight: bold;
-  }
-
-.inputSearch[type="radio"]:checked{
-    background-color: #C62828;
-    box-shadow: 0 0 5px red;
-    border: #C62828;
-    font-weight: bold;
-  }
-
-.inputSearch[type="radio"]{
-    border: 1px solid #C62828;
-  }
-
-.rowInput{
-    justify-content: center;
   }
 
 .bodyCard{
-    background-color: #C62828;
-    color: white;
     font-size: 13px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -289,111 +411,22 @@
   
 }
 
-.btn-star:hover {
-  color: yellow;
-}
-
 .btn-star{
   font-size: 13px;
   color: white;
 }
 
-.busquedaEmpresas{
-  width: 100%;
-  justify-content: center;
-}
 
 .cardImage{
  height: 280px;
  width: 100%;
 }
- 
-.contenedorCards{
-  justify-content: center;
-  text-align: center;  
-}
 
-}
+} */
 
-@media only screen and (max-width: 991px) {
-  .form_empresas_container{
-    border-radius: 5%;
-    background-color: #FFC3C3;
-    box-shadow: 0px 5px 10px 0px rgb(59, 61, 61);
-    font-size: 16px;
-    height: 70px;
-    width: 400px;
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    flex-grow: 0;
-    flex-shrink: 1;
-    flex-basis: auto;
-}
-
-.inputSearch[type="radio"]:checked + label{
-    border: #C62828;
-    font-weight: bold;
-  }
-
-.inputSearch[type="radio"]:checked{
-    background-color: #C62828;
-    box-shadow: 0 0 5px red;
-    border: #C62828;
-    font-weight: bold;
-  }
-
-.inputSearch[type="radio"]{
-    border: 1px solid #C62828;
-  }
-
-.rowInput{
-    justify-content: center;
-  }
-
-.bodyCard{
-    background-color: #C62828;
-    color: white;
-    font-size: 13px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    height: 50px;
-}
-.cardRestaurante{
-  border-radius: 10px;
-  height: 360px;
-  width: 380px;
-  
-}
-
-.btn-star:hover {
-  color: yellow;
-}
-
-.btn-star{
-  font-size: 13px;
-  color: white;
-}
-
-.busquedaEmpresas{
-  width: 100%;
-  justify-content: center;
-}
-
-.cardImage{
- height: 280px;
- width: 100%;
-}
- 
-.contenedorCards{
-  justify-content: center;
-  text-align: center;  
-}
-
-}
 
 /* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {
+/* @media only screen and (min-width: 991px) {
 
   .form_empresas_container{
     border-radius: 5%;
@@ -405,26 +438,7 @@
     flex-direction: column;
 }
 
-.inputSearch[type="radio"]:checked + label{
-    border: #C62828;
-    font-weight: bold;
-  }
-
-.inputSearch[type="radio"]:checked{
-    background-color: #C62828;
-    box-shadow: 0 0 5px red;
-    border: #C62828;
-    font-weight: bold;
-  }
-
-.inputSearch[type="radio"]{
-    border: 1px solid #C62828;
-  }
-
-
 .bodyCard{
-    background-color: #C62828;
-    color: white;
     font-size: 13px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -438,472 +452,8 @@
   margin-left:40px;
 }
 
-.btn-star:hover {
-  color: yellow;
-}
-
-.btn-star{
-  font-size: 13px;
-  color: white;
-}
-
-.busquedaEmpresas{
-  width: 100%;
-  justify-content: center;
-}
-
 .cardImage{
  height: 120px;
  width: 160px;
 }
-}
-
-@media only screen and (min-width: 1098px) {
-  .form_empresas_container{
-    border-radius: 5%;
-    background-color: #FFC3C3;
-    box-shadow: 0px 5px 10px 0px rgb(59, 61, 61);
-    font-size: 17px;
-    height:150px;
-    width: 200px;
-    flex-direction: column;
-}
-
-.inputSearch[type="radio"]:checked + label{
-    border: #C62828;
-    font-weight: bold;
-  }
-
-.inputSearch[type="radio"]:checked{
-    background-color: #C62828;
-    box-shadow: 0 0 5px red;
-    border: #C62828;
-    font-weight: bold;
-  }
-
-.inputSearch[type="radio"]{
-    border: 1px solid #C62828;
-  }
-
-
-.bodyCard{
-    background-color: #C62828;
-    color: white;
-    font-size: 13px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    height: 50px;
-}
-.cardRestaurante{
-  border-radius: 10px;
-  border-radius: 10px;
-  height: 190px;
-  width: 210px;
-  margin-left:40px;
-}
-
-.btn-star:hover {
-  color: yellow;
-}
-
-.btn-star{
-  font-size: 13px;
-  color: white;
-}
-
-.busquedaEmpresas{
-  width: 100%;
-  justify-content: center;
-}
-
-.cardImage{
-  height: 130px;
-  width: 170px;
-}
-}
-
-@media only screen and (min-width: 1184px) {
-  .form_empresas_container{
-    border-radius: 5%;
-    background-color: #FFC3C3;
-    box-shadow: 0px 5px 10px 0px rgb(59, 61, 61);
-    font-size: 17px;
-    height:150px;
-    width: 200px;
-    flex-direction: column;
-}
-
-.inputSearch[type="radio"]:checked + label{
-    border: #C62828;
-    font-weight: bold;
-  }
-
-.inputSearch[type="radio"]:checked{
-    background-color: #C62828;
-    box-shadow: 0 0 5px red;
-    border: #C62828;
-    font-weight: bold;
-  }
-
-.inputSearch[type="radio"]{
-    border: 1px solid #C62828;
-  }
-
-
-.bodyCard{
-    background-color: #C62828;
-    color: white;
-    font-size: 13px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    height: 50px;
-}
-.cardRestaurante{
-  border-radius: 10px;
-  border-radius: 10px;
-  height: 200px;
-  width: 230px;
-  margin-left:40px;
-}
-
-.btn-star:hover {
-  color: yellow;
-}
-
-.btn-star{
-  font-size: 13px;
-  color: white;
-}
-
-.busquedaEmpresas{
-  width: 100%;
-  justify-content: center;
-}
-
-.cardImage{
-  height: 155px;
-  width: 210px;
-}
-}
-
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1358px) {
-  .form_empresas_container{
-    border-radius: 5%;
-    background-color: #FFC3C3;
-    box-shadow: 0px 5px 10px 0px rgb(59, 61, 61);
-    font-size: 17px;
-    height:150px;
-    width: 200px;
-    flex-direction: column;
-}
-
-.inputSearch[type="radio"]:checked + label{
-    border: #C62828;
-    font-weight: bold;
-  }
-
-.inputSearch[type="radio"]:checked{
-    background-color: #C62828;
-    box-shadow: 0 0 5px red;
-    border: #C62828;
-    font-weight: bold;
-  }
-
-.inputSearch[type="radio"]{
-    border: 1px solid #C62828;
-  }
-
-
-.bodyCard{
-    background-color: #C62828;
-    color: white;
-    font-size: 13px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    height: 50px;
-}
-.cardRestaurante{
-  border-radius: 10px;
-  border-radius: 10px;
-  height: 200px;
-  width: 250px;
-  margin-left:40px;
-}
-
-.btn-star:hover {
-  color: yellow;
-}
-
-.btn-star{
-  font-size: 13px;
-  color: white;
-}
-
-.busquedaEmpresas{
-  width: 100%;
-  justify-content: center;
-}
-
-.cardImage{
- height: 150px;
- width: 210px;
-}
-}
-
-
-@media only screen and (min-width: 1404px) {
-  .form_empresas_container{
-    border-radius: 5%;
-    background-color: #FFC3C3;
-    box-shadow: 0px 5px 10px 0px rgb(59, 61, 61);
-    font-size: 17px;
-    height:150px;
-    width: 200px;
-    flex-direction: column;
-}
-
-.inputSearch[type="radio"]:checked + label{
-    border: #C62828;
-    font-weight: bold;
-  }
-
-.inputSearch[type="radio"]:checked{
-    background-color: #C62828;
-    box-shadow: 0 0 5px red;
-    border: #C62828;
-    font-weight: bold;
-  }
-
-.inputSearch[type="radio"]{
-    border: 1px solid #C62828;
-  }
-
-
-.bodyCard{
-    background-color: #C62828;
-    color: white;
-    font-size: 13px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    height: 50px;
-}
-.cardRestaurante{
-  border-radius: 10px;
-  border-radius: 10px;
-  height: 210px;
-  width: 260px;
-  margin-left:40px;
-}
-
-.btn-star:hover {
-  color: yellow;
-}
-
-.btn-star{
-  font-size: 13px;
-  color: white;
-}
-
-.busquedaEmpresas{
-  width: 100%;
-  justify-content: center;
-}
-
-.cardImage{
- height: 160px;
- width: 220px;
-}
-}
-
-@media only screen and (min-width: 1591px) {
-  .form_empresas_container{
-    border-radius: 5%;
-    background-color: #FFC3C3;
-    box-shadow: 0px 5px 10px 0px rgb(59, 61, 61);
-    font-size: 17px;
-    height:150px;
-    width: 200px;
-    flex-direction: column;
-}
-
-.inputSearch[type="radio"]:checked + label{
-    border: #C62828;
-    font-weight: bold;
-  }
-
-.inputSearch[type="radio"]:checked{
-    background-color: #C62828;
-    box-shadow: 0 0 5px red;
-    border: #C62828;
-    font-weight: bold;
-  }
-
-.inputSearch[type="radio"]{
-    border: 1px solid #C62828;
-  }
-
-
-.bodyCard{
-    background-color: #C62828;
-    color: white;
-    font-size: 13px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    height: 50px;
-}
-.cardRestaurante{
-  border-radius: 10px;
-  border-radius: 10px;
-  height: 240px;
-  width: 290px;
-  margin-left:40px;
-}
-
-.btn-star:hover {
-  color: yellow;
-}
-
-.btn-star{
-  font-size: 13px;
-  color: white;
-}
-
-.busquedaEmpresas{
-  width: 100%;
-  justify-content: center;
-}
-
-.cardImage{
- height: 190px;
- width: 250px;
-}
-}
-
-@media only screen and (min-width: 1639px) {
-  .form_empresas_container{
-    border-radius: 5%;
-    background-color: #FFC3C3;
-    box-shadow: 0px 5px 10px 0px rgb(59, 61, 61);
-    font-size: 17px;
-    height:150px;
-    width: 200px;
-    flex-direction: column;
-}
-
-.inputSearch[type="radio"]:checked + label{
-    border: #C62828;
-    font-weight: bold;
-  }
-
-.inputSearch[type="radio"]:checked{
-    background-color: #C62828;
-    box-shadow: 0 0 5px red;
-    border: #C62828;
-    font-weight: bold;
-  }
-
-.inputSearch[type="radio"]{
-    border: 1px solid #C62828;
-  }
-
-
-.bodyCard{
-    background-color: #C62828;
-    color: white;
-    font-size: 13px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    height: 50px;
-}
-.cardRestaurante{
-  border-radius: 10px;
-  border-radius: 10px;
-  height: 260px;
-  width: 310px;
-  margin-left:40px;
-}
-
-.btn-star:hover {
-  color: yellow;
-}
-
-.btn-star{
-  font-size: 13px;
-  color: white;
-}
-
-.busquedaEmpresas{
-  width: 100%;
-  justify-content: center;
-}
-
-.cardImage{
- height: 210px;
- width: 270px;
-}
-}
-
-@media only screen and (min-width: 1743px) {
-  .form_empresas_container{
-    border-radius: 5%;
-    background-color: #FFC3C3;
-    box-shadow: 0px 5px 10px 0px rgb(59, 61, 61);
-    font-size: 17px;
-    height:150px;
-    width: 200px;
-    flex-direction: column;
-}
-
-.inputSearch[type="radio"]:checked + label{
-    border: #C62828;
-    font-weight: bold;
-  }
-
-.inputSearch[type="radio"]:checked{
-    background-color: #C62828;
-    box-shadow: 0 0 5px red;
-    border: #C62828;
-    font-weight: bold;
-  }
-
-.inputSearch[type="radio"]{
-    border: 1px solid #C62828;
-  }
-
-
-.bodyCard{
-    background-color: #C62828;
-    color: white;
-    font-size: 13px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    height: 50px;
-}
-.cardRestaurante{
-  border-radius: 10px;
-  border-radius: 10px;
-  height: 280px;
-  width: 330px;
-  margin-left:40px;
-}
-
-.btn-star:hover {
-  color: yellow;
-}
-
-.btn-star{
-  font-size: 13px;
-  color: white;
-}
-
-.busquedaEmpresas{
-  width: 100%;
-  justify-content: center;
-}
-
-.cardImage{
- height: 230px;
- width: 290px;
-}
-}
+} */
