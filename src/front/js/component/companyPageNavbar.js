@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/companyPageNavbar.css"
-// import { ToastContainer, toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const CompanyPageNavbar = ({ idEmpresa }) => {
     const {store, actions } = useContext(Context)
@@ -44,7 +44,7 @@ export const CompanyPageNavbar = ({ idEmpresa }) => {
           ...newPuntuacion
         }));
       
-        console.log("Puntuación agregada:", newPuntuacion.puntuacion);
+        // console.log("Puntuación agregada:", newPuntuacion.puntuacion);
       
         const newResena = {
           idCliente: store.current_user_data.id,
@@ -64,21 +64,35 @@ export const CompanyPageNavbar = ({ idEmpresa }) => {
             }
           });
           if(response.status == 401){
-            // toast.error(result.msg,  {position: "bottom-right",
-            // autoClose: 5000,
-            // hideProgressBar: false,
-            // closeOnClick: true,
-            // pauseOnHover: true,
-            // draggable: true,
-            // progress: undefined,
-            // theme: "colored",
-            // });
+             toast.error(result.msg,  {
+             position: "bottom-right",
+             autoClose: 5000,
+             hideProgressBar: false,
+             closeOnClick: true,
+             pauseOnHover: true,
+             draggable: true,
+             progress: undefined,
+             theme: "colored",
+             });
             
             navigate("/", { replace: true });
   
           }
           const result = await response.json();
-          console.log(result);
+          if (response.status == 200){
+            console.log(result)
+            toast.success('You have voted successfully, thank you!', {
+              position: "bottom-right",
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+            });
+          }
+
         } catch (error) {
           console.log(error);
         }
@@ -101,7 +115,6 @@ export const CompanyPageNavbar = ({ idEmpresa }) => {
                                 <span className={`star${rating.puntuacion >= 4 ? ' filled' : ''}`} onClick={() => handleRating(4)}></span>
                                 <span className={`star${rating.puntuacion >= 5 ? ' filled' : ''}`} onClick={() => handleRating(5)}></span>
                             </form>
-                            {/* <ToastContainer /> */}
                         </div>
                 </div>
             </div>

@@ -3,7 +3,6 @@ import "../../styles/addProduct.css";
 import { Context } from "../store/appContext";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Swal from "sweetalert2";
 
 export const AddProduct = () => {
     const {actions} = useContext(Context)
@@ -18,12 +17,16 @@ export const AddProduct = () => {
             actions.addProduct(
                 formData.nombre, formData.precio, formData.descripcion, formData.img
             );
-            Swal.fire({
-                icon: 'success',
-                title: 'Product add successfully',
-                showConfirmButton: false,
-                timer: 1500
-              })
+            toast.success('Product add successfully', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+              });
             setForm(true);
             // Limpia el formulario y lo cargado en setFormData
             setFormData({

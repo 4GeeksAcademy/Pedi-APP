@@ -11,7 +11,23 @@ export const CompanyPageMenu = ({ idEmpresa }) => {
 
   const navigate = useNavigate();
 
-  const handleBuyProduct = (
+  const showToastAndNavigate = () => {
+    return new Promise((resolve) => {
+      toast.success('Product added to your cart', {
+        position: "bottom-right",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        onClose: resolve, 
+      });
+    });
+  };
+
+  const handleBuyProduct = async (
     e,
     nombre,
     precio,
@@ -43,7 +59,8 @@ export const CompanyPageMenu = ({ idEmpresa }) => {
         });
     } else {
       actions.buyProduct(nombre, precio, descripcion, img, cantidad, id);
-      navigate("/orderDetail", { replace: true });
+      await showToastAndNavigate();
+      navigate("/orderDetail", { replace: true }); 
     }
   };
 
@@ -70,7 +87,6 @@ export const CompanyPageMenu = ({ idEmpresa }) => {
 
   return (
     <div className="container-fluid">
-        <ToastContainer />
         <div className="tab-pane fade show active" id="nav-menu" role="tabpanel" aria-labelledby="nav-home-tab" tabIndex="0">
                 <div className="row row-cols-2 d-flex justify-content-evenly">
                 { products.length > 0 ?

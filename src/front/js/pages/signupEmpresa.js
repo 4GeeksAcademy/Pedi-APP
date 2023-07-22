@@ -145,7 +145,7 @@ export const SingupEmpresa = () => {
         else{
             const register = await actions.signupEmpresa(formData.nombre, formData.cif, formData.calleNumero, formData.pisoPuerta, formData.codigoPostal, formData.estado, formData.ciudad, formData.delivery, formData.reserva, formData.mañana, formData.tarde, formData.img,categories,formData.banner);
             if (register == true) {
-                await showToastAndNavigate();
+                showToastAndNavigate();
                 navigate('/', { replace: true });
                 
             }
@@ -175,7 +175,15 @@ export const SingupEmpresa = () => {
                         setImg_uploaded(true)
                 } else {
                     img_uploaded == true? setImg_uploaded(false):
-                    toast(img.message)
+                    toast.error(img.message, {position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    });
                 }
             } else if (x==2){
                 if (img.message == "exito"){
@@ -183,7 +191,15 @@ export const SingupEmpresa = () => {
                     setBanner_uploaded(true)
                 } else {
                     img_uploaded == true? setImg_uploaded(false):
-                    toast(img.message)
+                    toast.error(img.message, {position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    });
                 } 
         }
             

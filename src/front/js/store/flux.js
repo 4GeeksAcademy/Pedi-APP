@@ -460,14 +460,14 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((result) => {
             if (response.status == 401) {
               toast.error(result.msg,  {position: "bottom-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-            });
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+              });
               navigate("/", { replace: true });
             }
           })
