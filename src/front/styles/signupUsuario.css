@@ -1,166 +1,152 @@
-.signup_page_container{
-    background: radial-gradient(at right,#C62828, #FFFFFF);
-    background-position: 30%;
-    display: flex;
-    justify-content: center;
+.signup_page_container {
+  background: radial-gradient(at right, #c62828, #ffffff);
+  background-position: 30%;
+  display: flex;
+  justify-content: center;
 }
-.signup_all{
-    border-radius: 2rem;
-    background-color: #FFFFFF;
-    display: flex;
-    justify-content: end;
+.signup_all {
+  border-radius: 2rem;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: end;
 }
-.signup_logo_container{
-    align-items: center;
-    justify-content:center;
-    border-radius: 2rem;
-    background-color: #C62828;
-    opacity: 0.92;
-    height: 100%;
+.signup_logo_container {
+  align-items: center;
+  justify-content: center;
+  border-radius: 2rem;
+  background-color: #c62828;
+  opacity: 0.92;
+  height: 100%;
 }
-.signup_logo{
-    transform: rotate(-90deg);
-    height: 7rem;
-}
-
-.signup_submit:hover{
-    background-color: #d6d6d6;
-    color: #C62828;
-    font-weight: bold;
+.signup_logo {
+  transform: rotate(-90deg);
+  height: 7rem;
 }
 
-.checkbox:checked {  
-    background-color: #C62828;
-    box-shadow: 0 0 5px red;
-    border: #C62828;
-  }
+.signup_submit:hover {
+  background-color: #d6d6d6;
+  color: #c62828;
+  font-weight: bold;
+}
+
+.checkbox:checked {
+  background-color: #c62828;
+  box-shadow: 0 0 5px red;
+  border: #c62828;
+}
 
 @media only screen and (max-width: 600px) {
-    .signup_all{
-        height: 33rem;
-        width: 37rem;
-    }
-    .signup_title{
-        font-size: 2.3rem;
-        text-align: center;
-    }
-    .signup_subtitle{
-        color: #7A7A7A;
-        font-size: 0.7rem;
-        text-align: center;
-    
-    }
-    .signup_label{
-        font-size: 0.8rem;
-        color: #494848;
-    }
-    .signup_form_container{
-        display: flex;
-        flex-direction: column;
-        text-align: start;
-        padding-top: 1rem;
-        padding-left: 2rem;
-        padding-right: 2rem;
-        justify-content: center;
-        
-    }
-    .signup_submit{
-    
-        
-        width: 100%;
-        border: none;
-        font-size: 16px;
-        cursor: pointer;
-        text-align: center;
-        background-color: #C62828;
-        border-radius: 0.5rem;
-        font-weight: bold;
-    }
-    .signup_checkbox_container{
-        display: flex;
-        justify-content: start;
-        height: 2rem;
-        
-    }
+  .signup_all {
+    height: 40rem;
+    width: 37rem;
+  }
+  .signup_title {
+    font-size: 2.3rem;
+    text-align: center;
+  }
+  .signup_subtitle {
+    color: #7a7a7a;
+    font-size: 0.7rem;
+    text-align: center;
+  }
+  .signup_label {
+    font-size: 0.8rem;
+    color: #494848;
+  }
+  .signup_form_container {
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    padding-top: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    justify-content: center;
+  }
+  .signup_submit {
+    width: 100%;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    background-color: #c62828;
+    border-radius: 0.5rem;
+    font-weight: bold;
+  }
+  .signup_checkbox_container {
+    display: flex;
+    justify-content: start;
+    height: 2rem;
+  }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
-    .signup_all{
-        height: 38rem;
-        width: 35rem;
-    }
-    .signup_title{
-        font-size: 2.8rem;
-    }
-    .signup_subtitle{
-        color: #7A7A7A;
-        font-size: 0.8rem;
-    
-    }
-    .signup_label{
-        font-size: 1.2rem;
-        color: #494848;
-    }
-    .signup_form_container{
-        display: flex;
-        flex-direction: column;
-        text-align: start;
-        justify-content: space-around;
-        padding: 3rem;
-    }
-    .signup_checkbox_container{
-        display: flex;
-        justify-content: center;
-        margin-top: 0.5rem;
-    }
-   
-    .signup_submit{
-    
-        display: block;
-        width: 100%;
-        border: none;
-        padding: 14px 28px;
-        font-size: 16px;
-        cursor: pointer;
-        text-align: center;
-        background-color: #C62828;
-        border-radius: 0.5rem;
-        margin-top: 2rem;
-        font-weight: bold;
-    }
+  .signup_all {
+    height: 42rem;
+    width: 35rem;
+  }
+  .signup_title {
+    font-size: 2.8rem;
+  }
+  .signup_subtitle {
+    color: #7a7a7a;
+    font-size: 0.8rem;
+  }
+  .signup_label {
+    font-size: 1.2rem;
+    color: #494848;
+  }
+  .signup_form_container {
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    justify-content: space-around;
+    padding: 3rem;
+  }
+  .signup_checkbox_container {
+    display: flex;
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
+
+  .signup_submit {
+    display: block;
+    width: 100%;
+    border: none;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    background-color: #c62828;
+    border-radius: 0.5rem;
+    margin-top: 2rem;
+    font-weight: bold;
+  }
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-   
-    .signup_all{
-        height: 38rem;
-        width: 42rem;
-    }
-    .signup_title{
-        font-size: 3rem;
-    }
-    .signup_subtitle{
-        color: #7A7A7A;
-        font-size: 1rem;
-    
-    }
-    .signup_label{
-        font-size: 1.4rem;
-        color: #494848;
-    }
-   
-
-   
+  .signup_all {
+    height: 42rem;
+    width: 42rem;
+  }
+  .signup_title {
+    font-size: 3rem;
+  }
+  .signup_subtitle {
+    color: #7a7a7a;
+    font-size: 1rem;
+  }
+  .signup_label {
+    font-size: 1.4rem;
+    color: #494848;
+  }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
-    
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
-    
 }

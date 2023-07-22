@@ -63,10 +63,10 @@ export const CompanyPageNavbar = ({ idEmpresa }) => {
           });
           if(response.status == 401){
             Swal.fire(result.msg)
-            
             navigate("/", { replace: true });
   
           }
+          
           const result = await response.json();
           console.log(result);
         } catch (error) {
