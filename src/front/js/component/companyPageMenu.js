@@ -47,7 +47,7 @@ export const CompanyPageMenu = ({ idEmpresa }) => {
             progress: undefined,
             theme: "colored",
             });
-    } else if (!store.current_user_data.role) {
+    } else if (!store.current_user_data.role || !actions.isloged()) {
         toast.error('Must be logged to buy!',  {position: "bottom-right",
         autoClose: 5000,
         hideProgressBar: false,
