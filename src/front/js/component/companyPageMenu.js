@@ -59,7 +59,7 @@ export const CompanyPageMenu = ({ idEmpresa }) => {
         });
     } else {
       actions.buyProduct(nombre, precio, descripcion, img, cantidad, id);
-      // await showToastAndNavigate();
+      await showToastAndNavigate();
       navigate("/orderDetail", { replace: true }); 
     }
   };

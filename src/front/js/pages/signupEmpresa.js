@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/signupEmpresa.css";
 import logoGrande from '../../img/Dishdash-blanco-grande.png';
-import Swal from "sweetalert2";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -86,21 +85,8 @@ export const SingupEmpresa = () => {
 
       const showToastAndNavigate = () => {
         return new Promise((resolve) => {
-            // Swal.fire({
-            //     icon: 'success',
-            //     title: 'Sign up successfully',
-            //     showConfirmButton: false,
-            //     timer: 1500
-            //   })
-          toast.success('Sign up successfully', {
-            position: "bottom-right",
+          toast.success('Sign up successfully', {         
             autoClose: 1000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
             onClose: resolve, // Resuelve la promesa cuando se cierra la notificación
           });
         });
@@ -110,55 +96,22 @@ export const SingupEmpresa = () => {
     const handleSignupCompanies = async (e) => {
         e.preventDefault()
         if (formData.nombre === "" || formData.cif === "" || formData.calleNumero === "" || formData.pisoPuerta === "" || formData.codigoPostal === "" || formData.ciudad === "" ||formData.estado === "" || !formData.img || categories.length == 0 ||!formData.banner) {
-            toast.error('Check all the fields',  {position: "bottom-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-            });
+            toast.error('Check all the fields');
           }
           else if (formData.terminosCondiciones === false){
-            toast.error("You have to agree to Terms and Conditions to be able to signup", {position: "bottom-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-            });
+            toast.error("You have to agree to Terms and Conditions to be able to signup");
           } else if (formData.mañana  ==false&& formData.tarde ==false ){
-            toast.error('Choose opening times!', {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-                });
+            toast.error('Choose opening times!');
           }
         else{
             const register = await actions.signupEmpresa(formData.nombre, formData.cif, formData.calleNumero, formData.pisoPuerta, formData.codigoPostal, formData.estado, formData.ciudad, formData.delivery, formData.reserva, formData.mañana, formData.tarde, formData.img,categories,formData.banner);
             if (register == true) {
-                showToastAndNavigate();
+                await showToastAndNavigate();
                 navigate('/', { replace: true });
                 
             }
             else {
-                toast.error(register, {position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-                });
+                toast.error(register);
             }
     }};
 
@@ -175,15 +128,7 @@ export const SingupEmpresa = () => {
                         setImg_uploaded(true)
                 } else {
                     img_uploaded == true? setImg_uploaded(false):
-                    toast.error(img.message, {position: "bottom-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                    });
+                    toast.error(img.message);
                 }
             } else if (x==2){
                 if (img.message == "exito"){
@@ -191,15 +136,7 @@ export const SingupEmpresa = () => {
                     setBanner_uploaded(true)
                 } else {
                     img_uploaded == true? setImg_uploaded(false):
-                    toast.error(img.message, {position: "bottom-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                    });
+                    toast.error(img.message);
                 } 
         }
             
@@ -338,8 +275,17 @@ export const SingupEmpresa = () => {
                             </div>
                             
                             <button type="submit" className="btn col-12 mb-2 signupcompany_submit">Sign up</button>
-                            <ToastContainer />
-                        </form>
+                            <ToastContainer
+                                position="bottom-right"
+                                autoClose={5000}
+                                hideProgressBar={false}
+                                closeOnClick
+                                pauseOnHover
+                                draggable
+                                progress={undefined}
+                                theme="colored"
+                            />                        
+                            </form>
                     </div>
                 </div>
             </div>  

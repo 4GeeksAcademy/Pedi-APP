@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
+import { useNavigate } from "react-router-dom";
 import "../../styles/companyPageNavbar.css"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export const CompanyPageNavbar = ({ idEmpresa }) => {
     const {store, actions } = useContext(Context)
+    const navigate = useNavigate();
     const [company, setCompany] = useState()
     const [rating, setRating] = useState({
         puntuacion: 0,

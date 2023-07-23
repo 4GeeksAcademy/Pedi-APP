@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/signupCliente.css";
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
 import logoGrande from '../../img/Dishdash-blanco-grande.png';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -21,19 +20,20 @@ export const SingupCliente = () => {
 
 }, []);
 
+const showToastAndNavigate = () => {
+  return new Promise((resolve) => {
+    toast.success('Sign up successfully', {         
+      autoClose: 1000,
+      onClose: resolve, // Resuelve la promesa cuando se cierra la notificación
+    });
+  });
+};
+
   const handleSignupCliente = async (e) => {
     e.preventDefault();
     // actions.signupCliente(formData.nombre, formData.apellido, formData.telefono, formData.nacimiento, formData.sexo, formData.calleNumero, formData.pisoPuerta, formData.instrucciones, formData.codigoPostal, formData.estado, formData.ciudad, formData.terminosCondiciones)
     if (formData.terminosCondiciones === false){
-        toast.error('You have to agree to Terms and Conditions to be able to signup',  {position: "bottom-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-        });
+        toast.error('You have to agree to Terms and Conditions to be able to signup');
     }
     else {
       const register = await actions.signupCliente(
@@ -50,27 +50,13 @@ export const SingupCliente = () => {
         formData.ciudad
       );
       if (register == true){
-
-        
         setFormComplete(true)
+        await showToastAndNavigate();
         navigate('/', {replace: true})
-        Swal.fire({
-          icon: 'success',
-          title: 'Sign up successfully',
-          showConfirmButton: false,
-          timer: 1500
-        })
+        
       }
       else {
-          toast.error(register,  {position: "bottom-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-          });
+          toast.error(register);
       }
     }
   };
@@ -334,8 +320,17 @@ export const SingupCliente = () => {
               >
                 Sign up
               </button>
-              <ToastContainer/>
-            </form>
+              <ToastContainer
+                position="bottom-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                closeOnClick
+                pauseOnHover
+                draggable
+                progress={undefined}
+                theme="colored"
+                />              
+              </form>
           </div>
         </div>
       </div>

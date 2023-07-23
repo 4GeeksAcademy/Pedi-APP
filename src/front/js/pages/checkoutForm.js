@@ -44,16 +44,7 @@ export default function CheckoutForm() {
         );
         const result = await response.json();
         if (response.status == 401) {
-          toast.error(result.msg,  {position: "bottom-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-          });
-
+          toast.error(result.msg);
           navigate("/", { replace: true });
         }
         setClientSecret(result.clientSecret);
@@ -82,6 +73,15 @@ export default function CheckoutForm() {
     },
   };
 
+  const showToastAndNavigate = () => {
+    return new Promise((resolve) => {
+      toast.success('Your product is on the way!', {
+        autoClose: 2000,
+        onClose: resolve, // Resuelve la promesa cuando se cierra la notificación
+      });
+    });
+  };
+
   const handleChange = async (event) => {
     // Listen for changes in the CardElement
     // and display any errors as the customer types their card details
@@ -102,15 +102,7 @@ export default function CheckoutForm() {
 
     if (payload.error) {
       setError(`Payment failed ${payload.error.message}`);
-      toast.error(payload.error.message, {position: "bottom-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "colored",
-      });
+      toast.error(payload.error.message);
       setProcessing(false);
     } else {
       setError(null);
@@ -118,12 +110,7 @@ export default function CheckoutForm() {
       setSucceeded(true);
       /* redirigir a pago exitoso -----------------------------------------------------------------------------------------------------------------*/
       /* */
-      Swal.fire({
-        icon: 'success',
-        title: 'Your product is on the way!',
-        showConfirmButton: false,
-        timer: 1500
-      })
+      await showToastAndNavigate();
       navigate("/searchEmpresa", { replace: true });
       
     }
@@ -163,7 +150,15 @@ export default function CheckoutForm() {
             </a> Refresh the page to pay again.
           </p>
         </form>
-        <ToastContainer />
+        <ToastContainer 
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover
+        draggable
+        progress={undefined}
+        theme="colored" />   
     </div>
   );
 }
