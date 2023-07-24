@@ -81,6 +81,9 @@ export default function CheckoutForm() {
 
   const handleSubmit = async (ev) => {
     ev.preventDefault();
+    if(!actions.isloged()){
+      navigate("/", { replace: true });
+    }
     setProcessing(true);
 
     const payload = await stripe.confirmCardPayment(clientSecret, {
