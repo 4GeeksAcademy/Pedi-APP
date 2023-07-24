@@ -562,7 +562,7 @@ def stars_poll():
     db.session.add(addReseña)
     db.session.commit()
 
-    return jsonify({"message": "you have valued successfull"}),200
+    return jsonify({"message": "You have valued successfully, thank you!"}),200
 
 @api.route("/empresa/<id>", methods=['GET'])
 def infoEmpresa(id):

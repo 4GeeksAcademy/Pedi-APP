@@ -2,8 +2,10 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 import "../../styles/signupUsuario.css";
-import Swal from "sweetalert2";
-import logoGrande from "../../img/Dishdash-blanco-grande.png";
+import logoGrande from '../../img/Dishdash-blanco-grande.png';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export const Signup = () => {
   const { store, actions } = useContext(Context);
@@ -14,41 +16,56 @@ export const Signup = () => {
     role: "",
   });
   const navigate = useNavigate();
+  
+    const handleSignup = (e) => {
+        e.preventDefault()
+        if (user.role === "") {
+            toast.error('Select User or Company',  {position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            });
+          }
+        else{actions.getNewUser(user.email, user.password, user.role);}
+        
+        goAnotherPage()
 
-  const handleSignup = (e) => {
-    e.preventDefault();
-    if (user.role === "") {
-      return Swal.fire("Select User or Company");
-    } else {
-      actions.getNewUser(user.email, user.password, user.role);
-    }
+    };
 
-    goAnotherPage();
-  };
-
-  const goAnotherPage = () => {
-    if (
-      user.role === "Usuario" &&
-      user.email !== "" &&
-      user.password !== "" &&
-      user.password2 !== "" &&
-      user.password == user.password2
-    ) {
-      navigate("/signupCliente", { replace: true });
-    } else if (
-      user.role === "Empresa" &&
-      user.email !== "" &&
-      user.password !== "" &&
-      user.password2 !== "" &&
-      user.password == user.password2
-    ) {
-      navigate("/signupEmpresa", { replace: true });
-    } else if (user.password !== user.password2) {
-      return Swal.fire("Password does not match");
-    } else {
-      return Swal.fire("Check all the fields");
-    }
-  };
+    const goAnotherPage = () => {
+        if (user.role === "Usuario" && user.email !== "" && user.password !== "" && user.password2 !=="" && user.password == user.password2){
+            navigate('/signupCliente', { replace: true }); 
+        }
+        else if(user.role === "Empresa" && user.email !== "" && user.password !== "" && user.password2 !=="" && user.password == user.password2){
+            navigate('/signupEmpresa', { replace: true }); 
+        }
+        else if (user.password !== user.password2){
+            toast.error('Password does not match',  {position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            });
+        }
+        else {
+            toast.error('Check all the fields',  {position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            });
+        }
+    } 
 
   const handleOnChange = (e) => {
     const selectedRole = e.target.id === "usercheckbox" ? "Usuario" : "Empresa";
@@ -166,6 +183,7 @@ export const Signup = () => {
             <button type="submit" className="btn btn-primary signup_submit">
               Next
             </button>
+            <ToastContainer />
           </form>
         </div>
       </div>

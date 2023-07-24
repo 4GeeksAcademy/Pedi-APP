@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/menu.css";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const Menu = () => {
   const { store, actions } = useContext(Context);
@@ -26,7 +28,15 @@ export const Menu = () => {
         );
         const result = await response.json();
         if (response.status == 401) {
-          Swal.fire(result.msg);
+          toast.error(result.msg,  {position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          });
 
           navigate("/", { replace: true });
         }
@@ -40,6 +50,7 @@ export const Menu = () => {
   return (
     <>
       <h1 className="text-center menu-title-company">Menu</h1>
+      <ToastContainer />
       {products.map((product, index) => {
         return (
           <div className="row col-11 border menu_container" key={index}>

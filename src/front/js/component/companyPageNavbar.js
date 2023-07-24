@@ -1,9 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
+import { useNavigate } from "react-router-dom";
 import "../../styles/companyPageNavbar.css"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const CompanyPageNavbar = ({ idEmpresa }) => {
     const {store, actions } = useContext(Context)
+    const navigate = useNavigate();
     const [company, setCompany] = useState()
     const [rating, setRating] = useState({
         puntuacion: 0,
@@ -42,7 +46,7 @@ export const CompanyPageNavbar = ({ idEmpresa }) => {
           ...newPuntuacion
         }));
       
-        console.log("Puntuación agregada:", newPuntuacion.puntuacion);
+        // console.log("Puntuación agregada:", newPuntuacion.puntuacion);
       
         const newResena = {
           idCliente: store.current_user_data.id,
@@ -53,22 +57,55 @@ export const CompanyPageNavbar = ({ idEmpresa }) => {
       
         try {
           const token = localStorage.getItem('jwt-token');
-          const response = await fetch(process.env.BACKEND_URL + "/api/stars/", {
-            method: "POST",
-            body: JSON.stringify(newResena),
-            headers: {
-              "Content-Type": "application/json",
-              'Authorization': 'Bearer '+token
-            }
-          });
-          if(response.status == 401){
-            Swal.fire(result.msg)
-            navigate("/", { replace: true });
-  
-          }
-          
-          const result = await response.json();
-          console.log(result);
+          if (token == null){
+            toast.error('Must be logged!',  {
+              position: "bottom-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+              })}
+              else{
+                const response = await fetch(process.env.BACKEND_URL + "/api/stars/", {
+                  method: "POST",
+                  body: JSON.stringify(newResena),
+                  headers: {
+                    "Content-Type": "application/json",
+                    'Authorization': 'Bearer '+token
+                  }
+                });
+                const result = await response.json();
+                if(response.status == 401){
+                  toast.error(result.msg,  {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    });
+                }
+                else if (response.status == 200){
+                  console.log(result)
+                  toast.success('You have valued successfully, thank you!', {
+                    position: "bottom-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                  });
+                } else {
+                  console.log(result);
+                }
+              }
         } catch (error) {
           console.log(error);
         }

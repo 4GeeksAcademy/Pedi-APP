@@ -2,7 +2,8 @@ import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/companyPageMenu.css";
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const CompanyPageMenu = ({ idEmpresa }) => {
   const { store, actions } = useContext(Context);
@@ -10,7 +11,23 @@ export const CompanyPageMenu = ({ idEmpresa }) => {
 
   const navigate = useNavigate();
 
-  const handleBuyProduct = (
+  const showToastAndNavigate = () => {
+    return new Promise((resolve) => {
+      toast.success('Product added to your cart', {
+        position: "bottom-right",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        onClose: resolve, 
+      });
+    });
+  };
+
+  const handleBuyProduct = async (
     e,
     nombre,
     precio,
@@ -21,12 +38,31 @@ export const CompanyPageMenu = ({ idEmpresa }) => {
   ) => {
     e.preventDefault();
     if (store.current_user_data.role == "Empresa") {
-      Swal.fire("Must be a client to buy!");
+      toast.error('Must be a client to buy!',  {position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            });
     } else if (!store.current_user_data.role) {
-      Swal.fire("Must be logged to buy!");
+        toast.error('Must be logged to buy!',  {position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
     } else {
-      actions.buyProduct(nombre, precio, descripcion, img, cantidad, id);
-      navigate("/orderDetail", { replace: true });
+      if(actions.isloged()){
+        actions.buyProduct(nombre, precio, descripcion, img, cantidad, id);
+        await showToastAndNavigate();
+        navigate("/orderDetail", { replace: true });
+      }
     }
   };
 

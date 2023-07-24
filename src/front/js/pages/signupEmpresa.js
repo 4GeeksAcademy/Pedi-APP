@@ -2,9 +2,9 @@ import React, {useContext, useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/signupEmpresa.css";
-import Swal from "sweetalert2";
-import { object } from "prop-types";
 import logoGrande from '../../img/Dishdash-blanco-grande.png';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const SingupEmpresa = () => {
     const { store, actions } = useContext(Context);
@@ -83,25 +83,35 @@ export const SingupEmpresa = () => {
         };
       };
 
+      const showToastAndNavigate = () => {
+        return new Promise((resolve) => {
+          toast.success('Sign up successfully', {         
+            autoClose: 1000,
+            onClose: resolve, // Resuelve la promesa cuando se cierra la notificación
+          });
+        });
+      };
     
 
     const handleSignupCompanies = async (e) => {
         e.preventDefault()
         if (formData.nombre === "" || formData.cif === "" || formData.calleNumero === "" || formData.pisoPuerta === "" || formData.codigoPostal === "" || formData.ciudad === "" ||formData.estado === "" || !formData.img || categories.length == 0 ||!formData.banner) {
-            return  Swal.fire("Check all the fields");
+            toast.error('Check all the fields');
           }
           else if (formData.terminosCondiciones === false){
-            return Swal.fire("You have to agree to Terms and Conditions to be able to signup")
+            toast.error("You have to agree to Terms and Conditions to be able to signup");
           } else if (formData.mañana  ==false&& formData.tarde ==false ){
-            Swal.fire("Choose opening times!")
+            toast.error('Choose opening times!');
           }
         else{
             const register = await actions.signupEmpresa(formData.nombre, formData.cif, formData.calleNumero, formData.pisoPuerta, formData.codigoPostal, formData.estado, formData.ciudad, formData.delivery, formData.reserva, formData.mañana, formData.tarde, formData.img,categories,formData.banner);
             if (register == true) {
-                    navigate('/', { replace: true });
+                await showToastAndNavigate();
+                navigate('/', { replace: true });
+                
             }
             else {
-                return Swal.fire (register)
+                toast.error(register);
             }
     }};
 
@@ -118,7 +128,7 @@ export const SingupEmpresa = () => {
                         setImg_uploaded(true)
                 } else {
                     img_uploaded == true? setImg_uploaded(false):
-                    Swal.fire(img.message)
+                    toast.error(img.message);
                 }
             } else if (x==2){
                 if (img.message == "exito"){
@@ -126,7 +136,7 @@ export const SingupEmpresa = () => {
                     setBanner_uploaded(true)
                 } else {
                     img_uploaded == true? setImg_uploaded(false):
-                    Swal.fire(img.message)
+                    toast.error(img.message);
                 } 
         }
             
@@ -265,7 +275,17 @@ export const SingupEmpresa = () => {
                             </div>
                             
                             <button type="submit" className="btn col-12 mb-2 signupcompany_submit">Sign up</button>
-                        </form>
+                            <ToastContainer
+                                position="bottom-right"
+                                autoClose={5000}
+                                hideProgressBar={false}
+                                closeOnClick
+                                pauseOnHover
+                                draggable
+                                progress={undefined}
+                                theme="colored"
+                            />                        
+                            </form>
                     </div>
                 </div>
             </div>  

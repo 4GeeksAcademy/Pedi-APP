@@ -2,7 +2,8 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/login.css";
-import Swal from "sweetalert2";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import logoGrande from '../../img/Dishdash-blanco-grande.png';
 
 const Login = () => {
@@ -23,7 +24,16 @@ const Login = () => {
     if (loged == true) {
       navigate("/searchEmpresa", { replace: true });
     } else {
-      Swal.fire(loged)
+      toast.error(loged, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
     }
   };
 
@@ -79,6 +89,7 @@ const Login = () => {
               <button type="submit" className="btn btn-primary login_submit ">
                 Login
               </button>
+              <ToastContainer />
             </form>
           </div>
         </div>

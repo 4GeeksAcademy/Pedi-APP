@@ -1,13 +1,12 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
 import "../../styles/addProduct.css";
 import { Context } from "../store/appContext";
-import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const AddProduct = () => {
     const {actions} = useContext(Context)
     const [form, setForm] = useState(false);
-    const navigate = useNavigate()
     const [img_uploaded, setImg_uploaded] = useState(false)
 
     const fileInputRef = useRef(null);
@@ -18,6 +17,16 @@ export const AddProduct = () => {
             actions.addProduct(
                 formData.nombre, formData.precio, formData.descripcion, formData.img
             );
+            toast.success('Product add successfully', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+              });
             setForm(true);
             // Limpia el formulario y lo cargado en setFormData
             setFormData({
@@ -31,7 +40,16 @@ export const AddProduct = () => {
                 fileInputRef.current.value = "";
               }
         } else{
-            Swal.fire("Please, fill in all require data")
+            toast.error('Please, fill in all require data', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                });
         }
     }
 
@@ -53,14 +71,32 @@ export const AddProduct = () => {
                 const img = await actions.img_uploadinator(data)
                 
                 if (img.message == "Max image size is 10MB"){ 
-                    Swal.fire(img.message)
+                    toast.error(img.message, {
+                        position: "bottom-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                        });
                     img_uploaded == true? setImg_uploaded(false):""
                 } else if (img.message == "exito"){
                     setImg_uploaded(true)
                     setFormData({...formData, img: img.img})
                 } else {
                     img_uploaded == true? setImg_uploaded(false):
-                    Swal.fire(img.message)
+                    toast.error(img.message, {
+                        position: "bottom-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                        });
                 }
             }
           };
@@ -85,6 +121,7 @@ export const AddProduct = () => {
                     <input className="form-control" type="file" id="formFile" ref={fileInputRef} onChange={(e) => {uploadFile(e)}}/>
                 </div>
                 <button type="submit" className="btn add-product-btn">Submit</button>
+                <ToastContainer />
             </form>
         </div>
     )
