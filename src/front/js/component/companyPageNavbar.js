@@ -65,6 +65,7 @@ export const CompanyPageNavbar = ({ idEmpresa }) => {
               'Authorization': 'Bearer '+token
             }
           });
+          const result = await response.json();
           if(response.status == 401){
              toast.error(result.msg,  {
              position: "bottom-right",
@@ -80,10 +81,9 @@ export const CompanyPageNavbar = ({ idEmpresa }) => {
             navigate("/", { replace: true });
   
           }
-          const result = await response.json();
-          if (response.status == 200){
+          else if (response.status == 200){
             console.log(result)
-            toast.success('You have voted successfully, thank you!', {
+            toast.success('You have valued successfully, thank you!', {
               position: "bottom-right",
               autoClose: 2000,
               hideProgressBar: false,
@@ -93,6 +93,9 @@ export const CompanyPageNavbar = ({ idEmpresa }) => {
               progress: undefined,
               theme: "colored",
             });
+          } else {
+            // Otros códigos de estado de respuesta (puedes manejarlos según tus necesidades)
+            console.log(result);
           }
 
         } catch (error) {
