@@ -586,6 +586,10 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
         /*this in checkoutform */
       },
+      top_5_searchinator:() => {
+        const store = getStore()
+        setStore({searchCompany: store.top_5})
+      }
     },
   };
 };

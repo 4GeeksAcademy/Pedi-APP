@@ -103,7 +103,6 @@ export const CompanyPageNavbar = ({ idEmpresa }) => {
                     theme: "colored",
                   });
                 } else {
-                  // Otros códigos de estado de respuesta (puedes manejarlos según tus necesidades)
                   console.log(result);
                 }
               }
