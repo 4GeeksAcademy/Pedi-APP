@@ -57,47 +57,56 @@ export const CompanyPageNavbar = ({ idEmpresa }) => {
       
         try {
           const token = localStorage.getItem('jwt-token');
-          const response = await fetch(process.env.BACKEND_URL + "/api/stars/", {
-            method: "POST",
-            body: JSON.stringify(newResena),
-            headers: {
-              "Content-Type": "application/json",
-              'Authorization': 'Bearer '+token
-            }
-          });
-          const result = await response.json();
-          if(response.status == 401){
-             toast.error(result.msg,  {
-             position: "bottom-right",
-             autoClose: 5000,
-             hideProgressBar: false,
-             closeOnClick: true,
-             pauseOnHover: true,
-             draggable: true,
-             progress: undefined,
-             theme: "colored",
-             });
-            
-            navigate("/", { replace: true });
-  
-          }
-          else if (response.status == 200){
-            console.log(result)
-            toast.success('You have valued successfully, thank you!', {
+          if (token == null){
+            toast.error('Must be logged!',  {
               position: "bottom-right",
-              autoClose: 2000,
+              autoClose: 5000,
               hideProgressBar: false,
               closeOnClick: true,
               pauseOnHover: true,
               draggable: true,
               progress: undefined,
               theme: "colored",
-            });
-          } else {
-            // Otros códigos de estado de respuesta (puedes manejarlos según tus necesidades)
-            console.log(result);
-          }
-
+              })}
+              else{
+                const response = await fetch(process.env.BACKEND_URL + "/api/stars/", {
+                  method: "POST",
+                  body: JSON.stringify(newResena),
+                  headers: {
+                    "Content-Type": "application/json",
+                    'Authorization': 'Bearer '+token
+                  }
+                });
+                const result = await response.json();
+                if(response.status == 401){
+                  toast.error(result.msg,  {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    });
+                }
+                else if (response.status == 200){
+                  console.log(result)
+                  toast.success('You have valued successfully, thank you!', {
+                    position: "bottom-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                  });
+                } else {
+                  // Otros códigos de estado de respuesta (puedes manejarlos según tus necesidades)
+                  console.log(result);
+                }
+              }
         } catch (error) {
           console.log(error);
         }

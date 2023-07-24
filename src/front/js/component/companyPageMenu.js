@@ -47,7 +47,7 @@ export const CompanyPageMenu = ({ idEmpresa }) => {
             progress: undefined,
             theme: "colored",
             });
-    } else if (!store.current_user_data.role || !actions.isloged()) {
+    } else if (!store.current_user_data.role) {
         toast.error('Must be logged to buy!',  {position: "bottom-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -58,9 +58,11 @@ export const CompanyPageMenu = ({ idEmpresa }) => {
         theme: "colored",
         });
     } else {
-      actions.buyProduct(nombre, precio, descripcion, img, cantidad, id);
-      await showToastAndNavigate();
-      navigate("/orderDetail", { replace: true }); 
+      if(actions.isloged()){
+        actions.buyProduct(nombre, precio, descripcion, img, cantidad, id);
+        await showToastAndNavigate();
+        navigate("/orderDetail", { replace: true });
+      }
     }
   };
 
