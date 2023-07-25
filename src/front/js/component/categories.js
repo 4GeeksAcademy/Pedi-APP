@@ -24,7 +24,7 @@ const Categories = () => {
 
     navigate("/searchEmpresa", { replace: true });
   };
-
+  console.log(12)
   return (
     <>
       <div className=" home_categories_row row text-center flex-row flex-nowrap">
