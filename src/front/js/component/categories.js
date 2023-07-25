@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
-import "../../styles/home.css"
+import "../../styles/home.css";
 
 import japanese from "../../img/japanese.png";
 import bar from "../../img/bar.png";
@@ -17,23 +17,22 @@ import asian from "../../img/asian.png";
 import mediterranean from "../../img/mediterranean.png";
 import { useNavigate } from "react-router-dom";
 
-
 const Categories = () => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
-  
+
   const category_searchinator = async (category) => {
     const result = await actions.caregory_filtrator(category);
     navigate("/searchEmpresa", { replace: true });
   };
-  
+
   return (
     <>
-      <div className=" home_categories_row row text-center flex-row flex-nowrap">
+      <div className=" home_categories_row row text-center flex-row px-0 mx-0 ">
         {store.categories
           ? store.categories.map((x, index) => {
               return (
-                <div className="home_foodbox row mx-3 my-5 p-0 ms-3" key={x}>
+                <div className="home_foodbox mx-0 my-3 px-0 ms-3 col-1" key={x}>
                   <div className="me-0 pe-0 ">
                     <img
                       src={`/${x}.png`}
@@ -45,7 +44,7 @@ const Categories = () => {
                     />
                   </div>
                   <div className="me-1 ms-0 p-0">
-                    <p>{x}</p>
+                    <p className="nombreCategoria">{x}</p>
                   </div>
                 </div>
               );
@@ -56,6 +55,4 @@ const Categories = () => {
   );
 };
 
-
-
-export default Categories
+export default Categories;
