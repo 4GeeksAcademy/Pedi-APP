@@ -62,14 +62,14 @@ export const Menu = () => {
             <div className="col-6 col-sm-8 py-4">
               <div className="row">
                 <div className="col-9 menu_title_box">
-                  <h2 className="menu_title">{product.nombre}</h2>
+                  <h4 className="menu_title">{product.nombre}</h4>
                 </div>
                 {/* <div className="col-3 menu_icono">
                                     <i className="fa-regular fa-pen-to-square fa-xl"></i>
                                 </div> */}
               </div>
               <div className="menu_price_box">
-                <h4 className="menu_price_text">{product.precio}$</h4>
+                <h6 className="menu_price_text">{product.precio}$</h6>
               </div>
               <div className="menu_description">
                 <p>{product.descripcion}</p>
