@@ -15,6 +15,7 @@ import mexican from "../../img/mexican.png";
 import vegan from "../../img/vegan.png";
 import asian from "../../img/asian.png";
 import mediterranean from "../../img/mediterranean.png";
+import { useNavigate } from "react-router-dom";
 
 
 const Categories = () => {

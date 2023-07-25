@@ -27,7 +27,6 @@ export const CompanyPageNavbar = ({ idEmpresa }) => {
 
                 })
                 const result = await response.json()
-                console.log(result)
                 setCompany(result)
             }catch(error){
                 console.log("error")
