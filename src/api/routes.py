@@ -26,6 +26,9 @@ import cloudinary
 import cloudinary.uploader
 from datetime import datetime
 import stripe
+from argon2 import PasswordHasher
+
+ph = PasswordHasher()
 stripe.api_key = "sk_test_51NShHZGaOqlS5geCWJ4pA2RkcPB3jcXCFTp15A8ARNaJciSz6ezxsS12MGRrSsfVe1xtTrhlA5W4nyPKqE5w6DBu00vfdqAxLm"
 
 
@@ -91,11 +94,17 @@ def loginator():
     if not email or not password:
         return jsonify({"message": "Missing mail or password"}), 400
     else:
-        user = Usuario.query.filter_by(email=email, password=password).first()
+        hash = ph.hash(password)
+        user = Usuario.query.filter_by(email=email).first()
         
         if not user:
             return jsonify({"message": "Wrong username or password"}), 400
         else:
+            try:
+                if(not ph.verify(user.password,password)):
+                    return jsonify({"message": "Wrong username or password"}), 400
+            except: 
+                return jsonify({"message": "Wrong username or password"}), 400
             role = user.role
             
             if role == "Cliente":
@@ -156,9 +165,11 @@ def signupCliente():
     if (realaddress == None) :
         return jsonify({"message": "Address not found try again"}),400
     
+    hash = ph.hash(password)
+    print(hash)
+
     
-    
-    addUsuario = Usuario(role=role, email=email, password=password, direccion=realaddress.address)
+    addUsuario = Usuario(role=role, email=email, password=hash, direccion=realaddress.address)
     db.session.add(addUsuario)
     db.session.commit()
 
@@ -211,9 +222,10 @@ def signupEmpresa():
     if (realaddress == None):
         return jsonify({"message": "Address not found try again"}),400
 
+    hash = ph.hash(password)
+    print(hash)
     
-    
-    addUsuario = Usuario(role = role, email = email, password = password,  direccion = realaddress.address)
+    addUsuario = Usuario(role = role, email = email, password = hash,  direccion = realaddress.address)
     db.session.add(addUsuario)
     db.session.commit()
 
@@ -551,7 +563,7 @@ def stars_poll():
     db.session.add(addReseña)
     db.session.commit()
 
-    return jsonify({"message": "you have valued successfull"}),200
+    return jsonify({"message": "You have valued successfully, thank you!"}),200
 
 @api.route("/empresa/<id>", methods=['GET'])
 def infoEmpresa(id):

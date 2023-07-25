@@ -2,9 +2,9 @@ import React, {useContext, useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/signupEmpresa.css";
-import Swal from "sweetalert2";
-import { object } from "prop-types";
 import logoGrande from '../../img/Dishdash-blanco-grande.png';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const SingupEmpresa = () => {
     const { store, actions } = useContext(Context);
@@ -83,25 +83,35 @@ export const SingupEmpresa = () => {
         };
       };
 
+      const showToastAndNavigate = () => {
+        return new Promise((resolve) => {
+          toast.success('Sign up successfully', {         
+            autoClose: 1000,
+            onClose: resolve, // Resuelve la promesa cuando se cierra la notificación
+          });
+        });
+      };
     
 
     const handleSignupCompanies = async (e) => {
         e.preventDefault()
         if (formData.nombre === "" || formData.cif === "" || formData.calleNumero === "" || formData.pisoPuerta === "" || formData.codigoPostal === "" || formData.ciudad === "" ||formData.estado === "" || !formData.img || categories.length == 0 ||!formData.banner) {
-            return  Swal.fire("Check all the fields");
+            toast.error('Check all the fields');
           }
           else if (formData.terminosCondiciones === false){
-            return Swal.fire("You have to agree to Terms and Conditions to be able to signup")
+            toast.error("You have to agree to Terms and Conditions to be able to signup");
           } else if (formData.mañana  ==false&& formData.tarde ==false ){
-            Swal.fire("Choose opening times!")
+            toast.error('Choose opening times!');
           }
         else{
             const register = await actions.signupEmpresa(formData.nombre, formData.cif, formData.calleNumero, formData.pisoPuerta, formData.codigoPostal, formData.estado, formData.ciudad, formData.delivery, formData.reserva, formData.mañana, formData.tarde, formData.img,categories,formData.banner);
             if (register == true) {
-                    navigate('/', { replace: true });
+                await showToastAndNavigate();
+                navigate('/', { replace: true });
+                
             }
             else {
-                return Swal.fire (register)
+                toast.error(register);
             }
     }};
 
@@ -118,7 +128,7 @@ export const SingupEmpresa = () => {
                         setImg_uploaded(true)
                 } else {
                     img_uploaded == true? setImg_uploaded(false):
-                    Swal.fire(img.message)
+                    toast.error(img.message);
                 }
             } else if (x==2){
                 if (img.message == "exito"){
@@ -126,15 +136,12 @@ export const SingupEmpresa = () => {
                     setBanner_uploaded(true)
                 } else {
                     img_uploaded == true? setImg_uploaded(false):
-                    Swal.fire(img.message)
+                    toast.error(img.message);
                 } 
         }
             
         }
       };
-    
-    const [foodTypes, setFoodTypes] = useState([]);
-    const [formularioClass, setFormularioClass] = useState("");
 
     const category_addinator = (category) => {
         if (categories.includes(category)) {
@@ -142,37 +149,13 @@ export const SingupEmpresa = () => {
         } else {
           setCategories([...categories, category]);
         }
-      
-        // Actualizar el estado de foodTypes
-        if (foodTypes.includes(category)) {
-          setFoodTypes((current) => current.filter((x) => x !== category));
-        } else {
-          setFoodTypes([...foodTypes, category]);
-        }
       };
-      
-      const aumentarFormulario = () => {
-        if (img_uploaded && banner_uploaded && foodTypes.length > 1) {
-          return "signupcompany_foodAdded1";
-        } else if (img_uploaded && banner_uploaded && foodTypes.length > 0) {
-            return "signupcompany_foodAdded"
-        }else if (img_uploaded && banner_uploaded || img_uploaded && foodTypes.length > 0 || banner_uploaded && foodTypes.length > 0) {
-          return "signupcompany_twoImage";
-        } else if (img_uploaded || banner_uploaded || foodTypes.length > 0) {
-          return "signupcompany_oneImage";
-        } else {
-          return "signupcompany_all";
-        }
-      };
-      
-      useEffect(() => {
-        setFormularioClass(aumentarFormulario());
-      }, [img_uploaded, banner_uploaded, foodTypes]);
+
 
     return(
         <>
             <div className="container-fluid text-center signupcompany_page_container p-5" onSubmit={(e) => handleSignupCompanies(e)}>
-                <div className={`row ${aumentarFormulario()}`}>
+                <div className="row signupcompany_all">
                     <div className="col-sm-4 d-none d-sm-flex signupcompany_logo_container">
                         <img className="signupCompany_logo"src={logoGrande} alt="Logo de la empresa" />
                     </div>
@@ -292,7 +275,17 @@ export const SingupEmpresa = () => {
                             </div>
                             
                             <button type="submit" className="btn col-12 mb-2 signupcompany_submit">Sign up</button>
-                        </form>
+                            <ToastContainer
+                                position="bottom-right"
+                                autoClose={5000}
+                                hideProgressBar={false}
+                                closeOnClick
+                                pauseOnHover
+                                draggable
+                                progress={undefined}
+                                theme="colored"
+                            />                        
+                            </form>
                     </div>
                 </div>
             </div>  

@@ -25,7 +25,6 @@ export const InfoCompany = () =>{
     return(
         <div className="container_info_company">
                 <h1 className="title_acount_company">Acount info</h1>
-                <h3 className="subtitle_acount_company ms-3 my-3">Basic info</h3>
                 <div className="category_container_company">
                     <div className="info_title_company">
                      <h5 className="ms-3">Name</h5>

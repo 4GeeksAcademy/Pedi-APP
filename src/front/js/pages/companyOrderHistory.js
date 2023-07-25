@@ -24,7 +24,7 @@ const CompanyOrderHistory = () => {
             <div className="container-fluid container-company-profile">
                 <div className="row ">
                     <InfoCompanyBox />   
-                    <div className="col-12 col-md-7 acount_basic_info ">
+                    <div className="col-12 col-md-7">
                         <Company_history/>
                     </div>
                 </div>

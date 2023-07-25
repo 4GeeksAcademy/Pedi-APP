@@ -1,11 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Context } from "../store/appContext";
+import React, { useEffect, useState } from "react";
 import "../../styles/userOrder.css";
-import bk from "../../img/bk.png";
+import logoGrande from '../../img/Dishdash-blanco-grande.png';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Company_order = (props) => {
-  const { store, actions } = useContext(Context);
   const { date, bill_id, user, company_img, time } = props;
   const [order, setOrder] = useState([]);
   useEffect(() => {
@@ -23,8 +22,15 @@ const Company_order = (props) => {
         });
         const result = await response.json();
         if (response.status == 401) {
-          Swal.fire(result.msg);
-
+          toast.error(result.msg, {position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          });
           navigate("/", { replace: true });
         }
         setOrder(result.history);
@@ -43,14 +49,13 @@ const Company_order = (props) => {
 
   return (
     <>
+      <ToastContainer />
       {order && (
         <div className="row border order_container">
-          <div className="col-4">
-            <div className="order_imgbox  mx-3 my-5">
-              <img src={company_img} alt="..." className="order_img rounded" />
-            </div>
+          <div className="col-12 col-sm-4 order_imgbox">
+              <img src={company_img} alt="imagen empresa" className="order_company_img_box rounded" />
           </div>
-          <div className="col-8  py-4">
+          <div className="col-12 col-sm-8 py-4">
             <div className="row text-center">
               <div className="col-6 order_title_box ">
                 <h3 className="order_title">{user}</h3>
@@ -72,7 +77,7 @@ const Company_order = (props) => {
                   View recipt
                 </a>
                 <div
-                  className="modal fade"
+                  className="modal fade modal-container-receipt"
                   id={`reciptmodal${bill_id}`}
                   tabIndex="-1"
                   aria-labelledby="exampleModalLabel"
@@ -80,26 +85,23 @@ const Company_order = (props) => {
                 >
                   <div className="modal-dialog">
                     <div className="modal-content">
-                      <div className="modal-header">
-                        <button
-                          type="button"
-                          className="btn-close "
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                        ></button>
-                        <div className="row align-self-start">
-                          <div className="col">
-                            <p className="text-light ms-2 mt-2">
-                              Thanks for ordering with
-                            </p>
+                      <div className="modal-header position-relative">
+                        <div className="row">
+                          <div className="col-9 position-absolute start-0">
+                              <p className="text-light">
+                                Thanks for ordering with
+                              </p>
                           </div>
+                          <button
+                            type="button"
+                            className="btn-close position-absolute col-2 end-0 me-1"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                          ></button>
                         </div>
                         <div className="row  w-100 modal_row_header">
                           <div className="col-8  p-0 ">
-                            <h1 className="text-light text-center  ">
-                              {" "}
-                              DishDash
-                            </h1>
+                            <img id="logotipo-page" src={logoGrande} alt="Logo de la empresa" />
                           </div>
                           <div className="col-4 modal_price_col p-0 h-100">
                             <p className=" text-light  text-end">
@@ -184,7 +186,7 @@ const Company_order = (props) => {
                       key={index}
                     >
                       <div className="ms-2 me-auto ">
-                        <div className="fw-bold">{x.product.nombre}</div>
+                        <div className="fw-bold order_name_product">{x.product.nombre}</div>
                         <small className="order_description">
                           {x.product.descripcion}
                         </small>

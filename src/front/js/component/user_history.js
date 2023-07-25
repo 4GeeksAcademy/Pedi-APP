@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/userHistory.css";
 import User_order from "./user_order";
-import Swal from "sweetalert2";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const User_history = () => {
   const { store, actions } = useContext(Context);
@@ -27,7 +27,15 @@ const User_history = () => {
 
         const result = await response.json();
         if (response.status == 401) {
-          Swal.fire(result.msg);
+          toast.error(result.msg,  {position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            });
           navigate("/", { replace: true });
         }
 
@@ -41,6 +49,7 @@ const User_history = () => {
   return (
     <>
       <h1 className="title_history_user">Your orders</h1>
+      <ToastContainer />
       {bills &&
         bills.map((x, index) => {
           return (

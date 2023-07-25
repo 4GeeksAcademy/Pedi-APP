@@ -15,35 +15,6 @@
     justify-content: end;
     width: 42rem;    
 }
-.signupcompany_oneImage{
-    border-radius: 2rem;
-    background-color: #FFFFFF;
-    display: flex;
-    justify-content: end;
-    width: 42rem;
-}
-.signupcompany_twoImage{
-    border-radius: 2rem;
-    background-color: #FFFFFF;
-    display: flex;
-    justify-content: end;
-    width: 42rem;
-}
-
-.signupcompany_foodAdded{
-    border-radius: 2rem;
-    background-color: #FFFFFF;
-    display: flex;
-    justify-content: end;
-    width: 42rem;
-}
-.signupcompany_foodAdded1{
-    border-radius: 2rem;
-    background-color: #FFFFFF;
-    display: flex;
-    justify-content: end;   
-    width: 42rem;
-}
 
 .signupcompany_logo_container{
     align-items: center;
@@ -56,11 +27,6 @@
 .signupCompany_logo{
     transform: rotate(-90deg);
     height: 10rem;
-}
-
-.signupcompany_submit:hover{
-    background-color: #7A7676;
-    color: black;
 }
 
 .inputBox[type="checkbox"]:checked {
@@ -100,22 +66,6 @@
 
 @media only screen and (max-width: 600px) {
 
-    .signupcompany_all{
-        height: 77rem;
-    }
-    .signupcompany_oneImage{
-        height: 87rem;
-    }
-    .signupcompany_twoImage{
-        height: 93rem;
-    }
-    .signupcompany_foodAdded{
-        height: 96rem;
-    }
-    .signupcompany_foodAdded1{
-        height: 100rem;
-    }
-
     .signupcompany_title{
         font-size: 2.7rem;
     }
@@ -145,6 +95,8 @@
         cursor: pointer;
         text-align: center;
         background-color: #C62828;
+        color:white;
+        font-weight: bold;
         border-radius: 0.5rem;
     }
     .signupCliente_submit:hover{
@@ -157,22 +109,6 @@
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
-
-    .signupcompany_all{
-        height: 77rem;
-    }
-    .signupcompany_oneImage{
-        height: 86rem;        
-    }
-    .signupcompany_twoImage{
-        height: 97rem;
-    }
-    .signupcompany_foodAdded{
-        height: 100rem;
-    }
-    .signupcompany_foodAdded1{
-        height: 103rem;
-    }
 
     .signupcompany_title{
         font-size: 2.8rem;
@@ -202,6 +138,8 @@
         cursor: pointer;
         text-align: center;
         background-color: #C62828;
+        color:white;
+        font-weight: bold;
         border-radius: 0.5rem;
         margin-top: 3rem;
 
@@ -217,22 +155,6 @@
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
     /*  Start of Login */
-    
-    .signupcompany_all{
-        height: 73rem;
-    }
-    .signupcompany_oneImage{
-        height: 80rem;
-    }
-    .signupcompany_twoImage{
-        height: 90rem;
-    }
-    .signupcompany_foodAdded{
-        height: 93rem;
-    }
-    .signupcompany_foodAdded1{
-        height: 96rem;
-    }
 
     .signupcompany_title{
         font-size: 2.8rem;

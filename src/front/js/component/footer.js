@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "../../styles/footer.css";
-import Swal from "sweetalert2";
 import logo from '../../img/DC.png';
 
 export const Footer = () => (

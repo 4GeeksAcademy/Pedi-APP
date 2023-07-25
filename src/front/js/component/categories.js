@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
-import "../../styles/home.css";
+import "../../styles/home.css"
 
 import japanese from "../../img/japanese.png";
 import bar from "../../img/bar.png";
@@ -14,17 +14,18 @@ import pizza from "../../img/pizza.png";
 import mexican from "../../img/mexican.png";
 import vegan from "../../img/vegan.png";
 import asian from "../../img/asian.png";
-import { useNavigate } from "react-router-dom";
+import mediterranean from "../../img/mediterranean.png";
+
 
 const Categories = () => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
+  
   const category_searchinator = async (category) => {
     const result = await actions.caregory_filtrator(category);
-
     navigate("/searchEmpresa", { replace: true });
   };
-  console.log(12)
+  
   return (
     <>
       <div className=" home_categories_row row text-center flex-row flex-nowrap">
@@ -54,4 +55,6 @@ const Categories = () => {
   );
 };
 
-export default Categories;
+
+
+export default Categories

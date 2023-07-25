@@ -1,4 +1,5 @@
-import Swal from "sweetalert2";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const getState = ({ getStore, getActions, setStore }) => {
   return {
@@ -55,12 +56,11 @@ const getState = ({ getStore, getActions, setStore }) => {
             }
           );
           const result = await response.json();
-          Swal.fire(result.message);
           if (response.status == 200) {
             console.log(response);
             return true;
           }
-          return false;
+          return result.message;
         } catch (error) {
           console.log(error);
         }
@@ -136,7 +136,6 @@ const getState = ({ getStore, getActions, setStore }) => {
             }
           );
           const result = await response.json();
-          Swal.fire(result.message);
           if (response.status == 200) {
             return true;
           }
@@ -318,7 +317,15 @@ const getState = ({ getStore, getActions, setStore }) => {
           const currentTime = Date.now();
 
           if (currentTime >= expirationTime) {
-            Swal.fire("Session timed out");
+            toast.error('Session timed out',  {position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            });
             setStore({ isloged: false });
             localStorage.clear();
             return false;
@@ -452,8 +459,15 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((response) => response.json())
           .then((result) => {
             if (response.status == 401) {
-              Swal.fire(result.msg);
-
+              toast.error(result.msg,  {position: "bottom-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+              });
               navigate("/", { replace: true });
             }
           })
@@ -529,11 +543,18 @@ const getState = ({ getStore, getActions, setStore }) => {
           );
           const result = await response.json();
           if (response.status == 401) {
-            Swal.fire(result.msg);
+            toast.error(result.msg,  {position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            });
 
             navigate("/", { replace: true });
           }
-          Swal.fire(result.message);
           if (response.status == 200) {
             console.log(response);
             return true;
@@ -565,6 +586,10 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
         /*this in checkoutform */
       },
+      top_5_searchinator:() => {
+        const store = getStore()
+        setStore({searchCompany: store.top_5})
+      }
     },
   };
 };

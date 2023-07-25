@@ -44,6 +44,7 @@
         margin-bottom: 3rem;
         width: auto;
         color:white;
+        font-weight: bold;
     }
     .add-product-btn:hover{
         background-color: #D6D6D6;
@@ -96,6 +97,7 @@
     margin-bottom: 3rem;
     width: auto;
     color:white;
+    font-weight: bold;
 }
 .add-product-btn:hover{
     background-color: #D6D6D6;
