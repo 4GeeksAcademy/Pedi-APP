@@ -100,10 +100,11 @@ def loginator():
         if not user:
             return jsonify({"message": "Wrong username or password"}), 400
         else:
-            print("asd")
-            if(not ph.verify(user.password,password)):
-                 return jsonify({"message": "Wrong username or password"}), 400
-
+            try:
+                if(not ph.verify(user.password,password)):
+                    return jsonify({"message": "Wrong username or password"}), 400
+            except: 
+                return jsonify({"message": "Wrong username or password"}), 400
             role = user.role
             
             if role == "Cliente":
