@@ -39,15 +39,6 @@
     .menu_container{
         margin: 2rem
     }
-    .menu_title{
-        font-size: 18px;
-    }
-    .menu_price_text{
-        font-size: 15px;
-    }
-    .menu_description{
-        font-size: 13px;
-    }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
