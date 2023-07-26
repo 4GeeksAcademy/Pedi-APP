@@ -114,13 +114,13 @@ export const CompanyPageNavbar = ({ idEmpresa }) => {
 
     return(
         <div className="portada-container">
-            <div className="cover-image" style={{ backgroundImage: `url(${company && company.empresa.banner})` }}>
+            <div className="cover-image" style={{ backgroundImage: `url(${company && company.empresa && company.empresa.banner})` }}>
                 <div className="card-overlay">
                         <div className="card-body text-card-company-page-navbar">
-                            <h1 className="card-title-company-page">{company && company.empresa.nombre}</h1>
+                            <h1 className="card-title-company-page">{company && company.empresa && company.empresa.nombre}</h1>
                             {/* Esto asegura que las propiedades de idEmpresa solo se accedan si idEmpresa está definido, evitando así errores si idEmpresa es null o undefined. */}
                             <p className="card-text-company-page"></p> {/*Tipo de comida*/}
-                            <p className="card-text-company-page-direction">{company && company.usuario.direccion}</p>
+                            <p className="card-text-company-page-direction">{company && company.usuario && company.usuario.direccion}</p>
                             <form className="rating">
                                 <span className={`star${rating.puntuacion >= 1 ? ' filled' : ''}`} onClick={() => handleRating(1)}></span>
                                 <span className={`star${rating.puntuacion >= 2 ? ' filled' : ''}`} onClick={() => handleRating(2)}></span>
