@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 export const Menu = () => {
   const { store, actions } = useContext(Context);
   const [products, setProduct] = useState([]);
-  console.log(products);
+  
 
   useEffect(() => {
     (async () => {

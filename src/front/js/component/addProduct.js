@@ -60,8 +60,7 @@ export const AddProduct = () => {
         img: ""
     })
 
-    useEffect(()=> {
-        console.log(formData);}, [formData]);
+    
 
         const uploadFile = async (e) => {
             const file = e.target.files[0];

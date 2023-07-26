@@ -12,7 +12,7 @@ export const SingupCliente = () => {
   const navigate = useNavigate()
 
   useEffect( () =>{
-    console.log("asd")
+    
     if (Object.keys(store.user) == 0){
         navigate('/signup', { replace: true });
     }
@@ -80,9 +80,7 @@ const showToastAndNavigate = () => {
     terminosCondiciones: false,
   });
 
-  useEffect(() => {
-    console.log(formData);
-  }, [formData]);
+ 
   
 
   return (
@@ -282,7 +280,7 @@ const showToastAndNavigate = () => {
                     value={formData.estado}
                     onChange={(data) => {
                       setFormData({ ...formData, estado: data.target.value });
-                      console.log(formData);
+                      
                     }}
                     required
                   />
@@ -296,7 +294,7 @@ const showToastAndNavigate = () => {
                     value={formData.ciudad}
                     onChange={(data) => {
                       setFormData({ ...formData, ciudad: data.target.value });
-                      console.log(formData);
+                      
                     }}
                     required
                   />

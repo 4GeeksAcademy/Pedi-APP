@@ -7,7 +7,7 @@ export const InfoCompany = () =>{
     const { store, actions } = useContext(Context);
 
     const timetable = () =>{
-        console.log(store.current_user_data) 
+        
         if (store.current_user_data.mañana == true && store.current_user_data.tarde == false) return "Morning"
         else if (store.current_user_data.mañana == false && store.current_user_data.tarde == true) return "Afternoon"
         else if (store.current_user_data.mañana == true && store.current_user_data.tarde == true) return "Morning and Afternoon"
@@ -15,7 +15,7 @@ export const InfoCompany = () =>{
     }
 
     const services = () =>{
-        console.log(store.current_user_data) 
+        
         if (store.current_user_data.delivery == true && store.current_user_data.reserva == false) return "Delivery"
         else if (store.current_user_data.delivery == false && store.current_user_data.reserva == true) return "Reservation"
         else if (store.current_user_data.delivery == true && store.current_user_data.reserva == true) return "Delivery and Reservation"
