@@ -27,7 +27,7 @@ export const CompanyPageNavbar = ({ idEmpresa }) => {
 
                 })
                 const result = await response.json()
-                console.log(result)
+                
                 setCompany(result)
             }catch(error){
                 console.log("error")
@@ -91,7 +91,7 @@ export const CompanyPageNavbar = ({ idEmpresa }) => {
                     });
                 }
                 else if (response.status == 200){
-                  console.log(result)
+                  
                   toast.success('You have valued successfully, thank you!', {
                     position: "bottom-right",
                     autoClose: 2000,

@@ -31,7 +31,7 @@ export const Mapbox = () => {
           setLng(store.current_user_data.lng);
           setZoom(14);
         }
-        console.log(zoom);
+        
         const response = await fetch(
           process.env.BACKEND_URL + "/api/allcompanies",
           {

@@ -72,9 +72,7 @@ export const Signup = () => {
     setUser({ ...user, role: selectedRole });
   };
 
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
+  
 
   return (
     <div className="container-fluid text-center p-5 signup_page_container">

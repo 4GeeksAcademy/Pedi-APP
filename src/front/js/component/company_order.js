@@ -118,7 +118,7 @@ const Company_order = (props) => {
                       <div className="modal-body">
                         <ul className="  modal_ul_box">
                           {order.map((x, index) => {
-                            console.log(x.product.nombre);
+                            
                             return (
                               <li key={index} className="d-flex ms-3 ">
                                 {" "}

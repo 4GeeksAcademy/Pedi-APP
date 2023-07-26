@@ -7,7 +7,7 @@ import bk from "../../img/bk.png";
 const User_favorites = (props) => {
   const { store, actions } = useContext(Context);
   const { company } = props;
-  console.log(company);
+  
   return (
     <>
       <div className="row border favorites_container">

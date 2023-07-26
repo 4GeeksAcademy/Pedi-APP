@@ -28,7 +28,7 @@ export default function CheckoutForm() {
         }
 
         const data = store.checkout_data;
-        console.log(data);
+        
 
         const token = localStorage.getItem("jwt-token");
         const response = await fetch(

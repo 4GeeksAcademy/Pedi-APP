@@ -36,7 +36,7 @@ export const Home = () => {
       });
     } else {
       navigate("/searchEmpresa", { replace: true }); 
-      console.log(search)
+      
     }
       
   }

@@ -60,7 +60,7 @@ const UserFavorites = () => {
             <h1 className="title_acount_user">Your favorites</h1>
             {favorites &&
               favorites.map((x, index) => {
-                console.log(x);
+                
                 return <User_favorites company={x} key={index} />;
               })}
           </div>
