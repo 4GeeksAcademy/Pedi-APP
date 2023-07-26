@@ -57,7 +57,7 @@ export const Mapbox = () => {
         for (let i of result.companies) {
           if (map.current && mapContainer.current) {
             const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
-              `${i.nombre} <br> ${i.direccion}`
+              `<p class = "fw-bold mb-0 text-center"> ${i.nombre} </p>  <p class = "text-center my-0">${i.direccion}</p>`
             );
 
             const el = document.createElement("div");
@@ -77,7 +77,10 @@ export const Mapbox = () => {
 
   return (
     <div className="map ">
-      <div ref={mapContainer} className="map-container d-flex justify-content-center" />
+      <div
+        ref={mapContainer}
+        className="map-container d-flex justify-content-center"
+      />
     </div>
   );
 };
