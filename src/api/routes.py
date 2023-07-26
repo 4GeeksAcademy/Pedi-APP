@@ -573,6 +573,8 @@ def infoEmpresa(id):
     
     idUsuario = empresa.id
     usuario = Usuario.query.get(idUsuario)
+    print("asd")
+    print (usuario)
     if not usuario:
         return jsonify({"message": "usuario not found"}), 400
     
