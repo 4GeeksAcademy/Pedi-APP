@@ -35,7 +35,7 @@ export const CompanyPageNavbar = ({ idEmpresa }) => {
         console.log("error");
       }
     })();
-  }, [company]);
+  }, []);
 
   const handleRating = async (value) => {
     const newPuntuacion = {
