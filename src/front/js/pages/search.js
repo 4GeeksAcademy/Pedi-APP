@@ -145,10 +145,10 @@ export const Search = (props) => {
                 className=" gx-2 gy-4 col-12 col-sm-6 col-md-3 contenedorCards"
                 key={index}
               >
-                <div className="card cardRestaurante p-3">
+                <div className="card cardRestaurante ">
                   <img
                     src={element.imagen}
-                    className="card-img-top cardImage"
+                    className="card-img-top cardImage p-3"
                     alt={element.nombre}
                     onClick={() => {
                       pageNavigate(element.id);

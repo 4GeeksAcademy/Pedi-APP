@@ -567,12 +567,12 @@ def stars_poll():
 
 @api.route("/empresa/<id>", methods=['GET'])
 def infoEmpresa(id):
-    empresa = Empresa.query.get(id)
+    empresa = Empresa.query.filter_by(id = id).first()
     if not empresa:
         return jsonify({"message": "empresa not found"}), 400
     
     idUsuario = empresa.id
-    usuario = Usuario.query.get(idUsuario)
+    usuario = Usuario.query.filter_by(id = idUsuario).first()
     print("asd")
     print (usuario)
     if not usuario:
