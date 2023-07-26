@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/orderDetail.css";
 import Swal from "sweetalert2";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const OrderDetail = () => {
   const { store, actions } = useContext(Context);
@@ -24,11 +24,20 @@ const OrderDetail = () => {
     setSpeed(option);
   };
 
+  const showToastAndNavigate = () => {
+    return new Promise((resolve) => {
+      toast.success("Your product is on the way!", {
+        autoClose: 2000,
+        onClose: resolve, // Resuelve la promesa cuando se cierra la notificación
+      });
+    });
+  };
+
   useEffect(() => {
     (async () => {
       try {
         if (!actions.isloged() || Object.keys(store.product) == 0) {
-          toast.error('User not loged', {
+          toast.error("User not loged", {
             position: "bottom-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -37,7 +46,7 @@ const OrderDetail = () => {
             draggable: true,
             progress: undefined,
             theme: "colored",
-            });
+          });
           navigate("/searchEmpresa", { replace: true });
         }
         const token = localStorage.getItem("jwt-token");
@@ -63,7 +72,7 @@ const OrderDetail = () => {
             draggable: true,
             progress: undefined,
             theme: "colored",
-            });
+          });
 
           navigate("/", { replace: true });
         }
@@ -79,7 +88,7 @@ const OrderDetail = () => {
     e.preventDefault();
     if (actions.isloged()) {
       if (delivery == null) {
-        toast.error('Select delivery or takeout option', {
+        toast.error("Select delivery or takeout option", {
           position: "bottom-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -88,10 +97,10 @@ const OrderDetail = () => {
           draggable: true,
           progress: undefined,
           theme: "colored",
-          });
+        });
       } else {
         if (product.cantidad <= 0) {
-          toast.error('Select al least one product', {
+          toast.error("Select al least one product", {
             position: "bottom-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -100,10 +109,10 @@ const OrderDetail = () => {
             draggable: true,
             progress: undefined,
             theme: "colored",
-            });
+          });
         } else {
           if (payMethod == null) {
-            toast.error('Select a payment method', {
+            toast.error("Select a payment method", {
               position: "bottom-right",
               autoClose: 5000,
               hideProgressBar: false,
@@ -112,7 +121,7 @@ const OrderDetail = () => {
               draggable: true,
               progress: undefined,
               theme: "colored",
-              });
+            });
           } else if (payMethod == "cash") {
             const checkout_data = {
               product_id: product.id,
@@ -144,17 +153,12 @@ const OrderDetail = () => {
                 draggable: true,
                 progress: undefined,
                 theme: "colored",
-                });
+              });
 
               navigate("/", { replace: true });
             }
             if (response.status == 200) {
-              Swal.fire({
-                icon: 'success',
-                title: 'Your product is on the way!',
-                showConfirmButton: false,
-                timer: 1500
-              })
+              showToastAndNavigate();
               navigate("/searchEmpresa", { replace: true });
             }
           } else if (payMethod == "card") {
@@ -168,7 +172,7 @@ const OrderDetail = () => {
             };
             const checkout = actions.checkout_configurator(checkout_data);
             if (checkout == false) {
-              toast.error('Not loged in', {
+              toast.error("Not loged in", {
                 position: "bottom-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -177,7 +181,7 @@ const OrderDetail = () => {
                 draggable: true,
                 progress: undefined,
                 theme: "colored",
-                });
+              });
               navigate("/searchEmpresa", { replace: true });
             } else {
               navigate("/checkout", { replace: true });
@@ -186,7 +190,7 @@ const OrderDetail = () => {
         }
       }
     } else {
-      toast.error('User not loged', {
+      toast.error("User not loged", {
         position: "bottom-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -195,7 +199,7 @@ const OrderDetail = () => {
         draggable: true,
         progress: undefined,
         theme: "colored",
-        });
+      });
       navigate("/searchEmpresa", { replace: true });
     }
   };
