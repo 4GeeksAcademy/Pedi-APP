@@ -573,6 +573,8 @@ def infoEmpresa(id):
     
     idUsuario = empresa.id
     usuario = Usuario.query.filter_by(id = idUsuario).first()
+    usuarios = Usuario.query.all()
+    print(usuarios)
     print("asd")
     print (usuario)
     if not usuario:
