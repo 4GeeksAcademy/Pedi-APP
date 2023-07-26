@@ -88,7 +88,7 @@ export const CompanyPageMenu = ({ idEmpresa }) => {
   }, []);
 
   return (
-    <div className="container-fluid my-1">
+    <div className="container-fluid my-2">
         <div className="tab-pane fade show active" id="nav-menu" role="tabpanel" aria-labelledby="nav-home-tab" tabIndex="0">
                 <div className="row row-cols-2 d-flex justify-content-evenly">
                 { products.length > 0 ?
