@@ -574,10 +574,7 @@ def infoEmpresa(id):
     idUsuario = empresa.idUsuario
     usuario = Usuario.query.filter_by(id = idUsuario).first()
     usuarios = Usuario.query.all()
-    print(idUsuario)
-    print(usuarios)
-    print("asd")
-    print (usuario)
+    
     if not usuario:
         return jsonify({"message": "usuario not found"}), 400
     

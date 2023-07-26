@@ -158,7 +158,7 @@ const OrderDetail = () => {
               navigate("/", { replace: true });
             }
             if (response.status == 200) {
-              showToastAndNavigate();
+              await showToastAndNavigate();
               navigate("/searchEmpresa", { replace: true });
             }
           } else if (payMethod == "card") {
