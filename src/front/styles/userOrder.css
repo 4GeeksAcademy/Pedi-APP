@@ -1,19 +1,18 @@
 .order_container {
-background-color: #FBFBFB;
-border-radius: 2.5rem;
-box-shadow: 0px 5px 10px 0px rgb(59, 61, 61);
-display: flex;
-align-items: center;
-width: auto;
+  background-color: #fbfbfb;
+  border-radius: 2.5rem;
+  box-shadow: 0px 5px 10px 0px rgb(59, 61, 61);
+  display: flex;
+  align-items: center;
+  width: auto;
 }
-.order_imgbox{
-border-radius: 0.8rem;
-padding: 1.5rem;
+.order_imgbox {
+  border-radius: 0.8rem;
+  padding: 1.5rem;
 }
-.order_company_img_box{
-width: 100%;
-height: 100px;
-object-fit: cover;
+.order_company_img_box {
+  width: 100%;
+  height: 100px;
 }
 .order_date {
   margin-top: auto;
@@ -55,9 +54,9 @@ object-fit: cover;
 .order_recipt {
   color: black;
 }
-.modal-container-receipt{
+.modal-container-receipt {
   margin: 5rem 1rem 0rem 1rem;
-  width:90%
+  width: 90%;
 }
 
 .modal-header {
@@ -119,48 +118,48 @@ object-fit: cover;
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
-  .order_container{
-    margin: 2rem
-   }
-   .order_date{
+  .order_container {
+    margin: 2rem;
+  }
+  .order_date {
     font-size: 12px;
-   }
-   .order_title{
-    font-size:18px;
-   }
-   .order_amount{
-    font-size:14px;
-   }
-   .order_recipt{
+  }
+  .order_title {
+    font-size: 18px;
+  }
+  .order_amount {
     font-size: 14px;
-   }
-   .order_name_product{
+  }
+  .order_recipt {
+    font-size: 14px;
+  }
+  .order_name_product {
     font-size: 13px;
-   }
-   .order_description{
+  }
+  .order_description {
     font-size: 11px;
-   }
-   .order_items{
-    font-size:13px
-   }
+  }
+  .order_items {
+    font-size: 13px;
+  }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
-  .order_company_img_box{
+  .order_company_img_box {
     margin-left: 0.5rem;
-    }
-  .order_container{
-    margin: 2rem
-   }
-   .order_date{
+  }
+  .order_container {
+    margin: 2rem;
+  }
+  .order_date {
     font-size: 15px;
-   }
+  }
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-  .order_container{
+  .order_container {
     margin: 2rem 0rem 2rem 0rem;
   }
 }
@@ -171,5 +170,4 @@ object-fit: cover;
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
-
 }
