@@ -614,7 +614,7 @@ def menuEmpresa(id):
         return jsonify({"message": "productos not found"}), 400
     
     serialized_productos = [producto.serialize() for producto in productos]
-    return jsonify(serialized_productos), 200
+    return jsonify({"products": serialized_productos, "company_id": empresa.id}), 200
 
 def calculate_order_amount(items):
     amount = int(items.get("precio") * items.get("cantidad") * 100* 1.21)
