@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 export const CompanyPageMenu = ({ idEmpresa }) => {
   const { store, actions } = useContext(Context);
   const [products, setProducts] = useState([]);
-  const [company_id, setCompany_id] = useState();
+  const [company, setCompany] = useState();
   const navigate = useNavigate();
 
   const showToastAndNavigate = () => {
@@ -61,7 +61,16 @@ export const CompanyPageMenu = ({ idEmpresa }) => {
       });
     } else {
       if (actions.isloged()) {
-        actions.buyProduct(nombre, precio, descripcion, img, cantidad, id, company_id);
+        actions.buyProduct(
+          nombre,
+          precio,
+          descripcion,
+          img,
+          cantidad,
+          id,
+          company.id,
+          company.nombre
+        );
         //await showToastAndNavigate();
         // navigate("/orderDetail", { replace: true });
       }
@@ -83,7 +92,7 @@ export const CompanyPageMenu = ({ idEmpresa }) => {
         const result = await response.json();
 
         setProducts(result.products);
-        setCompany_id(result.company_id);
+        setCompany(result.company_data);
         console.log(result);
       } catch (error) {
         console.log("error");

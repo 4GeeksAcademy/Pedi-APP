@@ -313,7 +313,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       isloged: () => {
         const token = localStorage.getItem("jwt-token");
         const user = localStorage.getItem("user");
-        const cart = localStorage.getItem("cart")
+        const cart = localStorage.getItem("cart");
 
         // Check if the token exists and is not expired
         if (token) {
@@ -340,12 +340,14 @@ const getState = ({ getStore, getActions, setStore }) => {
           setStore({ jwt_token: token });
           setStore({ isloged: true });
           setStore({ current_user_data: JSON.parse(user) });
-          setStore({cart: JSON.parse(cart)})
+          setStore({ cart: JSON.parse(cart) });
           if (cart == null) {
-            setStore({cart: {
-              products: [],
-              ammount: 0,
-            }})
+            setStore({
+              cart: {
+                products: [],
+                ammount: 0,
+              },
+            });
           }
           return true;
         }
@@ -586,7 +588,8 @@ const getState = ({ getStore, getActions, setStore }) => {
         img,
         cantidad,
         id,
-        company_id
+        company_id,
+        company_name
       ) => {
         const store = getStore();
         let newProduct = {
@@ -596,6 +599,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           img: img,
           cantidad: cantidad,
           id: id,
+          company_name: company_name,
         };
 
         let company_exists = store.cart.products.findIndex((x) => {
@@ -621,7 +625,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             });
           } else {
             let products = store.cart.products;
-            console.log(products[company_exists]);
+
             products[company_exists][company_id].push(newProduct);
             setStore({
               cart: {
@@ -643,10 +647,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           });
         }
 
-        localStorage.setItem(
-          "cart",
-          JSON.stringify(store.cart)
-        );
+        localStorage.setItem("cart", JSON.stringify(store.cart));
       },
       checkout_configurator(checkout_data) {
         const store = getStore();

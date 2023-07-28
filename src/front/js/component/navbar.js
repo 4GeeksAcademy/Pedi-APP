@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/navbar.css";
 import logoGrande from "../../img/Dishdash-blanco-grande.png";
+import Cart from "./cart";
 
 export const Navbar = () => {
   const { store, actions } = useContext(Context);
@@ -25,32 +26,18 @@ export const Navbar = () => {
                 alt="Logo de la empresa"
               />
             </Link>
-            <div class="btn-group dropstart ms-auto me-5">
+            <div className="btn-group dropstart ms-auto me-5">
               <button
-                class="btn btn-secondary dropdown-toggle"
+                className="btn btn-secondary dropdown-toggle"
                 type="button"
                 data-bs-toggle="dropdown"
                 data-bs-auto-close="inside"
                 aria-expanded="false"
               >
-                <i class="fas fa-shopping-cart fa-lg"></i>
+                <i className="fas fa-shopping-cart fa-lg"></i>
               </button>
-              <ul class="dropdown-menu">
-                <li>
-                  <a class="dropdown-item" href="#">
-                    Menu item
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#">
-                    Menu item
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#">
-                    Menu item
-                  </a>
-                </li>
+              <ul className="dropdown-menu">
+                <Cart />
               </ul>
             </div>
             <div className="ml-auto">
