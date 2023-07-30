@@ -1,8 +1,11 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const { store, actions } = useContext(Context);
+  const navigate = useNavigate();
+
   return (
     <>
       {store.cart
@@ -37,6 +40,15 @@ const Cart = () => {
             );
           })
         : ""}
+      <button
+        type="button"
+        className="btn btn-secondary"
+        onClick={() => {
+          navigate("/orderDetail", { replace: true });
+        }}
+      >
+        Go to checkout
+      </button>
     </>
   );
 };

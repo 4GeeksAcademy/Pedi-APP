@@ -757,13 +757,13 @@ def checkout_configurator():
 @jwt_required()
 def company_selectinator():     
     data = request.json
-    product_id = data.get("id")
+    company_id = data.get("id")
 
-    product = Productos.query.filter_by(id = product_id).first()
+    company = Empresa.query.filter_by(id = company_id).first()
     
-    if not product: 
-        return jsonify({"message": "product doesnt exist"}), 400 
-    return jsonify({"company": product.empresa.serialize()}), 200 
+    if not company: 
+        return jsonify({"message": "company doesnt exist"}), 400 
+    return jsonify({"company": company.serialize()}), 200 
 
 
 @api.route("/filter_category", methods=["POST"])

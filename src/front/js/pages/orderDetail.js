@@ -10,7 +10,7 @@ const OrderDetail = () => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
   const [company, setCompany] = useState({});
-  const [product, setProduct] = useState({});
+  const [products, setProducts] = useState([]);
   const [delivery, setdelivery] = useState(null);
 
   const [speed, setSpeed] = useState(null);
@@ -36,7 +36,7 @@ const OrderDetail = () => {
   useEffect(() => {
     (async () => {
       try {
-        if (!actions.isloged() || Object.keys(store.product) == 0) {
+        if (!actions.isloged() || Object.keys(store.cart) == 0) {
           toast.error("User not loged", {
             position: "bottom-right",
             autoClose: 5000,
@@ -49,12 +49,16 @@ const OrderDetail = () => {
           });
           navigate("/searchEmpresa", { replace: true });
         }
+
+        let company_id_array = Object.keys(store.cart.products[0]);
+        let company_id = company_id_array[0];
+
         const token = localStorage.getItem("jwt-token");
         const response = await fetch(
           process.env.BACKEND_URL + "/api/companyget",
           {
             method: "POST",
-            body: JSON.stringify({ id: store.product.id }),
+            body: JSON.stringify({ id: company_id }),
             headers: {
               "Content-Type": "application/json",
               Authorization: "Bearer " + token,
@@ -77,7 +81,9 @@ const OrderDetail = () => {
           navigate("/", { replace: true });
         }
         setCompany(result.company);
-        setProduct(store.product);
+        let products_object = store.cart.products[0];
+
+        setProducts(products_object[company_id]);
       } catch (error) {
         console.log("Error loading message from backend");
       }
@@ -203,7 +209,7 @@ const OrderDetail = () => {
       navigate("/searchEmpresa", { replace: true });
     }
   };
-  if (Object.keys(product) != 0 && Object.keys(company) != 0) {
+  if (products.length > 0 && Object.keys(company) != 0) {
     return (
       <>
         <form onSubmit={(e) => handleSubmit(e)}>
@@ -348,7 +354,7 @@ const OrderDetail = () => {
                 </div>
                 <div className="row right_second_row py-sm-4  ">
                   <div className="col-7 order_detail_box ">
-                    <div className=" d-flex   w-100">
+                    <div className=" d-flex w-100"> -----------------------------##### toca esto
                       <p className="order_product fs-5">{product.nombre} </p>
                       <p className="order_quant fs-5 text-secondary  ">
                         {product.cantidad}{" "}
