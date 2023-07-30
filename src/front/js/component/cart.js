@@ -15,8 +15,16 @@ const Cart = () => {
                 {products.map((j, index2) => {
                   return (
                     <>
-                      <li key={index2}>
-                        <p>{j.nombre}</p>
+                      <li className="d-flex my-1" key={index2}>
+                        <p className="my-auto">
+                          {j.nombre} x{j.cantidad}
+                        </p>
+                        <i
+                          className="fas fa-trash fa-lg my-auto ms-auto me-2"
+                          onClick={() => {
+                            actions.product_deletinator(j.id, j.company_id);
+                          }}
+                        ></i>
                       </li>
                     </>
                   );

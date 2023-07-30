@@ -599,6 +599,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           img: img,
           cantidad: cantidad,
           id: id,
+          company_id: company_id,
           company_name: company_name,
         };
 
@@ -607,7 +608,6 @@ const getState = ({ getStore, getActions, setStore }) => {
         });
 
         if (company_exists != -1) {
-          let a = store.cart.products[company_exists];
           let product_exists = store.cart.products[company_exists][
             company_id
           ].findIndex((x) => x.id === newProduct.id);
@@ -636,7 +636,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           }
         } else {
           console.log(store.cart.products);
-          store.cart.products = setStore({
+          setStore({
             cart: {
               products: [
                 ...store.cart.products,
@@ -662,6 +662,41 @@ const getState = ({ getStore, getActions, setStore }) => {
       top_5_searchinator: () => {
         const store = getStore();
         setStore({ searchCompany: store.top_5 });
+      },
+      product_deletinator: (product_id, company_id) => {
+        const store = getStore();
+        let products = store.cart.products;
+
+        let company_index = products.findIndex((x) => {
+          return x.hasOwnProperty(company_id);
+        });
+
+        let company_products = products[company_index][company_id];
+
+        let product_index = company_products.findIndex(
+          (x) => x.id === product_id
+        );
+        company_products.splice(product_index, 1);
+        if (company_products.length > 0) {
+          products[company_index][company_id] = company_products;
+          setStore({
+            cart: {
+              products: products,
+              ammount: store.cart.ammount,
+            },
+          });
+        } else {
+          console.log(products);
+          products.splice(company_index, 1);
+          setStore({
+            cart: {
+              products: products,
+              ammount: store.cart.ammount - 1,
+            },
+          });
+        }
+        
+        localStorage.setItem("cart", JSON.stringify(store.cart));
       },
     },
   };
