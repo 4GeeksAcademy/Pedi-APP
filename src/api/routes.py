@@ -623,14 +623,7 @@ def create_payment():
         
         pay_id = intent["client_secret"]
 
-        bill_id = bill_creatinator(user_id,company_id,delivery,pay_id,time,date )    
-
-        
-        for i in products: 
-            checkout =  history_creator(i.get("id"), i.get("cantidad"), i.get("precio"),bill_id)
-            if not checkout:
-                return jsonify({"message" : "product doesnt exist"}), 400
-        
+       
         # ----------------------------------------------------------------------agregar para meter entradas a la tabla de facturas e historial de pedidos
         return jsonify({
           'clientSecret': intent['client_secret']

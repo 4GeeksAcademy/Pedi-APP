@@ -100,6 +100,33 @@ export default function CheckoutForm() {
       },
     });
 
+    const token = localStorage.getItem("jwt-token");
+    const response = await fetch(
+      process.env.BACKEND_URL + "/api/checkout_data",
+      {
+        method: "POST",
+        body: JSON.stringify(store.checkout_data),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+      }
+    );
+    if (response.status == 401) {
+      toast.error(result.msg, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+
+      navigate("/", { replace: true });
+    }
+
     if (payload.error) {
       setError(`Payment failed ${payload.error.message}`);
       toast.error(payload.error.message);
@@ -112,10 +139,10 @@ export default function CheckoutForm() {
       /* */
       if (store.cart.products.length > 1) {
         await showToastAndNavigate();
-        actions.company_deletinator(company.id);
+        actions.company_deletinator(store.checkout_data.company_id);
       } else {
         await showToastAndNavigate();
-        actions.company_deletinator(company.id);
+        actions.company_deletinator(store.checkout_data.company_id);
         navigate("/searchEmpresa", { replace: true });
       }
     }
