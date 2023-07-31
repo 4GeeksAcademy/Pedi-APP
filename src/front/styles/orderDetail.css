@@ -220,6 +220,7 @@
     background-position: 30%;
     display: flex;
     justify-content: center;
+    flex-direction: column;
   }
   .order_all {
     border-radius: 2rem;

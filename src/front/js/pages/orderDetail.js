@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { Profiler, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/orderDetail.css";
@@ -10,7 +10,7 @@ const OrderDetail = () => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
   const [company, setCompany] = useState({});
-  const [product, setProduct] = useState({});
+  const [products, setProducts] = useState([]);
   const [delivery, setdelivery] = useState(null);
 
   const [speed, setSpeed] = useState(null);
@@ -36,7 +36,7 @@ const OrderDetail = () => {
   useEffect(() => {
     (async () => {
       try {
-        if (!actions.isloged() || Object.keys(store.product) == 0) {
+        if (!actions.isloged() || store.cart.ammount <= 0) {
           toast.error("User not loged", {
             position: "bottom-right",
             autoClose: 5000,
@@ -49,12 +49,16 @@ const OrderDetail = () => {
           });
           navigate("/searchEmpresa", { replace: true });
         }
+
+        let company_id_array = Object.keys(store.cart.products[0]);
+        let company_id = company_id_array[0];
+
         const token = localStorage.getItem("jwt-token");
         const response = await fetch(
           process.env.BACKEND_URL + "/api/companyget",
           {
             method: "POST",
-            body: JSON.stringify({ id: store.product.id }),
+            body: JSON.stringify({ id: company_id }),
             headers: {
               "Content-Type": "application/json",
               Authorization: "Bearer " + token,
@@ -77,12 +81,14 @@ const OrderDetail = () => {
           navigate("/", { replace: true });
         }
         setCompany(result.company);
-        setProduct(store.product);
+        let products_object = store.cart.products[0];
+
+        setProducts(products_object[company_id]);
       } catch (error) {
         console.log("Error loading message from backend");
       }
     })();
-  }, []);
+  }, [store.cart.ammount]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -99,7 +105,7 @@ const OrderDetail = () => {
           theme: "colored",
         });
       } else {
-        if (product.cantidad <= 0) {
+        if (store.cart.ammount <= 0) {
           toast.error("Select al least one product", {
             position: "bottom-right",
             autoClose: 5000,
@@ -124,12 +130,11 @@ const OrderDetail = () => {
             });
           } else if (payMethod == "cash") {
             const checkout_data = {
-              product_id: product.id,
+              products: products,
               user_id: store.current_user_data.id,
-              cantidad: product.cantidad,
-              precio: product.precio,
               delivery: delivery,
               pay_method: payMethod,
+              company_id: company.id,
             };
             const token = localStorage.getItem("jwt-token");
             const response = await fetch(
@@ -158,17 +163,24 @@ const OrderDetail = () => {
               navigate("/", { replace: true });
             }
             if (response.status == 200) {
-              await showToastAndNavigate();
-              navigate("/searchEmpresa", { replace: true });
+              if (store.cart.products.length > 1) {
+                await showToastAndNavigate();
+                actions.company_deletinator(company.id);
+              } else {
+                await showToastAndNavigate();
+                actions.company_deletinator(company.id);
+
+                navigate("/searchEmpresa", { replace: true });
+              }
             }
           } else if (payMethod == "card") {
             const checkout_data = {
-              product_id: product.id,
+              products: products,
               user_id: store.current_user_data.id,
-              cantidad: product.cantidad,
-              precio: product.precio,
               delivery: delivery,
               pay_method: payMethod,
+              company_id: company.id,
+              precio: full_price,
             };
             const checkout = actions.checkout_configurator(checkout_data);
             if (checkout == false) {
@@ -203,7 +215,17 @@ const OrderDetail = () => {
       navigate("/searchEmpresa", { replace: true });
     }
   };
-  if (Object.keys(product) != 0 && Object.keys(company) != 0) {
+  let price_no_tax = 0;
+  let tax = 0;
+  let full_price = 0;
+
+  for (let i of products) {
+    price_no_tax += i.cantidad * i.precio;
+  }
+  tax = price_no_tax * 0.21;
+  full_price = price_no_tax + tax;
+
+  if (products.length > 0 && Object.keys(company) != 0) {
     return (
       <>
         <form onSubmit={(e) => handleSubmit(e)}>
@@ -346,84 +368,97 @@ const OrderDetail = () => {
                 <div className="row right_first_row py-4 ">
                   <h3 className=" text-start">Order summary</h3>
                 </div>
-                <div className="row right_second_row py-sm-4  ">
-                  <div className="col-7 order_detail_box ">
-                    <div className=" d-flex   w-100">
-                      <p className="order_product fs-5">{product.nombre} </p>
-                      <p className="order_quant fs-5 text-secondary  ">
-                        {product.cantidad}{" "}
-                      </p>
-                    </div>
+                {products &&
+                  products.map((x, index) => {
+                    return (
+                      <div
+                        className="row right_second_row py-sm-4  "
+                        key={index}
+                      >
+                        <div className="col-7 order_detail_box ">
+                          <div className=" d-flex w-100">
+                            <p className="order_product fs-5">{x.nombre} </p>
+                            <p className="order_quant fs-5 text-secondary  ">
+                              {x.cantidad}{" "}
+                            </p>
+                          </div>
 
-                    <p className="order_adress order_description text-secondary fs-6">
-                      {product.descripcion}
-                    </p>
-                  </div>
-                  <div className="col-sm-5  order_product_price_box  ">
-                    <div
-                      className="btn-group order_product_btnbox "
-                      role="group"
-                      aria-label="Basic example"
-                    >
-                      <button
-                        type="button"
-                        className="btn  btn-sm order_product_btn"
-                        onClick={() => {
-                          product.cantidad > 0
-                            ? setProduct({
-                                ...product,
-                                cantidad: product.cantidad - 1,
-                              })
-                            : "";
-                        }}
-                      >
-                        -
-                      </button>
-                      <button
-                        type="button"
-                        className="btn  btn-sm order_product_btn"
-                      >
-                        <p className="my-auto mx-1">{product.cantidad}</p>
-                      </button>
-                      <button
-                        type="button"
-                        className="btn  btn-sm order_product_btn"
-                        onClick={() => {
-                          setProduct({
-                            ...product,
-                            cantidad: product.cantidad + 1,
-                          });
-                        }}
-                      >
-                        <p className="my-auto mx-1">+</p>
-                      </button>
-                    </div>
-                    <p className="order_product_price fs-5">
-                      {(product.cantidad * product.precio).toFixed(2)}${" "}
-                    </p>
-                  </div>
-                </div>
+                          <p className="order_adress order_description text-secondary fs-6">
+                            {x.descripcion}
+                          </p>
+                        </div>
+                        <div className="col-sm-5  order_product_price_box  ">
+                          <div
+                            className="btn-group order_product_btnbox "
+                            role="group"
+                            aria-label="Basic example"
+                          >
+                            <button
+                              type="button"
+                              className="btn  btn-sm order_product_btn"
+                              onClick={() => {
+                                //</div>x.cantidad > 0
+                                //</div> ? setProduct({
+                                //    ...product,
+                                //   cantidad: product.cantidad - 1,
+                                //</div>   })
+                                // : "";
+
+                                actions.product_deletinator(x.id, company.id);
+                                console.log(
+                                  "pendiente quitar un solo producto"
+                                );
+                              }}
+                            >
+                              <i class="fas fa-trash fa"></i>
+                            </button>
+                            <button
+                              type="button"
+                              className="btn  btn-sm order_product_btn"
+                            >
+                              <p className="my-auto mx-1">{x.cantidad}</p>
+                            </button>
+                            <button
+                              type="button"
+                              className="btn  btn-sm order_product_btn"
+                              onClick={() => {
+                                //</div>setProduct({
+                                //   ...product,
+                                //  cantidad: product.cantidad + 1,
+                                //});
+                                console.log(
+                                  "pendiente agregar un solo producto"
+                                );
+                              }}
+                            >
+                              <p className="my-auto mx-1">+</p>
+                            </button>
+                          </div>
+                          <p className="order_product_price fs-5">
+                            {(x.cantidad * x.precio).toFixed(2)}${" "}
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })}
+
                 <div className="row right_third_row py-4 ">
                   <div className="col  order_subtotal  w-100">
                     {" "}
                     <h4 className=" text-start">Subtotal</h4>{" "}
                     <h4 className=" ms-auto me-3">
-                      {(product.cantidad * product.precio).toFixed(2)}$
+                      {price_no_tax.toFixed(2)}$
                     </h4>
                   </div>
                   <div className="col  order_tax w-100">
                     {" "}
                     <h4 className=" text-start">Tax</h4>{" "}
-                    <h4 className=" ms-auto me-3">
-                      {(product.cantidad * product.precio * 0.21).toFixed(2)}$
-                    </h4>
+                    <h4 className=" ms-auto me-3">{tax.toFixed(2)}$</h4>
                   </div>
                   <div className="col   order_total w-100">
                     {" "}
                     <h3 className=" text-start">Total</h3>{" "}
-                    <h3 className=" ms-auto me-3">
-                      {(product.cantidad * product.precio * 1.21).toFixed(2)}$
-                    </h3>
+                    <h3 className=" ms-auto me-3">{full_price.toFixed(2)}$</h3>
                   </div>
                   <div className="col d-flex  w-100">
                     {" "}

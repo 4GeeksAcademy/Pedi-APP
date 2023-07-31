@@ -43,36 +43,31 @@ def geopy_processinator(address):
     location = geolocator.geocode(address, language="es", timeout=None)
     return location
 
-def checkout (product_id, quantity, price, delivery, pay_id, user_id, time, date):
-    product = Productos.query.filter_by(id = product_id).first()
+def bill_creatinator(user_id,company_id,delivery,pay_id,time,date  ):    
+    
+    to_add = Factura(idCliente = user_id, idEmpresa = company_id, idPago = pay_id, delivery = delivery, hora = time, fecha = date)
+    
+    db.session.add(to_add)
+    db.session.commit()
+    return to_add.id  
 
-    if not product:
-        return False
-
+def history_creator (product_id, quantity, price,bill_id):
     
 
     checkoutData = {
         "price": price ,
         "quantity" : quantity,
         "product_id" : product_id,
-        "company_id" : product.empresa.id,
-        "delivery" : delivery,
-        "pay_id": pay_id,
-        "user_id" : user_id,
-        "time" : time,
-        "date" : date
+        "bill_id" : bill_id
     }
     
-    bill_to_add = Factura(idCliente = checkoutData.get("user_id"), idEmpresa = checkoutData.get("company_id"), idPago = checkoutData.get("pay_id"), delivery = checkoutData.get("delivery"),  hora = checkoutData.get("time"), fecha = checkoutData.get("date"))
-    db.session.add(bill_to_add)
-    db.session.commit()
 
-    history_to_add = HistorialPedidos(idFactura =bill_to_add.id , idProducto = checkoutData.get("product_id") , cantidad = checkoutData.get("quantity"), precioActual = checkoutData.get("price"))
+    history_to_add = HistorialPedidos(idFactura =bill_id , idProducto = checkoutData.get("product_id") , cantidad = checkoutData.get("quantity"), precioActual = checkoutData.get("price"))
     db.session.add(history_to_add)
     db.session.commit()
 
     print(history_to_add.serialize())
-    print(bill_to_add.serialize())
+    
 
     return True
     
@@ -425,26 +420,6 @@ def bill_getinator():
         return jsonify({"bills":serialized_bills}),200
 
 
-@api.route("/billCreator", methods=['POST'])
-def bill_creatinator():
-    data = request.json
-    client_id = data.get("client_id")
-    company_id = data.get("company_id")
-    pay_id = data.get("pay_id")
-    delivery = data.get("delivery")
-    time = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
-    date = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
-    
-    
-
-    if not client_id or not company_id or not pay_id or not delivery or not date or not time:
-        return jsonify({"message":"Error, missing data"}),400
-    
-    to_add = Factura(idCliente = client_id, idEmpresa = company_id, idPago = pay_id, delivery = delivery, hora = time, fecha = date)
-    
-    db.session.add(to_add)
-    db.session.commit()
-    return jsonify({"message" : "added" , "bill" : to_add.serialize()}),200
 
 @api.route("/historyCreator", methods=['POST'])
 def history_addinator():
@@ -614,10 +589,10 @@ def menuEmpresa(id):
         return jsonify({"message": "productos not found"}), 400
     
     serialized_productos = [producto.serialize() for producto in productos]
-    return jsonify(serialized_productos), 200
+    return jsonify({"products": serialized_productos, "company_data" :empresa.serialize() }), 200
 
-def calculate_order_amount(items):
-    amount = int(items.get("precio") * items.get("cantidad") * 100* 1.21)
+def calculate_order_amount(price):
+    amount = int(price * 100)
     return amount
 
 @api.route('/create-payment-intent', methods=['POST'])
@@ -626,30 +601,29 @@ def create_payment():
     try:
         
         data = request.json
-        product_id = data.get("product_id")
-        quantity = data.get("cantidad")
+        products = data.get("products")
         price = data.get("precio")
         delivery = data.get("delivery")
         pay_id = data.get("pay_method")
         user_id = data.get("user_id")
+        company_id = data.get("company_id")
         time = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
         date = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
 
         
-        if not product_id or not quantity or not price or not pay_id or not user_id:
+        if not products or not price or not pay_id or not user_id or not company_id:
             return jsonify({"message": "Missing data"}), 400
     
         
         intent = stripe.PaymentIntent.create(
-            amount=calculate_order_amount(data),
+            amount=calculate_order_amount(price),
             currency='usd'
         )
-        print(data)
+        
         
         pay_id = intent["client_secret"]
 
-        checkout(product_id, quantity, price, delivery, pay_id, user_id, time, date)
-        
+       
         # ----------------------------------------------------------------------agregar para meter entradas a la tabla de facturas e historial de pedidos
         return jsonify({
           'clientSecret': intent['client_secret']
@@ -732,38 +706,40 @@ def company_getinator():
 @jwt_required()
 def checkout_configurator():
     data = request.json
-    product_id = data.get("product_id")
-    quantity = data.get("cantidad")
-    price = data.get("precio")
-    delivery = data.get("delivery")
-    pay_id = data.get("pay_method")
-    user_id = data.get("user_id")
+    products = data.get("products")
+    delivery = data.get("delivery")      
+    pay_id = data.get("pay_method")      
+    user_id = data.get("user_id")        
+    company_id = data.get("company_id")  
     time = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
     date = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
 
-    if not product_id or not quantity or not price or not pay_id or not user_id:
+    if not products or not pay_id or not user_id or not company_id:
         return jsonify({"message": "Missing data"}), 400 
-    
-    checkout(product_id, quantity, price, delivery, pay_id, user_id, time, date)
 
-    if (checkout):
-        return jsonify({"message" : "asd"}),200
-    else :
-        return jsonify({"message": "product doesnt exist"}), 400 
+              
+    bill_id = bill_creatinator(user_id,company_id,delivery,pay_id,time,date )    
+    for i in products: 
+        checkout = history_creator(i.get("id"), i.get("cantidad"), i.get("precio"),bill_id)
+
+        if not checkout:
+            return jsonify({"message" : "product doesnt exist"}), 400
     
-    
+    return jsonify({"message": "exito"}), 200 
+        
+
 
 @api.route("/companyget", methods=["POST"])
 @jwt_required()
 def company_selectinator():     
     data = request.json
-    product_id = data.get("id")
+    company_id = data.get("id")
 
-    product = Productos.query.filter_by(id = product_id).first()
+    company = Empresa.query.filter_by(id = company_id).first()
     
-    if not product: 
-        return jsonify({"message": "product doesnt exist"}), 400 
-    return jsonify({"company": product.empresa.serialize()}), 200 
+    if not company: 
+        return jsonify({"message": "company doesnt exist"}), 400 
+    return jsonify({"company": company.serialize()}), 200 
 
 
 @api.route("/filter_category", methods=["POST"])

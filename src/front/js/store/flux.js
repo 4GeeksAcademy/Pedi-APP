@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 const getState = ({ getStore, getActions, setStore }) => {
   return {
@@ -14,6 +14,10 @@ const getState = ({ getStore, getActions, setStore }) => {
       product: {},
       searchCompany: [],
       // company: null,
+      cart: {
+        products: [],
+        ammount: 0,
+      },
     },
 
     actions: {
@@ -309,6 +313,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       isloged: () => {
         const token = localStorage.getItem("jwt-token");
         const user = localStorage.getItem("user");
+        const cart = localStorage.getItem("cart");
 
         // Check if the token exists and is not expired
         if (token) {
@@ -317,14 +322,15 @@ const getState = ({ getStore, getActions, setStore }) => {
           const currentTime = Date.now();
 
           if (currentTime >= expirationTime) {
-            toast.error('Session timed out',  {position: "bottom-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
+            toast.error("Session timed out", {
+              position: "bottom-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
             });
             setStore({ isloged: false });
             localStorage.clear();
@@ -334,6 +340,15 @@ const getState = ({ getStore, getActions, setStore }) => {
           setStore({ jwt_token: token });
           setStore({ isloged: true });
           setStore({ current_user_data: JSON.parse(user) });
+          setStore({ cart: JSON.parse(cart) });
+          if (cart == null) {
+            setStore({
+              cart: {
+                products: [],
+                ammount: 0,
+              },
+            });
+          }
           return true;
         }
 
@@ -459,14 +474,15 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((response) => response.json())
           .then((result) => {
             if (response.status == 401) {
-              toast.error(result.msg,  {position: "bottom-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "colored",
+              toast.error(result.msg, {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
               });
               navigate("/", { replace: true });
             }
@@ -543,14 +559,15 @@ const getState = ({ getStore, getActions, setStore }) => {
           );
           const result = await response.json();
           if (response.status == 401) {
-            toast.error(result.msg,  {position: "bottom-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
+            toast.error(result.msg, {
+              position: "bottom-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
             });
 
             navigate("/", { replace: true });
@@ -564,17 +581,73 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log(error);
         }
       },
-      buyProduct: (nombre, precio, descripcion, img, cantidad, id) => {
-        setStore({
-          product: {
-            nombre: nombre,
-            precio: precio,
-            descripcion: descripcion,
-            img: img,
-            cantidad: cantidad,
-            id: id,
-          },
+      buyProduct: (
+        nombre,
+        precio,
+        descripcion,
+        img,
+        cantidad,
+        id,
+        company_id,
+        company_name
+      ) => {
+        const store = getStore();
+        let newProduct = {
+          nombre: nombre,
+          precio: precio,
+          descripcion: descripcion,
+          img: img,
+          cantidad: cantidad,
+          id: id,
+          company_id: company_id,
+          company_name: company_name,
+        };
+
+        let company_exists = store.cart.products.findIndex((x) => {
+          return x.hasOwnProperty(company_id);
         });
+
+        if (company_exists != -1) {
+          let product_exists = store.cart.products[company_exists][
+            company_id
+          ].findIndex((x) => x.id === newProduct.id);
+          if (product_exists != -1) {
+            newProduct.cantidad =
+              store.cart.products[company_exists][company_id][product_exists]
+                .cantidad + 1;
+            let products = store.cart.products;
+            products[company_exists][company_id][product_exists] = newProduct;
+            setStore({
+              cart: {
+                products: products,
+                ammount: store.cart.ammount,
+              },
+            });
+          } else {
+            let products = store.cart.products;
+
+            products[company_exists][company_id].push(newProduct);
+            setStore({
+              cart: {
+                products: products,
+                ammount: store.cart.ammount,
+              },
+            });
+          }
+        } else {
+          console.log(store.cart.products);
+          setStore({
+            cart: {
+              products: [
+                ...store.cart.products,
+                { [company_id]: [newProduct] },
+              ],
+              ammount: store.cart.ammount + 1,
+            },
+          });
+        }
+
+        localStorage.setItem("cart", JSON.stringify(store.cart));
       },
       checkout_configurator(checkout_data) {
         const store = getStore();
@@ -586,10 +659,54 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
         /*this in checkoutform */
       },
-      top_5_searchinator:() => {
-        const store = getStore()
-        setStore({searchCompany: store.top_5})
-      }
+      top_5_searchinator: () => {
+        const store = getStore();
+        setStore({ searchCompany: store.top_5 });
+      },
+      product_deletinator: (product_id, company_id) => {
+        const store = getStore();
+        let products = store.cart.products;
+
+        let company_index = products.findIndex((x) => {
+          return x.hasOwnProperty(company_id);
+        });
+
+        let company_products = products[company_index][company_id];
+
+        let product_index = company_products.findIndex(
+          (x) => x.id === product_id
+        );
+        company_products.splice(product_index, 1);
+        if (company_products.length > 0) {
+          products[company_index][company_id] = company_products;
+          setStore({
+            cart: {
+              products: products,
+              ammount: store.cart.ammount,
+            },
+          });
+          localStorage.setItem("cart", JSON.stringify(store.cart));
+        } else {
+          getActions().company_deletinator(company_id);
+        }
+      },
+      company_deletinator: (company_id) => {
+        const store = getStore();
+        let products = store.cart.products;
+
+        let company_index = products.findIndex((x) => {
+          return x.hasOwnProperty(company_id);
+        });
+
+        products.splice(company_index, 1);
+        setStore({
+          cart: {
+            products: products,
+            ammount: store.cart.ammount - 1,
+          },
+        });
+        localStorage.setItem("cart", JSON.stringify(store.cart));
+      },
     },
   };
 };
