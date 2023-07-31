@@ -163,18 +163,24 @@ const OrderDetail = () => {
               navigate("/", { replace: true });
             }
             if (response.status == 200) {
-              await showToastAndNavigate();
-              actions.company_deletinator(company.id);
-              navigate("/searchEmpresa", { replace: true });
+              if (store.cart.products.length > 1) {
+                await showToastAndNavigate();
+                actions.company_deletinator(company.id);
+              } else {
+                await showToastAndNavigate();
+                actions.company_deletinator(company.id);
+
+                navigate("/searchEmpresa", { replace: true });
+              }
             }
           } else if (payMethod == "card") {
             const checkout_data = {
-              product_id: product.id,
+              products: products,
               user_id: store.current_user_data.id,
-              cantidad: product.cantidad,
-              precio: product.precio,
               delivery: delivery,
               pay_method: payMethod,
+              company_id: company.id,
+              precio: full_price,
             };
             const checkout = actions.checkout_configurator(checkout_data);
             if (checkout == false) {

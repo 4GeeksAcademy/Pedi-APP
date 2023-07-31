@@ -3,9 +3,8 @@ import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import "../../styles/checkout.css";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function CheckoutForm() {
   const [succeeded, setSucceeded] = useState(false);
@@ -28,7 +27,6 @@ export default function CheckoutForm() {
         }
 
         const data = store.checkout_data;
-        
 
         const token = localStorage.getItem("jwt-token");
         const response = await fetch(
@@ -75,7 +73,7 @@ export default function CheckoutForm() {
 
   const showToastAndNavigate = () => {
     return new Promise((resolve) => {
-      toast.success('Your product is on the way!', {
+      toast.success("Your product is on the way!", {
         autoClose: 2000,
         onClose: resolve, // Resuelve la promesa cuando se cierra la notificación
       });
@@ -91,7 +89,7 @@ export default function CheckoutForm() {
 
   const handleSubmit = async (ev) => {
     ev.preventDefault();
-    if(!actions.isloged()){
+    if (!actions.isloged()) {
       navigate("/", { replace: true });
     }
     setProcessing(true);
@@ -100,7 +98,6 @@ export default function CheckoutForm() {
       payment_method: {
         card: elements.getElement(CardElement),
       },
-      
     });
 
     if (payload.error) {
@@ -113,47 +110,51 @@ export default function CheckoutForm() {
       setSucceeded(true);
       /* redirigir a pago exitoso -----------------------------------------------------------------------------------------------------------------*/
       /* */
-      await showToastAndNavigate();
-      navigate("/searchEmpresa", { replace: true });
-      
+      if (store.cart.products.length > 1) {
+        await showToastAndNavigate();
+        actions.company_deletinator(company.id);
+      } else {
+        await showToastAndNavigate();
+        actions.company_deletinator(company.id);
+        navigate("/searchEmpresa", { replace: true });
+      }
     }
   };
 
   return (
-
     <div className="form-container container-flex">
-        <form id="payment-form " className="pay_form" onSubmit={handleSubmit}>
-          <CardElement id="card-element" options={cardStyle} onChange={handleChange} />
-          <button
-            disabled={processing || disabled || succeeded}
-            id="submit"
-          >
-            <span id="button-text">
-              {processing ? (
-                <div className="spinner" id="spinner"></div>
-              ) : (
-                "Pay now"
-              )}
-            </span>
-          </button>
-          {/* Show any error that happens when processing the payment */}
-          {error && (
-            <div className="card-error" role="alert">
-              {error}
-            </div>
-          )}
-          {/* Show a success message upon completion */}
-          <p className={succeeded ? "result-message" : "result-message hidden"}>
-            Payment succeeded, see the result in your
-            <a
-              href={`https://dashboard.stripe.com/test/payments`}
-            >
-              {" "}
-              Stripe dashboard.
-            </a> Refresh the page to pay again.
-          </p>
-        </form>
-        <ToastContainer 
+      <form id="payment-form " className="pay_form" onSubmit={handleSubmit}>
+        <CardElement
+          id="card-element"
+          options={cardStyle}
+          onChange={handleChange}
+        />
+        <button disabled={processing || disabled || succeeded} id="submit">
+          <span id="button-text">
+            {processing ? (
+              <div className="spinner" id="spinner"></div>
+            ) : (
+              "Pay now"
+            )}
+          </span>
+        </button>
+        {/* Show any error that happens when processing the payment */}
+        {error && (
+          <div className="card-error" role="alert">
+            {error}
+          </div>
+        )}
+        {/* Show a success message upon completion */}
+        <p className={succeeded ? "result-message" : "result-message hidden"}>
+          Payment succeeded, see the result in your
+          <a href={`https://dashboard.stripe.com/test/payments`}>
+            {" "}
+            Stripe dashboard.
+          </a>{" "}
+          Refresh the page to pay again.
+        </p>
+      </form>
+      <ToastContainer
         position="bottom-right"
         autoClose={5000}
         hideProgressBar={false}
@@ -161,7 +162,8 @@ export default function CheckoutForm() {
         pauseOnHover
         draggable
         progress={undefined}
-        theme="colored" />   
+        theme="colored"
+      />
     </div>
   );
 }

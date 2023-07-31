@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "../../styles/userOrder.css";
-import logoGrande from '../../img/Dishdash-blanco-grande.png';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
-
+import logoGrande from "../../img/Dishdash-blanco-grande.png";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const User_order = (props) => {
   const { date, bill_id, company, time } = props;
@@ -24,14 +22,15 @@ const User_order = (props) => {
         });
         const result = await response.json();
         if (response.status == 401) {
-          toast.error(result.msg,  {position: "bottom-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
+          toast.error(result.msg, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
           });
           navigate("/", { replace: true });
         }
@@ -46,7 +45,7 @@ const User_order = (props) => {
   let price = 0;
   for (let i of order) {
     amount += i.detail.cantidad;
-    price += i.detail.precioActual;
+    price += i.detail.precioActual * i.detail.cantidad;
   }
 
   return (
@@ -56,10 +55,10 @@ const User_order = (props) => {
         <div className="row border order_container">
           <div className="col-12 col-sm-4 order_imgbox">
             <img
-                src={company.imagen}
-                alt="imagen empresa"
-                className="order_company_img_box rounded"
-              />
+              src={company.imagen}
+              alt="imagen empresa"
+              className="order_company_img_box rounded"
+            />
           </div>
           <div className="col-12 col-sm-8  py-4">
             <div className="row text-center">
@@ -74,9 +73,7 @@ const User_order = (props) => {
               <div className="col-5 order_amount_box ">
                 <p className="order_amount s">
                   {amount
-                    ? `${amount} items for ${(price * amount * 1.21).toFixed(
-                        2
-                      )}$`
+                    ? `${amount} items for ${(price * 1.21).toFixed(2)}$`
                     : ""}
                 </p>
                 <a
@@ -98,9 +95,9 @@ const User_order = (props) => {
                       <div className="modal-header position-relative">
                         <div className="row">
                           <div className="col-9 position-absolute start-0">
-                              <p className="text-light">
-                                Thanks for ordering with
-                              </p>
+                            <p className="text-light">
+                              Thanks for ordering with
+                            </p>
                           </div>
                           <button
                             type="button"
@@ -111,7 +108,11 @@ const User_order = (props) => {
                         </div>
                         <div className="row  w-100 modal_row_header">
                           <div className="col-8  p-0 ">
-                            <img id="logotipo-page" src={logoGrande} alt="Logo de la empresa" />
+                            <img
+                              id="logotipo-page"
+                              src={logoGrande}
+                              alt="Logo de la empresa"
+                            />
                           </div>
                           <div className="col-4 modal_price_col p-0 h-100">
                             <p className=" text-light  text-end">
@@ -128,7 +129,6 @@ const User_order = (props) => {
                       <div className="modal-body">
                         <ul className="  modal_ul_box">
                           {order.map((x, index) => {
-                            
                             return (
                               <li key={index} className="d-flex ms-3 ">
                                 {" "}
@@ -137,7 +137,7 @@ const User_order = (props) => {
                                   {`${x.product.nombre} x${x.detail.cantidad}`}
                                 </h5>{" "}
                                 <p className="modal_subtotal_body mt-3 me-3 ms-auto">
-                                  {x.detail.precioActual}$
+                                  {x.detail.precioActual * x.detail.cantidad}$
                                 </p>{" "}
                               </li>
                             );
@@ -155,7 +155,7 @@ const User_order = (props) => {
                           <div className="col-6 d-flex pe-0">
                             <p className="modal_subtotal_footer  me-3 ms-auto">
                               {" "}
-                              {price ? `${(price * amount).toFixed(2)}$` : ""}
+                              {price ? `${price.toFixed(2)}$` : ""}
                             </p>
                           </div>
                         </div>
@@ -166,9 +166,7 @@ const User_order = (props) => {
                           <div className="col-6 d-flex pe-0">
                             <p className="modal_subtotal_footer  me-3 ms-auto">
                               {" "}
-                              {price
-                                ? `${(price * amount * 0.21).toFixed(2)}$`
-                                : ""}
+                              {price ? `${(price * 0.21).toFixed(2)}$` : ""}
                             </p>
                           </div>
                         </div>
@@ -179,9 +177,7 @@ const User_order = (props) => {
                           <div className="col-6 d-flex pe-0">
                             <h4 className="modal_total_footer  me-3 ms-auto">
                               {" "}
-                              {price
-                                ? `${(price * amount * 1.21).toFixed(2)}$`
-                                : ""}
+                              {price ? `${(price * 1.21).toFixed(2)}$` : ""}
                             </h4>
                           </div>
                         </div>

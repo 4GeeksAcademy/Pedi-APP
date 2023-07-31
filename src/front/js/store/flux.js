@@ -687,12 +687,10 @@ const getState = ({ getStore, getActions, setStore }) => {
           });
           localStorage.setItem("cart", JSON.stringify(store.cart));
         } else {
-          getActions().company_deletinator(company_id)
+          getActions().company_deletinator(company_id);
         }
-        
-        
       },
-      company_deletinator : (company_id) =>{
+      company_deletinator: (company_id) => {
         const store = getStore();
         let products = store.cart.products;
 
@@ -701,14 +699,14 @@ const getState = ({ getStore, getActions, setStore }) => {
         });
 
         products.splice(company_index, 1);
-          setStore({
-            cart: {
-              products: products,
-              ammount: store.cart.ammount - 1,
-            },
-          });
+        setStore({
+          cart: {
+            products: products,
+            ammount: store.cart.ammount - 1,
+          },
+        });
         localStorage.setItem("cart", JSON.stringify(store.cart));
-      }
+      },
     },
   };
 };
