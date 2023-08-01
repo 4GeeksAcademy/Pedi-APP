@@ -533,6 +533,9 @@ const getState = ({ getStore, getActions, setStore }) => {
       logoutinator: () => {
         setStore({ isloged: false });
         localStorage.clear();
+        setStore(
+          {current_user_data:{}}
+        )
       },
       addProduct: async (nombre, precio, descripcion, img) => {
         const store = getStore();
@@ -543,7 +546,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           idEmpresa: store.current_user_data.idEmpresa,
           img: img,
         };
-        console.log(newProduct);
+        
         try {
           const token = localStorage.getItem("jwt-token");
           const response = await fetch(
