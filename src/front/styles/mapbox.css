@@ -23,11 +23,21 @@
 }
 
 .marker {
-  background-image: url("https://res.cloudinary.com/dwbpf1nax/image/upload/v1689352907/mapicon_whg24b.png");
+  background-image: url("https://res.cloudinary.com/dwbpf1nax/image/upload/v1690888630/82037-map-google-maps-line-maker-red_wkqnkh.png");
 
   background-size: cover;
-  width: 3rem;
-  height: 3rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.marker_blue {
+  background-image: url("https://res.cloudinary.com/dwbpf1nax/image/upload/v1690888165/clipart2135726_ktw863.png");
+
+  background-size: cover;
+  width: 2rem;
+  height: 2rem;
   border-radius: 50%;
   cursor: pointer;
 }

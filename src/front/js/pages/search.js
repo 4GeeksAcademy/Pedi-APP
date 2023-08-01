@@ -55,6 +55,27 @@ export const Search = (props) => {
     setDeliveryChecked(false);
   };
 
+  const [companies, setCompanies] = useState([]);
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await fetch(
+          process.env.BACKEND_URL + "/api/allcompanies",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        const result = await response.json();
+        setCompanies(result.companies);
+      } catch (error) {
+        console.log("Error loading message from backend");
+      }
+    })();
+  }, []);
+
   const pageNavigate = (id) => {
     navigate(`/companyPage/${id}`, { replace: true });
   };
@@ -125,16 +146,12 @@ export const Search = (props) => {
             id="flexRadioDefault6"
             value="option3"
             onClick={handleFilterbyFavorites}
-            disabled={store.current_user_data == "Cliente" ? false : true}
+            disabled={store.current_user_data.role == "Cliente" ? false : true}
           />
           <label className="form-check-label" for="flexRadioDefault6">
             Your Favorites
           </label>
         </div>
-      </div>
-
-      <div className="row map_box ">
-        <Mapbox />
       </div>
 
       <div className=" mb-5 ">
@@ -174,6 +191,9 @@ export const Search = (props) => {
               <Top_5_carrousel />
             </div>
           )}
+          <div className="row map_box mt-4">
+            <Mapbox companies={companies} />
+          </div>
         </div>
       </div>
     </>
