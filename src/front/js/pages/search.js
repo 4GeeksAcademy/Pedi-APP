@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import mapboxgl from "!mapbox-gl";
 import Mapbox from "../component/mapbox";
 import Top_5_carrousel from "../component/top_5_carrousel";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const Search = (props) => {
   const { store, actions } = useContext(Context);
@@ -56,6 +58,49 @@ export const Search = (props) => {
   };
 
   const [companies, setCompanies] = useState([]);
+
+  const fav_modificator = async (company_id) => {
+    const token = localStorage.getItem("jwt-token");
+    const response = await fetch(
+      process.env.BACKEND_URL + `/api/favoriteCreator`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          user_id: store.current_user_data.id,
+          company_id: company_id,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+      }
+    );
+    const result = await response.json();
+    if (response.status == 401) {
+      toast.error(result.message, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      navigate("/", { replace: true });
+    }
+
+    toast.info(result.message, {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
   useEffect(() => {
     (async () => {
       try {
@@ -172,14 +217,25 @@ export const Search = (props) => {
                     }}
                   />
                   <div className="card-body bodyCard ">
-                    <div className="row">
-                      <div className="card-text col-7">
-                        <button className="btn btn-star p-0 m-0">
-                          <i className="fas fa-star star ms-1"></i>
-                        </button>{" "}
-                        4/5
+                    <div className="row d-flex ">
+                      <div className="card-text col d-flex justify-content-around  align-items-center">
+                        <div className="d-flex ">
+                          <i className="fas fa-star star  my-auto"></i>
+                          <p className="card-text my-auto">4/5</p>
+                        </div>
+                        <p className="card-text my-auto">35mins</p>
+                        <button
+                          type="button"
+                          className="btn py-0 px-1 m-0 fav_btn"
+                          onClick={() => {
+                            fav_modificator(element.id);
+                          }}
+                        >
+                          <i
+                            className={`fas fa-star mx-auto my-auto fav_icon`}
+                          ></i>
+                        </button>
                       </div>
-                      <p className="card-text col-5">35mins</p>
                     </div>
                   </div>
                 </div>
@@ -196,6 +252,7 @@ export const Search = (props) => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 };
