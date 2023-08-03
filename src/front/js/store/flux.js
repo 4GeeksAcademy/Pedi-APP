@@ -23,10 +23,10 @@ const getState = ({ getStore, getActions, setStore }) => {
     actions: {
       signupCliente: async (
         nombre,
-        apellido,
-        telefono,
-        nacimiento,
-        sexo,
+        // apellido,
+        // telefono,
+        // nacimiento,
+        // sexo,
         calleNumero,
         pisoPuerta,
         instrucciones,
@@ -38,10 +38,10 @@ const getState = ({ getStore, getActions, setStore }) => {
         const newClient = {
           //lo que ponga aqui tiene que coincidir con el models
           nombre: nombre,
-          apellido: apellido,
-          telefono: telefono,
-          nacimiento: nacimiento,
-          sexo: sexo,
+          // apellido: apellido,
+          // telefono: telefono,
+          // nacimiento: nacimiento,
+          // sexo: sexo,
           direccion: `${calleNumero}, ${pisoPuerta}, ${codigoPostal}, ${estado}, ${ciudad}`,
           instrucciones: instrucciones,
           email: store.user.email,
@@ -59,6 +59,39 @@ const getState = ({ getStore, getActions, setStore }) => {
               body: JSON.stringify(newClient),
             }
           );
+          const result = await response.json();
+          if (response.status == 200) {
+            console.log(response);
+            return true;
+          }
+          return result.message;
+        } catch (error) {
+          console.log(error);
+        }
+      },
+      addInfoCliente: async (
+        telefono,
+        nacimiento,
+        sexo,
+      ) => {
+        const store = getStore();
+        const newClient = {
+          //lo que ponga aqui tiene que coincidir con el models
+          telefono: telefono,
+          nacimiento: nacimiento,
+          sexo: sexo,
+          idCliente: store.current_user_data.id,
+        };
+        try {
+          const token = localStorage.getItem("jwt-token");
+          const response = await fetch(process.env.BACKEND_URL + "/api/userProfile/info", {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(newClient),
+          });
           const result = await response.json();
           if (response.status == 200) {
             console.log(response);
@@ -213,6 +246,18 @@ const getState = ({ getStore, getActions, setStore }) => {
                 current_user_data: {
                   ...store.current_user_data,
                   lng: result.userdata.lng,
+                },
+              });
+              setStore({
+                current_user_data: {
+                  ...store.current_user_data,
+                  sexo: result.userdata.sexo,
+                },
+              });
+              setStore({
+                current_user_data: {
+                  ...store.current_user_data,
+                  nacimiento: result.userdata.nacimiento,
                 },
               });
             } else if (result.userdata.role == "Empresa") {
