@@ -17,6 +17,18 @@
     text-align: start;
     
 }
+
+.addInfoUser_submit{
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    background-color: #C62828;
+    color:white;
+    font-weight: bold;
+    border-radius: 0.5rem;
+}
+
 .title_acount_user{
     text-align: center;
 }
@@ -43,9 +55,10 @@
     .box_text_user{
         font-size: 10px;
     }
-    .text-info-user{
+    .text-info-user {
         font-size:15px
     }
+    
     .title_acount_user{
         font-size:20px
     }

@@ -84,7 +84,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         };
         try {
           const token = localStorage.getItem("jwt-token");
-          const response = await fetch(process.env.BACKEND_URL + "/api/userProfile/info", {
+          const response = await fetch(process.env.BACKEND_URL + `/api/userProfile/info/${store.current_user_data.id}`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
