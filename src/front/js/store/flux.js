@@ -300,7 +300,7 @@ const getState = ({ getStore, getActions, setStore }) => {
               "user",
               JSON.stringify(store.current_user_data)
             );
-
+            getActions().favorites_loadinator();
             return true;
           } else {
             return result.message;
@@ -456,39 +456,44 @@ const getState = ({ getStore, getActions, setStore }) => {
           .catch((error) => console.log(error));
       },
 
-      filterFavorites: () => {
+      filterFavorites: async () => {
         const store = getStore();
         const filtrarfavoritos = {
           // lo que se ponga aquí tiene que coincidir con el back nombre:
           idCliente: store.current_user_data.id,
         };
         const token = localStorage.getItem("jwt-token");
-        fetch(process.env.BACKEND_URL + "/api/filterFavorites", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + token,
-          },
-          body: JSON.stringify(filtrarfavoritos),
-        })
-          .then((response) => response.json())
-          .then((result) => {
-            if (response.status == 401) {
-              toast.error(result.msg, {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-              });
-              navigate("/", { replace: true });
+        try {
+          const response = await fetch(
+            process.env.BACKEND_URL + "/api/filterFavorites",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + token,
+              },
+              body: JSON.stringify(filtrarfavoritos),
             }
-          })
-          .then((result) => setStore({ searchCompany: result }))
-          .catch((error) => console.log(error));
+          );
+          const result = await response.json();
+
+          if (response.status == 401) {
+            toast.error(result.msg, {
+              position: "bottom-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+            });
+            navigate("/", { replace: true });
+          }
+          setStore({ searchCompany: result });
+        } catch (error) {
+          console.log("Error loading message from backend");
+        }
       },
       caregory_filtrator: async (category) => {
         const store = getStore();
@@ -533,9 +538,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       logoutinator: () => {
         setStore({ isloged: false });
         localStorage.clear();
-        setStore(
-          {current_user_data:{}}
-        )
+        setStore({ current_user_data: {} });
       },
       addProduct: async (nombre, precio, descripcion, img) => {
         const store = getStore();
@@ -546,7 +549,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           idEmpresa: store.current_user_data.idEmpresa,
           img: img,
         };
-        
+
         try {
           const token = localStorage.getItem("jwt-token");
           const response = await fetch(
@@ -709,6 +712,48 @@ const getState = ({ getStore, getActions, setStore }) => {
           },
         });
         localStorage.setItem("cart", JSON.stringify(store.cart));
+      },
+      favorites_loadinator: async () => {
+        const store = getStore();
+        console.log(store.current_user_data.id);
+        try {
+          const token = localStorage.getItem("jwt-token");
+          const response = await fetch(
+            process.env.BACKEND_URL +
+              `/api/favorites/${store.current_user_data.id}`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + token,
+              },
+            }
+          );
+          const result = await response.json();
+          if (response.status == 401) {
+            toast.error(result.msg, {
+              position: "bottom-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+            });
+          }
+          if (response.status == 200) {
+            setStore({
+              current_user_data: {
+                ...store.current_user_data,
+                user_fav: result,
+              },
+            });
+          }
+          return false;
+        } catch (error) {
+          console.log(error);
+        }
       },
     },
   };

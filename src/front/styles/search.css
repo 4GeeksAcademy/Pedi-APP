@@ -1,46 +1,45 @@
-
-.form_empresas_container{
-    border-radius: 5%;
-    background-color: #FFC3C3;
-    box-shadow: 0px 5px 10px 0px rgb(59, 61, 61);
-    font-size: 17px;
-    margin-top: 2%;
-    height: 3rem;
-    width: 22rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 16.5%;
-    margin-bottom: 5%;
+.form_empresas_container {
+  border-radius: 5%;
+  background-color: #ffc3c3;
+  box-shadow: 0px 5px 10px 0px rgb(59, 61, 61);
+  font-size: 17px;
+  margin-top: 2%;
+  height: 3rem;
+  width: 22rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 16.5%;
+  margin-bottom: 5%;
 }
 
-.inputSearch[type="radio"]:checked + label{
-    border: #C62828;
-    font-weight: bold;
-  }
+.inputSearch[type="radio"]:checked + label {
+  border: #c62828;
+  font-weight: bold;
+}
 
-.inputSearch[type="radio"]:checked{
-    background-color: #C62828;
-    box-shadow: 0 0 5px red;
-    border: #C62828;
-    font-weight: bold;
-  }
+.inputSearch[type="radio"]:checked {
+  background-color: #c62828;
+  box-shadow: 0 0 5px red;
+  border: #c62828;
+  font-weight: bold;
+}
 
-.inputSearch[type="radio"]{
-    border: 1px solid #C62828;
-  }
+.inputSearch[type="radio"] {
+  border: 1px solid #c62828;
+}
 
-.rowInput{
-    color: #bc2626;
-  }
+.rowInput {
+  color: #bc2626;
+}
 
-.bodyCard{
-    background-color: #C62828;
-    color: white;
-    font-size: 13px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    height: 3rem;
+.bodyCard {
+  background-color: #c62828;
+  color: white;
+  font-size: 13px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  height: 3rem;
 }
 /* .cardRestaurante{
   border-radius: 10px;
@@ -51,36 +50,35 @@
   color: yellow;
 }
 
-.btn-star{
+.btn-star {
   font-size: 13px;
   color: white;
 }
 
-.busquedaEmpresas{
+.busquedaEmpresas {
   justify-content: center;
   width: 57%;
   margin-left: 19.8%;
   margin-top: 3%;
 }
 
-.cardImage{
+.cardImage {
   height: 8.5rem;
 }
 
-
-.map_box{
+.map_box {
   display: flex;
   height: 22rem;
   border-radius: 30%;
   margin-bottom: 2%;
 }
 
-.noRegistros{
+.noRegistros {
   margin-top: 7%;
   text-align: center;
 }
 
-.icono{
+.icono {
   margin-top: 1rem;
   font-size: 2.3rem;
 }
@@ -89,12 +87,57 @@
  margin-top: ;
 } */
 
-
-.home_foodbox1{
-
+.home_foodbox1 {
 }
-@media only screen and (max-width: 374px){
-  .form_empresas_container{
+.fav_icon {
+  color: yellow;
+}
+.fav_btn {
+  position: relative;
+
+  border-radius: 4em;
+  font-size: 16px;
+  color: white;
+  padding: 0.8em 1.8em;
+  cursor: pointer;
+  user-select: none;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition-duration: 0.4s;
+  -webkit-transition-duration: 0.4s; /* Safari */
+}
+
+.fav_btn:after {
+  content: "";
+  display: block;
+  position: absolute;
+  border-radius: 4em;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: all 0.5s;
+  box-shadow: 0 0 10px 40px white;
+}
+
+.fav_btn:active:after {
+  box-shadow: 0 0 0 0 white;
+  position: absolute;
+  border-radius: 4em;
+  left: 0;
+  top: 0;
+  opacity: 1;
+  transition: 0s;
+}
+
+.fav_btn:active {
+  top: 1px;
+}
+
+@media only screen and (max-width: 374px) {
+  .form_empresas_container {
     font-size: 10px;
     height: 2rem;
     width: 18rem;
@@ -103,35 +146,32 @@
     align-items: center;
     margin-left: 11%;
     margin-bottom: 4%;
+  }
+  .cardImage {
+    height: 9rem;
+  }
+  .cardRestaurante {
+    width: 70%;
+    margin-left: 15%;
+  }
 }
-.cardImage{
-  height: 9rem;
- }
- .cardRestaurante{
-  width: 70%;
-  margin-left: 15%;
-} 
-}
-
 
 @media only screen and (min-width: 374px) {
-
-  .form_empresas_container{
+  .form_empresas_container {
     margin-left: 15%;
     font-size: 11px;
     height: 2.5rem;
     width: 19rem;
-}
+  }
 
-.cardRestaurante{
-  width: 70%;
-  margin-left: 15%;
-} 
+  .cardRestaurante {
+    width: 70%;
+    margin-left: 15%;
+  }
 }
 
 @media only screen and (min-width: 460px) {
-
-  .form_empresas_container{
+  .form_empresas_container {
     font-size: 12px;
     height: 2.5rem;
     width: 21rem;
@@ -140,29 +180,28 @@
     align-items: center;
     margin-left: 15%;
     margin-bottom: 4%;
-}
-.cardImage{
-  height: 9rem;
- }
- .cardRestaurante{
-  width: 65%;
-  margin-left: 18%;
-} 
+  }
+  .cardImage {
+    height: 9rem;
+  }
+  .cardRestaurante {
+    width: 65%;
+    margin-left: 18%;
+  }
 }
 
-@media only screen and (min-width: 510px){
-  .form_empresas_container{
+@media only screen and (min-width: 510px) {
+  .form_empresas_container {
     margin-left: 16.6%;
   }
-    .cardRestaurante{
+  .cardRestaurante {
     width: 55%;
     margin-left: 23%;
-  } 
+  }
 }
 
 @media only screen and (min-width: 575px) {
-
-  .form_empresas_container{
+  .form_empresas_container {
     font-size: 13px;
     height: 2.5rem;
     width: 23rem;
@@ -171,32 +210,30 @@
     align-items: center;
     margin-left: 18%;
     margin-bottom: 4%;
-}
-.cardImage{
-  height: 9rem;
- }
- .cardRestaurante{
-  width: 70%;
-  margin-left: 15%;
-} 
+  }
+  .cardImage {
+    height: 9rem;
+  }
+  .cardRestaurante {
+    width: 70%;
+    margin-left: 15%;
+  }
 }
 
-
-@media only screen and (min-width: 676px){
-  .form_empresas_container{
+@media only screen and (min-width: 676px) {
+  .form_empresas_container {
     margin-left: 21%;
-}
+  }
 }
 
-@media only screen and (min-width: 690px){
-  .form_empresas_container{
+@media only screen and (min-width: 690px) {
+  .form_empresas_container {
     margin-left: 22%;
-}
+  }
 }
 
-
-@media only screen and (min-width: 768px){
-  .form_empresas_container{
+@media only screen and (min-width: 768px) {
+  .form_empresas_container {
     font-size: 14px;
     height: 3rem;
     width: 25rem;
@@ -205,29 +242,27 @@
     align-items: center;
     margin-left: 26%;
     margin-bottom: 3%;
-}
-.cardImage{
-  height: 10rem;
- }
- .cardRestaurante{
-  width: 100%;
-  margin-left: 5%;
-} 
-/* .bodyCard{
+  }
+  .cardImage {
+    height: 10rem;
+  }
+  .cardRestaurante {
+    width: 100%;
+    margin-left: 5%;
+  }
+  /* .bodyCard{
   height: 4rem;
 }  */
 }
 
-@media only screen and (min-width: 944px){
-  .form_empresas_container{
+@media only screen and (min-width: 944px) {
+  .form_empresas_container {
     margin-left: 27%;
-}
+  }
 }
 
-@media only screen and (min-width: 991px){
-  
-
-.form_empresas_container{
+@media only screen and (min-width: 991px) {
+  .form_empresas_container {
     font-size: 15px;
     height: 3rem;
     width: 27rem;
@@ -236,65 +271,59 @@
     align-items: center;
     margin-left: 32%;
     margin-bottom: 3%;
-}
+  }
 
-/*  
+  /*  
 .bodyCard{
   font-size: 13px;
   height: 3rem;
 } */
-.cardImage{
-  height: 12rem;
- }
- .cardRestaurante{
-  width: 100%;
-  margin-left: 2%;
-  padding-left: none;
-} 
+  .cardImage {
+    height: 12rem;
+  }
+  .cardRestaurante {
+    width: 100%;
+    margin-left: 2%;
+    padding-left: none;
+  }
 
-/* .contenedorCards{
+  /* .contenedorCards{
  width: 40%;
 } */
 
+  .btn-star:hover {
+    color: yellow;
+  }
 
-.btn-star:hover {
-color: yellow;
+  .btn-star {
+    font-size: 13px;
+    color: white;
+  }
+
+  .busquedaEmpresas {
+    justify-content: center;
+    width: 57%;
+    margin-left: 19.8%;
+    margin-top: 3%;
+  }
+
+  .map_box {
+    display: flex;
+    height: 22rem;
+    border-radius: 30%;
+    margin-bottom: 1%;
+  }
+
+  .noRegistros {
+    margin-top: 7%;
+    text-align: center;
+  }
+
+  .icono {
+    margin-top: 1rem;
+    font-size: 2.3rem;
+  }
 }
-
-.btn-star{
-font-size: 13px;
-color: white;
-}
-
-.busquedaEmpresas{
-justify-content: center;
-width: 57%;
-margin-left: 19.8%;
-margin-top: 3%;
-}
-
-.map_box{
-display: flex;
-height: 22rem;
-border-radius: 30%;
-margin-bottom: 1%;
-}
-
-
-.noRegistros{
-margin-top: 7%;
-text-align: center;
-}
-
-.icono{
-margin-top: 1rem;
-font-size: 2.3rem;
-}
-
-}
-
-
-
 
 /* 
 @media only screen and (max-width: 576px) {
@@ -479,7 +508,6 @@ font-size: 2.3rem;
 }
 
 } */
-
 
 /* Large devices (laptops/desktops, 992px and up) */
 /* @media only screen and (min-width: 991px) {
