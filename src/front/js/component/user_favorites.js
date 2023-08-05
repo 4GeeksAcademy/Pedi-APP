@@ -7,16 +7,16 @@ import bk from "../../img/bk.png";
 const User_favorites = (props) => {
   const { store, actions } = useContext(Context);
   const { company } = props;
-  
+
   return (
     <>
       <div className="row border favorites_container">
-        <div className="col-4  d-flex">
+        <div className="col-sm-4  d-flex">
           <div className="favorites_imgbox   ">
             <img src={company.imagen} alt="..." className="fav_img" />
           </div>
         </div>
-        <div className="col-8  py-4 ps-5 h-100">
+        <div className="col-sm-8  py-4 ps-5 h-100">
           <div className="row text-start ">
             <div className="col ">
               <h3>{company.nombre}</h3>
