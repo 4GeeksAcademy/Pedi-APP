@@ -56,8 +56,8 @@ const UserFavorites = () => {
       <div className="container-fluid container-user-profile">
         <div className="row ">
           <User_profile_menu />
-          <ToastContainer />
-          <div className="col-12 col-md-7 acount_fav_box  ">
+
+          <div className="col-12 col-md-7 acount_basic_info  ">
             <h1 className="title_acount_user">Your favorites</h1>
             {favorites &&
               favorites.map((x, index) => {
@@ -66,6 +66,7 @@ const UserFavorites = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 };
