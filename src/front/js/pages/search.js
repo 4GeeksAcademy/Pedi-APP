@@ -60,24 +60,8 @@ export const Search = (props) => {
   const [companies, setCompanies] = useState([]);
 
   const fav_modificator = async (company_id) => {
-    const token = localStorage.getItem("jwt-token");
-    const response = await fetch(
-      process.env.BACKEND_URL + `/api/favoriteCreator`,
-      {
-        method: "POST",
-        body: JSON.stringify({
-          user_id: store.current_user_data.id,
-          company_id: company_id,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
-        },
-      }
-    );
-    const result = await response.json();
-    if (response.status == 401) {
-      toast.error(result.message, {
+    if (store.current_user_data.role == "Empresa") {
+      toast.error("Must be a client!", {
         position: "bottom-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -87,19 +71,59 @@ export const Search = (props) => {
         progress: undefined,
         theme: "colored",
       });
-      navigate("/", { replace: true });
-    }
+    } else if (!store.current_user_data.role) {
+      toast.error("Must be logged!", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    } else {
+      const token = localStorage.getItem("jwt-token");
+      const response = await fetch(
+        process.env.BACKEND_URL + `/api/favoriteCreator`,
+        {
+          method: "POST",
+          body: JSON.stringify({
+            user_id: store.current_user_data.id,
+            company_id: company_id,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      const result = await response.json();
+      if (response.status == 401) {
+        toast.error(result.message, {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+        navigate("/", { replace: true });
+      }
 
-    toast.info(result.message, {
-      position: "bottom-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
+      toast.info(result.message, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
   };
   useEffect(() => {
     (async () => {
