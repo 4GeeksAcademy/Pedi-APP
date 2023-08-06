@@ -92,7 +92,7 @@ export const CompanyPageNavbar = ({ idEmpresa }) => {
             theme: "colored",
           });
         } else if (response.status == 200) {
-          toast.success("You have valued successfully, thank you!", {
+          toast.info(result.message, {
             position: "bottom-right",
             autoClose: 2000,
             hideProgressBar: false,
@@ -100,7 +100,7 @@ export const CompanyPageNavbar = ({ idEmpresa }) => {
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            theme: "colored",
+            theme: "light",
           });
         } else {
           console.log(result);

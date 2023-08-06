@@ -536,16 +536,26 @@ def stars_poll():
     reseña = "Nada"
     time = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
     date = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
-    print(data)
+    
 
     if not user_id or not company_id or not puntuacion:
          return jsonify({"message":"Error, missing data"}),400
 
-    addReseña = Reseñas(idCliente = user_id, idEmpresa = company_id, puntuacion = puntuacion, reseña = reseña, hora = time, fecha = date)
-    db.session.add(addReseña)
-    db.session.commit()
-
-    return jsonify({"message": "You have valued successfully, thank you!"}),200
+    exists = Reseñas.query.filter_by(idCliente = user_id, idEmpresa = company_id).first()
+    
+    if exists:
+        print (exists.serialize()) 
+        exists.puntuacion = puntuacion
+        exists.reseña = reseña
+        exists.hora = time
+        exists.fecha = date
+        db.session.commit()
+        return jsonify({"message": "Your previous rating was modified succesfully"}),200
+    else:
+        addReseña = Reseñas(idCliente = user_id, idEmpresa = company_id, puntuacion = puntuacion, reseña = reseña, hora = time, fecha = date)
+        db.session.add(addReseña)
+        db.session.commit()
+        return jsonify({"message": "You have valued successfully, thank you!"}),200
 
 @api.route("/empresa/<id>", methods=['GET'])
 def infoEmpresa(id):
@@ -593,7 +603,7 @@ def menuEmpresa(id):
     
     productos = empresa.productos
     if not productos:
-        return jsonify({"message": "productos not found"}), 400
+        return jsonify({"products": [], "company_data" :empresa.serialize() }), 400
     
     serialized_productos = [producto.serialize() for producto in productos]
     return jsonify({"products": serialized_productos, "company_data" :empresa.serialize() }), 200
