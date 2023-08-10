@@ -69,16 +69,76 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log(error);
         }
       },
-      addInfoCliente: async (
-        telefono,
-        nacimiento,
-        sexo,
-      ) => {
+      addPhoneCliente: async (telefono) => {
         const store = getStore();
         const newClient = {
           //lo que ponga aqui tiene que coincidir con el models
           telefono: telefono,
+          idCliente: store.current_user_data.id,
+        };
+        try {
+          const token = localStorage.getItem("jwt-token");
+          const response = await fetch(process.env.BACKEND_URL + `/api/userProfile/info/${store.current_user_data.id}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(newClient),
+          });
+          const result = await response.json();
+          if (response.status == 200) {
+            setStore({
+              current_user_data: {
+                ...store.current_user_data,
+                telefono: telefono
+              }
+            });
+            console.log(response);
+            return true;
+          }
+          return result.message;
+        } catch (error) {
+          console.log(error);
+        }
+      },
+      addBirthdayCliente: async (nacimiento) => {
+        const store = getStore();
+        const newClient = {
+          //lo que ponga aqui tiene que coincidir con el models
           nacimiento: nacimiento,
+          idCliente: store.current_user_data.id,
+        };
+        try {
+          const token = localStorage.getItem("jwt-token");
+          const response = await fetch(process.env.BACKEND_URL + `/api/userProfile/info/${store.current_user_data.id}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(newClient),
+          });
+          const result = await response.json();
+          if (response.status == 200) {
+            setStore({
+              current_user_data: {
+                ...store.current_user_data,
+                nacimiento: nacimiento
+              }
+            });
+            console.log(response);
+            return true;
+          }
+          return result.message;
+        } catch (error) {
+          console.log(error);
+        }
+      },
+      addSexCliente: async (sexo) => {
+        const store = getStore();
+        const newClient = {
+          //lo que ponga aqui tiene que coincidir con el models
           sexo: sexo,
           idCliente: store.current_user_data.id,
         };
@@ -94,6 +154,12 @@ const getState = ({ getStore, getActions, setStore }) => {
           });
           const result = await response.json();
           if (response.status == 200) {
+            setStore({
+              current_user_data: {
+                ...store.current_user_data,
+                sexo: sexo
+              }
+            });
             console.log(response);
             return true;
           }

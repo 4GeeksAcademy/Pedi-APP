@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/user_info.css";
@@ -14,6 +14,12 @@ const User_profile_info = () => {
     telefono: ""
   });
 
+  useEffect(() => {
+    // Cargar los datos del usuario si está autenticado
+    actions.isloged();
+    console.log(store.current_user_data);
+  }, []);
+
   const showToastAndNavigate = () => {
     return new Promise((resolve) => {
       toast.success('Data added successfully', {         
@@ -23,13 +29,11 @@ const User_profile_info = () => {
     });
   };
 
-  const handleaddInfoCliente = async (e) => {
+  const handleaddPhoneCliente = async (e) => {
     e.preventDefault();
-    if(formData.telefono && formData.nacimiento && formData.sexo){
-      actions.addInfoCliente(
-        formData.telefono,
-        formData.nacimiento,
-        formData.sexo,
+    if(formData.telefono){
+      actions.addPhoneCliente(
+        formData.telefono
       );
       await showToastAndNavigate();
       navigate('/userProfile/info', {replace: true}) 
@@ -38,6 +42,34 @@ const User_profile_info = () => {
         toast.error('Missing data');
       }
     }
+
+    const handleaddBirthdayCliente = async (e) => {
+      e.preventDefault();
+      if(formData.nacimiento){
+        actions.addBirthdayCliente(
+          formData.nacimiento,
+        );
+        await showToastAndNavigate();
+        navigate('/userProfile/info', {replace: true}) 
+      }
+      else {
+          toast.error('Missing data');
+        }
+      }
+
+      const handleaddSexCliente = async (e) => {
+        e.preventDefault();
+        if(formData.sexo){
+          actions.addSexCliente(
+            formData.sexo,
+          );
+          await showToastAndNavigate();
+          navigate('/userProfile/info', {replace: true}) 
+        }
+        else {
+            toast.error('Missing data');
+          }
+        }
 
 
   return (
@@ -77,100 +109,109 @@ const User_profile_info = () => {
           <p className="box_text_user">{store.current_user_data.direccion}</p>
         </div>
       </div>
-      {!store.current_user_data.nacimiento || !store.current_user_data.sexo ? (
-        <form onSubmit={(e) => handleaddInfoCliente(e)}>
-            <div className="row">
-                <div className="col-12 col-md-12 col-sm-12 mb-3 category_container_user">
+      {!store.current_user_data.telefono ? (
+        <form>
+          <div className="row">
+            <div className="col-12 col-md-12 col-sm-12 category_container_user">
+              <label
+                htmlFor="telefonoInput"
+                className="form-label info_title_user add-info-label"
+              >
+                Phone
+              </label>
+              <input
+                type="tel"
+                pattern="[0-9]{9}"
+                className="form-control container_user container-input-user"
+                id="telefonoInput"
+                placeholder="Phone"
+                value={formData.telefono}
+                onChange={(data) => {
+                  setFormData({ ...formData, telefono: data.target.value });
+                }}
+                required
+              />
+              <button type="button" className="btn col-1 addInfoUser_submit" onClick={(e) => handleaddPhoneCliente(e)}><i className="fas fa-plus"></i></button>
+            </div>
+          </div>
+        </form>
+        ) : (
+        <div className="category_container_user">
+          <div className="info_title_user">
+            <h5 className="ms-3 text-info-user">Phone</h5>
+          </div>
+          <div className="container_user my-3">
+            <p className="box_text_user">{store.current_user_data.telefono}</p>
+          </div>
+        </div>)}
+            {!store.current_user_data.nacimiento ? (
+              <form>
+                <div className="col-12 col-md-12 col-sm-12 category_container_user">
                   <label
-                    htmlFor="exampleInputPassword1"
-                    className="form-label info_title_user"
+                    htmlFor="nacimientoInput"
+                    className="form-label info_title_user add-info-label"
                   >
-                    Phone
+                    Birthdate
                   </label>
                   <input
-                    type="tel"
-                    pattern="[0-9]{9}"
-                    className="form-control container_user"
-                    id="exampleInputPassword1"
-                    placeholder="Phone"
-                    value={formData.telefono}
+                    type="date"
+                    className="form-control container_user container-input-user"
+                    id="nacimientoInput"
+                    placeholder="Birth Date"
+                    value={formData.nacimiento}
                     onChange={(data) => {
-                      setFormData({ ...formData, telefono: data.target.value });
+                      setFormData({
+                        ...formData,
+                        nacimiento: data.target.value,
+                      });
                     }}
                     required
                   />
+                  <button type="button" className="btn col-1 addInfoUser_submit" onClick={(e) => handleaddBirthdayCliente(e)}><i className="fas fa-plus"></i></button>
                 </div>
-            </div>
-            <div className="col-12 col-md-12 col-sm-12 mb-3 category_container_user">
-                <label
-                htmlFor="exampleInputPassword1"
-                className="form-label info_title_user"
-                >
-                Birthdate
-                </label>
-                <input
-                type="date"
-                className="form-control container_user"
-                id="exampleInputPassword1"
-                placeholder="Birth Date"
-                value={formData.nacimiento}
-                onChange={(data) => {
-                    setFormData({
-                    ...formData,
-                    nacimiento: data.target.value,
-                    });
-                }}
-                required
-                />
-            </div>
-            <div className="col-12 col-md-12 col-sm-12 mb-3 category_container_user">
-                <label
-                htmlFor="exampleInputPassword1"
-                className="form-label info_title_user"
-                >
-                Sex
-                </label>
-                <select
-                className="form-select container_user"
-                aria-label="Default select example"
-                value={formData.sexo}
-                onChange={(data) => {
-                    setFormData({ ...formData, sexo: data.target.value });
-                }}
-                >
-                <option>Select</option>
-                <option value="Female">Female</option>
-                <option value="Male">Male</option>
-                </select>
-            </div>
-            <div class="col-md-12 d-flex justify-content-center">
-              <button type="submit" className="btn col-2 mb-2 addInfoUser_submit">Add info</button>
-            </div>
-            </form>
-      ) : (
-        <>
+              </form>
+        ) : (
             <div className="category_container_user">
               <div className="info_title_user">
-                  <h5 className="ms-3 text-info-user">Phone</h5>
+                <h5 className="ms-3 text-info-user">Birthdate</h5>
               </div>
-              <div className="info_title_user my-3 ">
-                  <p className="box_text_user">{store.current_user_data.telefono}</p>
+              <div className="container_user my-3">
+                <p className="box_text_user">{store.current_user_data.nacimiento}</p>
               </div>
-            </div>
+            </div>)}
+      {!store.current_user_data.sexo ? (
+        <form>
+          <div className="col-12 col-md-12 col-sm-12 category_container_user">
+            <label
+              htmlFor="sexoInput"
+              className="form-label info_title_user add-info-label"
+            >
+              Sex
+            </label>
+            <select
+              className="form-select container_user container-input-user"
+              aria-label="Default select example"
+              id="sexoInput"
+              value={formData.sexo}
+              onChange={(data) => {
+                setFormData({ ...formData, sexo: data.target.value });
+              }}
+            >
+              <option>Select</option>
+              <option value="Female">Female</option>
+              <option value="Male">Male</option>
+            </select>
+            <button type="button" className="btn col-1 addInfoUser_submit" onClick={(e) => handleaddSexCliente(e)}><i className="fas fa-plus"></i></button>
+          </div>
+        </form>
+      ) : (
+        <>
             <div className="category_container_user">
               <div className="info_title_user">
                 <h5 className="ms-3 text-info-user">Sex</h5>
               </div>
               <div className="container_user my-3 ">
                 <p className="box_text_user">{store.current_user_data.sexo}</p>
-              </div>
-            </div>
-            <div className="category_container_user">
-              <div className="info_title_user">
-                <h5 className="ms-3 text-info-user">Birthdate</h5>
-              </div>
-              <div className="container_user my-3 ">
-                <p className="box_text_user">{store.current_user_data.nacimiento}</p>
               </div>
             </div>
         </>
