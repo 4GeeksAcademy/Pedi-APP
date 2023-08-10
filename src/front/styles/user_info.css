@@ -1,6 +1,12 @@
 .container-user-profile-info{
     margin:0rem 0rem 2rem 0rem;
 }
+.container-input-user{
+    padding-left: 3rem;
+    padding-right:3rem;
+    margin-bottom: 1rem;
+    margin-top:1rem;
+}
 .container_user{
     border: 0.1px solid #7A7A7A;
     box-shadow: 0px 5px 5px 0px #7A7A7A;
@@ -14,17 +20,26 @@
     padding-left: 3rem;
     padding-right: 3rem;
     margin-left: 1rem;
-    text-align: start;
-    
+    text-align: start;  
 }
+
+.addInfoUser_submit{
+    border: none;
+    margin: 1rem 0rem 1rem 1rem;
+    cursor: pointer;
+    text-align: center;
+    background-color: #C62828;
+    color:white;
+    font-weight: bold;
+    border-radius: 0.5rem;
+}
+
 .title_acount_user{
     text-align: center;
 }
 .box_text_user{
-    
     margin-top: auto;
     margin-bottom: auto;
-    
 }
 .category_container_user{
     display: flex;
@@ -40,12 +55,27 @@
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
+
+    .addInfoUser_submit{
+        font-size:15px;
+        display: flex;
+        padding: 1rem 1.7rem 1rem 1rem;
+    }
     .box_text_user{
         font-size: 10px;
     }
-    .text-info-user{
-        font-size:15px
+    .text-info-user {
+        font-size:15px;
+        font-weight: 500;
     }
+
+    .add-info-label{
+        font-size:15px;
+        padding-left: 1rem;
+        font-weight: 500;
+
+    }
+    
     .title_acount_user{
         font-size:20px
     }
@@ -53,7 +83,17 @@
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
-
+.add-info-label{
+    font-size: 19px;
+    font-family: Arial, sans-serif;
+    font-weight: 500;
+    padding-left: 1rem;
+}
+.text-info-user {
+    font-size:19px;
+    font-family: Arial, sans-serif;
+    font-weight: 500;
+}
 }
 
 /* Medium devices (landscape tablets, 768px and up) */

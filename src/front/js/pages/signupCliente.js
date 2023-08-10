@@ -38,7 +38,7 @@ const showToastAndNavigate = () => {
     else {
       const register = await actions.signupCliente(
         formData.nombre,
-        formData.apellido,
+        // formData.apellido,
         formData.telefono,
         formData.nacimiento,
         formData.sexo,
@@ -67,7 +67,7 @@ const showToastAndNavigate = () => {
 
   const [formData, setFormData] = useState({
     nombre: "",
-    apellido: "",
+    // apellido: "",
     telefono: "",
     nacimiento: "",
     sexo: "",
@@ -104,7 +104,7 @@ const showToastAndNavigate = () => {
                   htmlFor="exampleInputEmail1"
                   className="form-label signupCliente_label"
                 >
-                  Name
+                  Full Name
                 </label>
                 <input
                   type="nombre"
@@ -119,7 +119,7 @@ const showToastAndNavigate = () => {
                   required
                 />
               </div>
-              <div className="mb-3">
+              {/* <div className="mb-3">
                 <label
                   htmlFor="exampleInputPassword1"
                   className="form-label signupCliente_label"
@@ -137,71 +137,7 @@ const showToastAndNavigate = () => {
                   }}
                   required
                 />
-              </div>
-              <div className="row">
-                <div className="col-12 col-md-12 col-sm-12 mb-3">
-                  <label
-                    htmlFor="exampleInputPassword1"
-                    className="form-label signupCliente_label"
-                  >
-                    Phone
-                  </label>
-                  <input
-                    type="tel"
-                    pattern="[0-9]{9}"
-                    className="form-control"
-                    id="exampleInputPassword1"
-                    placeholder="Phone"
-                    value={formData.telefono}
-                    onChange={(data) => {
-                      setFormData({ ...formData, telefono: data.target.value });
-                    }}
-                    required
-                  />
-                </div>
-                <div className="col-12 col-md-6 col-sm-6 mb-3">
-                  <label
-                    htmlFor="exampleInputPassword1"
-                    className="form-label signupCliente_label"
-                  >
-                    Birthdate
-                  </label>
-                  <input
-                    type="date"
-                    className="form-control"
-                    id="exampleInputPassword1"
-                    placeholder="Birth Date"
-                    value={formData.nacimiento}
-                    onChange={(data) => {
-                      setFormData({
-                        ...formData,
-                        nacimiento: data.target.value,
-                      });
-                    }}
-                    required
-                  />
-                </div>
-                <div className="col-12 col-md-6 col-sm-6 mb-3">
-                  <label
-                    htmlFor="exampleInputPassword1"
-                    className="form-label signupCliente_label"
-                  >
-                    Sex
-                  </label>
-                  <select
-                    className="form-select"
-                    aria-label="Default select example"
-                    value={formData.sexo}
-                    onChange={(data) => {
-                      setFormData({ ...formData, sexo: data.target.value });
-                    }}
-                  >
-                    <option selected>Select</option>
-                    <option value="Female">Female</option>
-                    <option value="Male">Male</option>
-                  </select>
-                </div>
-              </div>
+              </div> */}
               <p className="signupCliente_label">Adress</p>
               <div className="row">
                 <div className="col-12 col-sm-6 mb-3">

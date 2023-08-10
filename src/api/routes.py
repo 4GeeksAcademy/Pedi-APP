@@ -141,14 +141,14 @@ def signupCliente():
     password = data.get("password")
     role = "Cliente"
     nombre = data.get("nombre")
-    apellido = data.get("apellido")
-    telefono = data.get("telefono")
-    nacimiento = data.get("nacimiento")
-    sexo = data.get("sexo")
+    # apellido = data.get("apellido")
+    # telefono = data.get("telefono")
+    # nacimiento = data.get("nacimiento")
+    # sexo = data.get("sexo")
     direccion = data.get("direccion")
     instrucciones = data.get("instrucciones")
 
-    if not email or not password or not nombre or not apellido or not telefono or not nacimiento :
+    if not email or not password or not nombre:
         return jsonify({"message": "missing data"}),400
     
     existe = Usuario.query.filter_by(email=email).first()
@@ -169,13 +169,55 @@ def signupCliente():
     db.session.commit()
 
     
-    addCliente = Cliente(nombre=nombre, apellido=apellido, sexo=sexo, nacimiento=nacimiento, telefono=telefono, instrucciones=instrucciones, is_active=True, idUsuario = addUsuario.id)
+    addCliente = Cliente(nombre=nombre, instrucciones=instrucciones, is_active=True, idUsuario = addUsuario.id)
     db.session.add(addCliente)
     db.session.commit()
 
     
-    return jsonify({"message": "Sign up successfull"})
-    
+    return jsonify({"message": "Sign up successfully"})
+
+@api.route("/userProfile/info/<int:idCliente>", methods=["PUT"])
+@jwt_required()
+def addInfoCliente(idCliente):
+    data = request.json
+    cliente = Cliente.query.get(idCliente)
+
+    if not cliente:
+        return jsonify({"message": "Cliente not found"}), 404
+
+    if "telefono" in data:
+        cliente.telefono = data.get("telefono")
+    if "nacimiento" in data:
+        cliente.nacimiento = data.get("nacimiento")
+    if "sexo" in data:
+        cliente.sexo = data.get("sexo")
+
+    db.session.commit()
+    return jsonify({"message": "Cliente updated successfully"}), 200
+
+# @api.route("/userProfile/info", methods=["PUT"])
+# @jwt_required()
+# def addInfoCliente():
+#     data = request.json
+#     id = data.get("id")
+
+#     if not id:
+#         return jsonify({"message": "Invalid request. Missing id"}), 400
+
+#     cliente = Cliente.query.get(id)
+
+#     if not cliente:
+#         return jsonify({"message": "Cliente not found"}), 404
+
+#     if "telefono" in data:
+#         cliente.telefono = data.get("telefono")
+#     if "nacimiento" in data:
+#         cliente.nacimiento = data.get("nacimiento")
+#     if "sexo" in data:
+#         cliente.sexo = data.get("sexo")
+
+#     db.session.commit()
+#     return jsonify({"message": "Cliente updated successfully"}), 200
 
 @api.route("/signupEmpresa", methods = ["POST"])
 def signupEmpresa():
@@ -239,7 +281,7 @@ def signupEmpresa():
 
     
 
-    return jsonify({"message": "Sign up successfull"}),200
+    return jsonify({"message": "Sign up successfully"}),200
 
 @api.route("/category", methods = ["POST"])
 def category_creatinator():
