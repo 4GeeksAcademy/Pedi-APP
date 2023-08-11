@@ -232,15 +232,15 @@ const OrderDetail = () => {
           <ToastContainer />
           <div className="container-fluid text-center order_page_container p-5 ">
             <div className="row order_all p-sm-5 ">
-              <div className="companyName row ms-5 ps-5">
-                <div className="col-2 ms-5 ps-5 imgCompany">
+              <div className="companyName row">
+                <div className="col-4 imgCompany">
                 <img
                   src={company.imagen}
                   alt="..."
                   className="order_img rounded "
                 />
                 </div>
-                <div className="col-5 companyName1">
+                <div className="col-6 companyName1">
                   <h3 className="orderCompanyName">{company.nombre}</h3>
                 </div>
               </div>

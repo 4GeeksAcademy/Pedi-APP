@@ -227,6 +227,9 @@
     margin-left: -4rem;
     width: 4rem;
   }
+  .btn_delivery1{
+    background-color: #c62828;
+    }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -435,6 +438,9 @@
     display: flex;
     flex-direction: row;
   }
+  .btn_delivery1{
+    background-color: #c62828;
+    }
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
@@ -467,6 +473,9 @@
     display: flex;
     justify-content: center;
   }
+  .btn_delivery1{
+    background-color: #c62828;
+    }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
@@ -514,7 +523,7 @@
     width: auto !important;
     margin-left: 2rem;
   }
-  .btn_delivery1{
+.btn_delivery1{
   background-color: #c62828;
   }
 
@@ -524,7 +533,6 @@
   height: 3.5rem;
   display: flex;
   justify-content: flex-end;
-  margin-left: 2rem;
 
 }
 .companyName{
@@ -532,11 +540,11 @@
   width: 100%;
   height: 100%;
   justify-content: center;
-  margin-left: 1rem;
   margin-bottom: 1.5rem;
 }
 .imgCompany{
-  margin-left: 1rem;
+  display: flex;
+  justify-content: flex-end;
 }
 .companyName1{
   display: flex;
