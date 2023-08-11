@@ -28,13 +28,13 @@ export const Navbar = () => {
             </Link>
             <div className="btn-group dropstart ms-auto me-5">
               <button
-                className="btn btn-secondary dropdown-toggle"
+                className="btn btn-dark dropdown-toggle carritoCompra"
                 type="button"
                 data-bs-toggle="dropdown"
                 data-bs-auto-close="inside"
                 aria-expanded="false"
               >
-                <i className="fas fa-shopping-cart fa-lg"></i>
+                <i className="fas fa-shopping-cart fa-lg"></i> 
               </button>
               <ul className="dropdown-menu">
                 <Cart />

@@ -232,6 +232,7 @@ const OrderDetail = () => {
           <ToastContainer />
           <div className="container-fluid text-center order_page_container p-5 ">
             <div className="row order_all p-sm-5 ">
+            <h3 className="">{company.nombre}</h3>
               <div className="col-12 col-lg-5 order_left_col px-4 pb-4 ">
                 <div className="row left_first_row pt-4 ">
                   <div className="col-sm-2 col-6  order_img_box ">
@@ -242,7 +243,7 @@ const OrderDetail = () => {
                     />
                   </div>
                   <div className="col-sm-5 col-6  order_company_name  ">
-                    <h3 className="">{company.nombre}</h3>
+                  
                   </div>
                   <div className="col-sm-5  col-12 d-flex order_btn_box_box justify-content-center">
                     <div className="order_btn_box ">
