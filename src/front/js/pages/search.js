@@ -249,8 +249,8 @@ export const Search = (props) => {
                         </div>
                         <p className="card-text my-auto">35mins</p>
                         <button
-                          type="button"
-                          className="btn py-0 px-1 m-0 fav_btn"
+                          type="button "
+                          className="btn py-0 px-1 m-0 fav_btn "
                           onClick={() => {
                             fav_modificator(element.id);
                           }}
