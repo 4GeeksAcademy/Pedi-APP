@@ -820,3 +820,18 @@ def category_filtrator():
 
 
     
+@api.route("/averagestars/<id>", methods=["GET"])
+def average_stars(id):
+    empresa = Empresa.query.get(id)
+    if not empresa:
+        return jsonify({"message": "Empresa not found"}), 400
+
+    reseñas = Reseñas.query.filter_by(idEmpresa=id).all()
+
+    if not reseñas:
+        return jsonify({"message": "Reseñas not found"}), 400
+
+    total_stars = sum(reseña.puntuacion for reseña in reseñas)
+    average = total_stars / len(reseñas)
+
+    return jsonify({"average": average}), 200
