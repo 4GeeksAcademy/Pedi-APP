@@ -34,7 +34,7 @@ export const Navbar = () => {
                 data-bs-auto-close="inside"
                 aria-expanded="false"
               >
-                <i className="fas fa-shopping-cart fa-lg"></i> {store.cart.products.length}
+                <i className="fas fa-shopping-cart fa-lg"></i>
               </button>
               <ul className="dropdown-menu">
                 <Cart />
