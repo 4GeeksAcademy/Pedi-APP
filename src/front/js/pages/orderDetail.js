@@ -232,18 +232,21 @@ const OrderDetail = () => {
           <ToastContainer />
           <div className="container-fluid text-center order_page_container p-5 ">
             <div className="row order_all p-sm-5 ">
+              <div className="companyName row">
+                <div className="col-4 imgCompany">
+                <img
+                  src={company.imagen}
+                  alt="..."
+                  className="order_img rounded "
+                />
+                </div>
+                <div className="col-6 companyName1">
+                  <h3 className="orderCompanyName">{company.nombre}</h3>
+                </div>
+              </div>
               <div className="col-12 col-lg-5 order_left_col px-4 pb-4 ">
                 <div className="row left_first_row pt-4 ">
-                  <div className="col-sm-2 col-6  order_img_box ">
-                    <img
-                      src={company.imagen}
-                      alt="..."
-                      className="order_img rounded"
-                    />
-                  </div>
-                  <div className="col-sm-5 col-6  order_company_name  ">
-                    <h3 className="">{company.nombre}</h3>
-                  </div>
+                  <h3 className="deliveryOption">Select delivery option</h3>
                   <div className="col-sm-5  col-12 d-flex order_btn_box_box justify-content-center">
                     <div className="order_btn_box ">
                       <input
@@ -256,8 +259,8 @@ const OrderDetail = () => {
                         onClick={() => {
                           setdelivery(true);
                         }}
-                      />
-                      <label className="btn  order_btn me-2" htmlFor="option1">
+                      /> 
+                      <label className="btn  order_btn me-5 ms-1 btn_delivery1" htmlFor="option1">
                         Delivery
                       </label>
 
@@ -299,12 +302,12 @@ const OrderDetail = () => {
                   </div>
                 </div>
                 <div className="row left_second_row  ">
-                  <div className="col order_delidet_box  ">
+                  <div className="col order_delidet_box">
                     <h3>Delivery estimate</h3>
                   </div>
 
                   <div
-                    className={`col order_delidet_box ${
+                    className={`col order_delidet_box deliveryEstimate1 ${
                       speed === "standard" ? "order_standexp" : ""
                     }`}
                     onClick={() => speed_choosinator("standard")}
@@ -320,7 +323,7 @@ const OrderDetail = () => {
                   </div>
 
                   <div
-                    className={`col order_delidet_box d-flex mt-2  ${
+                    className={`col order_delidet_box deliveryEstimate2 d-flex mt-2  ${
                       speed === "express" ? "order_standexp" : ""
                     }`}
                     onClick={() => speed_choosinator("express")}
