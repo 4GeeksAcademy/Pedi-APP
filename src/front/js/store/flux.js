@@ -78,21 +78,25 @@ const getState = ({ getStore, getActions, setStore }) => {
         };
         try {
           const token = localStorage.getItem("jwt-token");
-          const response = await fetch(process.env.BACKEND_URL + `/api/userProfile/info/${store.current_user_data.id}`, {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": `Bearer ${token}`
-            },
-            body: JSON.stringify(newClient),
-          });
+          const response = await fetch(
+            process.env.BACKEND_URL +
+              `/api/userProfile/info/${store.current_user_data.id}`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify(newClient),
+            }
+          );
           const result = await response.json();
           if (response.status == 200) {
             setStore({
               current_user_data: {
                 ...store.current_user_data,
-                telefono: telefono
-              }
+                telefono: telefono,
+              },
             });
             console.log(response);
             return true;
@@ -111,21 +115,25 @@ const getState = ({ getStore, getActions, setStore }) => {
         };
         try {
           const token = localStorage.getItem("jwt-token");
-          const response = await fetch(process.env.BACKEND_URL + `/api/userProfile/info/${store.current_user_data.id}`, {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": `Bearer ${token}`
-            },
-            body: JSON.stringify(newClient),
-          });
+          const response = await fetch(
+            process.env.BACKEND_URL +
+              `/api/userProfile/info/${store.current_user_data.id}`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify(newClient),
+            }
+          );
           const result = await response.json();
           if (response.status == 200) {
             setStore({
               current_user_data: {
                 ...store.current_user_data,
-                nacimiento: nacimiento
-              }
+                nacimiento: nacimiento,
+              },
             });
             console.log(response);
             return true;
@@ -144,21 +152,25 @@ const getState = ({ getStore, getActions, setStore }) => {
         };
         try {
           const token = localStorage.getItem("jwt-token");
-          const response = await fetch(process.env.BACKEND_URL + `/api/userProfile/info/${store.current_user_data.id}`, {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": `Bearer ${token}`
-            },
-            body: JSON.stringify(newClient),
-          });
+          const response = await fetch(
+            process.env.BACKEND_URL +
+              `/api/userProfile/info/${store.current_user_data.id}`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify(newClient),
+            }
+          );
           const result = await response.json();
           if (response.status == 200) {
             setStore({
               current_user_data: {
                 ...store.current_user_data,
-                sexo: sexo
-              }
+                sexo: sexo,
+              },
             });
             console.log(response);
             return true;
@@ -866,6 +878,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log(error);
         }
       },
+     
     },
   };
 };

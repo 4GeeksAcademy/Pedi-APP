@@ -234,11 +234,11 @@ const OrderDetail = () => {
             <div className="row order_all p-sm-5 ">
               <div className="companyName row">
                 <div className="col-4 imgCompany">
-                <img
-                  src={company.imagen}
-                  alt="..."
-                  className="order_img rounded "
-                />
+                  <img
+                    src={company.imagen}
+                    alt="..."
+                    className="order_img rounded "
+                  />
                 </div>
                 <div className="col-6 companyName1">
                   <h3 className="orderCompanyName">{company.nombre}</h3>
@@ -259,8 +259,11 @@ const OrderDetail = () => {
                         onClick={() => {
                           setdelivery(true);
                         }}
-                      /> 
-                      <label className="btn  order_btn me-5 ms-1 btn_delivery1" htmlFor="option1">
+                      />
+                      <label
+                        className="btn  order_btn me-5 ms-1 btn_delivery1"
+                        htmlFor="option1"
+                      >
                         Delivery
                       </label>
 
@@ -429,8 +432,15 @@ const OrderDetail = () => {
                                 //   ...product,
                                 //  cantidad: product.cantidad + 1,
                                 //});
-                                console.log(
-                                  "pendiente agregar un solo producto"
+                                actions.buyProduct(
+                                  x.nombre,
+                                  x.precio,
+                                  x.descripcion,
+                                  x.img,
+                                  1,
+                                  x.id,
+                                  company.id,
+                                  company.nombre
                                 );
                               }}
                             >
