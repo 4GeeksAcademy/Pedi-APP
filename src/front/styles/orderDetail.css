@@ -26,7 +26,6 @@
   /*----------------------------------------------------------------------- first row*/
 
   .order_img_box {
-
     width: 100%;
     height: 3rem;
   }
@@ -35,16 +34,15 @@
     height: 1rem;
     display: flex;
     justify-content: flex-end;
-
   }
-  .companyName{
+  .companyName {
     display: flex;
     width: 2rem;
     height: 1rem;
     justify-content: center;
     margin-left: 10rem;
   }
-  .imgCompany{
+  .imgCompany {
     margin-left: 9rem;
   }
 
@@ -56,7 +54,6 @@
     justify-content: end;
     justify-self: end;
   } */
-
 
   .order_btn {
     color: #ffffff;
@@ -220,16 +217,13 @@
     justify-content: center;
     align-items: center;
   }
-  .deliveryOption{
+  .deliveryOption {
     display: flex;
     justify-content: flex-start;
     align-content: flex-start;
     margin-left: -4rem;
     width: 4rem;
   }
-  .btn_delivery1{
-    background-color: #c62828;
-    }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -438,9 +432,6 @@
     display: flex;
     flex-direction: row;
   }
-  .btn_delivery1{
-    background-color: #c62828;
-    }
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
@@ -473,9 +464,6 @@
     display: flex;
     justify-content: center;
   }
-  .btn_delivery1{
-    background-color: #c62828;
-    }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
@@ -523,47 +511,41 @@
     width: auto !important;
     margin-left: 2rem;
   }
-.btn_delivery1{
-  background-color: #c62828;
-  }
-
 }
 .order_img {
   width: 6rem;
   height: 3.5rem;
   display: flex;
   justify-content: flex-end;
-
 }
-.companyName{
+.companyName {
   display: flex;
   width: 100%;
   height: 100%;
   justify-content: center;
   margin-bottom: 1.5rem;
 }
-.imgCompany{
+.imgCompany {
   display: flex;
   justify-content: flex-end;
 }
-.companyName1{
+.companyName1 {
   display: flex;
   justify-content: flex-start;
 }
-.orderCompanyName{
-margin-top: 0.5rem;
+.orderCompanyName {
+  margin-top: 0.5rem;
 }
-.deliveryOption{
+.deliveryOption {
   display: flex;
   justify-content: flex-start;
 }
-.deliveryEstimate1{
+.deliveryEstimate1 {
   background-color: #f0f0f0;
 }
-.deliveryEstimate2{
+.deliveryEstimate2 {
   background-color: #f0f0f0;
 }
-
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {

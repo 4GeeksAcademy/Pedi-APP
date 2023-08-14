@@ -71,6 +71,16 @@ export const CompanyPageMenu = ({ idEmpresa }) => {
           company.id,
           company.nombre
         );
+        toast.success("Product added to your cart", {
+          position: "bottom-right",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
         //await showToastAndNavigate();
         // navigate("/orderDetail", { replace: true });
       }
