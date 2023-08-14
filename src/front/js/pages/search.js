@@ -245,7 +245,7 @@ export const Search = (props) => {
                       <div className="card-text col d-flex justify-content-around  align-items-center">
                         <div className="d-flex ">
                           <i className="fas fa-star star  my-auto"></i>
-                          <p className="card-text my-auto">4/5</p>
+                          <p className="card-text my-auto">{element.average}</p>
                         </div>
                         <p className="card-text my-auto">35mins</p>
                         <button

@@ -27,6 +27,8 @@ import cloudinary.uploader
 from datetime import datetime
 import stripe
 from argon2 import PasswordHasher
+import math
+
 
 ph = PasswordHasher()
 stripe.api_key = "sk_test_51NShHZGaOqlS5geCWJ4pA2RkcPB3jcXCFTp15A8ARNaJciSz6ezxsS12MGRrSsfVe1xtTrhlA5W4nyPKqE5w6DBu00vfdqAxLm"
@@ -71,6 +73,20 @@ def history_creator (product_id, quantity, price,bill_id):
 
     return True
     
+def average_getinator(company_id):
+    reviews = Reseñas.query.filter_by(idEmpresa = company_id).all()
+    n = len(reviews)
+    s = 0 
+    for i in reviews:
+        s += i.puntuacion
+
+    if s == 0:
+        return "no reviews yet"
+    else: 
+        return f"{round(s/n, 2)}/5"
+    
+
+
 @api.route("/hello", methods=["POST", "GET"])
 def handle_hello():
     response_body = {
@@ -345,9 +361,14 @@ def top_sales_loadinator():
     data_to_return = []
     for i in companys:
         if ( i.id in top_5 ):
-            print(i)
-            company = i.serialize()
-            data_to_return.append(company)
+             
+            to_add = i.serialize()
+            avg = average_getinator(to_add.get("id")) 
+            
+            to_add["average"] = avg
+            
+            
+            data_to_return.append(to_add)
 
     return jsonify({"top_5_data":data_to_return}),200
 
@@ -704,9 +725,14 @@ def search_empresa():
 #  empresas = Empresa.query.filter(Empresa.nombre.ilike(f"%{searchEmpresa}%")).all()
    resultados = []
    for empresa in empresas:
-        resultados.append(empresa.serialize())
+        to_add = empresa.serialize()
+        avg = average_getinator(to_add.get("id")) 
+        
+        to_add["average"] = avg
+        
+        resultados.append(to_add)
     
-   print(resultados)
+   
 
    if not empresas:
        return jsonify({"message": "Not found"}), 400
@@ -721,7 +747,16 @@ def filterByDelivery():
        return jsonify({"message": "No company does delivery"}), 400
     
     for empresa in empresas:
-        resultados.append(empresa.serialize())
+        
+            to_add = empresa.serialize()
+            avg = average_getinator(to_add.get("id")) 
+            
+            to_add["average"] = avg
+            
+            resultados.append(to_add)
+    
+   
+        
 
     return jsonify(resultados)
 
@@ -736,7 +771,15 @@ def filterByFavorites():
         return jsonify([])
     
     for empresa in empresas:
-        resultados.append(empresa.empresa.serialize())
+        to_add = empresa.empresa.serialize()
+        avg = average_getinator(to_add.get("id")) 
+        
+        to_add["average"] = avg
+       
+        resultados.append(to_add)
+    
+    print(resultados)
+        
     
     return jsonify(resultados),200
 
@@ -814,7 +857,15 @@ def category_filtrator():
         return jsonify([])
     
     for i in companies:
-        resultados.append(i.empresa.serialize())
+            to_add = i.empresa.serialize()
+            avg = average_getinator(i.empresa.id) 
+            
+            to_add["average"] = avg
+            
+            resultados.append(to_add)
+    
+    
+        
     
     return jsonify(resultados),200
 
