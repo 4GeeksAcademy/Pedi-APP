@@ -90,12 +90,11 @@
 .home_foodbox1 {
 }
 .fav_icon {
-  color: yellow;
+  color: #f2be22;
 }
 .fav_btn {
   position: relative;
-
-  border-radius: 4em;
+  background-color: white;
   font-size: 16px;
   color: white;
   padding: 0.8em 1.8em;

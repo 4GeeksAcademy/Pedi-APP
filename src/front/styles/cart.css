@@ -1,0 +1,12 @@
+.checkout{
+    display:flex;
+    justify-content: flex-start;
+    margin-left: 0.75rem; 
+    background-color: #C62828;   
+}
+.nombreRestaurante{
+    text-align:center;
+}
+.nombreProducto1{
+    margin-left:0.75rem;
+}

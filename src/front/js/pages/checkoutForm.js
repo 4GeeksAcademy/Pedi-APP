@@ -156,6 +156,22 @@ export default function CheckoutForm() {
           options={cardStyle}
           onChange={handleChange}
         />
+
+          <div className="container">
+              <div className="d-flex flex-row-reverse gx-0 mx-0 px-0">
+                <div className="col-8">
+                  <div className="d-flex flex-row-reverse gx-0 mx-0 px-0">
+                    {/* <div className="col-1 mx-0"><i class="fa-brands fa-cc-visa fa-2xl mt-5"></i></div>
+                    <div className="col-1 mx-0 px-0"><i class="fa-brands fa-cc-mastercard fa-2xl mt-5 mx-0 px-0"></i></div>
+                    <div className="col-1 mx-0 px-0"><i class="fa-brands fa-cc-amex fa-2xl mt-5 mx-0 px-0"></i></div>
+                    <div className="col-1 mx-0 px-0"><i class="fa-brands fa-cc-discover fa-2xl mt-5 mx-0 px-0"></i></div> */}
+                    <img className="imagenPago mt-3" src="https://shop.carmen24.es/wp-content/uploads/2020/12/pago-seguro-garantizado.png"/>
+                  </div>
+                </div>
+              </div>          
+          </div>
+
+
         <button disabled={processing || disabled || succeeded} id="submit">
           <span id="button-text">
             {processing ? (
@@ -165,6 +181,9 @@ export default function CheckoutForm() {
             )}
           </span>
         </button>
+
+
+
         {/* Show any error that happens when processing the payment */}
         {error && (
           <div className="card-error" role="alert">

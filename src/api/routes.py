@@ -27,6 +27,8 @@ import cloudinary.uploader
 from datetime import datetime
 import stripe
 from argon2 import PasswordHasher
+import math
+
 
 ph = PasswordHasher()
 stripe.api_key = "sk_test_51NShHZGaOqlS5geCWJ4pA2RkcPB3jcXCFTp15A8ARNaJciSz6ezxsS12MGRrSsfVe1xtTrhlA5W4nyPKqE5w6DBu00vfdqAxLm"
@@ -71,6 +73,20 @@ def history_creator (product_id, quantity, price,bill_id):
 
     return True
     
+def average_getinator(company_id):
+    reviews = Reseñas.query.filter_by(idEmpresa = company_id).all()
+    n = len(reviews)
+    s = 0 
+    for i in reviews:
+        s += i.puntuacion
+
+    if s == 0:
+        return "no reviews yet"
+    else: 
+        return f"{round(s/n, 2)}/5"
+    
+
+
 @api.route("/hello", methods=["POST", "GET"])
 def handle_hello():
     response_body = {
@@ -141,14 +157,14 @@ def signupCliente():
     password = data.get("password")
     role = "Cliente"
     nombre = data.get("nombre")
-    apellido = data.get("apellido")
-    telefono = data.get("telefono")
-    nacimiento = data.get("nacimiento")
-    sexo = data.get("sexo")
+    # apellido = data.get("apellido")
+    # telefono = data.get("telefono")
+    # nacimiento = data.get("nacimiento")
+    # sexo = data.get("sexo")
     direccion = data.get("direccion")
     instrucciones = data.get("instrucciones")
 
-    if not email or not password or not nombre or not apellido or not telefono or not nacimiento :
+    if not email or not password or not nombre:
         return jsonify({"message": "missing data"}),400
     
     existe = Usuario.query.filter_by(email=email).first()
@@ -169,13 +185,55 @@ def signupCliente():
     db.session.commit()
 
     
-    addCliente = Cliente(nombre=nombre, apellido=apellido, sexo=sexo, nacimiento=nacimiento, telefono=telefono, instrucciones=instrucciones, is_active=True, idUsuario = addUsuario.id)
+    addCliente = Cliente(nombre=nombre, instrucciones=instrucciones, is_active=True, idUsuario = addUsuario.id)
     db.session.add(addCliente)
     db.session.commit()
 
     
-    return jsonify({"message": "Sign up successfull"})
-    
+    return jsonify({"message": "Sign up successfully"})
+
+@api.route("/userProfile/info/<int:idCliente>", methods=["PUT"])
+@jwt_required()
+def addInfoCliente(idCliente):
+    data = request.json
+    cliente = Cliente.query.get(idCliente)
+
+    if not cliente:
+        return jsonify({"message": "Cliente not found"}), 404
+
+    if "telefono" in data:
+        cliente.telefono = data.get("telefono")
+    if "nacimiento" in data:
+        cliente.nacimiento = data.get("nacimiento")
+    if "sexo" in data:
+        cliente.sexo = data.get("sexo")
+
+    db.session.commit()
+    return jsonify({"message": "Cliente updated successfully"}), 200
+
+# @api.route("/userProfile/info", methods=["PUT"])
+# @jwt_required()
+# def addInfoCliente():
+#     data = request.json
+#     id = data.get("id")
+
+#     if not id:
+#         return jsonify({"message": "Invalid request. Missing id"}), 400
+
+#     cliente = Cliente.query.get(id)
+
+#     if not cliente:
+#         return jsonify({"message": "Cliente not found"}), 404
+
+#     if "telefono" in data:
+#         cliente.telefono = data.get("telefono")
+#     if "nacimiento" in data:
+#         cliente.nacimiento = data.get("nacimiento")
+#     if "sexo" in data:
+#         cliente.sexo = data.get("sexo")
+
+#     db.session.commit()
+#     return jsonify({"message": "Cliente updated successfully"}), 200
 
 @api.route("/signupEmpresa", methods = ["POST"])
 def signupEmpresa():
@@ -239,7 +297,7 @@ def signupEmpresa():
 
     
 
-    return jsonify({"message": "Sign up successfull"}),200
+    return jsonify({"message": "Sign up successfully"}),200
 
 @api.route("/category", methods = ["POST"])
 def category_creatinator():
@@ -303,9 +361,14 @@ def top_sales_loadinator():
     data_to_return = []
     for i in companys:
         if ( i.id in top_5 ):
-            print(i)
-            company = i.serialize()
-            data_to_return.append(company)
+             
+            to_add = i.serialize()
+            avg = average_getinator(to_add.get("id")) 
+            
+            to_add["average"] = avg
+            
+            
+            data_to_return.append(to_add)
 
     return jsonify({"top_5_data":data_to_return}),200
 
@@ -662,9 +725,14 @@ def search_empresa():
 #  empresas = Empresa.query.filter(Empresa.nombre.ilike(f"%{searchEmpresa}%")).all()
    resultados = []
    for empresa in empresas:
-        resultados.append(empresa.serialize())
+        to_add = empresa.serialize()
+        avg = average_getinator(to_add.get("id")) 
+        
+        to_add["average"] = avg
+        
+        resultados.append(to_add)
     
-   print(resultados)
+   
 
    if not empresas:
        return jsonify({"message": "Not found"}), 400
@@ -679,7 +747,16 @@ def filterByDelivery():
        return jsonify({"message": "No company does delivery"}), 400
     
     for empresa in empresas:
-        resultados.append(empresa.serialize())
+        
+            to_add = empresa.serialize()
+            avg = average_getinator(to_add.get("id")) 
+            
+            to_add["average"] = avg
+            
+            resultados.append(to_add)
+    
+   
+        
 
     return jsonify(resultados)
 
@@ -694,7 +771,15 @@ def filterByFavorites():
         return jsonify([])
     
     for empresa in empresas:
-        resultados.append(empresa.empresa.serialize())
+        to_add = empresa.empresa.serialize()
+        avg = average_getinator(to_add.get("id")) 
+        
+        to_add["average"] = avg
+       
+        resultados.append(to_add)
+    
+    print(resultados)
+        
     
     return jsonify(resultados),200
 
@@ -772,7 +857,15 @@ def category_filtrator():
         return jsonify([])
     
     for i in companies:
-        resultados.append(i.empresa.serialize())
+            to_add = i.empresa.serialize()
+            avg = average_getinator(i.empresa.id) 
+            
+            to_add["average"] = avg
+            
+            resultados.append(to_add)
+    
+    
+        
     
     return jsonify(resultados),200
 

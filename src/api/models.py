@@ -27,11 +27,10 @@ class Usuario(db.Model):
 class Cliente(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(50), unique=False, nullable=False)
-    apellido = db.Column(db.String(70), unique=False, nullable=False)
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
     sexo = db.Column(db.String(20), unique=False, nullable=True)
-    nacimiento = db.Column (db.DateTime, unique=False, nullable=False)
-    telefono = db.Column (db.Integer, unique=False, nullable=False)
+    nacimiento = db.Column (db.DateTime, unique=False, nullable=True)
+    telefono = db.Column (db.Integer, unique=False, nullable=True)
     idUsuario = db.Column(db.Integer, db.ForeignKey('usuario.id'), nullable=False)
     instrucciones = db.Column(db.String(100), unique=False, nullable=True)
 
@@ -46,7 +45,6 @@ class Cliente(db.Model):
         return {
             "id": self.id,
             "nombre": self.nombre,
-            "apellido": self.apellido,
             "sexo": self.sexo,
             "nacimiento": self.nacimiento,
             "telefono": self.telefono,

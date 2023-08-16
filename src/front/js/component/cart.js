@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
+import "../../styles/cart.css";
 
 const Cart = () => {
   const { store, actions } = useContext(Context);
@@ -14,11 +15,11 @@ const Cart = () => {
 
             return (
               <>
-                <h5 key={index1}>{products[0].company_name}</h5>
+                <h5 className="nombreRestaurante" key={index1}>{products[0].company_name}</h5>
                 {products.map((j, index2) => {
                   return (
                     <>
-                      <li className="d-flex my-1" key={index2}>
+                      <li className="d-flex my-1 nombreProducto1" key={index2}>
                         <p className="my-auto">
                           {j.nombre} x{j.cantidad}
                         </p>
@@ -42,7 +43,7 @@ const Cart = () => {
         : ""}
       <button
         type="button"
-        className="btn btn-secondary"
+        className="btn btn-secondary checkout"
         onClick={() => {
           navigate("/orderDetail", { replace: true });
         }}
