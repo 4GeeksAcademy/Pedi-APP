@@ -156,6 +156,10 @@
     -webkit-animation: loading 2s infinite ease;
     animation: loading 2s infinite ease;
   }
+  .imagenPago{
+    width: 22rem;
+    height: 6.5rem;
+  }
   
   @keyframes loading {
     0% {
